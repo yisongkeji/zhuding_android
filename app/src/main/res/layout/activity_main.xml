@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colorGray"/>
+        <com.chaychan.library.BottomBarLayout
+            android:id="@+id/bbl"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/colorWhite"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconNormal="@mipmap/icon_header_message_1"
+                app:iconSelected="@mipmap/icon_header_message_2"
+
+                app:itemText="@string/item1"
+                app:itemTextSize="8sp"
+                app:textColorNormal="@color/colorBlack"
+                app:textColorSelected="@color/colorAccent" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconNormal="@mipmap/icon_header_friend_1"
+                app:iconSelected="@mipmap/icon_header_friend_2"
+
+                app:itemText="@string/item2"
+                app:itemTextSize="8sp"
+                app:textColorNormal="@color/colorBlack"
+                app:textColorSelected="@color/colorAccent" />
+
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconNormal="@mipmap/icon_header_match_1"
+                app:iconSelected="@mipmap/icon_header_match_2"
+                app:itemText="@string/item3"
+                app:itemTextSize="8sp"
+                app:textColorNormal="@color/colorBlack"
+                app:textColorSelected="@color/colorAccent" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconNormal="@mipmap/icon_header_store_1"
+                app:iconSelected="@mipmap/icon_header_store_2"
+
+                app:itemText="@string/item4"
+                app:itemTextSize="8sp"
+                app:textColorNormal="@color/colorBlack"
+                app:textColorSelected="@color/colorAccent" />
+
+            <com.chaychan.library.BottomBarItem
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:iconNormal="@mipmap/icon_header_personal_1"
+                app:iconSelected="@mipmap/icon_header_personal_2"
+
+                app:itemText="@string/item5"
+                app:itemTextSize="8sp"
+                app:textColorNormal="@color/colorBlack"
+                app:textColorSelected="@color/colorAccent" />
+        </com.chaychan.library.BottomBarLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

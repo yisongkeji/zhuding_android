@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_linelayout"
+    android:orientation="vertical"
+    android:id="@+id/dialog_no_friend_number">
+
+
+
+    <com.ruffian.library.widget.RImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+       app:is_circle="true"
+        app:icon_src_normal="@mipmap/icon_avatar_01"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_friend_number"
+        android:gravity="center"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+       android:layout_marginTop="23dp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="70dp"/>
+
+</LinearLayout>

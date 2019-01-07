@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2014 Ankush Sachdeva
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+
+<resources>
+
+    <declare-styleable name="Emojicon">
+        <attr name="emojiconSize" format="dimension" />
+        <attr name="emojiconTextStart" format="integer" />
+        <attr name="emojiconTextLength" format="integer" />
+    </declare-styleable>
+
+    <dimen name="keyboard_height">250dp</dimen>
+
+    <style name="emojiDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+	
+	<declare-styleable name="BottomBar">
+        <attr name="bb_tabXmlResource" format="reference" />
+        <attr name="bb_tabletMode" format="boolean" />
+        <attr name="bb_behavior">
+            <flag name="shifting" value="1" />
+            <flag name="shy" value="2" />
+            <flag name="underNavbar" value="4" />
+            <flag name="iconsOnly" value="8" />
+        </attr>
+        <attr name="bb_longPressHintsEnabled" format="boolean" />
+        <attr name="bb_inActiveTabAlpha" format="float" />
+        <attr name="bb_activeTabAlpha" format="float" />
+        <attr name="bb_inActiveTabColor" format="color" />
+        <attr name="bb_activeTabColor" format="color" />
+        <attr name="bb_badgeBackgroundColor" format="color" />
+        <attr name="bb_badgesHideWhenActive" format="boolean" />
+        <attr name="bb_titleTextAppearance" format="reference" />
+        <attr name="bb_titleTypeFace" format="string" />
+        <attr name="bb_showShadow" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekBar">
+        <attr name="absoluteMinValue" format="integer|float"/>
+        <attr name="absoluteMaxValue" format="integer|float"/>
+        <attr name="singleThumb" format="boolean"/>
+        <attr name="unit" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ViewPagerIndicator">
+        <!-- Style of the circle indicator. -->
+        <attr name="vpiCirclePageIndicatorStyle" format="reference" />
+    </declare-styleable>
+
+    <!--<attr name="selectedColor" format="color"/>-->
+    <!--<attr name="unselectedColor" format="color"/>-->
+
+    <attr name="indicatorGravity">
+        <!-- Push object to the top of its container, not changing its size. -->
+        <flag name="top" value="0x30" />
+        <!-- Push object to the bottom of its container, not changing its size. -->
+        <flag name="bottom" value="0x50" />
+        <!-- Push object to the left of its container, not changing its size. -->
+        <flag name="left" value="0x03" />
+        <!-- Push object to the right of its container, not changing its size. -->
+        <flag name="right" value="0x05" />
+        <!-- Place object in the vertical center of its container, not changing its size. -->
+        <flag name="center_vertical" value="0x10" />
+        <!-- Place object in the horizontal center of its container, not changing its size. -->
+        <flag name="center_horizontal" value="0x01" />
+        <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
+        <flag name="center" value="0x11" />
+        <!-- Push object to the beginning of its container, not changing its size. -->
+        <flag name="start" value="0x00800003" />
+        <!-- Push object to the end of its container, not changing its size. -->
+        <flag name="end" value="0x00800005" />
+    </attr>
+
+    <attr name="indicatorOrientation">
+        <enum name="horizontal" value="0" />
+        <enum name="vertical" value="1" />
+    </attr>
+
+    <attr name="pageTransformer">
+        <enum name="flow" value="0" />
+        <enum name="depth" value="1" />
+        <enum name="zoom" value="2" />
+        <enum name="slide_over" value="3" />
+    </attr>
+
+    <attr name="centered" format="boolean" />
+    <attr name="strokeWidth" format="dimension" />
+    <attr name="slideInterval" format="integer" />
+    <attr name="pageTransformInterval" format="integer" />
+    <attr name="fillColor" format="color" />
+    <attr name="pageColor" format="color" />
+    <attr name="radius" format="dimension" />
+    <attr name="snap" format="boolean" />
+    <attr name="strokeColor" format="color" />
+    <attr name="autoPlay" format="boolean" />
+    <attr name="disableAutoPlayOnUserInteraction" format="boolean" />
+    <attr name="indicatorMarginHorizontal" format="dimension" />
+    <attr name="indicatorMarginVertical" format="dimension" />
+    <attr name="animateOnBoundary" format="boolean" />
+
+    <declare-styleable name="CirclePageIndicator">
+        <!-- Whether or not the indicators should be centered. -->
+        <attr name="centered" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" />
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation" />
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" />
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" />
+        <!-- View background -->
+        <attr name="android:background" />
+    </declare-styleable>
+
+    <declare-styleable name="CarouselView">
+        <!-- Interval of the indicator to slide. -->
+        <attr name="slideInterval" />
+        <!-- Gravity of the indicator.  (Just like layout_gravity)-->
+        <attr name="indicatorGravity" />
+        <!-- Orientation of the indicator. -->
+        <attr name="indicatorOrientation" />
+        <!-- Color of the filled circle that represents the current page. -->
+        <attr name="fillColor" />
+        <!-- Color of the filled circles that represents pages. -->
+        <attr name="pageColor" />
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="radius" />
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" />
+        <!-- Color of the open circles. -->
+        <attr name="strokeColor" />
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="strokeWidth" />
+        <!-- Enable/Disable auto scrolling of views. default: true -->
+        <attr name="autoPlay" value="false" />
+        <!-- Disables auto scrolling when user interacts. default: false -->
+        <attr name="disableAutoPlayOnUserInteraction" value="true" />
+        <!-- Sets horizontal margin for Indicator in Carousel View. -->
+        <attr name="indicatorMarginHorizontal" />
+        <!-- Sets vertical margin for Indicator in Carousel View. -->
+        <attr name="indicatorMarginVertical" />
+        <!-- Sets speed at which page will slide from one to another in milliseconds. -->
+        <attr name="pageTransformInterval" />
+        <!-- Sets page transition animation. -->
+        <attr name="pageTransformer" />
+        <!-- Sets whether to animate transition from last position to first or not. -->
+        <attr name="animateOnBoundary" />
+
+
+
+    </declare-styleable>
+
+	
+	<declare-styleable name="DecoView">
+        <attr name="dv_lineWidth" format="dimension" />
+        <attr name="dv_rotateAngle" format="integer" />
+        <attr name="dv_totalAngle" format="integer" />
+        <attr name="dv_arc_gravity_horizontal" format="enum">
+            <enum name="Left" value="0"/>
+            <enum name="Center" value="1"/>
+            <enum name="Right" value="2"/>
+            <enum name="Fill" value="3"/>
+        </attr>
+        <attr name="dv_arc_gravity_vertical" format="enum">
+            <enum name="Top" value="0"/>
+            <enum name="Center" value="1"/>
+            <enum name="Bottom" value="2"/>
+            <enum name="Fill" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer"/>
+        <attr name="stroke_width" format="dimension"/>
+        <attr name="color_tick" format="color"/>
+        <attr name="color_checked" format="color"/>
+        <attr name="color_unchecked" format="color"/>
+        <attr name="color_unchecked_stroke" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="DoubleSlideSeekBar">
+        <attr name="lineHeight" />
+        <attr name="textSize" />
+        <attr name="textColor" />
+        <attr name="inColor" />
+        <attr name="outColor" />
+        <attr name="imageLow"/>
+        <attr name="imageBig"/>
+        <attr name="imagewidth" />
+        <attr name="imageheight" />
+        <attr name="hasRule" />
+        <attr name="ruleColor" />
+        <attr name="ruleTextColor" />
+        <attr name="unit" />
+        <attr name="equal" />
+        <attr name="ruleUnit" />
+        <attr name="ruleTextSize" />
+        <attr name="ruleLineHeight" />
+        <attr name="bigValue" />
+        <attr name="smallValue" />
+    </declare-styleable>
+</resources>

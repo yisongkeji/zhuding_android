@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="311dp"
+    android:layout_height="433dp"
+
+
+    android:background="@drawable/rounded_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="187dp"
+            android:layout_height="161dp"
+            android:background="@mipmap/icon_logo"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doubt"
+            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:textSize="18sp"
+            android:layout_marginTop="13dp"/>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/bt_know"
+        android:layout_width="168dp"
+        android:layout_height="49dp"
+        android:background="@drawable/rounded_text_accent"
+        android:text="@string/konw"
+        android:textColor="@color/colorWhite"
+       android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>
