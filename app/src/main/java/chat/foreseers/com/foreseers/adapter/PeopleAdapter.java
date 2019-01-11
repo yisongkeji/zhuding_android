@@ -14,9 +14,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import chat.foreseers.com.foreseers.R;
-import chat.foreseers.com.foreseers.UserDetailsActivity;
+import chat.foreseers.com.foreseers.activity.UserDetailsActivity;
 import chat.foreseers.com.foreseers.bean.PeopleBean;
 
 public class PeopleAdapter extends BaseQuickAdapter<PeopleBean, BaseViewHolder> {

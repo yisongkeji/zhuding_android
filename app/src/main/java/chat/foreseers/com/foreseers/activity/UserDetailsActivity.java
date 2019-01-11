@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.dialog.AddFriendDialog;
 import chat.foreseers.com.foreseers.dialog.NoFriendNumberDialog;
 

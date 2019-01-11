@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import chat.foreseers.com.foreseers.R;
 
 public class LoadHoroscopeActivity extends AppCompatActivity {
 

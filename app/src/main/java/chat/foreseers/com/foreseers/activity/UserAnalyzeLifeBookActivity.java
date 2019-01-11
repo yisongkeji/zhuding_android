@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.ruffian.library.widget.RImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.view.decoviewlib.DecoView;
 import chat.foreseers.com.foreseers.view.decoviewlib.charts.SeriesItem;
 

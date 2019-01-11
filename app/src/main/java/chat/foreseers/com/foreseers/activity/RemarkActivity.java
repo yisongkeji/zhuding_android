@@ -1,7 +1,9 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import chat.foreseers.com.foreseers.R;
 
 /**
  *

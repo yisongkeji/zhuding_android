@@ -42,3 +42,8 @@ dependencies {
     implementation 'com.lzy.net:okgo:3.0.4'//okgo
     implementation 'com.google.code.gson:gson:2.8.2'//gson
 }
+android{
+
+    useLibrary 'org.apache.http.legacy'
+
+}

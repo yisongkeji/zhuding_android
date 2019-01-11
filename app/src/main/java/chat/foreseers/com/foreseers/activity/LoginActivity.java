@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import org.json.JSONObject;
 
@@ -28,6 +31,9 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chat.foreseers.com.foreseers.R;
+import chat.foreseers.com.foreseers.bean.LoginBean;
+import chat.foreseers.com.foreseers.util.Urls;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,16 +51,28 @@ public class LoginActivity extends AppCompatActivity {
 
     private String userId = "";
     private String facebookName = "";
+    private String facebookId = "";
     private String imgUrl = "";
     private String email;
+    private LoginBean loginBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        init();
-        callBack();
+//        判断是否第一次打开
+        if (isFirstStart(this)){
+//            第一次打开——》facebook登录
+            init();
+            callBack();
+        }else {
+//            不是第一次登录——》MainActivity
+            intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
 
 
     }
@@ -95,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getFacebookInfo(AccessToken accessToken) {
-        userId = accessToken.getUserId();
+
         GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -103,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("@@@@@@@@", "onCompleted: " + object.toString() + "####========" +
                             object.optString("email"));
                     facebookName = object.optString("name");
-                    email = object.optString("email");
+                    facebookId = object.optString("id");
                     goLogin();
 //                    isFirstStart(getApplicationContext());
                 }
@@ -135,12 +153,35 @@ public class LoginActivity extends AppCompatActivity {
     private void goLogin() {
         Toast.makeText(LoginActivity.this, "登錄成功", Toast
                 .LENGTH_LONG).show();
+//        是否是新用户
+        isFirst();
 
-        intent = new Intent(LoginActivity.this, UserDataActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("facebookName", facebookName);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        isLogin();
+
+    }
+
+//    判断是不是新用户
+    private void isFirst() {
+        OkGo.<String>post(Urls.Url_Login).tag(this)
+                .params("facebookid",facebookId)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson=new Gson();
+                        loginBean = gson.fromJson(response.body(),LoginBean.class);
+                        if (loginBean.getStatus().equals("success")){
+                            intent =new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }else {
+                            intent =new Intent(LoginActivity.this,UserDataActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("facebookName", facebookName);
+                            bundle.putString("facebookId", facebookId);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                    }
+                });
     }
 
     /**
@@ -154,19 +195,28 @@ public class LoginActivity extends AppCompatActivity {
         if (isFirst) {// 第一次
             preferences.edit().putBoolean("FIRSTStart", false).commit();
 
-            intent = new Intent(LoginActivity.this, SplashActivity.class);
-            startActivity(intent);
-            finish();
+//            intent = new Intent(LoginActivity.this, SplashActivity.class);
+//            startActivity(intent);
+//            finish();
             Log.i("GFA", "一次");
             return true;
         } else {
-            intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+
             Log.i("GFA", "N次");
             return false;
         }
     }
 
+    /**
+     * 保存登录token（facebookID）
+     */
+
+    public void isLogin(){
+        SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+        editor.putString("token", facebookId);
+        editor.commit();//提交修改
+
+    }
 
 }

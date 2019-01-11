@@ -11,9 +11,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import chat.foreseers.com.foreseers.R;
-import chat.foreseers.com.foreseers.UserDetailsActivity;
+import chat.foreseers.com.foreseers.activity.UserDetailsActivity;
 import chat.foreseers.com.foreseers.bean.ListOfPopularBean;
-import chat.foreseers.com.foreseers.fragment.MatchFragment;
 
 public class ListOfPopularAdapter extends BaseQuickAdapter<ListOfPopularBean,BaseViewHolder> {
     private Activity context;

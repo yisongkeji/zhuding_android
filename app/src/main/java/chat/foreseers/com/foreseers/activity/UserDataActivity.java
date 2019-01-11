@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +35,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -47,10 +48,11 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import chat.foreseers.com.foreseers.R;
+import chat.foreseers.com.foreseers.bean.UserDataBean;
 import chat.foreseers.com.foreseers.dialog.DoubtDialog;
 import chat.foreseers.com.foreseers.util.LimitInputTextWatcher;
-import okhttp3.Call;
-import okhttp3.ResponseBody;
+import chat.foreseers.com.foreseers.util.Urls;
 
 
 public class UserDataActivity extends AppCompatActivity {
@@ -105,8 +107,10 @@ public class UserDataActivity extends AppCompatActivity {
     private DoubtDialog doubtDialog;
     private Bundle bundle;
     private String facebookName;
+    private String facebookId;
     private OptionsPickerView pvNoLinkOptions;
     private ArrayList<String> timezone = new ArrayList<>();
+    private ArrayList<Double> doubleTimezone = new ArrayList<Double>();
     private ArrayList<String> one = new ArrayList<>();
     private ArrayList<String> three = new ArrayList<>();
     private boolean name = false, sex = false;
@@ -115,6 +119,12 @@ public class UserDataActivity extends AppCompatActivity {
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
+    private String date;
+    private String time2;
+    private String gender;
+    private Gson gson;
+    private UserDataBean userDataBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +139,7 @@ public class UserDataActivity extends AppCompatActivity {
     private void init() {
         bundle = getIntent().getExtras();
         facebookName = bundle.getString("facebookName");
+        facebookId = bundle.getString("facebookId");
         editUserName.setText(facebookName);
         if (editUserName.getText().length() > 0) {
             name = true;
@@ -201,11 +212,13 @@ public class UserDataActivity extends AppCompatActivity {
                     case R.id.radio_sex_man:
                         textUserSexAffirm.setText(R.string.man);
                         sex = true;
+                        gender = "M";
                         doubleChose();
                         break;
                     case R.id.radio_sex_woman:
                         textUserSexAffirm.setText(R.string.woman);
                         sex = true;
+                        gender = "F";
                         doubleChose();
                         break;
                     default:
@@ -310,8 +323,7 @@ public class UserDataActivity extends AppCompatActivity {
 
     //    getTime
     private String getTime(Date date) {//可根据需要自行截取数据显示
-        Log.d("getTime()", "choice date millis: " + date.getTime());
-        Log.d("getTime()#######", "choice date millis: " + date);
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH時");
         return format.format(date);
     }
@@ -400,28 +412,12 @@ public class UserDataActivity extends AppCompatActivity {
                 layoutUserDataAffirm.setVisibility(View.GONE);
                 break;
             case R.id.bt_affirm://最终确认
-                intent = new Intent(UserDataActivity.this, MainActivity.class);
-                startActivity(intent);
-                String url="http://192.168.1.73:8080/insert";
-                OkGo.<String>post(url).tag(this)
-                        .isSpliceUrl(true)
-                        .params("username","sdasd")
-                       .execute(new StringCallback() {
-                           @Override
-                           public void onSuccess(Response<String> response) {
-                               Log.e("&&&&&&&**123", "smscode: " + response.body());
-                               intent = new Intent(UserDataActivity.this, MainActivity.class);
-                startActivity(intent);
-                               mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-                           }
+//                intent = new Intent(UserDataActivity.this, MainActivity.class);
+//                startActivity(intent);
+                upData();
+                upDataForHttp();
 
-                           @Override
-                           public void onError(Response<String> response) {
-                               super.onError(response);
-                               Log.e("&&&&&&&**","onError: "+response.code() );
-                               mHandler.obtainMessage(DATAFELLED).sendToTarget();
-                           }
-                       });
+
 //                mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 //                intent = new Intent(UserDataActivity.this, MainActivity.class);
 //                startActivity(intent);
@@ -432,17 +428,77 @@ public class UserDataActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void upDataForHttp() {
+
+        Log.e("OKGO", "username: ##"+facebookName );
+        Log.e("OKGO", "date: ##"+date );
+        Log.e("OKGO", "time: ##"+time2 );
+        Log.e("OKGO", "gender: ##"+gender );
+        Log.e("OKGO", "facebookid: ##"+facebookId );
+        Log.e("OKGO", "zone: ##"+textUserTimezone.getText().toString() );
+
+
+        OkGo.<String>post(Urls.Url_UserData).tag(this)
+//                .isSpliceUrl(true)
+                .params("username", facebookName)
+                .params("date", date)
+                .params("time", time2)
+                .params("gender",gender)
+                .params("facebookid", facebookId)
+                .params("zone",  textUserTimezone.getText().toString())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Log.e("OkGo", "Success: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" );
+                        gson = new Gson();
+                        userDataBean = gson.fromJson(response.body(),UserDataBean.class);
+                        if (userDataBean.getStatus().equals("success")){
+                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+                        }else if (userDataBean.getStatus().equals("fail")){
+                            Toast.makeText(UserDataActivity.this,"发送失败" ,Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        Log.e("OkGo", "onError:############################### "+response.getException() );
+//                        mHandler.obtainMessage(DATAFELLED).sendToTarget();
+                    }
+                });
+    }
+
+    private void upData() {
+        Log.i("OkGo", "date: " + textUserBirth.getText().toString());
+
+        String birth = textUserBirth.getText().toString();
+        //出生日期
+        int indexYear = birth.indexOf("日");
+        String date1 = birth.substring(0, indexYear);
+        String date2 = date1.replace("年", "-");
+        date = date2.replace("月", "-");
+
+
+        //出生时间
+        int index = birth.indexOf(" ");
+        String time1 = birth.substring(index+1, birth.length() - 1);
+        time2 = time1+ ":00:00" ;
+//
+    }
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                 intent = new Intent(UserDataActivity.this, MainActivity.class);
-                startActivity(intent);
+                    intent = new Intent(UserDataActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case DATAFELLED:
-
+                    upDataForHttp();
                     break;
             }
         }
@@ -548,7 +604,38 @@ public class UserDataActivity extends AppCompatActivity {
         one.add("");
 
         three.add("");
-
+//        doubleTimezone.add(-12);
+//        doubleTimezone.add(-11);
+//        doubleTimezone.add(-10);
+//        doubleTimezone.add(-9.5);
+//        doubleTimezone.add(-9);
+//        doubleTimezone.add(-8);
+//        doubleTimezone.add(-7);
+//        doubleTimezone.add(-6);
+//        doubleTimezone.add(-5);
+//        doubleTimezone.add(-4);
+//        doubleTimezone.add(-3.5);
+//        doubleTimezone.add(-3);
+//        doubleTimezone.add(-2);
+//        doubleTimezone.add(-1);
+//        doubleTimezone.add(0);
+//        doubleTimezone.add(+1);
+//        doubleTimezone.add(+2);
+//        doubleTimezone.add(+3);
+//        doubleTimezone.add(+3.5);
+//        doubleTimezone.add(+4);
+//        doubleTimezone.add(+4.5);
+//        doubleTimezone.add(+5);
+//        doubleTimezone.add(+5.5);
+//        doubleTimezone.add(+6);
+//        doubleTimezone.add(+7);
+//        doubleTimezone.add(+8);
+//        doubleTimezone.add(+9);
+//        doubleTimezone.add(+10);
+//        doubleTimezone.add(+11);
+//        doubleTimezone.add(+12);
+//        doubleTimezone.add(+13);
+//        doubleTimezone.add(+14);
     }
 
     //渐变

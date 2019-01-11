@@ -3,6 +3,8 @@
     package="chat.foreseers.com.foreseers">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".global.MyApplication"
@@ -32,25 +34,25 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".activity.UserDataActivity"></activity>
+        <activity android:name=".activity.SplashActivity" />
+        <activity android:name=".activity.LoadHoroscopeActivity" />
+        <activity android:name=".activity.UserDetailsActivity" />
+        <!-- <activity android:name=".dialog.AddFriendDialog" /> -->
+        <activity android:name=".activity.RemarkActivity" />
+        <activity android:name=".activity.UserAnalyzeLifeBookActivity" />
+        <activity android:name=".testActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".UserDataActivity" >
-
-        </activity>
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".LoadHoroscopeActivity" />
-        <activity android:name=".UserDetailsActivity" />
-        <!-- <activity android:name=".dialog.AddFriendDialog" /> -->
-        <activity android:name=".RemarkActivity" />
-        <activity android:name=".UserAnalyzeLifeBookActivity"></activity>
     </application>
 
 </manifest>

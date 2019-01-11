@@ -1,4 +1,4 @@
-package chat.foreseers.com.foreseers;
+package chat.foreseers.com.foreseers.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.fragment.ChatFragment;
 import chat.foreseers.com.foreseers.fragment.FriendFragment;
 import chat.foreseers.com.foreseers.fragment.MatchFragment;
