@@ -6,9 +6,10 @@ public class Urls {
 
 
     public static final String URL_User = URL + "/user/";
-    public static final String Url_Login = URL_User + "queryUser";
+    public static final String Url_Login = URL_User + "queryUser";//判断是不是新用户
     public static final String Url_UserData = URL_User + "insertUser";
 
     public static final String Url_UserLocation = URL + "/match/matching";
+    public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";
 
 }

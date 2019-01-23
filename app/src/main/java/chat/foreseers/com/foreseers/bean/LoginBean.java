@@ -8,7 +8,7 @@ public class LoginBean {
      */
 
     private String status;
-    private String data;
+
 
     public String getStatus() {
         return status;
@@ -18,11 +18,5 @@ public class LoginBean {
         this.status = status;
     }
 
-    public String getData() {
-        return data;
-    }
 
-    public void setData(String data) {
-        this.data = data;
-    }
 }

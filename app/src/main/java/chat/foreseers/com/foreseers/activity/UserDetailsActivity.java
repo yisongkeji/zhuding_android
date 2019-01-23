@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.EaseConstant;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,6 +21,9 @@ import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.dialog.AddFriendDialog;
 import chat.foreseers.com.foreseers.dialog.NoFriendNumberDialog;
 
+/**
+ * 好友详情
+ */
 public class UserDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.goback)
@@ -35,15 +40,30 @@ public class UserDetailsActivity extends AppCompatActivity {
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
     private Intent intent;
+    private int userid;
+    private Bundle bundle;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         ButterKnife.bind(this);
+
+        initData();
+
+
     }
 
-    @OnClick({R.id.goback, R.id.img_add_friend, R.id.layout_remark,R.id.layout_analyze_life_book})
+    private void initData() {
+        intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        userid = bundle.getInt("userid");
+        username = bundle.getString("username");
+    }
+
+    @OnClick({R.id.goback, R.id.img_add_friend, R.id.layout_remark, R.id
+            .layout_analyze_life_book, R.id.chat_user_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.goback:
@@ -102,8 +122,20 @@ public class UserDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
-            case R.id.layout_analyze_life_book:
+            case R.id.layout_analyze_life_book://我與TA的詳細分析
                 intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
+                bundle = new Bundle();
+                bundle.putInt("userid", userid);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+
+            case R.id.chat_user_details://发消息
+                intent = new Intent(this, ChatActivity.class);
+                bundle = new Bundle();
+                bundle.putString(EaseConstant.EXTRA_USER_ID, userid+"");
+                bundle.putString("username", username);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             default:

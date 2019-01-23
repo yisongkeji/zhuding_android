@@ -68,7 +68,7 @@ public class ChatFragment extends BaseMainFragment implements RadioGroup.OnCheck
             fragmentTransactionShow.add(R.id.chat_layout, chatFriendFragment);
         }
 
-        fragmentTransactionShow.commitAllowingStateLoss();
+        fragmentTransactionShow.commit();
     }
 
     @Override

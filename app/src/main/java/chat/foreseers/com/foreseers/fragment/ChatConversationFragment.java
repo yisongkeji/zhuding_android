@@ -1,6 +1,7 @@
 package chat.foreseers.com.foreseers.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -17,22 +18,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import chat.foreseers.com.foreseers.R;
+import chat.foreseers.com.foreseers.activity.ChatActivity;
 import chat.foreseers.com.foreseers.adapter.ChatAdapter;
 import chat.foreseers.com.foreseers.bean.ChatBean;
 import chat.foreseers.com.foreseers.global.BaseMainFragment;
 
 /**
+ * 临时聊天
  * A simple {@link Fragment} subclass.
  */
 public class ChatConversationFragment extends BaseMainFragment {
 
 
-    @BindView(R.id.recycler_chat)
-    RecyclerView recyclerChat;
     Unbinder unbinder;
-    private ChatBean chatBean = new ChatBean();
-    private List<ChatBean> chatBeans = new ArrayList<>();
-    private ChatAdapter chatAdapter;
+
 
     public ChatConversationFragment() {
         // Required empty public constructor
@@ -56,20 +55,12 @@ public class ChatConversationFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
-        chatAdapter = new ChatAdapter(getActivity(), chatBeans);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerChat.setLayoutManager(linearLayoutManager);
-        recyclerChat.setAdapter(chatAdapter);
-        chatAdapter.setNewData(chatBeans);
+       new Intent(getActivity(),ChatActivity.class);
     }
 
     @Override
     public void initDatas() {
-        for (int i = 0; i < 10; i++) {
-            chatBean.setName("asdasdasf");
-            chatBeans.add(chatBean);
 
-        }
     }
 
     @Override

@@ -1,10 +1,15 @@
 package chat.foreseers.com.foreseers.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +25,8 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -33,6 +40,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.bean.LoginBean;
+import chat.foreseers.com.foreseers.bean.UserDataBean;
+import chat.foreseers.com.foreseers.util.HuanXinHelper;
 import chat.foreseers.com.foreseers.util.Urls;
 
 
@@ -49,38 +58,30 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isLoggedIn;
 
 
-    private String userId = "";
-    private String facebookName = "";
-    private String facebookId = "";
-    private String imgUrl = "";
-    private String email;
+    private String facebookName;
+    private String facebookid;
     private LoginBean loginBean;
+
+    private final int DATASUCCESS = 1;
+    private final int DATAFELLED = 2;
+    private int huanXinId;
+    private String huanXinId1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-//        判断是否第一次打开
-        if (isFirstStart(this)){
-//            第一次打开——》facebook登录
-            init();
-            callBack();
-        }else {
-//            不是第一次登录——》MainActivity
-            intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
-
+        init();
+        callBack();
 
     }
 
     private void init() {
-        callbackManager = CallbackManager.Factory.create();
-//        loginButton.setReadPermissions("user_friends, email");
+        initauthority();//获取位置权限
 
+        callbackManager = CallbackManager.Factory.create();
         accessToken = AccessToken.getCurrentAccessToken();
         isLoggedIn = accessToken != null && !accessToken.isExpired();
 
@@ -93,7 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         getFacebookInfo(loginResult.getAccessToken());
-
+                        Toast.makeText(LoginActivity.this, "登錄成功", Toast
+                                .LENGTH_LONG).show();
                     }
 
                     @Override
@@ -118,12 +120,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 if (object != null) {
-                    Log.i("@@@@@@@@", "onCompleted: " + object.toString() + "####========" +
-                            object.optString("email"));
                     facebookName = object.optString("name");
-                    facebookId = object.optString("id");
-                    goLogin();
-//                    isFirstStart(getApplicationContext());
+                    facebookid = object.optString("id");
+//                    goLogin();
                 }
             }
         }).executeAsync();
@@ -146,42 +145,100 @@ public class LoginActivity extends AppCompatActivity {
                         ("public_profile"));
                 break;
             case R.id.login_wechat:
+                goLogin();
                 break;
         }
     }
 
     private void goLogin() {
-        Toast.makeText(LoginActivity.this, "登錄成功", Toast
-                .LENGTH_LONG).show();
-//        是否是新用户
+        // 是否是新用户
         isFirst();
-
-        isLogin();
 
     }
 
-//    判断是不是新用户
+    //    判断是不是新用户
     private void isFirst() {
         OkGo.<String>post(Urls.Url_Login).tag(this)
-                .params("facebookid",facebookId)
+                .params("facebookid", facebookid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        Gson gson=new Gson();
-                        loginBean = gson.fromJson(response.body(),LoginBean.class);
-                        if (loginBean.getStatus().equals("success")){
-                            intent =new Intent(LoginActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }else {
-                            intent =new Intent(LoginActivity.this,UserDataActivity.class);
+                        Gson gson = new Gson();
+                        loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {
+                            huanXinId = gson.fromJson(response.body(), UserDataBean.class)
+                                    .getData().getId();
+                            Log.i("okgo", "onSuccess: " + huanXinId);
+                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+
+
+                        } else if (loginBean.getStatus().equals("fail")) {
+//                            isLogin();
+                            intent = new Intent(LoginActivity.this, UserDataActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("facebookName", facebookName);
-                            bundle.putString("facebookId", facebookId);
+                            bundle.putString("facebookId", facebookid);
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
                     }
                 });
+    }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DATASUCCESS:
+                    saveLogin(huanXinId);
+                    EMClient.getInstance().login(huanXinId1 + "", "123", new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            Log.d("EMClient", "登录聊天服务器成功！");
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+                            Log.d("EMClient", "登录聊天服务器失败！");
+                        }
+                    });
+                    loginHuanXin();
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case DATAFELLED:
+
+                    break;
+            }
+        }
+    };
+
+    private void loginHuanXin() {
+        getHuanXinLogin();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (EMClient.getInstance().isLoggedInBefore()) {
+
+                    EMClient.getInstance().chatManager().loadAllConversations();
+                    EMClient.getInstance().groupManager().loadAllGroups();
+
+
+                } else {
+                    goLogin();
+                }
+            }
+        }).start();
+
+
     }
 
     /**
@@ -195,15 +252,23 @@ public class LoginActivity extends AppCompatActivity {
         if (isFirst) {// 第一次
             preferences.edit().putBoolean("FIRSTStart", false).commit();
 
-//            intent = new Intent(LoginActivity.this, SplashActivity.class);
-//            startActivity(intent);
-//            finish();
             Log.i("GFA", "一次");
             return true;
         } else {
-
             Log.i("GFA", "N次");
             return false;
+        }
+    }
+
+    /**
+     * 位置权限
+     */
+    private void initauthority() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
 
@@ -211,12 +276,25 @@ public class LoginActivity extends AppCompatActivity {
      * 保存登录token（facebookID）
      */
 
-    public void isLogin(){
+    public void saveLogin(int huanXinId) {
         SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
-        editor.putString("token", facebookId);
+        editor.putString("token", facebookid);
+        editor.putString("huanXinId", huanXinId + "");
         editor.commit();//提交修改
-
+        Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
     }
 
+    /**
+     * 获取环信登录id
+     */
+
+    public void getHuanXinLogin() {
+        SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+
+        huanXinId1 = userInfo.getString("huanXinId", "");
+
+
+        Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
+    }
 }

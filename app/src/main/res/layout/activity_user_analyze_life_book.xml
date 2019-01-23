@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorAccent"
+        android:background="@mipmap/icon_header_case_01"
         android:elevation="1dp">
 
         <FrameLayout
@@ -354,6 +354,7 @@
 
 
     <TextView
+        android:id="@+id/text_commentdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -376,6 +377,7 @@
         android:layout_marginTop="14dp"
         android:layout_marginLeft="19dp"/>
     <TextView
+        android:id="@+id/text_characteristicdesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"

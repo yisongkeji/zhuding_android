@@ -1,7 +1,7 @@
 package chat.foreseers.com.foreseers;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,50 +9,64 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import chat.foreseers.com.foreseers.activity.UserDataActivity;
+import chat.foreseers.com.foreseers.bean.LocationBean;
+import chat.foreseers.com.foreseers.bean.LoginBean;
+import chat.foreseers.com.foreseers.bean.UserDataBean;
+import chat.foreseers.com.foreseers.util.GetLocation;
 import chat.foreseers.com.foreseers.util.Urls;
 
 public class testActivity extends AppCompatActivity {
 
+    @BindView(R.id.tv_location_show)
+    TextView tvLocationShow;
+    @BindView(R.id.btn_show_location)
+    Button btnShowLocation;
+    @BindView(R.id.btn_isnewuser)
+    Button btnIsnewuser;
+    @BindView(R.id.btn_regestnewuser)
+    Button btnRegestnewuser;
+    @BindView(R.id.btn_location)
+    Button btnLocation;
     private String latLongString;
     private String country;
     private String city;
     private String area;
     private String addr;
     private String addrs;
+    private Intent intent;
+    private String facebookId;
+    private String facebookName;
+    private LoginBean loginBean;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        ButterKnife.bind(this);
         //获取权限
         initauthority();
-
 
         init();// 关联控件，初始化按钮、展示框
         tv_show.setText("地理位置");// 设置默认的位置展示，也就是没有点击按钮时的展示
@@ -229,25 +243,24 @@ public class testActivity extends AppCompatActivity {
     }
 
 
-
     private void UpLocation() {
         //获取token
 
         SharedPreferences SharedPreferences = this.getSharedPreferences("loginToken", MODE_PRIVATE);
-        String facebookid=SharedPreferences.getString("loginToken",null);
-        Log.i("okgo", "facebookid: "+facebookid);
+        String facebookid = SharedPreferences.getString("loginToken", null);
+        Log.i("okgo", "facebookid: " + facebookid);
 //        SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
 //        editor.get("token", facebookId);
 //        editor.commit();//提交修改
 
         OkGo.<String>post(Urls.Url_UserLocation).tag(this)
-                .params("facebookid","467979503606542")
-                .params("country",country )
-                .params("city",city)
-                .params("area",area)
-                .params("addr",addr)
-                .params("addrs",addrs)
-                .params("lat",location.getLatitude())
+                .params("facebookid", "46797950360650")
+                .params("country", country)
+                .params("city", city)
+                .params("area", area)
+                .params("addr", addr)
+                .params("addrs", addrs)
+                .params("lat", location.getLatitude())
                 .params("lng", location.getLongitude())
                 .execute(new StringCallback() {
                     @Override
@@ -257,5 +270,78 @@ public class testActivity extends AppCompatActivity {
                 });
     }
 
+   private long myfacebookId = 00;
+    @OnClick({R.id.btn_isnewuser, R.id.btn_regestnewuser,R.id.btn_location})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_isnewuser:
 
+                facebookId = "4679795036065"+myfacebookId;
+                facebookName = "zheng3";
+                OkGo.<String>post(Urls.Url_Login).tag(this)
+                        .params("facebookid", facebookId)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+                                loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                if (loginBean.getStatus().equals("fail")){
+
+
+                                    tv_show.setText("用户不存在"+myfacebookId);
+                                }else {
+                                    tv_show.setText("用户存在");
+                                }
+
+                            }
+                        });
+                break;
+            case R.id.btn_regestnewuser:
+                locationInit();
+                OkGo.<String>post(Urls.Url_UserData).tag(this)
+//                .isSpliceUrl(true)
+                        .params("username", facebookName)
+                        .params("date", "2002-01-16")
+                        .params("time", "16:00:00")
+                        .params("gender","F")
+                        .params("facebookid", facebookId)
+                        .params("zone",  "UTC-02:00")
+                        .params("country", country)
+                        .params("city", city)
+                        .params("area", area)
+                        .params("addr", addr)
+                        .params("addrs", addrs)
+                        .params("lat", location.getLatitude())
+                        .params("lng", location.getLongitude())
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Log.e("OkGo", "Success: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" );
+                              Gson  gson = new Gson();
+                                UserDataBean   userDataBean = gson.fromJson(response.body(),UserDataBean.class);
+                                if (userDataBean.getStatus().equals("success")){
+                                    myfacebookId=myfacebookId+1;
+                                    Toast.makeText(testActivity.this,"发送成功" ,Toast.LENGTH_LONG).show();
+                                }else if (userDataBean.getStatus().equals("fail")){
+                                    Toast.makeText(testActivity.this,"发送失败" ,Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(Response<String> response) {
+                                super.onError(response);
+                                Log.e("OkGo", "onError:############################### "+response.getException() );
+//                        mHandler.obtainMessage(DATAFELLED).sendToTarget();
+                            }
+                        });
+                break;
+            case R.id.btn_location:
+                GetLocation location=new GetLocation();
+                LocationBean locationBean=location.getLocation(testActivity.this);
+                tv_show.setText(locationBean.getAddrs());
+                Log.i("location", "onViewClicked:"+locationBean.getCountry());
+                break;
+        }
+    }
 }

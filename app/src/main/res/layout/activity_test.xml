@@ -10,13 +10,30 @@
         android:id="@+id/tv_location_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dsfsdfds" />
+        android:text="dsfsdfds"
+        android:textSize="25sp"
+        android:layout_gravity="center"/>
+
+
+    <Button
+        android:id="@+id/btn_isnewuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="判断是否是新用户" />
+    <Button
+        android:id="@+id/btn_regestnewuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册新用户" />
 
     <Button
         android:id="@+id/btn_show_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取当前位置" >
-    </Button>
-
+        android:text="获取当前位置" />
+    <Button
+        android:id="@+id/btn_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="从方法获取当前位置" />
 </LinearLayout>

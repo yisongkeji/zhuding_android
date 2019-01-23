@@ -51,6 +51,14 @@
     <string name="character">分析TA的個人性格</string>
     <string name="comment">分析你與TA的個人評語</string>
 
+    <!--命书-->
+    <string name="txt_personal_analysis">已完成計算您的專屬命書</string>
+    <string name="txt_horoscope">星座</string>
+    <string name="txt_zodiac">生肖</string>
+    <string name="txt_ziwei">紫微斗數命宮</string>
+    <string name="txt_numerology">生命靈數命數</string>
+    <string name="txt_bazi">子平八字</string>
+    <string name="txt_start_use">開始使用</string>
 
     <!--导航 -->
     <string name="item1">聊天</string>

@@ -1,13 +1,17 @@
 package chat.foreseers.com.foreseers.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +36,20 @@ public class MainActivity extends SupportActivity {
 
     private List<Fragment> mFragmentList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
         initData();
         initListener();
     }
 
 
-
     private void initData() {
+
 //        聊天
         ChatFragment chatFragment = new ChatFragment();
         mFragmentList.add(chatFragment);

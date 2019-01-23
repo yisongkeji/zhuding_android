@@ -5,9 +5,12 @@ public class UserDataBean {
 
     /**
      * status : success
-     * data : {"id":4,"username":"郑皓","sex":"M","date":"2019-01-08","time":"12:00:00","zone":12,
-     * "facebook":"467979503606542","num":3,"head":null,"picture":null,"vip":null,"viptime":null,
-     * "city":null,"bazi":"戊戌乙丑乙巳壬","zodiac":"狗","xingzuo":"摩羯座","ziwei":"武曲,貪狼"}
+     * data : {"id":83,"username":"郑皓","sex":"M","date":"2003-01-21","time":"11:00:00","zone":28,
+     * "facebook":"467979503606542","num":null,"head":null,"picture":null,"vip":null,
+     * "viptime":null,"city":null,"bazi":"壬午,癸丑,甲午,庚午","zodiac":"馬","xingzuo":"水瓶座","ziwei":"太陽,
+     * 太陰","area":null,"country":null,"lat":null,"lng":null,"spare":null,"spare1":null,
+     * "updatetime":null,"obligate":null,"numerology":9,"userstar":6,"reservedint":null,
+     * "reservedvar":null,"reservedvar1":null,"cat1":"木"}
      */
 
     private String status;
@@ -31,23 +34,37 @@ public class UserDataBean {
 
     public static class DataBean {
         /**
-         * id : 4
+         * id : 83
          * username : 郑皓
          * sex : M
-         * date : 2019-01-08
-         * time : 12:00:00
-         * zone : 12
+         * date : 2003-01-21
+         * time : 11:00:00
+         * zone : 28
          * facebook : 467979503606542
-         * num : 3
+         * num : null
          * head : null
          * picture : null
          * vip : null
          * viptime : null
          * city : null
-         * bazi : 戊戌乙丑乙巳壬
-         * zodiac : 狗
-         * xingzuo : 摩羯座
-         * ziwei : 武曲,貪狼
+         * bazi : 壬午,癸丑,甲午,庚午
+         * zodiac : 馬
+         * xingzuo : 水瓶座
+         * ziwei : 太陽,太陰
+         * area : null
+         * country : null
+         * lat : null
+         * lng : null
+         * spare : null
+         * spare1 : null
+         * updatetime : null
+         * obligate : null
+         * numerology : 9
+         * userstar : 6
+         * reservedint : null
+         * reservedvar : null
+         * reservedvar1 : null
+         * cat1 : 木
          */
 
         private int id;
@@ -57,7 +74,7 @@ public class UserDataBean {
         private String time;
         private int zone;
         private String facebook;
-        private int num;
+        private Object num;
         private Object head;
         private Object picture;
         private Object vip;
@@ -67,6 +84,20 @@ public class UserDataBean {
         private String zodiac;
         private String xingzuo;
         private String ziwei;
+        private Object area;
+        private Object country;
+        private Object lat;
+        private Object lng;
+        private Object spare;
+        private Object spare1;
+        private Object updatetime;
+        private Object obligate;
+        private int numerology;
+        private int userstar;
+        private Object reservedint;
+        private Object reservedvar;
+        private Object reservedvar1;
+        private String cat1;
 
         public int getId() {
             return id;
@@ -124,11 +155,11 @@ public class UserDataBean {
             this.facebook = facebook;
         }
 
-        public int getNum() {
+        public Object getNum() {
             return num;
         }
 
-        public void setNum(int num) {
+        public void setNum(Object num) {
             this.num = num;
         }
 
@@ -202,6 +233,118 @@ public class UserDataBean {
 
         public void setZiwei(String ziwei) {
             this.ziwei = ziwei;
+        }
+
+        public Object getArea() {
+            return area;
+        }
+
+        public void setArea(Object area) {
+            this.area = area;
+        }
+
+        public Object getCountry() {
+            return country;
+        }
+
+        public void setCountry(Object country) {
+            this.country = country;
+        }
+
+        public Object getLat() {
+            return lat;
+        }
+
+        public void setLat(Object lat) {
+            this.lat = lat;
+        }
+
+        public Object getLng() {
+            return lng;
+        }
+
+        public void setLng(Object lng) {
+            this.lng = lng;
+        }
+
+        public Object getSpare() {
+            return spare;
+        }
+
+        public void setSpare(Object spare) {
+            this.spare = spare;
+        }
+
+        public Object getSpare1() {
+            return spare1;
+        }
+
+        public void setSpare1(Object spare1) {
+            this.spare1 = spare1;
+        }
+
+        public Object getUpdatetime() {
+            return updatetime;
+        }
+
+        public void setUpdatetime(Object updatetime) {
+            this.updatetime = updatetime;
+        }
+
+        public Object getObligate() {
+            return obligate;
+        }
+
+        public void setObligate(Object obligate) {
+            this.obligate = obligate;
+        }
+
+        public int getNumerology() {
+            return numerology;
+        }
+
+        public void setNumerology(int numerology) {
+            this.numerology = numerology;
+        }
+
+        public int getUserstar() {
+            return userstar;
+        }
+
+        public void setUserstar(int userstar) {
+            this.userstar = userstar;
+        }
+
+        public Object getReservedint() {
+            return reservedint;
+        }
+
+        public void setReservedint(Object reservedint) {
+            this.reservedint = reservedint;
+        }
+
+        public Object getReservedvar() {
+            return reservedvar;
+        }
+
+        public void setReservedvar(Object reservedvar) {
+            this.reservedvar = reservedvar;
+        }
+
+        public Object getReservedvar1() {
+            return reservedvar1;
+        }
+
+        public void setReservedvar1(Object reservedvar1) {
+            this.reservedvar1 = reservedvar1;
+        }
+
+        public String getCat1() {
+            return cat1;
+        }
+
+        public void setCat1(String cat1) {
+            this.cat1 = cat1;
         }
     }
 }

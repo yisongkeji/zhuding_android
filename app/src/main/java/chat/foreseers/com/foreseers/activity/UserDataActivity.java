@@ -2,6 +2,7 @@ package chat.foreseers.com.foreseers.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,8 +50,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import chat.foreseers.com.foreseers.R;
+import chat.foreseers.com.foreseers.bean.LocationBean;
 import chat.foreseers.com.foreseers.bean.UserDataBean;
 import chat.foreseers.com.foreseers.dialog.DoubtDialog;
+import chat.foreseers.com.foreseers.util.GetLocation;
 import chat.foreseers.com.foreseers.util.LimitInputTextWatcher;
 import chat.foreseers.com.foreseers.util.Urls;
 
@@ -124,6 +127,7 @@ public class UserDataActivity extends AppCompatActivity {
     private String gender;
     private Gson gson;
     private UserDataBean userDataBean;
+    private UserDataBean.DataBean userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -412,16 +416,9 @@ public class UserDataActivity extends AppCompatActivity {
                 layoutUserDataAffirm.setVisibility(View.GONE);
                 break;
             case R.id.bt_affirm://最终确认
-//                intent = new Intent(UserDataActivity.this, MainActivity.class);
-//                startActivity(intent);
+
                 upData();
                 upDataForHttp();
-
-
-//                mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-//                intent = new Intent(UserDataActivity.this, MainActivity.class);
-//                startActivity(intent);
-
                 break;
 
             default:
@@ -431,32 +428,43 @@ public class UserDataActivity extends AppCompatActivity {
 
     private void upDataForHttp() {
 
-        Log.e("OKGO", "username: ##"+facebookName );
-        Log.e("OKGO", "date: ##"+date );
-        Log.e("OKGO", "time: ##"+time2 );
-        Log.e("OKGO", "gender: ##"+gender );
-        Log.e("OKGO", "facebookid: ##"+facebookId );
-        Log.e("OKGO", "zone: ##"+textUserTimezone.getText().toString() );
+        Log.e("OKGO", "username: ##" + facebookName);
+        Log.e("OKGO", "date: ##" + date);
+        Log.e("OKGO", "time: ##" + time2);
+        Log.e("OKGO", "gender: ##" + gender);
+        Log.e("OKGO", "facebookid: ##" + facebookId);
+        Log.e("OKGO", "zone: ##" + textUserTimezone.getText().toString());
 
+        GetLocation getLocation = new GetLocation();
+
+        LocationBean locationBean = getLocation.getLocation(this);
 
         OkGo.<String>post(Urls.Url_UserData).tag(this)
 //                .isSpliceUrl(true)
-                .params("username", facebookName)
+                .params("username", editUserName.getText().toString())
                 .params("date", date)
                 .params("time", time2)
-                .params("gender",gender)
+                .params("gender", gender)
                 .params("facebookid", facebookId)
-                .params("zone",  textUserTimezone.getText().toString())
+                .params("zone", textUserTimezone.getText().toString())
+                .params("country", locationBean.getCountry())
+                .params("city", locationBean.getCity())
+                .params("area", locationBean.getArea())
+                .params("addr", locationBean.getAddr())
+                .params("addrs", locationBean.getAddrs())
+                .params("lat", locationBean.getLat())
+                .params("lng", locationBean.getLng())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        Log.e("OkGo", "Success: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" );
+                        Log.e("OkGo", "Success: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         gson = new Gson();
-                        userDataBean = gson.fromJson(response.body(),UserDataBean.class);
-                        if (userDataBean.getStatus().equals("success")){
+                        userDataBean = gson.fromJson(response.body(), UserDataBean.class);
+                        if (userDataBean.getStatus().equals("success")) {
+                            userData=userDataBean.getData();
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-                        }else if (userDataBean.getStatus().equals("fail")){
-                            Toast.makeText(UserDataActivity.this,"发送失败" ,Toast.LENGTH_LONG).show();
+                        } else if (userDataBean.getStatus().equals("fail")) {
+                            Toast.makeText(UserDataActivity.this, "发送失败", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -464,11 +472,40 @@ public class UserDataActivity extends AppCompatActivity {
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        Log.e("OkGo", "onError:############################### "+response.getException() );
+                        Log.e("OkGo", "onError:############################### " + response
+                                .getException());
 //                        mHandler.obtainMessage(DATAFELLED).sendToTarget();
                     }
                 });
     }
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DATASUCCESS:
+
+                        intent = new Intent(UserDataActivity.this, LifeBookActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("xingzuo", userData.getXingzuo());
+                        bundle.putString("zodiac", userData.getZodiac());
+                        bundle.putString("ziwei", userData.getZiwei());
+                        bundle.putInt("numerology", userData.getNumerology());
+                        bundle.putString("bazi", userData.getBazi());
+                        Log.i("intent", "handleMessage:"+userData.getXingzuo()+"&&"+ userData.getBazi());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        saveLogin(userData.getId());
+
+
+                    break;
+                case DATAFELLED:
+                    upDataForHttp();
+                    break;
+            }
+        }
+    };
 
     private void upData() {
         Log.i("OkGo", "date: " + textUserBirth.getText().toString());
@@ -483,26 +520,10 @@ public class UserDataActivity extends AppCompatActivity {
 
         //出生时间
         int index = birth.indexOf(" ");
-        String time1 = birth.substring(index+1, birth.length() - 1);
-        time2 = time1+ ":00:00" ;
+        String time1 = birth.substring(index + 1, birth.length() - 1);
+        time2 = time1 + ":00:00";
 //
     }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case DATASUCCESS:
-                    intent = new Intent(UserDataActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                case DATAFELLED:
-                    upDataForHttp();
-                    break;
-            }
-        }
-    };
 
     //選擇時區
     private void initNoLinkOptionsPicker() {
@@ -600,42 +621,9 @@ public class UserDataActivity extends AppCompatActivity {
         timezone.add("UTC+13:00");
         timezone.add("UTC+14:00");
 
-
         one.add("");
-
         three.add("");
-//        doubleTimezone.add(-12);
-//        doubleTimezone.add(-11);
-//        doubleTimezone.add(-10);
-//        doubleTimezone.add(-9.5);
-//        doubleTimezone.add(-9);
-//        doubleTimezone.add(-8);
-//        doubleTimezone.add(-7);
-//        doubleTimezone.add(-6);
-//        doubleTimezone.add(-5);
-//        doubleTimezone.add(-4);
-//        doubleTimezone.add(-3.5);
-//        doubleTimezone.add(-3);
-//        doubleTimezone.add(-2);
-//        doubleTimezone.add(-1);
-//        doubleTimezone.add(0);
-//        doubleTimezone.add(+1);
-//        doubleTimezone.add(+2);
-//        doubleTimezone.add(+3);
-//        doubleTimezone.add(+3.5);
-//        doubleTimezone.add(+4);
-//        doubleTimezone.add(+4.5);
-//        doubleTimezone.add(+5);
-//        doubleTimezone.add(+5.5);
-//        doubleTimezone.add(+6);
-//        doubleTimezone.add(+7);
-//        doubleTimezone.add(+8);
-//        doubleTimezone.add(+9);
-//        doubleTimezone.add(+10);
-//        doubleTimezone.add(+11);
-//        doubleTimezone.add(+12);
-//        doubleTimezone.add(+13);
-//        doubleTimezone.add(+14);
+
     }
 
     //渐变
@@ -661,6 +649,20 @@ public class UserDataActivity extends AppCompatActivity {
             }
 
         });
+    }
+    /**
+     * 保存登录token（facebookID）
+     */
+
+    public void saveLogin(int huanXinId){
+        SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+        editor.putString("token", facebookId);
+        editor.putString("huanXinId", huanXinId+"");
+        editor.commit();//提交修改
+        Log.i("facebookid", "isLogin: "+userInfo.getString("token", ""));
+
+
     }
 
 }

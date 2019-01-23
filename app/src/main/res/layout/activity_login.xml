@@ -9,25 +9,29 @@
     tools:context=".activity.LoginActivity">
 
     <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/login_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="15sp"-->
-        <!--android:layout_marginBottom="30dp"/>-->
+    <!--android:id="@+id/login_button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="15sp"-->
+    <!--android:layout_marginBottom="30dp"/>-->
 
 
     <ImageButton
         android:id="@+id/login_facebook"
         android:layout_width="248dp"
         android:layout_height="45dp"
-        android:background="@mipmap/icon_login_facebook"/>
+        android:background="@mipmap/icon_login_facebook" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关闭vpn点击WeChat完成登录" />
 
     <ImageButton
         android:id="@+id/login_wechat"
         android:layout_width="248dp"
         android:layout_height="45dp"
-        android:background="@mipmap/icon_login_wechat"
-        android:layout_marginTop="30dp"/>
-    
+        android:layout_marginTop="30dp"
+        android:background="@mipmap/icon_login_wechat" />
+
 </LinearLayout>

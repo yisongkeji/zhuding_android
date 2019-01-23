@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="性别范围"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_left"
+
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_left"
+            android:button="@null" />
+
+        <RadioButton
+            android:id="@+id/radio_middle"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_middle"
+            android:button="@null"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radio_right"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/radio_right"
+            android:button="@null" />
+    </RadioGroup>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="年龄范围"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <chat.foreseers.com.foreseers.view.DoubleSlideSeekBar
+            android:id="@+id/doubleslide_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageBig="@mipmap/icon_filter_age_02"
+            rsb:bigValue="50"
+            rsb:hasRule="false"
+            rsb:imageLow="@mipmap/icon_filter_age_02"
+            rsb:imageheight="26dp"
+            rsb:imagewidth="23dp"
+            rsb:inColor="#8ce6e3"
+            rsb:lineHeight="10dp"
+            rsb:outColor="#eeeeee"
+            rsb:smallValue="12"
+            rsb:textColor="#8ce6e3"
+            rsb:textSize="15sp"
+            rsb:unit="歲" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="距离"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp" />
+
+    <chat.foreseers.com.foreseers.view.DoubleSlideSeekBar
+        android:id="@+id/doubleslide_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        rsb:bigValue="100"
+        rsb:hasRule="false"
+        rsb:imageBig="@mipmap/icon_filter_age_02"
+        rsb:imageLow="@mipmap/icon_filter_age_02"
+        rsb:imageheight="26dp"
+        rsb:imagewidth="23dp"
+        rsb:inColor="#8ce6e3"
+        rsb:lineHeight="10dp"
+        rsb:outColor="#eeeeee"
+        rsb:smallValue="1"
+        rsb:textColor="#8ce6e3"
+        rsb:textSize="15sp"
+        rsb:unit="km"
+        android:layout_marginBottom="20dp"/>
+
+
+</LinearLayout>
