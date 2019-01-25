@@ -9,8 +9,11 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -29,8 +32,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
     TextView textPeopleProgress;
     @BindView(R.id.text_people_sex)
     TextView textPeopleSex;
-    @BindView(R.id.text_people_age)
-    TextView textPeopleAge;
+
     @BindView(R.id.text_people_location)
     TextView textPeopleLocation;
     @BindView(R.id.text_people_name)
@@ -38,6 +40,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
     @BindView(R.id.layout_item_people)
     FrameLayout layoutItemPeople;
     private final Typeface typeface;
+    private ImageView image;
 
     public PeopleAdapter(Activity context, @Nullable List<RecommendBean.DataBean> data) {
         super(R.layout.item_people, data);
@@ -48,44 +51,40 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
     @Override
     protected void convert(BaseViewHolder baseViewHolder, final RecommendBean.DataBean item) {
 
+        image = baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people);
 
-        switch (item.getNumuser()) {
-            case 0:
-                baseViewHolder.setBackgroundRes(R.id.item_background, R.drawable
-                        .icon_header_gradient_01);
-                baseViewHolder.setVisible(R.id.item_recommend_img, false);
+
+
+        Glide.with(context).load(item.getHead()).into(image);
+
+        baseViewHolder.setTypeface(typeface);
+        baseViewHolder.setText(R.id.text_people_name, item.getUsername())
+                .setText(R.id.text_people_progress,  item.getUserscore() + "")
+
+                .setText(R.id.text_people_location, "距离:" + item.getDistance() + "km");
+//     .setText(R.id.text_people_sex, (item.getSex().equals("F") ? "女" : "男"))
+
+
+        switch (item.getSex()) {
+            case "F":
+                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable.rounded_layout_pink);
+                baseViewHolder.setText(R.id.text_people_sex, ("♀" +item.getAge()));
+//                textSex.setBackgroundResource(R.drawable.rounded_layout_pink);
+//                textSex.setText("♀" + age);
+                break;
+            case "M":
+                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable.rounded_layout_blue);
+                baseViewHolder.setText(R.id.text_people_sex, ("♂" +item.getAge()));
+//                textSex.setBackgroundResource(R.drawable.rounded_layout_blue);
+//                textSex.setText("♂" + age);
                 break;
 
-            case 1:
-                baseViewHolder.setBackgroundRes(R.id.item_background, R.drawable
-                        .icon_header_gradient_02);
-                baseViewHolder.setVisible(R.id.item_recommend_img, true);
-                break;
             default:
                 break;
         }
 
 
-//        baseViewHolder.setBackgroundRes(R.id.item_background, (item.getNumuser() == 1 ? R.drawable
-//                .icon_header_gradient_02 : R.drawable.icon_header_gradient_01));
-//
-//        baseViewHolder.setVisible(R.id.item_recommend_img, (item.getNumuser() == 1 ? true :
-// false));
-
-//            baseViewHolder.setBackgroundRes(R.id.item_background, R.drawable
-//                    .icon_header_gradient_01);
-//            baseViewHolder.setVisible(R.id.item_recommend_img, false);
-
-
-        baseViewHolder.setTypeface(typeface);
-        baseViewHolder
-                .setText(R.id.text_people_name, item.getNumuser() + item.getUsername())
-                .setText(R.id.text_people_progress, "匹配度" + item.getUserscore() + "%")
-                .setText(R.id.text_people_sex, (item.getSex().equals("F") ? "女" : "男"))
-                .setText(R.id.text_people_age, item.getDate() + "歲")
-                .setText(R.id.text_people_location, "距离:" + item.getDistance() + "km");
-
-        baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people)
+        baseViewHolder.getView(R.id.item_background).findViewById(R.id.item_background)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -93,6 +92,11 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                         Bundle bundle = new Bundle();
                         bundle.putInt("userid", item.getId());
                         bundle.putString("username", item.getUsername());
+                        bundle.putString("sex", item.getSex());
+                        bundle.putInt("age",item.getAge());
+                        bundle.putInt("num",item.getNum());
+                        bundle.putInt("distance",item.getDistance());
+                        bundle.putInt("userscore",item.getUserscore());
                         intent.putExtras(bundle);
                         context.startActivity(intent);
                     }

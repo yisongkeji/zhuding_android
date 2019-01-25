@@ -4,337 +4,408 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".activity.UserDataActivity"
-    android:background="@color/colorWhite">
+    tools:context=".activity.UserDataActivity">
 
-    <RelativeLayout
-        android:id="@+id/layout_user_data"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/img_doubt"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@mipmap/icon_login_doubt" />
-
-        <!--用戶姓名-->
-        <LinearLayout
-            android:id="@+id/layout_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="131dp"
-                android:text="@string/user_data_name_hint"
-                android:textColor="@color/colorBlack"
-                android:textSize="22sp" />
-
-            <EditText
-                android:id="@+id/edit_user_name"
-                android:layout_width="245dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="67dp"
-                android:background="@drawable/rounded_text_accent_side"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:maxLength="20"/>
-
-            <RadioGroup
-                android:id="@+id/radio_user_sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radio_sex_man"
-                    android:layout_width="77dp"
-                    android:layout_height="77dp"
-                    android:layout_marginRight="85dp"
-                    android:background="@drawable/radio_man"
-                    android:button="@null"></RadioButton>
-
-                <RadioButton
-                    android:id="@+id/radio_sex_woman"
-                    android:layout_width="77dp"
-                    android:layout_height="77dp"
-                    android:background="@drawable/radio_woman"
-                    android:button="@null"></RadioButton>
-            </RadioGroup>
-
-
-            <Button
-                android:id="@+id/bt_affirm_name"
-                android:layout_width="168dp"
-                android:layout_height="49dp"
-                android:layout_marginTop="59dp"
-                android:background="@drawable/rounded_text_gray"
-                android:enabled="false"
-                android:text="@string/affirm"
-                android:textColor="@color/colorWhite"
-                android:textSize="19sp" />
-
-
-        </LinearLayout>
-
-        <!--用戶出生年月日時-->
-        <LinearLayout
-            android:id="@+id/layout_user_birth"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/layout_user_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/img_doubt"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/icon_login_doubt" />
 
-            <TextView
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="111dp"
-                android:gravity="center"
-                android:text="@string/user_data_birth_hint"
-                android:textColor="@color/colorBlack"
-                android:textSize="22sp" />
-
-            <TextView
-                android:id="@+id/text_user_birth"
-                android:layout_width="245dp"
-                android:layout_height="52dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="65dp"
-                android:background="@drawable/rounded_text_accent_side"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="19sp"
-                android:hint="@string/birth"/>
-            <TextView
-                android:id="@+id/text_user_timezone"
-                android:layout_width="245dp"
-                android:layout_height="52dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="53dp"
-                android:background="@drawable/rounded_text_accent_side"
-                android:gravity="center"
-                android:hint="@string/timezone"
-                android:textColor="@color/colorAccent"
-                android:textSize="19sp" />
-            <Button
-                android:id="@+id/bt_affirm_birth"
-                android:layout_width="168dp"
-                android:layout_height="49dp"
-                android:layout_marginTop="71dp"
-                android:background="@drawable/rounded_text_gray"
-                android:enabled="false"
-                android:text="@string/affirm"
-                android:textColor="@color/colorWhite"
-                android:textSize="19sp" />
-
-
-        </LinearLayout>
-
-        <!--信息確認-->
-        <LinearLayout
-            android:id="@+id/layout_user_data_affirm"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="263dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="111dp"
-                android:gravity="center"
-                android:text="@string/user_data_affirm_hint"
-                android:textColor="@color/colorBlack"
-                android:textSize="16sp" />
-
+            <!--用戶姓名-->
             <LinearLayout
+                android:id="@+id/layout_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/rounded_text_accent_side"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:text="@string/name"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:id="@+id/umg_name_modification"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="36dp"
-                        android:background="@mipmap/icon_pencil" />
-
-
-                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/text_user_name_affirm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="19sp" />
+                    android:layout_marginTop="131dp"
+                    android:text="@string/user_data_name_hint"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="22sp" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:text="@string/sex"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:id="@+id/umg_sex_modification"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="36dp"
-                        android:background="@mipmap/icon_pencil" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/text_user_sex_affirm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                <EditText
+                    android:id="@+id/edit_user_name"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="67dp"
+                    android:background="@drawable/rounded_text_accent_side"
                     android:gravity="center"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="19sp" />
+                    android:maxLength="20"
+                    android:textColor="@color/colorAccent" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:text="@string/birth"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:id="@+id/umg_birth_modification"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="36dp"
-                        android:background="@mipmap/icon_pencil" />
-                </RelativeLayout>
-
-
-                <TextView
-                    android:id="@+id/text_user_birth_affirm"
+                <RadioGroup
+                    android:id="@+id/radio_user_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
 
-                    android:gravity="center"
-                    android:textColor="@color/colorAccent"
+                    <RadioButton
+                        android:id="@+id/radio_sex_man"
+                        android:layout_width="77dp"
+                        android:layout_height="77dp"
+                        android:layout_marginRight="85dp"
+                        android:background="@drawable/radio_man"
+                        android:button="@null"></RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/radio_sex_woman"
+                        android:layout_width="77dp"
+                        android:layout_height="77dp"
+                        android:background="@drawable/radio_woman"
+                        android:button="@null"></RadioButton>
+                </RadioGroup>
+
+
+                <Button
+                    android:id="@+id/bt_affirm_name"
+                    android:layout_width="168dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="59dp"
+                    android:background="@drawable/rounded_text_gray"
+                    android:enabled="false"
+                    android:text="@string/affirm"
+                    android:textColor="@color/colorWhite"
                     android:textSize="19sp" />
 
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp">
+            </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:text="@string/timezone"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:id="@+id/umg_timezone_modification"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="36dp"
-                        android:background="@mipmap/icon_pencil" />
-                </RelativeLayout>
+            <!--用戶出生年月日時-->
+            <LinearLayout
+                android:id="@+id/layout_user_birth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
                 <TextView
-                    android:id="@+id/text_user_timezone_affirm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="260dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="26dp"
+                    android:layout_marginTop="111dp"
                     android:gravity="center"
+                    android:text="@string/user_data_birth_hint"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/text_user_birth"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="65dp"
+                    android:background="@drawable/rounded_text_accent_side"
+                    android:gravity="center"
+                    android:hint="@string/birth"
                     android:textColor="@color/colorAccent"
                     android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/text_user_timezone"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="53dp"
+                    android:background="@drawable/rounded_text_accent_side"
+                    android:gravity="center"
+                    android:hint="@string/timezone"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="19sp" />
+
+                <Button
+                    android:id="@+id/bt_affirm_birth"
+                    android:layout_width="168dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="71dp"
+                    android:background="@drawable/rounded_text_gray"
+                    android:enabled="false"
+                    android:text="@string/affirm"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="19sp" />
+
+
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/bt_affirm"
-                android:layout_width="168dp"
-                android:layout_height="49dp"
-                android:layout_marginTop="36dp"
-                android:background="@drawable/rounded_text_accent"
-                android:text="@string/no_problem"
-                android:textColor="@color/colorWhite"
-                android:textSize="19sp" />
+            <!--头像-->
+            <LinearLayout
+                android:id="@+id/layout_user_head"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:layout_marginTop="120dp"
+                    android:background="@mipmap/icon_login_head_01"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/img_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_login_head_02" />
+                </FrameLayout>
 
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="請選擇一張照片作為您的頭像。"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="25sp" />
 
-    </RelativeLayout>
+                <Button
+                    android:id="@+id/bt_affirm_head"
+                    android:layout_width="168dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="71dp"
+                    android:background="@drawable/rounded_text_gray"
+                    android:enabled="false"
+                    android:text="@string/affirm"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="19sp" />
 
+            </LinearLayout>
+
+
+            <!--信息確認-->
+            <FrameLayout
+                android:id="@+id/layout_user_data_affirm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@mipmap/icon_login_bg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="263dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="69dp"
+                        android:gravity="center"
+                        android:text="@string/user_data_affirm_hint"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
+
+
+                    <ImageView
+                        android:id="@+id/img_head_affirm"
+                        android:layout_width="87dp"
+                        android:layout_height="87dp"
+                        android:layout_marginTop="41dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="26dp"
+                        android:layout_marginRight="32dp"
+
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:background="@mipmap/icon_login_frame_01"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/name"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/text_user_name_affirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="19sp" />
+
+                            <ImageView
+                                android:id="@+id/umg_name_modification"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="right|center_vertical"
+                                android:layout_marginRight="36dp"
+                                android:background="@mipmap/icon_pencil" />
+
+
+                        </FrameLayout>
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:background="@mipmap/icon_login_frame_01"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/sex"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/text_user_sex_affirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="19sp" />
+
+                            <ImageView
+                                android:id="@+id/umg_sex_modification"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical|right"
+                                android:layout_marginRight="36dp"
+                                android:background="@mipmap/icon_pencil" />
+                        </FrameLayout>
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:background="@mipmap/icon_login_frame_01"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/birth"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/text_user_birth_affirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="19sp" />
+
+                            <ImageView
+                                android:id="@+id/umg_birth_modification"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical|right"
+                                android:layout_marginRight="36dp"
+                                android:background="@mipmap/icon_pencil"
+                                android:gravity="center" />
+                        </FrameLayout>
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:background="@mipmap/icon_login_frame_01"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/timezone"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/text_user_timezone_affirm"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="19sp" />
+
+                            <ImageView
+                                android:id="@+id/umg_timezone_modification"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_vertical|right"
+                                android:layout_marginRight="36dp"
+                                android:background="@mipmap/icon_pencil" />
+                        </FrameLayout>
+
+
+                    </LinearLayout>
+
+
+                    <Button
+                        android:id="@+id/bt_affirm"
+                        android:layout_width="168dp"
+                        android:layout_height="49dp"
+                        android:layout_marginTop="36dp"
+                        android:background="@drawable/rounded_text_accent"
+                        android:text="@string/no_problem"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="19sp" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 </RelativeLayout>

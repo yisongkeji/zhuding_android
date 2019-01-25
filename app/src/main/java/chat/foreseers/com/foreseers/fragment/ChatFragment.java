@@ -17,11 +17,12 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import chat.foreseers.com.foreseers.R;
 import chat.foreseers.com.foreseers.global.BaseMainFragment;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * 聊天
  */
-public class ChatFragment extends BaseMainFragment implements RadioGroup.OnCheckedChangeListener {
+public class ChatFragment extends SupportFragment implements RadioGroup.OnCheckedChangeListener {
 
 
     Unbinder unbinder;
@@ -51,40 +52,30 @@ public class ChatFragment extends BaseMainFragment implements RadioGroup.OnCheck
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-
+        initViews();
         return view;
     }
 
-    @Override
+
     public void initViews() {
         chatRadioGroup.setOnCheckedChangeListener(this);
 
         fragmentManager = getChildFragmentManager();
         fragmentTransactionShow = fragmentManager.beginTransaction();
         if (chatFriendFragment != null) {
-            fragmentTransactionShow.show(chatFriendFragment);
+            chatFriendFragment = new ChatFriendFragment();
+            fragmentTransactionShow.add(R.id.chat_layout, chatFriendFragment);
+//            fragmentTransactionShow.show(chatFriendFragment);
         } else {
             chatFriendFragment = new ChatFriendFragment();
             fragmentTransactionShow.add(R.id.chat_layout, chatFriendFragment);
         }
 
         fragmentTransactionShow.commit();
+        chatRadioFriend.setChecked(true);
     }
 
-    @Override
-    public void initDatas() {
 
-    }
-
-    @Override
-    public void installListeners() {
-
-    }
-
-    @Override
-    public void processHandlerMessage(Message msg) {
-
-    }
 
     @Override
     public void onDestroyView() {
@@ -99,8 +90,12 @@ public class ChatFragment extends BaseMainFragment implements RadioGroup.OnCheck
         hideFragment(fragmentTransaction);
         switch (checkedId) {
             case R.id.chat_radio_friend:
+                chatRadioFriend.setAlpha(1);
+                chatRadioTemporarySession.setAlpha((float) 0.5);
                 if (chatFriendFragment != null) {
-                    fragmentTransaction.show(chatFriendFragment);
+//                    fragmentTransaction.show(chatFriendFragment);
+                    chatFriendFragment = new ChatFriendFragment();
+                    fragmentTransaction.add(R.id.chat_layout, chatFriendFragment);
                 } else {
                     chatFriendFragment = new ChatFriendFragment();
                     fragmentTransaction.add(R.id.chat_layout, chatFriendFragment);
@@ -108,10 +103,12 @@ public class ChatFragment extends BaseMainFragment implements RadioGroup.OnCheck
 
                 break;
             case R.id.chat_radio_temporary_session:
-
+                chatRadioTemporarySession.setAlpha(1);
+                chatRadioFriend.setAlpha((float) 0.5);
                 if (chatConversationFragment != null) {
-                    fragmentTransaction.show(chatConversationFragment);
-
+//                    fragmentTransaction.show(chatConversationFragment);
+                    chatConversationFragment = new ChatConversationFragment();
+                    fragmentTransaction.add(R.id.chat_layout, chatConversationFragment);
                 } else {
                     chatConversationFragment = new ChatConversationFragment();
                     fragmentTransaction.add(R.id.chat_layout, chatConversationFragment);

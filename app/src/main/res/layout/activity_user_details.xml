@@ -28,6 +28,7 @@
 
 
         <TextView
+            android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -107,6 +108,7 @@
                             android:textSize="16dp" />
 
                         <TextView
+                            android:id="@+id/text_sex"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_layout_blue"
@@ -114,7 +116,8 @@
                             android:paddingRight="8dp"
                             android:text="♂20"
                             android:textColor="@color/colorWhite"
-                            android:textSize="8sp" />
+                            android:textSize="8sp"
+                            android:layout_marginLeft="10dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -146,6 +149,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/text_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/user_location"
@@ -187,13 +191,39 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="19dp"
                     android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="86dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp">
+
+                        <ProgressBar
+                            android:id="@+id/progress_matching_rate"
+                            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                            android:layout_width="86dp"
+                            android:layout_height="30dp"
+                            android:indeterminate="false"
+                            android:max="100"
+
+                            android:progressDrawable="@drawable/bar_color" />
+
+                        <TextView
+                            android:id="@+id/progress_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="86dp"
                         android:layout_height="25dp"
                         android:background="@drawable/rounded_layout_blue"
                         android:gravity="center"
-                        android:text="@string/lifebook" />
+                        android:text="@string/lifebook"
+                        android:layout_marginTop="6dp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -222,9 +252,10 @@
                     android:background="@mipmap/icon_eraser_01" />
 
                 <TextView
+                    android:id="@+id/text_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="123132132"
+
                     android:textColor="@color/colorAccent"
                     android:textSize="13sp" />
 
@@ -347,7 +378,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="21dp"
-                    android:background="@mipmap/icon_header_message_2" />
+                    android:background="@mipmap/icon_header_message_1" />
 
                 <TextView
                     android:layout_width="wrap_content"

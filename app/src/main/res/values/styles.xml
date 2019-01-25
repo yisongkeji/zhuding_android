@@ -11,8 +11,6 @@
 
 
 
-
-
     <!--dialog-->
     <style name="MyDialog" parent="android:Theme.Dialog">
         <!-- 背景颜色及透明程度 -->
@@ -28,4 +26,25 @@
 
     </style>
 
+
+
+    <style name="Boxing.ToolbarTheme" parent="Boxing.AppTheme.NoActionBar" >
+        <item name="titleTextColor">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorBlack</item>
+    </style>
+    <!-- BoxingActivity Theme-->
+    <style name="Boxing.AppTheme.NoActionBar" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">false</item>
+    </style>
+    <!-- TextAppearance -->
+    <style name="Boxing.TextAppearance.App.Medium" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="Boxing.PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/boxing_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/boxing_fade_out</item>
+    </style>
 </resources>

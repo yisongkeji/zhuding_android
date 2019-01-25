@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,6 +45,7 @@ import chat.foreseers.com.foreseers.bean.RecommendBean;
 import chat.foreseers.com.foreseers.global.BaseMainFragment;
 import chat.foreseers.com.foreseers.util.GetLocation;
 import chat.foreseers.com.foreseers.util.Urls;
+import chat.foreseers.com.foreseers.view.DoubleSlideSeekBar;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -73,6 +75,11 @@ public class MatchFragment extends BaseMainFragment {
     private SharedPreferences sPreferences;
     private int mNextRequestPage = 1;
     private LocationBean locationBean;
+    private String sex;
+    private SharedPreferences userInfo;
+    private String ageLittle;
+    private String agebig;
+    private int distance;
 
     public MatchFragment() {
         // Required empty public constructor
@@ -114,11 +121,33 @@ public class MatchFragment extends BaseMainFragment {
     public void initDatas() {
 
         if (facebookid == null || huanXinId == null) {
-            sPreferences = getActivity().getSharedPreferences("loginToken",
-                    MODE_PRIVATE);
+            sPreferences = getActivity().getSharedPreferences("loginToken", MODE_PRIVATE);
             facebookid = sPreferences.getString("token", "");
             huanXinId = sPreferences.getString("huanXinId", "");
+            userInfo = getActivity().getSharedPreferences("condition", MODE_PRIVATE);
+            Log.i("condition", "initDatas: sex" + userInfo.getString("sex", ""));
+            Log.i("condition", "initDatas: ageLittle" + userInfo.getString("ageLittle", ""));
+            Log.i("condition", "initDatas: agebig" + userInfo.getString("agebig", ""));
+            Log.i("condition", "initDatas: distance" + userInfo.getInt("distance", 0));
 
+
+            sex = userInfo.getString("sex", "");
+            if (sex == null) {
+                sex = "";
+            }
+            ageLittle = userInfo.getString("ageLittle", "");
+            if (ageLittle == null||ageLittle.equals("")) {
+                ageLittle = "12";
+            }
+            agebig = userInfo.getString("agebig", "");
+            if (agebig.equals("")||agebig==null) {
+                agebig = "50";
+            }
+            Log.i("condition", "initData########s: agebig" + agebig+"ageLittle"+ageLittle);
+            distance = userInfo.getInt("distance", 0);
+            if (distance == 0) {
+                distance = 100;
+            }
         }
 
 
@@ -126,8 +155,6 @@ public class MatchFragment extends BaseMainFragment {
         swipeLayout.setRefreshing(true);
         refresh();
     }
-
-
 
 
     private void getDataFromHttp() {
@@ -143,6 +170,10 @@ public class MatchFragment extends BaseMainFragment {
                 .params("addrs", locationBean.getAddrs())
                 .params("lat", locationBean.getLat())
                 .params("lng", locationBean.getLng())
+                .params("sex", sex)
+                .params("ageLittle", ageLittle)
+                .params("agebig", agebig)
+                .params("distance", distance)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -187,17 +218,61 @@ public class MatchFragment extends BaseMainFragment {
 
     @OnClick(R.id.img_match_filter)
     public void onViewClicked() {
-        View customView = View.inflate(getActivity(), R.layout.item_match_filter, null);
+        final View view = View.inflate(getActivity(), R.layout.item_match_filter, null);
 
 
         new PopWindow.Builder(getActivity())
                 .setStyle(PopWindow.PopWindowStyle.PopUp)
-                .addContentView(customView)
+                .addContentView(view)
                 .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new
                         PopItemAction.OnClickListener() {
                             @Override
                             public void onClick() {
                                 Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
+
+                                RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+                                radioGroup.setOnCheckedChangeListener(new RadioGroup
+                                        .OnCheckedChangeListener() {
+
+                                    @Override
+                                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                                        switch (i) {
+                                            case R.id.radio_left://男M
+                                                sex = "M";
+                                                break;
+                                            case R.id.radio_middle://不限
+                                                sex = "";
+                                                break;
+                                            case R.id.radio_right://女F
+                                                sex = "F";
+                                                break;
+
+
+                                        }
+                                    }
+                                });
+
+                                DoubleSlideSeekBar doubleslide_age = view.findViewById(R.id
+                                        .doubleslide_age);
+
+                                ageLittle = doubleslide_age.getSmallRange() + "";
+                                agebig = doubleslide_age.getBigRange() + "";
+                                Log.i("@@@@@@@@@@", "onClick: " + ageLittle);
+                                DoubleSlideSeekBar doubleslide_distance = view.findViewById(R.id
+                                        .doubleslide_distance);
+
+                                distance = (int) doubleslide_distance.getBigRange();
+
+
+                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+                                // 得到Editor后，写入需要保存的数据
+                                editor.putString("sex", sex);
+                                editor.putString("ageLittle", ageLittle);
+                                editor.putString("agebig", agebig);
+                                editor.putInt("distance", distance);
+                                editor.commit();//提交修改
+                                Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId",
+                                        ""));
                             }
                         }))
                 .show();

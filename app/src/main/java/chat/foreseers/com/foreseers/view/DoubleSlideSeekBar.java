@@ -459,6 +459,15 @@ public class DoubleSlideSeekBar extends View {
         return true;
     }
 
+    public int getSmallRange(){
+        return (int) smallRange;
+    }
+
+    public int getBigRange() {
+        return (int) bigRange;
+    }
+
+
     /**
      * 判断当前是否是最大值
      */

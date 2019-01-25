@@ -33,11 +33,10 @@ public class SplashActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         AlphaAnimation animation = new AlphaAnimation(0.3f, 1.0f);
-        animation.setDuration(1500);
+        animation.setDuration(0);
         layoutSplash.startAnimation(animation);
 
 
-        isFirst();
     }
 
     @Override
@@ -46,32 +45,7 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                if (EMClient.getInstance().isLoggedInBefore()) {
-                    EMClient.getInstance().chatManager().loadAllConversations();
-                    EMClient.getInstance().groupManager().loadAllGroups();
-                    long start = System.currentTimeMillis();
-                    long costTime = System.currentTimeMillis() - start;
-                    if (sleepTime - costTime > 0) {
-                        try {
-                            Thread.sleep(sleepTime - costTime);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-
-                    finish();
-                } else {
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                    }
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                    finish();
-                }
-
+                isFirst();
 
             }
         }).start();
@@ -87,11 +61,36 @@ public class SplashActivity extends AppCompatActivity {
 
         } else {//不是第一次打开——》判断是否登陆过
             getHuanXinLogin();
-            if (facebookid == null || huanXinId == "") {//没登陆过
+            Log.i("facebookid", "isFirst: " + facebookid + "huanXinId" + huanXinId);
+            if (facebookid == null && huanXinId == "") {//没登陆过
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
             } else {//登陆过
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                if (EMClient.getInstance().isLoggedInBefore()) {
+                    EMClient.getInstance().chatManager().loadAllConversations();
+                    EMClient.getInstance().groupManager().loadAllGroups();
+                    long start = System.currentTimeMillis();
+                    long costTime = System.currentTimeMillis() - start;
+//                    if (sleepTime - costTime > 0) {
+//                        try {
+//                            Thread.sleep(sleepTime - costTime);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
+                    finish();
+                } else {
+//                    try {
+//                        Thread.sleep(sleepTime);
+//                    } catch (InterruptedException e) {
+//                    }
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
+                }
+//                startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
             }
 
@@ -126,8 +125,10 @@ public class SplashActivity extends AppCompatActivity {
         SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
 
         huanXinId = userInfo.getString("huanXinId", "");
-
+        facebookid = userInfo.getString("token", "");
 
         Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
+
+
     }
 }

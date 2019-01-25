@@ -1,12 +1,18 @@
 package chat.foreseers.com.foreseers.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -36,15 +43,27 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.bumptech.glide.Glide;
+
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.listener.OnCheckedListener;
+import com.zhihu.matisse.listener.OnSelectedListener;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +73,11 @@ import chat.foreseers.com.foreseers.bean.LocationBean;
 import chat.foreseers.com.foreseers.bean.UserDataBean;
 import chat.foreseers.com.foreseers.dialog.DoubtDialog;
 import chat.foreseers.com.foreseers.util.GetLocation;
+import chat.foreseers.com.foreseers.util.GifSizeFilter;
 import chat.foreseers.com.foreseers.util.LimitInputTextWatcher;
 import chat.foreseers.com.foreseers.util.Urls;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class UserDataActivity extends AppCompatActivity {
@@ -81,7 +103,7 @@ public class UserDataActivity extends AppCompatActivity {
     @BindView(R.id.bt_affirm)
     Button btAffirm;
     @BindView(R.id.layout_user_data_affirm)
-    LinearLayout layoutUserDataAffirm;
+    FrameLayout layoutUserDataAffirm;
     @BindView(R.id.umg_name_modification)
     ImageView umgNameModification;
     @BindView(R.id.umg_birth_modification)
@@ -104,6 +126,14 @@ public class UserDataActivity extends AppCompatActivity {
     TextView textUserTimezoneAffirm;
     @BindView(R.id.layout_user_data)
     RelativeLayout layoutUserData;
+    @BindView(R.id.img_head)
+    ImageView imgHead;
+    @BindView(R.id.bt_affirm_head)
+    Button btAffirmHead;
+    @BindView(R.id.layout_user_head)
+    LinearLayout layoutUserHead;
+    @BindView(R.id.img_head_affirm)
+    ImageView imgHeadAffirm;
 
     private TimePickerView pvCustomLunar;
     private int i = 0;
@@ -128,6 +158,7 @@ public class UserDataActivity extends AppCompatActivity {
     private Gson gson;
     private UserDataBean userDataBean;
     private UserDataBean.DataBean userData;
+    private static final int REQUEST_CODE_CHOOSE = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +168,7 @@ public class UserDataActivity extends AppCompatActivity {
 
         init();
         Listen();
-
+        initauthority();
     }
 
     private void init() {
@@ -155,6 +186,7 @@ public class UserDataActivity extends AppCompatActivity {
 
         layoutUserName.setVisibility(View.VISIBLE);
         layoutUserBirth.setVisibility(View.GONE);
+        layoutUserHead.setVisibility(View.GONE);
         layoutUserDataAffirm.setVisibility(View.GONE);
     }
 
@@ -334,8 +366,9 @@ public class UserDataActivity extends AppCompatActivity {
 
 
     @OnClick({R.id.img_doubt, R.id.bt_affirm_name, R.id.text_user_birth, R.id.bt_affirm_birth, R
-            .id.bt_affirm, R.id.umg_name_modification, R.id.umg_sex_modification, R.id
-            .umg_birth_modification, R.id.text_user_timezone, R.id.umg_timezone_modification})
+            .id.bt_affirm, R.id.img_head, R.id.umg_name_modification, R.id.umg_sex_modification,
+            R.id.umg_birth_modification, R.id.text_user_timezone, R.id.bt_affirm_head, R.id
+            .umg_timezone_modification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_doubt:
@@ -389,8 +422,9 @@ public class UserDataActivity extends AppCompatActivity {
             case R.id.bt_affirm_birth://出生日期确认button
                 layoutUserName.setVisibility(View.GONE);
                 layoutUserBirth.setVisibility(View.GONE);
-                layoutUserDataAffirm.setVisibility(View.VISIBLE);
-                chengAnimation();
+                layoutUserHead.setVisibility(View.VISIBLE);
+                layoutUserDataAffirm.setVisibility(View.GONE);
+
                 break;
 
             case R.id.umg_name_modification:
@@ -415,6 +449,90 @@ public class UserDataActivity extends AppCompatActivity {
                 layoutUserBirth.setVisibility(View.VISIBLE);
                 layoutUserDataAffirm.setVisibility(View.GONE);
                 break;
+
+            case R.id.img_head://选择头像
+
+                RxPermissions rxPermissions = new RxPermissions(this);
+                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
+                        .permission.CAMERA)
+                        .subscribe(new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                            }
+
+                            @Override
+                            public void onNext(Boolean aBoolean) {
+                                if (aBoolean) {
+                                    Matisse.from(UserDataActivity.this)
+                                            .choose(MimeType.ofAll(), false)
+                                            .countable(true)
+                                            .capture(true)
+                                            .captureStrategy(new CaptureStrategy(true, "com" +
+                                                    ".foreseers.chat.fileprovider", "test"))
+                                            .maxSelectable(1)
+                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
+                                                    Filter.K))
+                                            .gridExpectedSize(getResources()
+                                                    .getDimensionPixelSize(R.dimen
+                                                            .grid_expected_size))
+                                            .restrictOrientation(ActivityInfo
+                                                    .SCREEN_ORIENTATION_PORTRAIT)
+                                            .thumbnailScale(0.85f)
+//                                            .imageEngine(new GlideEngine())  // for glide-V3
+                                            .imageEngine(new GlideEngine())    // for glide-V4
+                                            .setOnSelectedListener(new OnSelectedListener() {
+                                                @Override
+                                                public void onSelected(
+                                                        @NonNull List<Uri> uriList, @NonNull
+                                                        List<String> pathList) {
+                                                    // DO SOMETHING IMMEDIATELY HERE
+                                                    Log.e("onSelected", "onSelected: pathList=" +
+                                                            pathList);
+
+                                                }
+                                            })
+                                            .originalEnable(true)
+                                            .maxOriginalSize(10)
+                                            .autoHideToolbarOnSingleTap(true)
+                                            .setOnCheckedListener(new OnCheckedListener() {
+                                                @Override
+                                                public void onCheck(boolean isChecked) {
+                                                    // DO SOMETHING IMMEDIATELY HERE
+                                                    Log.e("isChecked", "onCheck: isChecked=" +
+                                                            isChecked);
+                                                }
+                                            })
+                                            .forResult(REQUEST_CODE_CHOOSE);
+                                } else {
+                                    Toast.makeText(UserDataActivity.this, R.string
+                                            .permission_request_denied, Toast.LENGTH_LONG)
+                                            .show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+                break;
+
+
+            case R.id.bt_affirm_head://头像确认
+                Log.i("######", "onViewClicked: #########");
+                layoutUserHead.setVisibility(View.GONE);
+                layoutUserName.setVisibility(View.GONE);
+                layoutUserBirth.setVisibility(View.GONE);
+                layoutUserDataAffirm.setVisibility(View.VISIBLE);
+                chengAnimation();
+                break;
+
             case R.id.bt_affirm://最终确认
 
                 upData();
@@ -423,6 +541,37 @@ public class UserDataActivity extends AppCompatActivity {
 
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+//            mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
+            Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)) +
+                    "%%%%%%%%%" + Matisse.obtainPathResult(data).get(0));
+            String path = Matisse.obtainPathResult(data).get(0);
+
+            String[] arr = path.split("_");
+            String newpath = arr[arr.length - 1];
+
+            Glide.with(this).load(path).into(imgHead);
+            Glide.with(this).load(path).into(imgHeadAffirm);
+            btAffirmHead.setBackgroundResource(R.drawable.rounded_text_accent);
+            btAffirmHead.setEnabled(true);
+            Log.e("OnActivityResult ", "newpath: " + newpath);
+
+            Log.e("OnActivityResult", "path: " + path);
+            OkGo.<String>post(Urls.Url_UserHead).tag(this)
+                    .params("facebookid", facebookId)
+                    .params("file", new File(path))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+
+                        }
+                    });
         }
     }
 
@@ -461,7 +610,7 @@ public class UserDataActivity extends AppCompatActivity {
                         gson = new Gson();
                         userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                         if (userDataBean.getStatus().equals("success")) {
-                            userData=userDataBean.getData();
+                            userData = userDataBean.getData();
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
                         } else if (userDataBean.getStatus().equals("fail")) {
                             Toast.makeText(UserDataActivity.this, "发送失败", Toast.LENGTH_LONG).show();
@@ -486,17 +635,18 @@ public class UserDataActivity extends AppCompatActivity {
             switch (msg.what) {
                 case DATASUCCESS:
 
-                        intent = new Intent(UserDataActivity.this, LifeBookActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("xingzuo", userData.getXingzuo());
-                        bundle.putString("zodiac", userData.getZodiac());
-                        bundle.putString("ziwei", userData.getZiwei());
-                        bundle.putInt("numerology", userData.getNumerology());
-                        bundle.putString("bazi", userData.getBazi());
-                        Log.i("intent", "handleMessage:"+userData.getXingzuo()+"&&"+ userData.getBazi());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        saveLogin(userData.getId());
+                    intent = new Intent(UserDataActivity.this, LifeBookActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("xingzuo", userData.getXingzuo());
+                    bundle.putString("zodiac", userData.getZodiac());
+                    bundle.putString("ziwei", userData.getZiwei());
+                    bundle.putInt("numerology", userData.getNumerology());
+                    bundle.putString("bazi", userData.getBazi());
+                    Log.i("intent", "handleMessage:" + userData.getXingzuo() + "&&" + userData
+                            .getBazi());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    saveLogin(userData.getId());
 
 
                     break;
@@ -538,6 +688,8 @@ public class UserDataActivity extends AppCompatActivity {
 
             }
         })
+                .setSubmitColor(R.color.colorAccent)
+                .setCancelColor(R.color.colorAccent)
                 .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {
@@ -650,19 +802,31 @@ public class UserDataActivity extends AppCompatActivity {
 
         });
     }
+
     /**
      * 保存登录token（facebookID）
      */
 
-    public void saveLogin(int huanXinId){
+    public void saveLogin(int huanXinId) {
         SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
         SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
         editor.putString("token", facebookId);
-        editor.putString("huanXinId", huanXinId+"");
+        editor.putString("huanXinId", huanXinId + "");
         editor.commit();//提交修改
-        Log.i("facebookid", "isLogin: "+userInfo.getString("token", ""));
+        Log.i("facebookid", "isLogin: " + userInfo.getString("token", ""));
 
 
     }
 
+    /**
+     * 获取权限
+     */
+    private void initauthority() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, mPermissionList, 123);
+        }
+    }
 }

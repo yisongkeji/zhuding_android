@@ -96,6 +96,8 @@ public class ChatFriendFragment extends EaseBaseFragment {
         clearSearch = (ImageButton) getView().findViewById(com.hyphenate.easeui.R.id.search_clear);
         query = (EditText) getView().findViewById(com.hyphenate.easeui.R.id.query);
 
+
+
     }
 
     @Override

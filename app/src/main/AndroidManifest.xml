@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="chat.foreseers.com.foreseers">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -85,7 +86,10 @@
         <activity android:name=".activity.LoginActivity">
 
         </activity>
-        <activity android:name=".activity.UserDataActivity" />
+        <activity android:name=".activity.UserDataActivity" >
+
+
+        </activity>
 
         <activity android:name=".activity.LoadHoroscopeActivity" />
         <activity android:name=".activity.UserDetailsActivity" />
@@ -95,6 +99,15 @@
         <activity android:name=".testActivity" />
         <activity android:name=".activity.LifeBookActivity" />
         <activity android:name=".activity.ChatActivity"></activity>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.foreseers.chat.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public"></meta-data>
+        </provider>
     </application>
 
 </manifest>

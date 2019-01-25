@@ -6,13 +6,14 @@ public class RecommendBean {
 
     /**
      * status : success
-     * data : [{"id":63,"username":"zheng3","sex":"F","date":"2002-01-16","time":"16:00:00",
-     * "zone":13,"facebook":"46797950360651","num":null,"head":null,"picture":null,"vip":null,
-     * "viptime":null,"city":"天津市","bazi":"辛巳,辛丑,甲申,壬申","zodiac":"蛇","xingzuo":"摩羯座",
-     * "ziwei":"天相","area":"天津市","country":"中国","lat":39.177098,"lng":117.132513,"spare":"红桥区",
-     * "spare1":"保康路天津市誉华专修学院","updatetime":"2019-01-16T08:08:30.000+0000","obligate":null,
-     * "numerology":3,"userstar":8,"reservedint":null,"reservedvar":null,"reservedvar1":null,
-     * "cat1":"木","userscore":58,"distance":1,"numuser":1}]
+     * data : [{"id":62,"username":"zheng3","sex":"F","date":"2002-01-16","time":"16:00:00",
+     * "zone":13,"facebook":"46797950360650","num":null,
+     * -2.3.1235-_F8FC5F21C67B7366457C2359888827AB.jpg","picture":null,"vip":null,"viptime":null,
+     * "city":"天津市","bazi":"辛巳,辛丑,甲申,壬申","zodiac":"蛇","xingzuo":"摩羯座","ziwei":"天相","area":"天津市",
+     * "country":"中国","lat":39.177125,"lng":117.132536,"spare":"红桥区","spare1":"保康路天津市誉华专修学院",
+     * "updatetime":"2019-01-16T08:08:25.000+0000","obligate":null,"numerology":3,"userstar":8,
+     * "reservedint":null,"reservedvar":null,"reservedvar1":null,"cat1":"木","userscore":74,
+     * "distance":1,"numuser":1,"age":17}]
      */
 
     private String status;
@@ -36,15 +37,15 @@ public class RecommendBean {
 
     public static class DataBean {
         /**
-         * id : 63
+         * id : 62
          * username : zheng3
          * sex : F
          * date : 2002-01-16
          * time : 16:00:00
          * zone : 13
-         * facebook : 46797950360651
+         * facebook : 46797950360650
          * num : null
-         * head : null
+         * -_F8FC5F21C67B7366457C2359888827AB.jpg
          * picture : null
          * vip : null
          * viptime : null
@@ -55,11 +56,11 @@ public class RecommendBean {
          * ziwei : 天相
          * area : 天津市
          * country : 中国
-         * lat : 39.177098
-         * lng : 117.132513
+         * lat : 39.177125
+         * lng : 117.132536
          * spare : 红桥区
          * spare1 : 保康路天津市誉华专修学院
-         * updatetime : 2019-01-16T08:08:30.000+0000
+         * updatetime : 2019-01-16T08:08:25.000+0000
          * obligate : null
          * numerology : 3
          * userstar : 8
@@ -67,9 +68,10 @@ public class RecommendBean {
          * reservedvar : null
          * reservedvar1 : null
          * cat1 : 木
-         * userscore : 58
+         * userscore : 74
          * distance : 1
          * numuser : 1
+         * age : 17
          */
 
         private int id;
@@ -79,8 +81,8 @@ public class RecommendBean {
         private String time;
         private int zone;
         private String facebook;
-        private Object num;
-        private Object head;
+        private int num;
+        private String head;
         private Object picture;
         private Object vip;
         private Object viptime;
@@ -106,6 +108,16 @@ public class RecommendBean {
         private int userscore;
         private int distance;
         private int numuser;
+        private int age;
+
+        public void setNum(int num) {
+            this.num = num;
+        }
+
+        public int getNum() {
+
+            return num;
+        }
 
         public int getId() {
             return id;
@@ -163,19 +175,13 @@ public class RecommendBean {
             this.facebook = facebook;
         }
 
-        public Object getNum() {
-            return num;
-        }
 
-        public void setNum(Object num) {
-            this.num = num;
-        }
 
-        public Object getHead() {
+        public String getHead() {
             return head;
         }
 
-        public void setHead(Object head) {
+        public void setHead(String head) {
             this.head = head;
         }
 
@@ -377,6 +383,14 @@ public class RecommendBean {
 
         public void setNumuser(int numuser) {
             this.numuser = numuser;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
         }
     }
 }

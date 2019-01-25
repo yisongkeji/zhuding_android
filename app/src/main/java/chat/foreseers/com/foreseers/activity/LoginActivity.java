@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
+                        if (loginBean.getStatus().equals("success")) {//老用户
                             huanXinId = gson.fromJson(response.body(), UserDataBean.class)
                                     .getData().getId();
                             Log.i("okgo", "onSuccess: " + huanXinId);
@@ -283,6 +283,9 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("huanXinId", huanXinId + "");
         editor.commit();//提交修改
         Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
+        SharedPreferences  sharedPreferences = getSharedPreferences("condition", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPreferences.edit();
+        editor1.commit();
     }
 
     /**

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.hyphenate.easeui.EaseConstant;
@@ -36,6 +37,20 @@ public class UserDetailsActivity extends AppCompatActivity {
     LinearLayout layoutRemark;
     @BindView(R.id.layout_analyze_life_book)
     LinearLayout layoutAnalyzeLifeBook;
+    @BindView(R.id.text_name)
+    TextView textName;
+    @BindView(R.id.chat_user_details)
+    LinearLayout chatUserDetails;
+    @BindView(R.id.text_sex)
+    TextView textSex;
+    @BindView(R.id.text_num)
+    TextView textNum;
+    @BindView(R.id.text_location)
+    TextView textLocation;
+    @BindView(R.id.progress_matching_rate)
+    ProgressBar progressMatchingRate;
+    @BindView(R.id.progress_text)
+    TextView progressText;
 
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
@@ -43,6 +58,11 @@ public class UserDetailsActivity extends AppCompatActivity {
     private int userid;
     private Bundle bundle;
     private String username;
+    private String sex;
+    private int age;
+    private int num;
+    private int distance;
+    private int userscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +72,30 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         initData();
 
+        initView();
 
+    }
+
+    private void initView() {
+        textName.setText(username);
+        textUserDetailsName.setText(username);
+        switch (sex) {
+            case "F":
+                textSex.setBackgroundResource(R.drawable.rounded_layout_pink);
+                textSex.setText("♀" + age);
+                break;
+            case "M":
+                textSex.setBackgroundResource(R.drawable.rounded_layout_blue);
+                textSex.setText("♂" + age);
+                break;
+
+            default:
+                break;
+        }
+        textNum.setText(num + "");
+        textLocation.setText(R.string.user_location+distance + "");
+        progressMatchingRate.setProgress(userscore);
+        progressText.setText("匹配度"+userscore+"%");
     }
 
     private void initData() {
@@ -60,6 +103,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         userid = bundle.getInt("userid");
         username = bundle.getString("username");
+        sex = bundle.getString("sex");
+        age = bundle.getInt("age");
+        num = bundle.getInt("num");
+        distance = bundle.getInt("distance");
+        userscore = bundle.getInt("userscore");
     }
 
     @OnClick({R.id.goback, R.id.img_add_friend, R.id.layout_remark, R.id
@@ -133,7 +181,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             case R.id.chat_user_details://发消息
                 intent = new Intent(this, ChatActivity.class);
                 bundle = new Bundle();
-                bundle.putString(EaseConstant.EXTRA_USER_ID, userid+"");
+                bundle.putString(EaseConstant.EXTRA_USER_ID, userid + "");
                 bundle.putString("username", username);
                 intent.putExtras(bundle);
                 startActivity(intent);
