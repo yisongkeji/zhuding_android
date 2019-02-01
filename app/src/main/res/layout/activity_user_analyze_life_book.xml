@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.UserAnalyzeLifeBookActivity">
+    tools:context="com.foreseers.chat.activity.UserAnalyzeLifeBookActivity">
 
     <!--bar-->
     <FrameLayout
@@ -137,7 +137,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center">
 
-                <com.foreseers.chat.foreseers.view.decoviewlib.DecoView
+                <com.foreseers.chat.view.decoviewlib.DecoView
                     android:id="@+id/characterScore"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
@@ -176,7 +176,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center">
 
-                <com.foreseers.chat.foreseers.view.decoviewlib.DecoView
+                <com.foreseers.chat.view.decoviewlib.DecoView
                     android:id="@+id/mindScore"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
@@ -216,7 +216,7 @@
                 android:layout_weight="0.5"
                 android:gravity="center">
 
-                <com.foreseers.chat.foreseers.view.decoviewlib.DecoView
+                <com.foreseers.chat.view.decoviewlib.DecoView
                     android:id="@+id/bodyScore"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />

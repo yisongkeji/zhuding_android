@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_add_friend_error">
+    <FrameLayout
+        android:id="@+id/layout_send_success"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/rounded_linelayout">
+
+            <TextView
+                android:id="@+id/text_send_seccess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="37dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginBottom="59dp"
+                android:text="@string/send_defeated"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp" />
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/dialog_send_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:background="@mipmap/icon_notice_ok_02" />
+    </FrameLayout>
+
+
+</LinearLayout>

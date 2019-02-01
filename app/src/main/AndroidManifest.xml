@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.foreseers.chat.foreseers">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -24,7 +23,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.foreseers.chat.foreseers.global.MyApplication"
+        android:name="com.foreseers.chat.global.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -74,40 +73,39 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.foreseers.chat.foreseers.activity.SplashActivity">
+        <activity android:name="com.foreseers.chat.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.foreseers.chat.foreseers.activity.MainActivity"></activity>
-        <activity android:name="com.foreseers.chat.foreseers.activity.LoginActivity">
-
-        </activity>
-        <activity android:name="com.foreseers.chat.foreseers.activity.UserDataActivity" >
-
-
-        </activity>
-
-        <activity android:name="com.foreseers.chat.foreseers.activity.LoadHoroscopeActivity" />
-        <activity android:name="com.foreseers.chat.foreseers.activity.UserDetailsActivity" />
+        <activity
+            android:name="com.foreseers.chat.activity.MainActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.foreseers.chat.activity.LoginActivity" />
+        <activity android:name="com.foreseers.chat.activity.UserDataActivity" />
+        <activity android:name="com.foreseers.chat.activity.LoadHoroscopeActivity" />
+        <activity android:name="com.foreseers.chat.activity.UserDetailsActivity" />
         <!-- <activity android:name=".dialog.AddFriendDialog" /> -->
-        <activity android:name="com.foreseers.chat.foreseers.activity.RemarkActivity" />
-        <activity android:name="com.foreseers.chat.foreseers.activity.UserAnalyzeLifeBookActivity" />
-        <activity android:name="com.foreseers.chat.foreseers.testActivity" />
-        <activity android:name="com.foreseers.chat.foreseers.activity.LifeBookActivity" />
-        <activity android:name="com.foreseers.chat.foreseers.activity.ChatActivity"></activity>
+        <activity android:name="com.foreseers.chat.activity.RemarkActivity" />
+        <activity android:name="com.foreseers.chat.activity.UserAnalyzeLifeBookActivity" />
+        <activity android:name="com.foreseers.chat.activity.LifeBookActivity" />
+        <activity android:name="com.foreseers.chat.activity.ChatActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.foreseers.com.fileprovider"
+            android:authorities="com.foreseers.chat.foreseers"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_public"></meta-data>
+                android:resource="@xml/file_paths_public" />
         </provider>
+
+        <activity android:name="com.foreseers.chat.activity.ImgAlbumActivity" />
+        <activity android:name="com.foreseers.chat.activity.ChangeUserDataActivity" />
+        <activity android:name="com.foreseers.chat.activity.NewFriendsMsgActivity"></activity>
     </application>
 
 </manifest>

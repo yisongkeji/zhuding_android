@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".fragment.ChatFragment">
+    tools:context="com.foreseers.chat.fragment.ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="9dp"
             android:orientation="horizontal">
 
@@ -38,45 +39,31 @@
         </LinearLayout>
 
 
-        <RadioGroup
-            android:id="@+id/chat_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/chat_radio_friend"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/chat_radio"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:text="@string/friend"
-
-                android:textColor="@color/colorWhite" />
-
-            <RadioButton
-                android:id="@+id/chat_radio_temporary_session"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:alpha="0.5"
-                android:background="@drawable/chat_radio"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/temporary_session"
-                android:textColor="@color/colorWhite" />
-        </RadioGroup>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/friend"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorWhite" />
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/chat_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fl_error_item"
+        >
+    </FrameLayout>
+
+    <com.hyphenate.easeui.widget.EaseConversationList
+        android:id="@+id/conversation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        hyphenate:cvsListPrimaryTextSize="16sp"
+        android:overScrollMode="never" />
 </LinearLayout>

@@ -70,7 +70,7 @@
         android:orientation="horizontal">
 
 
-        <com.foreseers.chat.foreseers.view.DoubleSlideSeekBar
+        <com.foreseers.chat.view.DoubleSlideSeekBar
             android:id="@+id/doubleslide_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
         android:textColor="@color/colorBlack"
         android:textSize="18sp" />
 
-    <com.foreseers.chat.foreseers.view.DoubleSlideSeekBar
+    <com.foreseers.chat.view.DoubleSlideSeekBar
         android:id="@+id/doubleslide_distance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

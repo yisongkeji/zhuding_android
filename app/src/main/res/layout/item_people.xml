@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:maxHeight="150dp"
             android:scaleType="fitXY"
             app:corner_radius="15px"
             app:icon_src_normal="@mipmap/icon_avatar_02" />

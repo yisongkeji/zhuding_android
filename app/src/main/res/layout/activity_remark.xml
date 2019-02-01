@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorGray3"
-    tools:context=".activity.RemarkActivity">
+    tools:context="com.foreseers.chat.activity.RemarkActivity">
 
     <!--bar-->
     <FrameLayout

@@ -1,52 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragment.MatchFragment">
+    tools:context="com.foreseers.chat.fragment.MatchFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@mipmap/icon_header_case_01"
-        android:elevation="3dp">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/item3"
-            android:textColor="@color/colorWhite"
-            android:textSize="22sp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="43dp"
+        android:elevation="5dp">
 
         <ImageView
-            android:id="@+id/img_match_filter"
+            android:layout_width="156dp"
+            android:layout_height="53dp"
+            android:background="@mipmap/icon_header_btn_01" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="15dp"
-            android:padding="8dp"
-            android:src="@mipmap/icon_footer_profile_01" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="17dp"
+                android:background="@mipmap/icon_header_btn_02"
+                android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="附近的人"
+                android:layout_marginLeft="7dp"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"/>
+        </LinearLayout>
     </FrameLayout>
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_people"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@mipmap/icon_header_case_01"
+            android:elevation="3dp">
+
+
+            <ImageView
+                android:id="@+id/img_match_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:padding="8dp"
+                android:src="@mipmap/icon_footer_profile_01" />
+
+        </FrameLayout>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-         />
-    </android.support.v4.widget.SwipeRefreshLayout>
-</LinearLayout>
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_people"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -18,9 +18,11 @@
     <string name="accomplish">完成</string>
     //text
     <string name="name">姓名</string>
+    <string name="nickname">暱稱</string>
     <string name="birth">出生日期</string>
     <string name="sex">性別</string>
     <string name="age">年齡</string>
+    <string name="xingsu">星宿</string>
     <string name="man">男</string>
     <string name="woman">女</string>
     <string name="timezone">時區</string>
@@ -51,6 +53,11 @@
     <string name="character">分析TA的個人性格</string>
     <string name="comment">分析你與TA的個人評語</string>
 
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="time">時</string>
+
     <!--命书-->
     <string name="txt_personal_analysis">已完成計算您的專屬命書</string>
     <string name="txt_horoscope">星座</string>
@@ -67,12 +74,17 @@
     <string name="item4">商店</string>
     <string name="item5">個人</string>
 
+    <!--tittle-->
+    <string name="change_user_data">更改个人信息</string>
+    <string name="address_list">通讯录</string>
+
+
     <!--提示-->
     <string name="press_again_exit">再次點擊退出</string>
     <string name="no_friend_number">您的好友位置已被充滿，\n請擴充後再來發送好友請求吧。</string>
-    <string name="add_friend">要向name發送好友請求嗎？您還剩餘number個好友位置。（對方同意才能成為您的好友）</string>
+    <string name="my_add_friend">要向name發送好友請求嗎？您還剩餘num個好友位置。（對方同意才能成為您的好友）</string>
     <string name="send_success">好友請求發送成功！請等待對方同意。</string>
-    <string name="send_defeated">好友請求發送失敗，對方可能設置了不允許被添加或已將您屏蔽。</string>
+    <string name="send_defeated">好友請求發送失敗，您的好友位置已被充滿。</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
