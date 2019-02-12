@@ -56,7 +56,7 @@ public class LifeBookActivity extends AppCompatActivity {
         textHoroscope.setText(xingzuo);
         textZodiac.setText(zodiac);
         textZiwei.setText(ziwei);
-        textNumerology.setText(numerology);
+        textNumerology.setText(numerology+"");
         textBazi4.setText(bazi[0]);
         textBazi3.setText(bazi[1]);
         textBazi2.setText(bazi[2]);
