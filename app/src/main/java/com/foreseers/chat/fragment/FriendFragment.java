@@ -36,6 +36,7 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseBaseFragment;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
@@ -57,6 +58,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.exception.OkGoException;
 import com.lzy.okgo.model.Response;
+
+import static com.hyphenate.easeui.utils.EaseUserUtils.getUserInfo;
 
 /**
  * 联系人
@@ -135,10 +138,13 @@ public class FriendFragment extends EaseBaseFragment {
                             dataBeans = friendBean.getData();
                             for (int i = 0; i < dataBeans.size(); i++) {
                                 easeUser = new EaseUser(dataBeans.get(i).getUsername());
+                                easeUser.setAvatar(dataBeans.get(i).getUserhead());
+
                                 map.put(i + "", easeUser);
                             }
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
+                            Log.i(TAG, "onSuccess: "+easeUser.getAvatar());
                         }
 
                     }
@@ -317,6 +323,7 @@ public class FriendFragment extends EaseBaseFragment {
                         //filter out users in blacklist
                         EaseUser user = entry.getValue();
                         EaseCommonUtils.setUserInitialLetter(user);
+                        Log.i(TAG, "user: "+user.getAvatar());
                         contactList.add(user);
                     }
                 }
@@ -440,6 +447,7 @@ public class FriendFragment extends EaseBaseFragment {
             switch (msg.what) {
                 case DATASUCCESS:
                     setContactsMap(map);
+                    refresh();
                     break;
                 case DATAFELLED:
 

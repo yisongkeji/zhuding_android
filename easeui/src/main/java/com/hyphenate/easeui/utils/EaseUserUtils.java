@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class EaseUserUtils {
      */
     public static void setUserAvatar(Context context, String username, ImageView imageView){
     	EaseUser user = getUserInfo(username);
+        Log.i("TAG", "user: "+user+"   user.getAvatar()"+user.getAvatar());
         if(user != null && user.getAvatar() != null){
             try {
                 int avatarResId = Integer.parseInt(user.getAvatar());

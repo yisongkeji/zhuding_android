@@ -66,6 +66,7 @@ public class MyApplication extends Application {
         easeUI = EaseUI.getInstance();
         setEaseUIProviders();
         registerMessageListener();
+
     }
 
     private void setEaseUIProviders() {
@@ -112,8 +113,12 @@ public class MyApplication extends Application {
                     String hxIdFrom = message.getFrom();
                     EaseUser easeUser = new EaseUser(hxIdFrom);
                     easeUser.setAvatar(userPic);
-//                    easeUser.setNick(userName);
+                    easeUser.setNickname(userName);
                     sharedPreferences.edit().putString(hxIdFrom,userName+"&"+userPic).commit();
+                    Log.i(TAG, "hxIdFrom: "+hxIdFrom);
+                    Log.i(TAG, "userName: "+userName);
+                    Log.i(TAG, "userId: "+userId);
+                    Log.i(TAG, "userPic: "+userPic);
                 }
             }
 

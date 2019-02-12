@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:maxHeight="150dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             app:corner_radius="15px"
             app:icon_src_normal="@mipmap/icon_avatar_02" />
 

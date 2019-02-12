@@ -137,6 +137,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     private Handler typingHandler = null;
     // "正在输入"功能的开关，打开后本设备发送消息将持续发送cmd类型消息通知对方"正在输入"
     private boolean turnOnTyping;
+    private String toUsername;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -156,6 +157,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
         chatType = fragmentArgs.getInt(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_SINGLE);
         // userId you are chat with or group id
         toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
+        toUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME);
 
         this.turnOnTyping = turnOnTyping();
 
@@ -294,13 +296,14 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
     }
 
     protected void setUpView() {
-        titleBar.setTitle(toChatUsername);
+        titleBar.setTitle(toUsername);
         if (chatType == EaseConstant.CHATTYPE_SINGLE) {
             // set title
             if(EaseUserUtils.getUserInfo(toChatUsername) != null){
                 EaseUser user = EaseUserUtils.getUserInfo(toChatUsername);
                 if (user != null) {
-                    titleBar.setTitle(user.getNickname());
+//                    titleBar.setTitle(user.getNickname());
+                    titleBar.setTitle(toUsername);
                 }
             }
             titleBar.setRightImageResource(R.drawable.ease_mm_title_remove);

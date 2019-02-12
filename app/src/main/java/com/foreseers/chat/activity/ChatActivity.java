@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.foreseers.chat.fragment.MyChatFragment;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 
@@ -15,6 +16,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private String userid;
     private String username;
+    private String avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +27,20 @@ public class ChatActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         userid = bundle.getString(EaseConstant.EXTRA_USER_ID);
         username = bundle.getString("username");
+        avatar = bundle.getString(EaseConstant.EXTRA_USER_AVATAR);
+
+
         Log.i("chatActivity", "userid"+userid+"````username"+username);
         initView();
     }
 
     private void initView() {
-        EaseChatFragment chatFragment = new EaseChatFragment();
+        MyChatFragment chatFragment = new MyChatFragment();
         //传入参数
         Bundle args = new Bundle();
         args.putString(EaseConstant.EXTRA_USER_ID, userid );
-        args.putString("userName", username);
+        args.putString(EaseConstant.EXTRA_USER_NAME, username);
+        args.putString(EaseConstant.EXTRA_USER_AVATAR, avatar);
         chatFragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().add(R.id.layout, chatFragment).commit();
     }

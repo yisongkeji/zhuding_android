@@ -1,40 +1,38 @@
 package com.foreseers.chat.activity;
 
-import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.foreseers.chat.foreseers.R;
-import com.foreseers.chat.adapter.ImgPagerAdapter;
 import com.foreseers.chat.bean.AlbumBean;
-import com.foreseers.chat.bean.CustomViewsInfo;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.stx.xhb.xbanner.XBanner;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+import com.youth.banner.Transformer;
+import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ImgAlbumActivity extends AppCompatActivity {
 
     private final String TAG = "ImgAlbumActivity@@@@@@@";
     @BindView(R.id.banner)
-    XBanner banner;
+    Banner banner;
+
 
     private String userid;
     private final int DATASUCCESS = 1;
@@ -42,27 +40,34 @@ public class ImgAlbumActivity extends AppCompatActivity {
     private LoginBean loginBean;
     private AlbumBean albumBean;
     private List<String> imgList = new ArrayList<>();
-    private ImgPagerAdapter imgPagerAdapter;
+
     private int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_img_album);
         ButterKnife.bind(this);
-        getLoginToken();
+
 
         Bundle bundle = getIntent().getExtras();
         String data = bundle.getString("data");
         position = bundle.getInt("position");
-        getDataFromHttp();
-        banner.setBannerCurrentItem(position);
+        Log.i(TAG, "position: "+position);
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(false);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
 
-//        Log.i(TAG, "onCreate: "+dataList.toString());
-        Log.i(TAG, "data onCreate: " + data);
+        getDataFromHttp();
+
+
     }
 
     private void getDataFromHttp() {
+
+        userid =GetLoginTokenUtil.getUserId(this);
         OkGo.<String>post(Urls.Url_My).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
@@ -95,21 +100,14 @@ public class ImgAlbumActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-//                    List<CustomViewsInfo> data = new ArrayList<>();
-//                    for (int i = 0; i < imgList.size() ; i++) {
-//
-//                        data.add(new CustomViewsInfo(data.get(i)));
-//
-//                    }
 
-                    banner.loadImage(new XBanner.XBannerAdapter() {
-                        @Override
-                        public void loadBanner(XBanner banner, Object model, View view, int position) {
-                            Glide.with(ImgAlbumActivity.this).load(imgList.get(position)).placeholder(R.mipmap.default_image).error(R.mipmap.default_image).into((ImageView) view);
 
-                        }
-                    });
-//                    banner.setBannerData(R.layout.item_imgpager, imgList);
+                    //设置图片集合
+                    banner.update(imgList);
+
+
+                    //banner设置方法全部调用完毕时最后调用
+                    banner.start();
 
                     break;
                 case DATAFELLED:
@@ -119,14 +117,16 @@ public class ImgAlbumActivity extends AppCompatActivity {
         }
     };
 
+    public class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
 
-    /**
-     * 获取登录token（facebookID）
-     */
 
-    public void getLoginToken() {
-        SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+            //Glide 加载图片简单用法
+            Glide.with(context).load(path).error(R.mipmap.default_image).into(imageView);
 
-        userid = userInfo.getString("huanXinId", "");
+        }
+
     }
+
 }

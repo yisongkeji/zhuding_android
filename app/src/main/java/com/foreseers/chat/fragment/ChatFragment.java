@@ -3,6 +3,7 @@ package com.foreseers.chat.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,15 +18,20 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
+import android.widget.Toast;
 import com.foreseers.chat.activity.ChatActivity;
+import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.foreseers.R;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseBaseFragment;
+import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.EaseConversationList;
 
 import android.widget.AdapterView.OnItemClickListener;
@@ -39,6 +45,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * 聊天
@@ -57,6 +66,7 @@ public class ChatFragment extends EaseBaseFragment {
     protected boolean isConflict;
     protected boolean hidden;
     private final static int MSG_REFRESH = 2;
+    private SharedPreferences sharedPreferences ;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -129,12 +139,15 @@ public class ChatFragment extends EaseBaseFragment {
                 EMConversation emconversation = conversation.getItem(position);
                 String username = emconversation.conversationId();
                 Log.i("$$$$$$$$", "onItemClick: " + username);
+//                EaseUser user=new EaseUser(username);
+                sharedPreferences = getActivity().getSharedPreferences("user",MODE_PRIVATE);
+                String info= sharedPreferences.getString(username,"");
 
 
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(EaseConstant.EXTRA_USER_ID, username);
-                bundle.putString("username", username);
+                bundle.putString("username", info.split("&")[0]);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -334,4 +347,5 @@ public class ChatFragment extends EaseBaseFragment {
     public void setConversationListItemClickListener(ConversationListItemClickListener listItemClickListener) {
         this.listItemClickListener = listItemClickListener;
     }
+
 }

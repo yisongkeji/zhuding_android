@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     private final int DATAFELLED = 2;
     private int huanXinId;
     private String huanXinId1;
+    private UserDataBean.DataBean dataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +141,20 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_facebook:
-                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList
-                        ("public_profile"));
+
+                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 break;
             case R.id.login_wechat:
+//                facebookid= "467979503606542";
+////                facebookid= "46797950360651";
+////                facebookid= "46797950360652";
+//                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+//                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+//                editor.putString("token", facebookid);
+//                editor.putString("huanXinId", huanXinId + "");
+//                editor.commit();//提交修改
+
+
                 goLogin();
                 break;
         }
@@ -165,8 +176,8 @@ public class LoginActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {//老用户
-                            huanXinId = gson.fromJson(response.body(), UserDataBean.class)
-                                    .getData().getId();
+                            dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
+                            huanXinId = dataBean.getId();
                             Log.i("okgo", "onSuccess: " + huanXinId);
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
@@ -197,6 +208,11 @@ public class LoginActivity extends AppCompatActivity {
                             EMClient.getInstance().groupManager().loadAllGroups();
                             EMClient.getInstance().chatManager().loadAllConversations();
                             Log.d("EMClient", "登录聊天服务器成功！");
+                            SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+                            sharedPreferences.edit().putString("user",dataBean.getId()+"").commit();
+                            sharedPreferences.edit().putString("nick",dataBean.getUsername()).commit();
+                            sharedPreferences.edit().putString("url",dataBean.getHead()).commit();
+                            Log.i("SharedPreferences", "onSuccess: "+sharedPreferences.getString("url",""));
                         }
 
                         @Override

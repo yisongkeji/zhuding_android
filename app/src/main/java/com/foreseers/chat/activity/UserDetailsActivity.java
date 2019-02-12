@@ -29,6 +29,8 @@ import butterknife.OnClick;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.dialog.AddFriendDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -78,6 +80,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     private AddFriendErrorDialog addFriendErrorDialog;
     private AnalyzeLifeBookBean analyzeLifeBookBean;
     private AnalyzeLifeBookBean.DataBean dataBean;
+    private String avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,8 @@ public class UserDetailsActivity extends AppCompatActivity {
                             num =dataBean.getNum();
                             distance = dataBean.getDistance();
                             userscore = dataBean.getUserscore();
+                            avatar = dataBean.getHead();
+
 
 
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
@@ -270,7 +275,9 @@ public class UserDetailsActivity extends AppCompatActivity {
                 bundle = new Bundle();
                 bundle.putString(EaseConstant.EXTRA_USER_ID, userid + "");
                 bundle.putString("username", username);
+                bundle.putString(EaseConstant.EXTRA_USER_AVATAR, avatar);
                 intent.putExtras(bundle);
+
                 startActivity(intent);
                 break;
             default:

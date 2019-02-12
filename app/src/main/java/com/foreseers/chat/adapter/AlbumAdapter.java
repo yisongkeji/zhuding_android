@@ -41,8 +41,8 @@ public class AlbumAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 Bundle bundle=new Bundle();
                 bundle.putString("data", item);
                 bundle.putInt("position", helper.getAdapterPosition());
-intent.putExtras(bundle);
-                Log.i("ImgAlbumActivity@@@@@11", "datalist onClick: " + helper.getAdapterPosition());
+                intent.putExtras(bundle);
+                Log.i("ImgAlbumActivity@@@@@11", " helper.getAdapterPosition()" +  helper.getAdapterPosition());
                 context.startActivity(intent);
 
 

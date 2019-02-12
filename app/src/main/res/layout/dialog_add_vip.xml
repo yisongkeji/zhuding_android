@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="298dp"
+              android:layout_height="329dp"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="154dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@mipmap/icon_header_case_03">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="好友扩充"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorWhite"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="特殊会员标识"
+                android:textColor="@color/colorWhite"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="特殊会员标识"
+                android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="45dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button_vip"
+                android:text="8折"
+                android:textSize="@dimen/sp_11"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="2dp"
+                android:elevation="3dp"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@mipmap/icon_header_case_04">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginRight="9dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/background_vip"
+                    android:padding="2dp">
+
+
+                <LinearLayout
+                        android:id="@+id/layout_vip1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:background="@color/colorYellow2">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="360"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="天"/>
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥0.3/天"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥108"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:id="@+id/layout_vip2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/background_vip2">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="360"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="天"/>
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥0.3/天"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥108"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:id="@+id/layout_vip3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@color/colorYellow2">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="天"/>
+                    </LinearLayout>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥0.5/天"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥15"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                    android:id="@+id/button_vip"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_height="39dp"
+                    android:layout_gravity="center"
+                    android:text="扩充好友"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_vip"
+                    android:layout_marginTop="7dp"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

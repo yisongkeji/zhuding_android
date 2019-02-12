@@ -2,7 +2,6 @@ package com.foreseers.chat.fragment;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -18,15 +17,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import com.bumptech.glide.Glide;
-import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.adapter.AlbumAdapter;
 import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.UserDataBean;
+import com.foreseers.chat.dialog.AddVIPDialog;
+import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.Urls;
@@ -43,17 +48,12 @@ import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -86,6 +86,10 @@ public class MyFragment extends BaseMainFragment {
     TextView textMyNum;
     @BindView(R.id.layout_change_user_data)
     FrameLayout layoutChangeUserData;
+    @BindView(R.id.text_vip_day)
+    TextView textVipDay;
+    @BindView(R.id.layout_vip)
+    LinearLayout layoutVip;
 
     private String facebookId;
     private static final int REQUEST_CODE_CHOOSE = 23;
@@ -99,6 +103,7 @@ public class MyFragment extends BaseMainFragment {
     private LoginBean loginBean;
     private AlbumBean.DataBean dataBean;
     private ArrayList<String> imgList = new ArrayList<>();
+    private AddVIPDialog addVIPDialog;
 
 
     public MyFragment() {
@@ -185,7 +190,7 @@ public class MyFragment extends BaseMainFragment {
 
                 textName.setText(dataBean.getUsername());
                 textMyNum.setText(dataBean.getNum() + "");
-
+                textVipDay.setText(dataBean.getVipday()+"");
 
                 textName2.setText(dataBean.getUsername());
                 textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
@@ -210,7 +215,7 @@ public class MyFragment extends BaseMainFragment {
         }
     }
 
-    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data})
+    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.image_head:
@@ -372,6 +377,24 @@ public class MyFragment extends BaseMainFragment {
                 MyFragment.this.startActivityForResult(intent, REQUEST_CODE_USER_DATA);
                 break;
 
+            case R.id.layout_vip://添加vip
+
+                addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog
+                        .LeaveMyDialogListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        addVIPDialog.dismiss();
+                    }
+                });
+                addVIPDialog.setCancelable(true);
+                addVIPDialog.show();
+
+
+                break;
+
+
             default:
 
                 break;
@@ -382,15 +405,12 @@ public class MyFragment extends BaseMainFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i("onActivityResult", "onActivityResult:requestCode "+requestCode+"   resultCode"+resultCode);
+        Log.i("onActivityResult", "onActivityResult:requestCode " + requestCode + "   resultCode" + resultCode);
         switch (requestCode) {
             case REQUEST_CODE_CHOOSE: //头像
 
                 if (resultCode == RESULT_OK) {
                     String path = Matisse.obtainPathResult(data).get(0);
-//            String[] arr = path.split("_");
-//            String newpath = arr[arr.length - 1];
-//            Log.i("myfragment", "onActivityResult: " + path);
                     Glide.with(this).load(path).into(imageHead);
 
                     OkGo.<String>post(Urls.Url_UserHead).tag(this)
@@ -400,6 +420,12 @@ public class MyFragment extends BaseMainFragment {
                                 @Override
                                 public void onSuccess(Response<String> response) {
 
+                                    Gson gson = new Gson();
+                                    UserDataBean userDataBean = gson.fromJson(response.body(), UserDataBean.class);
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user",
+                                            MODE_PRIVATE);
+                                    sharedPreferences.edit().putString("url", userDataBean.getData().getHead())
+                                            .commit();
                                 }
                             });
 
@@ -437,46 +463,6 @@ public class MyFragment extends BaseMainFragment {
             default:
                 break;
         }
-
-//        //头像
-//        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-//            String path = Matisse.obtainPathResult(data).get(0);
-////            String[] arr = path.split("_");
-////            String newpath = arr[arr.length - 1];
-////            Log.i("myfragment", "onActivityResult: " + path);
-//            Glide.with(this).load(path).into(imageHead);
-//
-//            OkGo.<String>post(Urls.Url_UserHead).tag(this)
-//                    .params("facebookid", facebookId)
-//                    .params("file", new File(path))
-//                    .execute(new StringCallback() {
-//                        @Override
-//                        public void onSuccess(Response<String> response) {
-//
-//                        }
-//                    });
-//
-//        } else if (requestCode == REQUEST_CODE_CHOOSE_IMG && resultCode == RESULT_OK) { //相册
-//            String path = Matisse.obtainPathResult(data).get(0);
-//            Log.i("useridMyfragment", "userid: " + userid);
-//            Glide.with(this).load(path).into(imageHead);
-//
-//            OkGo.<String>post(Urls.Url_UserImg).tag(this)
-//                    .params("userid", userid)
-//                    .params("file", new File(path))
-//                    .execute(new StringCallback() {
-//                        @Override
-//                        public void onSuccess(Response<String> response) {
-//                            getDataFromHttp();
-//                        }
-//
-//                        @Override
-//                        public void onError(Response<String> response) {
-//                            super.onError(response);
-//                            Log.i("okgo", "onError: " + response);
-//                        }
-//                    });
-//        }
 
 
     }

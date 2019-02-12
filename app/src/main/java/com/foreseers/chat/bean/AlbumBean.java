@@ -1,22 +1,26 @@
 package com.foreseers.chat.bean;
 
-import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AlbumBean {
 
     /**
      * status : success
-     * data : {"id":88,"username":"郑皓","sex":"M","date":"1986-01-21","time":"16:00:00","zone":28,"facebook":"467979503606542","num":null,
-     * "head":"http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg","picture":null,"vip":null,"viptime":null,"city":"天津市","bazi":"乙丑,己丑,乙丑,甲申","zodiac":"牛",
-     * "xingzuo":"水瓶座","ziwei":"天梁","area":"天津市","country":"中国","lat":39.177085,"lng":117.132444,"spare":"红桥区","spare1":"7天酒店(商业大学店)天津市誉华专修学院","updatetime":"2019-01-21T08:45:28.000+0000",
-     * "obligate":null,"numerology":1,"userstar":5,"reservedint":null,"reservedvar":null,"reservedvar1":null,"cat1":"木","countnum":2,
-     * "listimage":["http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg",
-     * "http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg"]}
+     * data : {"id":88,"username":"郑皓","sex":"M","date":"2002-01-31","time":"18:00:00","zone":28,
+     * "facebook":"467979503606542","num":0,
+     * "head":"http://192.168.1.73:8080/magazine-unlock-01-2.3.1239-_B53B3BCEEDBD98A3C051912FDD3552F7.jpg",
+     * "picture":null,"vip":1,"viptime":"2019-03-10 12:20:20","city":"天津市","bazi":"辛巳,辛丑,己亥,癸酉","zodiac":"蛇",
+     * "xingzuo":"水瓶座","ziwei":"破軍","area":"天津市","country":"中国","lat":39.176995,"lng":117.132488,"spare":"红桥区",
+     * "spare1":"保康路天津市誉华专修学院","updatetime":"2019-02-12T06:13:02.000+0000","obligate":null,"numerology":9,
+     * "userstar":7,"reservedint":17,"reservedvar":"20","reservedvar1":null,"cat1":"土","countnum":6,
+     * "listimage":["http://192.168.1.73:8080/88/magazine-unlock-05-2.3.1239-_DE7E980B4655122FF8C8FB207117E78E.jpg",
+     * "http://192.168.1.73:8080/88/magazine-unlock-04-2.3.1238-_B230C8D6C7D614C72B7E5E7800BDD079.jpg",
+     * "http://192.168.1.73:8080/88/magazine-unlock-01-2.3.1237-_92D9E0817C0E257C6334293A6743E43D.jpg",
+     * "http://192.168.1.73:8080/88/magazine-unlock-01-2.3.1235-_33AF07642CCAF9A738AD4904C9C953B9.jpg",
+     * "http://192.168.1.73:8080/88/magazine-unlock-04-2.3.1238-_B230C8D6C7D614C72B7E5E7800BDD079.jpg",
+     * "http://192.168.1.73:8080/88/20190211104329.jpg"],"age":0,"vipday":26}
      */
 
     private String status;
@@ -43,37 +47,43 @@ public class AlbumBean {
          * id : 88
          * username : 郑皓
          * sex : M
-         * date : 1986-01-21
-         * time : 16:00:00
+         * date : 2002-01-31
+         * time : 18:00:00
          * zone : 28
          * facebook : 467979503606542
-         * num : null
-         * head : http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg
+         * num : 0
+         * head : http://192.168.1.73:8080/magazine-unlock-01-2.3.1239-_B53B3BCEEDBD98A3C051912FDD3552F7.jpg
          * picture : null
-         * vip : null
-         * viptime : null
+         * vip : 1
+         * viptime : 2019-03-10 12:20:20
          * city : 天津市
-         * bazi : 乙丑,己丑,乙丑,甲申
-         * zodiac : 牛
+         * bazi : 辛巳,辛丑,己亥,癸酉
+         * zodiac : 蛇
          * xingzuo : 水瓶座
-         * ziwei : 天梁
+         * ziwei : 破軍
          * area : 天津市
          * country : 中国
-         * lat : 39.177085
-         * lng : 117.132444
+         * lat : 39.176995
+         * lng : 117.132488
          * spare : 红桥区
-         * spare1 : 7天酒店(商业大学店)天津市誉华专修学院
-         * updatetime : 2019-01-21T08:45:28.000+0000
+         * spare1 : 保康路天津市誉华专修学院
+         * updatetime : 2019-02-12T06:13:02.000+0000
          * obligate : null
-         * numerology : 1
-         * userstar : 5
-         * reservedint : null
-         * reservedvar : null
+         * numerology : 9
+         * userstar : 7
+         * reservedint : 17
+         * reservedvar : 20
          * reservedvar1 : null
-         * cat1 : 木
-         * countnum : 2
-         * listimage : ["http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg",
-         * "http://192.168.1.73:8080/magazine-unlock-02-2.3.1238-_2DD006372375A6389C6469E5A13B2841.jpg"]
+         * cat1 : 土
+         * countnum : 6
+         * listimage : ["http://192.168.1.73:8080/88/magazine-unlock-05-2.3.1239-_DE7E980B4655122FF8C8FB207117E78E
+         * .jpg","http://192.168.1.73:8080/88/magazine-unlock-04-2.3.1238-_B230C8D6C7D614C72B7E5E7800BDD079.jpg",
+         * "http://192.168.1.73:8080/88/magazine-unlock-01-2.3.1237-_92D9E0817C0E257C6334293A6743E43D.jpg",
+         * "http://192.168.1.73:8080/88/magazine-unlock-01-2.3.1235-_33AF07642CCAF9A738AD4904C9C953B9.jpg",
+         * "http://192.168.1.73:8080/88/magazine-unlock-04-2.3.1238-_B230C8D6C7D614C72B7E5E7800BDD079.jpg",
+         * "http://192.168.1.73:8080/88/20190211104329.jpg"]
+         * age : 0
+         * vipday : 26
          */
 
         private int id;
@@ -86,8 +96,8 @@ public class AlbumBean {
         private int num;
         private String head;
         private Object picture;
-        private Object vip;
-        private Object viptime;
+        private int vip;
+        private String viptime;
         private String city;
         private String bazi;
         private String zodiac;
@@ -104,10 +114,12 @@ public class AlbumBean {
         private int numerology;
         private int userstar;
         private int reservedint;
-        private Object reservedvar;
+        private String reservedvar;
         private Object reservedvar1;
         private String cat1;
         private int countnum;
+        private int age;
+        private int vipday;
         private ArrayList<String> listimage;
 
         public int getId() {
@@ -166,13 +178,12 @@ public class AlbumBean {
             this.facebook = facebook;
         }
 
-        public void setNum(int num) {
-            this.num = num;
+        public int getNum() {
+            return num;
         }
 
-        public int getNum() {
-
-            return num;
+        public void setNum(int num) {
+            this.num = num;
         }
 
         public String getHead() {
@@ -191,19 +202,19 @@ public class AlbumBean {
             this.picture = picture;
         }
 
-        public Object getVip() {
+        public int getVip() {
             return vip;
         }
 
-        public void setVip(Object vip) {
+        public void setVip(int vip) {
             this.vip = vip;
         }
 
-        public Object getViptime() {
+        public String getViptime() {
             return viptime;
         }
 
-        public void setViptime(Object viptime) {
+        public void setViptime(String viptime) {
             this.viptime = viptime;
         }
 
@@ -327,20 +338,19 @@ public class AlbumBean {
             this.userstar = userstar;
         }
 
+        public int getReservedint() {
+            return reservedint;
+        }
+
         public void setReservedint(int reservedint) {
             this.reservedint = reservedint;
         }
 
-        public int getReservedint() {
-
-            return reservedint;
-        }
-
-        public Object getReservedvar() {
+        public String getReservedvar() {
             return reservedvar;
         }
 
-        public void setReservedvar(Object reservedvar) {
+        public void setReservedvar(String reservedvar) {
             this.reservedvar = reservedvar;
         }
 
@@ -366,6 +376,22 @@ public class AlbumBean {
 
         public void setCountnum(int countnum) {
             this.countnum = countnum;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public int getVipday() {
+            return vipday;
+        }
+
+        public void setVipday(int vipday) {
+            this.vipday = vipday;
         }
 
         public void setListimage(ArrayList<String> listimage) {

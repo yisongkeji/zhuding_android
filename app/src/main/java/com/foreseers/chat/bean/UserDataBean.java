@@ -5,12 +5,13 @@ public class UserDataBean {
 
     /**
      * status : success
-     * data : {"id":83,"username":"郑皓","sex":"M","date":"2003-01-21","time":"11:00:00","zone":28,
-     * "facebook":"467979503606542","num":null,"head":null,"picture":null,"vip":null,
-     * "viptime":null,"city":null,"bazi":"壬午,癸丑,甲午,庚午","zodiac":"馬","xingzuo":"水瓶座","ziwei":"太陽,
-     * 太陰","area":null,"country":null,"lat":null,"lng":null,"spare":null,"spare1":null,
-     * "updatetime":null,"obligate":null,"numerology":9,"userstar":6,"reservedint":null,
-     * "reservedvar":null,"reservedvar1":null,"cat1":"木"}
+     * data : {"id":88,"username":"郑皓","sex":"M","date":"2002-01-31","time":"18:00:00","zone":28,
+     * "facebook":"467979503606542","num":0,
+     * "head":"http://192.168.1.73:8080/magazine-unlock-05-2.3.1237-_D9A644D5068059696F53273370739CB7.jpg",
+     * "picture":null,"vip":null,"viptime":null,"city":"天津市","bazi":"辛巳,辛丑,己亥,癸酉","zodiac":"蛇","xingzuo":"水瓶座",
+     * "ziwei":"破軍","area":"天津市","country":"中国","lat":39.177038,"lng":117.132506,"spare":"红桥区",
+     * "spare1":"保康路天津市誉华专修学院","updatetime":"2019-02-11T02:12:32.000+0000","obligate":null,"numerology":9,
+     * "userstar":7,"reservedint":17,"reservedvar":"20","reservedvar1":null,"cat1":"土"}
      */
 
     private String status;
@@ -34,37 +35,37 @@ public class UserDataBean {
 
     public static class DataBean {
         /**
-         * id : 83
+         * id : 88
          * username : 郑皓
          * sex : M
-         * date : 2003-01-21
-         * time : 11:00:00
+         * date : 2002-01-31
+         * time : 18:00:00
          * zone : 28
          * facebook : 467979503606542
-         * num : null
-         * head : null
+         * num : 0
+         * head : http://192.168.1.73:8080/magazine-unlock-05-2.3.1237-_D9A644D5068059696F53273370739CB7.jpg
          * picture : null
          * vip : null
          * viptime : null
-         * city : null
-         * bazi : 壬午,癸丑,甲午,庚午
-         * zodiac : 馬
+         * city : 天津市
+         * bazi : 辛巳,辛丑,己亥,癸酉
+         * zodiac : 蛇
          * xingzuo : 水瓶座
-         * ziwei : 太陽,太陰
-         * area : null
-         * country : null
-         * lat : null
-         * lng : null
-         * spare : null
-         * spare1 : null
-         * updatetime : null
+         * ziwei : 破軍
+         * area : 天津市
+         * country : 中国
+         * lat : 39.177038
+         * lng : 117.132506
+         * spare : 红桥区
+         * spare1 : 保康路天津市誉华专修学院
+         * updatetime : 2019-02-11T02:12:32.000+0000
          * obligate : null
          * numerology : 9
-         * userstar : 6
-         * reservedint : null
-         * reservedvar : null
+         * userstar : 7
+         * reservedint : 17
+         * reservedvar : 20
          * reservedvar1 : null
-         * cat1 : 木
+         * cat1 : 土
          */
 
         private int id;
@@ -74,28 +75,28 @@ public class UserDataBean {
         private String time;
         private int zone;
         private String facebook;
-        private Object num;
-        private Object head;
+        private int num;
+        private String head;
         private Object picture;
         private Object vip;
         private Object viptime;
-        private Object city;
+        private String city;
         private String bazi;
         private String zodiac;
         private String xingzuo;
         private String ziwei;
-        private Object area;
-        private Object country;
-        private Object lat;
-        private Object lng;
-        private Object spare;
-        private Object spare1;
-        private Object updatetime;
+        private String area;
+        private String country;
+        private double lat;
+        private double lng;
+        private String spare;
+        private String spare1;
+        private String updatetime;
         private Object obligate;
         private int numerology;
         private int userstar;
         private int reservedint;
-        private Object reservedvar;
+        private String reservedvar;
         private Object reservedvar1;
         private String cat1;
 
@@ -155,19 +156,19 @@ public class UserDataBean {
             this.facebook = facebook;
         }
 
-        public Object getNum() {
+        public int getNum() {
             return num;
         }
 
-        public void setNum(Object num) {
+        public void setNum(int num) {
             this.num = num;
         }
 
-        public Object getHead() {
+        public String getHead() {
             return head;
         }
 
-        public void setHead(Object head) {
+        public void setHead(String head) {
             this.head = head;
         }
 
@@ -195,11 +196,11 @@ public class UserDataBean {
             this.viptime = viptime;
         }
 
-        public Object getCity() {
+        public String getCity() {
             return city;
         }
 
-        public void setCity(Object city) {
+        public void setCity(String city) {
             this.city = city;
         }
 
@@ -235,59 +236,59 @@ public class UserDataBean {
             this.ziwei = ziwei;
         }
 
-        public Object getArea() {
+        public String getArea() {
             return area;
         }
 
-        public void setArea(Object area) {
+        public void setArea(String area) {
             this.area = area;
         }
 
-        public Object getCountry() {
+        public String getCountry() {
             return country;
         }
 
-        public void setCountry(Object country) {
+        public void setCountry(String country) {
             this.country = country;
         }
 
-        public Object getLat() {
+        public double getLat() {
             return lat;
         }
 
-        public void setLat(Object lat) {
+        public void setLat(double lat) {
             this.lat = lat;
         }
 
-        public Object getLng() {
+        public double getLng() {
             return lng;
         }
 
-        public void setLng(Object lng) {
+        public void setLng(double lng) {
             this.lng = lng;
         }
 
-        public Object getSpare() {
+        public String getSpare() {
             return spare;
         }
 
-        public void setSpare(Object spare) {
+        public void setSpare(String spare) {
             this.spare = spare;
         }
 
-        public Object getSpare1() {
+        public String getSpare1() {
             return spare1;
         }
 
-        public void setSpare1(Object spare1) {
+        public void setSpare1(String spare1) {
             this.spare1 = spare1;
         }
 
-        public Object getUpdatetime() {
+        public String getUpdatetime() {
             return updatetime;
         }
 
-        public void setUpdatetime(Object updatetime) {
+        public void setUpdatetime(String updatetime) {
             this.updatetime = updatetime;
         }
 
@@ -315,20 +316,19 @@ public class UserDataBean {
             this.userstar = userstar;
         }
 
+        public int getReservedint() {
+            return reservedint;
+        }
+
         public void setReservedint(int reservedint) {
             this.reservedint = reservedint;
         }
 
-        public int getReservedint() {
-
-            return reservedint;
-        }
-
-        public Object getReservedvar() {
+        public String getReservedvar() {
             return reservedvar;
         }
 
-        public void setReservedvar(Object reservedvar) {
+        public void setReservedvar(String reservedvar) {
             this.reservedvar = reservedvar;
         }
 
