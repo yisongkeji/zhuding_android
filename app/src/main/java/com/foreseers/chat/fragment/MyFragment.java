@@ -26,6 +26,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
+import com.foreseers.chat.activity.MyVipActivity;
 import com.foreseers.chat.adapter.AlbumAdapter;
 import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
@@ -218,6 +219,7 @@ public class MyFragment extends BaseMainFragment {
     @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
             case R.id.image_head:
                 rxPermissions = new RxPermissions(getActivity());
                 rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
@@ -379,17 +381,21 @@ public class MyFragment extends BaseMainFragment {
 
             case R.id.layout_vip://添加vip
 
-                addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog
-                        .LeaveMyDialogListener() {
+                intent=new Intent(getActivity(),MyVipActivity.class);
+                getActivity().startActivity(intent);
 
 
-                    @Override
-                    public void onClick(View view) {
-                        addVIPDialog.dismiss();
-                    }
-                });
-                addVIPDialog.setCancelable(true);
-                addVIPDialog.show();
+//                addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog
+//                        .LeaveMyDialogListener() {
+//
+//
+//                    @Override
+//                    public void onClick(View view) {
+//                        addVIPDialog.dismiss();
+//                    }
+//                });
+//                addVIPDialog.setCancelable(true);
+//                addVIPDialog.show();
 
 
                 break;

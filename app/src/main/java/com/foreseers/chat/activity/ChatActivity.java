@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.cy.translucentparent.StatusNavUtils;
 import com.foreseers.chat.fragment.MyChatFragment;
+import com.foreseers.chat.global.BaseActivity;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 
@@ -23,7 +25,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
-
+//        StatusNavUtils.setStatusBarColor(this,0x00000000);
         Bundle bundle = getIntent().getExtras();
         userid = bundle.getString(EaseConstant.EXTRA_USER_ID);
         username = bundle.getString("username");

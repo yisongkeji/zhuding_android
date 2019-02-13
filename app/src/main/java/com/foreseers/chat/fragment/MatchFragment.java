@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +107,7 @@ public class MatchFragment extends BaseMainFragment {
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerPeople.setLayoutManager(gridLayoutManager);
         recyclerPeople.setAdapter(peopleAdapter);
 

@@ -239,4 +239,12 @@
         <attr name="image_shadow" format="boolean" />//是否阴影
         <attr name="shadow_color" format="integer"/>//阴影颜色
     </declare-styleable>
+
+
+    <declare-styleable name="MyTitleBar">
+        <attr name="titleBarTitle" format="string"/>
+        <attr name="titleBarLeftImage" format="reference"/>
+        <attr name="titleBarRightImage" format="reference"/>
+        <attr name="titleBarBackground" format="reference|color"/>
+    </declare-styleable>
 </resources>

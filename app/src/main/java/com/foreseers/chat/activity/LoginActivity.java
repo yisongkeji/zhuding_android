@@ -146,14 +146,14 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.login_wechat:
 //                facebookid= "467979503606542";
-////                facebookid= "46797950360651";
-////                facebookid= "46797950360652";
-//                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
-//                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
-//                editor.putString("token", facebookid);
-//                editor.putString("huanXinId", huanXinId + "");
-//                editor.commit();//提交修改
-
+                facebookid = "46797950360651";
+//                facebookid= "46797950360652";
+                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+                editor.putString("token", facebookid);
+                editor.putString("huanXinId", huanXinId + "");
+                editor.commit();//提交修改
+                Toast.makeText(this, facebookid, Toast.LENGTH_LONG).show();
 
                 goLogin();
                 break;
@@ -175,6 +175,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        Toast.makeText(LoginActivity.this, loginBean.getStatus(), Toast.LENGTH_LONG).show();
+
                         if (loginBean.getStatus().equals("success")) {//老用户
                             dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
                             huanXinId = dataBean.getId();
@@ -208,11 +210,11 @@ public class LoginActivity extends AppCompatActivity {
                             EMClient.getInstance().groupManager().loadAllGroups();
                             EMClient.getInstance().chatManager().loadAllConversations();
                             Log.d("EMClient", "登录聊天服务器成功！");
-                            SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
-                            sharedPreferences.edit().putString("user",dataBean.getId()+"").commit();
-                            sharedPreferences.edit().putString("nick",dataBean.getUsername()).commit();
-                            sharedPreferences.edit().putString("url",dataBean.getHead()).commit();
-                            Log.i("SharedPreferences", "onSuccess: "+sharedPreferences.getString("url",""));
+                            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                            sharedPreferences.edit().putString("user", dataBean.getId() + "").commit();
+                            sharedPreferences.edit().putString("nick", dataBean.getUsername()).commit();
+                            sharedPreferences.edit().putString("url", dataBean.getHead()).commit();
+                            Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
                         }
 
                         @Override
@@ -282,7 +284,7 @@ public class LoginActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA,};
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
@@ -298,7 +300,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("huanXinId", huanXinId + "");
         editor.commit();//提交修改
         Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
-        SharedPreferences  sharedPreferences = getSharedPreferences("condition", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("condition", MODE_PRIVATE);
         SharedPreferences.Editor editor1 = sharedPreferences.edit();
         editor1.commit();
     }

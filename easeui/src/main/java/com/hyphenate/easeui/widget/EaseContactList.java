@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -43,7 +44,8 @@ public class EaseContactList extends RelativeLayout {
                 if(adapter != null){
                 	adapter.clear();
                 	adapter.addAll(new ArrayList<EaseUser>(contactList));
-                	adapter.notifyDataSetChanged();	
+                	adapter.notifyDataSetChanged();
+                    Log.i(TAG, "handleMessage: "+contactList.toString());
                 }
                 break;
             default:
@@ -94,6 +96,7 @@ public class EaseContactList extends RelativeLayout {
      */
     public void init(List<EaseUser> contactList){
     	this.contactList = contactList;
+
         adapter = new EaseContactAdapter(context, 0, new ArrayList<EaseUser>(contactList));
         adapter.setPrimaryColor(primaryColor).setPrimarySize(primarySize).setInitialLetterBg(initialLetterBg)
             .setInitialLetterColor(initialLetterColor);

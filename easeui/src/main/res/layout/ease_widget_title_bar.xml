@@ -10,24 +10,33 @@
         android:id="@+id/left_layout"
         android:layout_width="50dip"
         android:layout_height="match_parent"
-        android:background="@drawable/ease_common_tab_bg"
-        android:clickable="true" >
+        android:clickable="true"
+            android:layout_marginTop="10dip">
 
         <ImageView
             android:id="@+id/left_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"
+          />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="#ffffff"
-        android:textSize="20sp" />
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="15dip">
+        <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:id="@+id/right_layout"

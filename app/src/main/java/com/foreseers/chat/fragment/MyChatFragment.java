@@ -39,25 +39,24 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
     }
 
 
-
     @Override
     public void onSetMessageAttributes(EMMessage message) {
-            //set message extension
-            message.setAttribute("em_robot_message", EMClient.getInstance().getCurrentUser());
+        //set message extension
+        message.setAttribute("em_robot_message", EMClient.getInstance().getCurrentUser());
         //设置要发送扩展消息用户昵称
-        message.setAttribute(Constant.USER_NAME, sharedPreferences.getString("nick",""));
+        message.setAttribute(Constant.USER_NAME, sharedPreferences.getString("nick", ""));
         message.setAttribute(Constant.USER, EMClient.getInstance().getCurrentUser());
         //设置要发送扩展消息用户头像
-        message.setAttribute(Constant.HEAD_IMAGE_URL, sharedPreferences.getString("url",""));
-        Log.e("rrrrrrrrr",message.toString());
+        message.setAttribute(Constant.HEAD_IMAGE_URL, sharedPreferences.getString("url", ""));
+        Log.e("rrrrrrrrr", message.toString());
 
-        String hxIdTo=fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
-       String  userName=fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME);
-       String avatar=fragmentArgs.getString(EaseConstant.EXTRA_USER_AVATAR);
-        EaseUser easeUser = new EaseUser(hxIdTo );
+        String hxIdTo = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
+        String userName = fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME);
+        String avatar = fragmentArgs.getString(EaseConstant.EXTRA_USER_AVATAR);
+        EaseUser easeUser = new EaseUser(hxIdTo);
         easeUser.setAvatar(avatar);
         easeUser.setNickname(userName);
-        sharedPreferences.edit().putString(hxIdTo,userName+"&"+avatar).commit();
+        sharedPreferences.edit().putString(hxIdTo, userName + "&" + avatar).commit();
 
     }
 
@@ -68,7 +67,7 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
 
     @Override
     public void onAvatarClick(String username) {
-        Toast.makeText(getActivity(),"头像被点击了",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "头像被点击了", Toast.LENGTH_SHORT).show();
 
     }
 

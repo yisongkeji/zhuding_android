@@ -5,32 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.foreseers.chat.bean.AnalyzeLifeBookBean;
-import com.foreseers.chat.bean.InquireFriendBean;
-import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.dialog.AddFriendErrorDialog;
-import com.foreseers.chat.util.GetLoginTokenUtil;
-import com.foreseers.chat.util.Urls;
-import com.google.gson.Gson;
-import com.hyphenate.easeui.EaseConstant;
+import android.widget.*;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.foreseers.chat.foreseers.R;
+import com.bumptech.glide.Glide;
+import com.foreseers.chat.bean.AnalyzeLifeBookBean;
+import com.foreseers.chat.bean.InquireFriendBean;
+import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.AddFriendDialog;
+import com.foreseers.chat.dialog.AddFriendErrorDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.widget.MyTitleBar;
+import com.google.gson.Gson;
+import com.hyphenate.easeui.EaseConstant;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -39,37 +34,38 @@ import com.lzy.okgo.model.Response;
 /**
  * 好友详情
  */
-public class UserDetailsActivity extends AppCompatActivity {
+public class UserDetailsActivity extends BaseActivity {
 
-    @BindView(R.id.goback)
-    FrameLayout back;
+
+    @BindView(R.id.my_titlebar)
+    MyTitleBar myTitlebar;
+    @BindView(R.id.img_head)
+    ImageView imgHead;
     @BindView(R.id.img_add_friend)
     ImageView imgAddFriend;
     @BindView(R.id.text_user_details_name)
     TextView textUserDetailsName;
+    @BindView(R.id.text_sex)
+    TextView textSex;
+    @BindView(R.id.text_location)
+    TextView textLocation;
+
+    @BindView(R.id.progress_text)
+    TextView progressText;
+    @BindView(R.id.text_num)
+    TextView textNum;
     @BindView(R.id.layout_remark)
     LinearLayout layoutRemark;
     @BindView(R.id.layout_analyze_life_book)
     LinearLayout layoutAnalyzeLifeBook;
-    @BindView(R.id.text_name)
-    TextView textName;
     @BindView(R.id.chat_user_details)
     LinearLayout chatUserDetails;
-    @BindView(R.id.text_sex)
-    TextView textSex;
-    @BindView(R.id.text_num)
-    TextView textNum;
-    @BindView(R.id.text_location)
-    TextView textLocation;
-    @BindView(R.id.progress_matching_rate)
-    ProgressBar progressMatchingRate;
-    @BindView(R.id.progress_text)
-    TextView progressText;
-
+    @BindView(R.id.text_age)
+    TextView textAge;
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
     private Intent intent;
-    private int userid;
+    private String userid;
     private Bundle bundle;
     private String username;
     private String sex;
@@ -88,15 +84,25 @@ public class UserDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_details);
         ButterKnife.bind(this);
 
+        initView();
         initData();
 
 
     }
 
+    private void initView() {
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     private void initData() {
         intent = getIntent();
         Bundle bundle = intent.getExtras();
-        userid = bundle.getInt("userid");
+        userid = bundle.getString("userid");
 
 
         OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
@@ -116,11 +122,10 @@ public class UserDetailsActivity extends AppCompatActivity {
                             username = dataBean.getName();
                             sex = dataBean.getSex();
                             age = dataBean.getAge();
-                            num =dataBean.getNum();
+                            num = dataBean.getNum();
                             distance = dataBean.getDistance();
                             userscore = dataBean.getUserscore();
                             avatar = dataBean.getHead();
-
 
 
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
@@ -142,25 +147,29 @@ public class UserDetailsActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    textName.setText(username);
+                    Glide.with(UserDetailsActivity.this).load(dataBean.getHead()).error(R.mipmap.icon_avatar_02).into
+                            (imgHead);
+                    myTitlebar.setTitle(username);
                     textUserDetailsName.setText(username);
                     switch (sex) {
                         case "F":
-                            textSex.setBackgroundResource(R.drawable.rounded_layout_pink);
-                            textSex.setText("♀" + age);
+
+                            textSex.setText(R.string.woman);
                             break;
                         case "M":
-                            textSex.setBackgroundResource(R.drawable.rounded_layout_blue);
-                            textSex.setText("♂" + age);
+
+                            textSex.setText(R.string.man);
                             break;
 
                         default:
                             break;
                     }
+                    textAge.setText(age+"");
                     textNum.setText(num + "");
-                    textLocation.setText(R.string.user_location + distance + "");
-                    progressMatchingRate.setProgress(userscore);
-                    progressText.setText("匹配度" + userscore + "%");
+
+                    textLocation.setText( distance + "km");
+
+                    progressText.setText( userscore+"" );
                     break;
                 case DATAFELLED:
                     Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast
@@ -170,13 +179,10 @@ public class UserDetailsActivity extends AppCompatActivity {
         }
     };
 
-    @OnClick({R.id.goback, R.id.img_add_friend, R.id.layout_remark, R.id
+    @OnClick({R.id.img_add_friend, R.id.layout_remark, R.id
             .layout_analyze_life_book, R.id.chat_user_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.goback:
-                finish();
-                break;
             case R.id.img_add_friend://添加好友
 
                 OkGo.<String>post(Urls.Url_UserFriend).tag(this)
@@ -187,7 +193,8 @@ public class UserDetailsActivity extends AppCompatActivity {
                             public void onSuccess(Response<String> response) {
                                 Gson gson = new Gson();
 
-                                InquireFriendBean inquireFriendBean = gson.fromJson(response.body(), InquireFriendBean.class);
+                                InquireFriendBean inquireFriendBean = gson.fromJson(response.body(),
+                                        InquireFriendBean.class);
                                 if (inquireFriendBean.getStatus().equals("success")) {
                                     switch (inquireFriendBean.getData().getStatus()) {
                                         case 0://可以添加好友
@@ -265,7 +272,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             case R.id.layout_analyze_life_book://我與TA的詳細分析
                 intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
                 bundle = new Bundle();
-                bundle.putInt("userid", userid);
+                bundle.putString("userid", userid);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

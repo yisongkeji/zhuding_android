@@ -4,6 +4,7 @@ package com.foreseers.chat.fragment;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -59,6 +60,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.exception.OkGoException;
 import com.lzy.okgo.model.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.hyphenate.easeui.utils.EaseUserUtils.getUserInfo;
 
 /**
@@ -84,7 +86,7 @@ public class FriendFragment extends EaseBaseFragment {
     private List<FriendBean.DataBean> dataBeans = new ArrayList<>();
     private Map<String, EaseUser> map = new HashMap<>();
     private EaseUser easeUser;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -134,21 +136,30 @@ public class FriendFragment extends EaseBaseFragment {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
                         if (friendBean.getStatus().equals("success")) {
-
+                            sharedPreferences = getActivity().getSharedPreferences("user",MODE_PRIVATE);
                             dataBeans = friendBean.getData();
                             for (int i = 0; i < dataBeans.size(); i++) {
-                                easeUser = new EaseUser(dataBeans.get(i).getUsername());
+                                easeUser = new EaseUser(dataBeans.get(i).getUserid()+"");
                                 easeUser.setAvatar(dataBeans.get(i).getUserhead());
+                                easeUser.setNickname(dataBeans.get(i).getUsername());
 
-                                map.put(i + "", easeUser);
+                                map.put(dataBeans.get(i).getUserid()+"", easeUser);
                             }
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
-                            Log.i(TAG, "onSuccess: "+easeUser.getAvatar());
+                            Log.i(TAG, "onSuccess: "+map);
                         }
 
                     }
                 });
+
+        EMClient.getInstance().addConnectionListener(connectionListener);
+
+        contactList = new ArrayList<EaseUser>();
+        getContactList();
+        //init list
+        Log.i(TAG, "contactList: "+contactList);
+        contactListLayout.init(contactList);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -157,12 +168,15 @@ public class FriendFragment extends EaseBaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 EaseUser user = (EaseUser) listView.getItemAtPosition(position);
                 if (user != null) {
-                    String username = user.getUsername();
-                    // 进入用户详情页
 
+                    String userid=user.getUsername();
+                    String username = user.getNickname();
+//                    String userId=user.getUsername();
+//                    // 进入用户详情页
+//                    Log.i(TAG, "onItemClick: "+userid);
                     Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("userid", username);
+                    bundle.putString("userid", userid);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -170,12 +184,6 @@ public class FriendFragment extends EaseBaseFragment {
         });
 
 
-        EMClient.getInstance().addConnectionListener(connectionListener);
-
-        contactList = new ArrayList<EaseUser>();
-        getContactList();
-        //init list
-        contactListLayout.init(contactList);
 
         if (listItemClickListener != null) {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -446,6 +454,8 @@ public class FriendFragment extends EaseBaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
+
+
                     setContactsMap(map);
                     refresh();
                     break;

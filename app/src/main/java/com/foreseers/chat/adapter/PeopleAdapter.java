@@ -86,13 +86,13 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                     public void onClick(View view) {
                         Intent intent = new Intent(context, UserDetailsActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putInt("userid", item.getId());
-                        bundle.putString("username", item.getUsername());
-                        bundle.putString("sex", item.getSex());
-                        bundle.putInt("age",item.getAge());
-                        bundle.putInt("num",item.getNum());
-                        bundle.putInt("distance",item.getDistance());
-                        bundle.putInt("userscore",item.getUserscore());
+                        bundle.putString("userid", item.getId()+"");
+//                        bundle.putString("username", item.getUsername());
+//                        bundle.putString("sex", item.getSex());
+//                        bundle.putInt("age",item.getAge());
+//                        bundle.putInt("num",item.getNum());
+//                        bundle.putInt("distance",item.getDistance());
+//                        bundle.putInt("userscore",item.getUserscore());
                         intent.putExtras(bundle);
                         context.startActivity(intent);
                     }
