@@ -11,8 +11,10 @@
         android:id="@+id/item_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/icon_header_gradient_02"
-        android:orientation="vertical">
+        android:background="@drawable/icon_header_gradient"
+        android:orientation="vertical"
+
+        >
 
 
         <com.ruffian.library.widget.RImageView
@@ -90,7 +92,7 @@
                     android:paddingRight="3dp"
                     android:text="sex"
                     android:textColor="@color/colorWhite"
-                    android:textSize="10sp"
+                    android:textSize="7sp"
                     card_view:layout_editor_absoluteX="2dp"
                     card_view:layout_editor_absoluteY="41dp" />
 

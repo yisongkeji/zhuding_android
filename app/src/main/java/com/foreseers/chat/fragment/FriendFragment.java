@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.foreseers.chat.activity.ChatActivity;
 import com.foreseers.chat.activity.UserAnalyzeLifeBookActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
+import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.bean.FriendBean;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
@@ -142,6 +143,12 @@ public class FriendFragment extends EaseBaseFragment {
                                 easeUser = new EaseUser(dataBeans.get(i).getUserid()+"");
                                 easeUser.setAvatar(dataBeans.get(i).getUserhead());
                                 easeUser.setNickname(dataBeans.get(i).getUsername());
+
+
+                                sharedPreferences.edit().putString(dataBeans.get(i).getUserid()+"",
+                                        dataBeans.get(i).getUsername()+"&"+dataBeans.get(i).getUserhead()).commit();
+
+
 
                                 map.put(dataBeans.get(i).getUserid()+"", easeUser);
                             }

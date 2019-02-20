@@ -1,17 +1,20 @@
 package com.foreseers.chat.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.InquireFriendBean;
@@ -29,6 +32,15 @@ import com.hyphenate.easeui.EaseConstant;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.youth.banner.Banner;
+import com.youth.banner.loader.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 /**
@@ -39,29 +51,28 @@ public class UserDetailsActivity extends BaseActivity {
 
     @BindView(R.id.my_titlebar)
     MyTitleBar myTitlebar;
-    @BindView(R.id.img_head)
-    ImageView imgHead;
-    @BindView(R.id.img_add_friend)
-    ImageView imgAddFriend;
+
     @BindView(R.id.text_user_details_name)
     TextView textUserDetailsName;
-    @BindView(R.id.text_sex)
-    TextView textSex;
-    @BindView(R.id.text_location)
-    TextView textLocation;
-
-    @BindView(R.id.progress_text)
-    TextView progressText;
     @BindView(R.id.text_num)
     TextView textNum;
-    @BindView(R.id.layout_remark)
-    LinearLayout layoutRemark;
-    @BindView(R.id.layout_analyze_life_book)
-    LinearLayout layoutAnalyzeLifeBook;
-    @BindView(R.id.chat_user_details)
-    LinearLayout chatUserDetails;
+    @BindView(R.id.progress_text)
+    TextView progressText;
+    @BindView(R.id.text_sex)
+    TextView textSex;
     @BindView(R.id.text_age)
     TextView textAge;
+    @BindView(R.id.text_location)
+    TextView textLocation;
+    @BindView(R.id.chat_user_details)
+    ImageView chatUserDetails;
+    @BindView(R.id.img_add_friend)
+    ImageView imgAddFriend;
+
+    @BindView(R.id.layout_analyze_life_book)
+    LinearLayout layoutAnalyzeLifeBook;
+    @BindView(R.id.banner)
+    Banner banner;
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
     private Intent intent;
@@ -77,6 +88,9 @@ public class UserDetailsActivity extends BaseActivity {
     private AnalyzeLifeBookBean analyzeLifeBookBean;
     private AnalyzeLifeBookBean.DataBean dataBean;
     private String avatar;
+    private List<AnalyzeLifeBookBean.DataBean.ImagesBean> imagesBeans = new ArrayList<>();
+    private List<String> imgList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +111,27 @@ public class UserDetailsActivity extends BaseActivity {
                 finish();
             }
         });
+
+        //设置自动轮播，默认为true
+        banner.isAutoPlay(false);
+        //设置图片加载器
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     private void initData() {
@@ -114,11 +149,10 @@ public class UserDetailsActivity extends BaseActivity {
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
-                            analyzeLifeBookBean = gson.fromJson(response.body(), AnalyzeLifeBookBean.class);
+                            analyzeLifeBookBean = gson.fromJson(response.body(),
+                                    AnalyzeLifeBookBean.class);
 
                             dataBean = analyzeLifeBookBean.getData();
-
-
                             username = dataBean.getName();
                             sex = dataBean.getSex();
                             age = dataBean.getAge();
@@ -127,8 +161,38 @@ public class UserDetailsActivity extends BaseActivity {
                             userscore = dataBean.getUserscore();
                             avatar = dataBean.getHead();
 
+                            imgList.add(avatar);
+                            imagesBeans = dataBean.getImages();
+                            switch (dataBean.getFriend()) {
+                                case 0://是好友
+                                    switch (dataBean.getLookimages()) {
+                                        case 0://模糊图片
+                                            for (int i = 0; i < imagesBeans.size(); i++) {
+                                                imgList.add(imagesBeans.get(i).getSpare());
+                                            }
+                                            break;
+
+                                        case 1://清晰图片
+                                            for (int i = 0; i < imagesBeans.size(); i++) {
+                                                imgList.add(imagesBeans.get(i).getImage());
+                                            }
+                                            break;
+
+                                    }
+
+
+                                    break;
+                                case 1://不是好友
+                                    //只能模糊图片
+                                    for (int i = 0; i < imagesBeans.size(); i++) {
+                                        imgList.add(imagesBeans.get(i).getSpare());
+                                    }
+                                    break;
+                            }
+
 
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+
 
                         } else if (loginBean.getStatus().equals("fail")) {
                             mHandler.obtainMessage(DATAFELLED).sendToTarget();
@@ -147,8 +211,13 @@ public class UserDetailsActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    Glide.with(UserDetailsActivity.this).load(dataBean.getHead()).error(R.mipmap.icon_avatar_02).into
-                            (imgHead);
+
+                    //设置图片集合
+                    banner.update(imgList);
+                    //banner设置方法全部调用完毕时最后调用
+                    banner.start();
+
+
                     myTitlebar.setTitle(username);
                     textUserDetailsName.setText(username);
                     switch (sex) {
@@ -164,12 +233,12 @@ public class UserDetailsActivity extends BaseActivity {
                         default:
                             break;
                     }
-                    textAge.setText(age+"");
+                    textAge.setText(age + "");
                     textNum.setText(num + "");
 
-                    textLocation.setText( distance + "km");
+                    textLocation.setText(distance + "km");
 
-                    progressText.setText( userscore+"" );
+                    progressText.setText(userscore + "");
                     break;
                 case DATAFELLED:
                     Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast
@@ -179,7 +248,7 @@ public class UserDetailsActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.img_add_friend, R.id.layout_remark, R.id
+    @OnClick({R.id.img_add_friend, R.id
             .layout_analyze_life_book, R.id.chat_user_details})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -204,7 +273,8 @@ public class UserDetailsActivity extends BaseActivity {
                                                             inquireFriendBean
                                                                     .getData().getUserint()
                                                             , new
-                                                            AddFriendDialog.LeaveMyDialogListener() {
+                                                            AddFriendDialog.LeaveMyDialogListener
+                                                                    () {
 
                                                                 @Override
                                                                 public void onClick(View view) {
@@ -220,16 +290,17 @@ public class UserDetailsActivity extends BaseActivity {
 
                                             break;
                                         case 1://自己好友位已满
-                                            noFriendNumberDialog = new NoFriendNumberDialog(UserDetailsActivity.this,
-                                                    R.style.MyDialog, new
-                                                    NoFriendNumberDialog
-                                                            .LeaveMyDialogListener() {
+                                            noFriendNumberDialog = new NoFriendNumberDialog
+                                                    (UserDetailsActivity.this,
+                                                            R.style.MyDialog, new
+                                                            NoFriendNumberDialog
+                                                                    .LeaveMyDialogListener() {
 
-                                                        @Override
-                                                        public void onClick(View view) {
-                                                            noFriendNumberDialog.dismiss();
-                                                        }
-                                                    });
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    noFriendNumberDialog.dismiss();
+                                                                }
+                                                            });
 
                                             noFriendNumberDialog.setCancelable(true);
 
@@ -241,15 +312,18 @@ public class UserDetailsActivity extends BaseActivity {
 
                                         case 2://目标好友位已满
 
-                                            addFriendErrorDialog = new AddFriendErrorDialog(UserDetailsActivity.this,
-                                                    R.style
-                                                            .MyDialog, new AddFriendErrorDialog.LeaveMyDialogListener
-                                                    () {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    addFriendErrorDialog.dismiss();
-                                                }
-                                            });
+                                            addFriendErrorDialog = new AddFriendErrorDialog
+                                                    (UserDetailsActivity.this,
+                                                            R.style
+                                                                    .MyDialog, new
+                                                            AddFriendErrorDialog
+                                                                    .LeaveMyDialogListener
+                                                                    () {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    addFriendErrorDialog.dismiss();
+                                                                }
+                                                            });
                                             //修改弹窗位置
                                             changeDialogLocation(addFriendErrorDialog);
                                             addFriendErrorDialog.show();
@@ -264,10 +338,10 @@ public class UserDetailsActivity extends BaseActivity {
                 break;
 
 
-            case R.id.layout_remark:
-                intent = new Intent(this, RemarkActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.layout_remark:
+//                intent = new Intent(this, RemarkActivity.class);
+//                startActivity(intent);
+//                break;
 
             case R.id.layout_analyze_life_book://我與TA的詳細分析
                 intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
@@ -290,6 +364,17 @@ public class UserDetailsActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    public class GlideImageLoader extends ImageLoader {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+
+
+            Glide.with(context).load(path).error(R.mipmap.default_image).into(imageView);
+
+        }
+
     }
 
     private void changeDialogLocation(Dialog dialog) {

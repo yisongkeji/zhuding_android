@@ -1,5 +1,6 @@
 package com.foreseers.chat.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.location.Address;
 import android.location.Geocoder;
@@ -20,7 +21,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class GetLocation {
     private LocationManager locationManager;// 位置服务
     private Location location;// 位置
-    private LocationBean locationBean=new LocationBean();
+    private LocationBean locationBean = new LocationBean();
 
     public LocationBean getLocation(Activity activity) {
 
@@ -35,12 +36,14 @@ public class GetLocation {
                         .getLongitude());
                 showLocation(location);
             } else {
+                Log.e("Exception", "获取地理位置失败 ");
 //                tv_show.setText("获取地理位置失败，上次的地理位置为：" );
             }
         } catch (Exception e) {
+            Log.e("Exception", "getLocation: " + e.toString());
 //            tv_show.setText("获取地理位置失败，上次的地理位置为：" );
         }
-        Log.i("location###########", "############"+locationBean.getAddr());
+        Log.i("location###########", "############" + locationBean.getAddr());
         return locationBean;
     }
 
@@ -81,6 +84,7 @@ public class GetLocation {
 
 
     // GPS去获取location经纬度
+    @SuppressLint("MissingPermission")
     public boolean locationInitByGPS() {
         // 没有GPS，直接返回
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -101,6 +105,7 @@ public class GetLocation {
     }
 
     // network去获取location经纬度
+    @SuppressLint("MissingPermission")
     public boolean locationInitByNETWORK() {
         // 没有NETWORK，直接返回
         if (!locationManager

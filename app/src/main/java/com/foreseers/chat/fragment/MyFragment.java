@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -20,10 +22,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.MyVipActivity;
@@ -34,6 +38,8 @@ import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.AddVIPDialog;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseMainFragment;
+import com.foreseers.chat.util.BitmapDispose;
+import com.foreseers.chat.util.FileUtil;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
@@ -49,10 +55,13 @@ import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +114,8 @@ public class MyFragment extends BaseMainFragment {
     private AlbumBean.DataBean dataBean;
     private ArrayList<String> imgList = new ArrayList<>();
     private AddVIPDialog addVIPDialog;
+    private String blurPath;
+    private String blurImagePath;
 
 
     public MyFragment() {
@@ -191,7 +202,7 @@ public class MyFragment extends BaseMainFragment {
 
                 textName.setText(dataBean.getUsername());
                 textMyNum.setText(dataBean.getNum() + "");
-                textVipDay.setText(dataBean.getVipday()+"");
+                textVipDay.setText(dataBean.getVipday() + "");
 
                 textName2.setText(dataBean.getUsername());
                 textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
@@ -211,6 +222,36 @@ public class MyFragment extends BaseMainFragment {
                 break;
 
             case DATAFELLED:
+
+                break;
+
+            case USERHEADSUCCESS:
+                OkGo.<String>post(Urls.Url_UserBlurHead).tag(this)
+                        .params("userid", userid)
+                        .params("file", new File(blurPath))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                FileUtil.deleteFile(blurPath);
+
+                            }
+                        });
+
+                break;
+
+            case USERIMGSUCCESS:
+                OkGo.<String>post(Urls.Url_UserBlurImg).tag(this)
+                        .params("userid", userid)
+                        .params("file", new File(blurImagePath))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                FileUtil.deleteFile(blurImagePath);
+                                getDataFromHttp();
+                            }
+                        });
 
                 break;
         }
@@ -315,7 +356,7 @@ public class MyFragment extends BaseMainFragment {
                                             .captureStrategy(new CaptureStrategy(true, "com" +
                                                     ".foreseers.chat.fileprovider", "test"))
                                             .maxSelectable(1)
-                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
+                                            .addFilter(new GifSizeFilter(320, 320, Filter.K *
                                                     Filter.K))
                                             .gridExpectedSize(getResources()
                                                     .getDimensionPixelSize(R.dimen
@@ -381,7 +422,7 @@ public class MyFragment extends BaseMainFragment {
 
             case R.id.layout_vip://添加vip
 
-                intent=new Intent(getActivity(),MyVipActivity.class);
+                intent = new Intent(getActivity(), MyVipActivity.class);
                 getActivity().startActivity(intent);
 
 
@@ -411,29 +452,51 @@ public class MyFragment extends BaseMainFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i("onActivityResult", "onActivityResult:requestCode " + requestCode + "   resultCode" + resultCode);
+        Log.i("onActivityResult", "onActivityResult:requestCode " + requestCode + "   resultCode"
+                + resultCode);
         switch (requestCode) {
             case REQUEST_CODE_CHOOSE: //头像
 
                 if (resultCode == RESULT_OK) {
                     String path = Matisse.obtainPathResult(data).get(0);
                     Glide.with(this).load(path).into(imageHead);
+                    try {
+
+                        FileInputStream fis = new FileInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
+                        blurPath = BitmapDispose.saveBitmap(blurBitmap);
+
+                        Log.i("blurPath", "blurPath: " + blurPath);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
 
                     OkGo.<String>post(Urls.Url_UserHead).tag(this)
-                            .params("facebookid", facebookId)
+                            .params("userid", userid)
                             .params("file", new File(path))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
 
+
                                     Gson gson = new Gson();
-                                    UserDataBean userDataBean = gson.fromJson(response.body(), UserDataBean.class);
-                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user",
-                                            MODE_PRIVATE);
-                                    sharedPreferences.edit().putString("url", userDataBean.getData().getHead())
+                                    UserDataBean userDataBean = gson.fromJson(response.body(),
+                                            UserDataBean.class);
+                                    SharedPreferences sharedPreferences = getActivity()
+                                            .getSharedPreferences("user",
+                                                    MODE_PRIVATE);
+                                    sharedPreferences.edit().putString("url", userDataBean
+                                            .getData().getHead())
                                             .commit();
+
+                                    getHandler().obtainMessage(USERHEADSUCCESS).sendToTarget();
+
                                 }
                             });
+
 
                 }
                 break;
@@ -444,13 +507,29 @@ public class MyFragment extends BaseMainFragment {
                     Log.i("useridMyfragment", "userid: " + userid);
                     Glide.with(this).load(path).into(imageHead);
 
+                    try {
+
+                        FileInputStream fis = new FileInputStream(path);
+                        Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
+                        blurImagePath = BitmapDispose.saveBitmap(blurBitmap);
+
+                        Log.i("blurPath", "blurPath: " + blurImagePath);
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+
+
                     OkGo.<String>post(Urls.Url_UserImg).tag(this)
                             .params("userid", userid)
                             .params("file", new File(path))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    getDataFromHttp();
+                                    getHandler().obtainMessage(USERIMGSUCCESS).sendToTarget();
+
                                 }
 
                                 @Override

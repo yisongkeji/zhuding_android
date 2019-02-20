@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.RecommendBean;
@@ -50,29 +51,26 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
         image = baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people);
 
 
-
-        Glide.with(context).load(item.getHead()).into(image);
+        Glide.with(context).load(item.getPicture()).into(image);
 
         baseViewHolder.setTypeface(typeface);
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())
-                .setText(R.id.text_people_progress,  item.getUserscore() + "")
-
-                .setText(R.id.text_people_location, "距离:" + item.getDistance() + "km");
-//     .setText(R.id.text_people_sex, (item.getSex().equals("F") ? "女" : "男"))
+                .setText(R.id.text_people_progress, item.getUserscore() + "")
+                .setText(R.id.text_people_location, item.getDistance() + "km");
 
 
         switch (item.getSex()) {
             case "F":
-                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable.rounded_layout_pink);
-                baseViewHolder.setText(R.id.text_people_sex, ("♀" +item.getReservedint()));
-//                textSex.setBackgroundResource(R.drawable.rounded_layout_pink);
-//                textSex.setText("♀" + age);
+                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable
+                        .rounded_layout_pink);
+                baseViewHolder.setText(R.id.text_people_sex, ("♀" + item.getReservedint()));
+
                 break;
             case "M":
-                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable.rounded_layout_blue);
-                baseViewHolder.setText(R.id.text_people_sex, ("♂" +item.getReservedint()));
-//                textSex.setBackgroundResource(R.drawable.rounded_layout_blue);
-//                textSex.setText("♂" + age);
+                baseViewHolder.getView(R.id.text_people_sex).setBackgroundResource(R.drawable
+                        .rounded_layout_blue);
+                baseViewHolder.setText(R.id.text_people_sex, ("♂" + item.getReservedint()));
+
                 break;
 
             default:
@@ -86,13 +84,8 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                     public void onClick(View view) {
                         Intent intent = new Intent(context, UserDetailsActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("userid", item.getId()+"");
-//                        bundle.putString("username", item.getUsername());
-//                        bundle.putString("sex", item.getSex());
-//                        bundle.putInt("age",item.getAge());
-//                        bundle.putInt("num",item.getNum());
-//                        bundle.putInt("distance",item.getDistance());
-//                        bundle.putInt("userscore",item.getUserscore());
+                        bundle.putString("userid", item.getId() + "");
+
                         intent.putExtras(bundle);
                         context.startActivity(intent);
                     }

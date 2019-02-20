@@ -3,26 +3,36 @@
     <!--<color name="colorPrimary">#008577</color>-->
     <color name="colorPrimary">#039a9f</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#039a9f</color>
-    <color name="colorStart">#039a9f</color>
-    <color name="colorEnd">#08568B</color>
 
 
 
-    <color name="colorMain">#058197</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorGray">#bbbbbb</color>
+
+
     <color name="colorGray2">#a8a8a8</color>
     <color name="colorGray3">#cfcfcf</color>
+
     <color name="colorDialog">#00ffffff</color>
     <color name="colorBlue">#64a8eb</color>
-    <color name="colorBlue2">#00bfa9</color>
+
     <color name="colorBlue3">#91e3da</color>
-    <color name="colorGreen">#b6d99f</color>
+    <!--<color name="colorGreen">#b6d99f</color>-->
     <color name="colorPink">#f89ca6</color>
-    <color name="colorRed">#ff0000</color>
+
     <color name="colorYellow">#d9b775</color>
     <color name="colorYellow2">#fff4f0</color>
     <color name="boxing_colorPrimaryAlpha">#44000000</color>
+
+
+
+
+    <color name="colorAccent">#01bca8</color>
+    <color name="colorMain">#066b91</color>
+    <color name="colorGray">#646464</color>
+    <color name="colorGrayBackground">#f3f3f3</color>
+    <color name="colorGreen">#18e9d5</color>
+    <color name="colorRed">#ff0000</color>
+
+
 </resources>

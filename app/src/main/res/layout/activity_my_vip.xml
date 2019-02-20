@@ -44,7 +44,7 @@
                         app:corner_radius="40dp"
                         app:icon_src_normal="@mipmap/icon_me_loading_03"
                         app:border_width="2dp"
-                        app:border_color="@color/colorBlue2"/>
+                        app:border_color="@color/colorAccent"/>
 
                 <ImageView
                         android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlue2"
+                            android:textColor="@color/colorAccent"
                             android:textSize="@dimen/sp_11"/>
 
                     <TextView
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="注定会员"
-                    android:textColor="@color/colorBlue2"
+                    android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
 
@@ -309,7 +309,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="注定会员特权"
-                    android:textColor="@color/colorBlue2"
+                    android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
 

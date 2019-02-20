@@ -4,34 +4,38 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImgAlbumActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ImgAlbumActivity extends BaseActivity {
 
     private final String TAG = "ImgAlbumActivity@@@@@@@";
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.my_titlebar)
+    MyTitleBar myTitlebar;
 
 
     private String userid;
@@ -54,20 +58,27 @@ public class ImgAlbumActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String data = bundle.getString("data");
         position = bundle.getInt("position");
-        Log.i(TAG, "position: "+position);
+        Log.i(TAG, "position: " + position);
         //设置自动轮播，默认为true
         banner.isAutoPlay(false);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
 
+
         getDataFromHttp();
 
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
     }
 
     private void getDataFromHttp() {
 
-        userid =GetLoginTokenUtil.getUserId(this);
+        userid = GetLoginTokenUtil.getUserId(this);
         OkGo.<String>post(Urls.Url_My).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {

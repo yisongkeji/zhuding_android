@@ -22,6 +22,8 @@ public abstract class BaseMainFragment extends BaseFragment {
     private long TOUCH_TIME = 0;
     public final int DATASUCCESS = 1;
     public final int DATAFELLED = 0;
+    public final int USERHEADSUCCESS = 2;
+    public final int USERIMGSUCCESS = 3;
     /**
      * 处理回退事件
      *

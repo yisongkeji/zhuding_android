@@ -1,15 +1,17 @@
 package com.foreseers.chat.bean;
 
+import java.util.List;
+
 public class AnalyzeLifeBookBean {
 
     /**
      * status : success
-     * data : {"id":131,"zhuid":88,"congid":63,"userscore":74,"userdesc":"DESC","commentgood":null,"commentbad":null,
-     * "characteristicgood":null,"characteristicbad":null,"mindscore":78,"minddesc":"DESC","bodyscore":57,
-     * "bodydesc":"DESC","characterscore":79,"characterdesc":"DESC","distance":12323,"spare":null,"spare1":null,
-     * "spare2":null,
+     * data : {"id":131,"zhuid":88,"congid":63,"userscore":74,"userdesc":"DESC",
+     * "commentgood":null,"commentbad":null,"characteristicgood":null,"characteristicbad":null,
+     * "mindscore":78,"minddesc":"DESC","bodyscore":57,"bodydesc":"DESC","characterscore":79,
+     * "characterdesc":"DESC","distance":1,"spare":null,"spare1":null,"spare2":null,
      * "commentdesc
-     * ":"挺難溝通的一對，摩羯座是固執的土象星座，水瓶座是變動的風象星座，大家基本觀念已經不同，要一起一定要付出努力。如果你們現在正在拍拖，那之前一定已經跨越了很多心理障礙，對摩羯座來講，在失意時候，因為水瓶座那種博愛的精神，會在你最需要人安慰時加以援手，你才可能因此愛上他，但一步入情況，你發覺他對所有人都是一樣！至於水瓶座會被摩羯座那種沉默寡言有深度的外型吸引住，感覺很沉穩老實，但當你接近他，就知他們其實老謀心算，非常自私。你不夠他玩的，因為你火爆衝動的性格，有事發生馬上寫在臉上，摩羯座卻能沉住氣，令你更生氣，完全給他吃住，兩個人很難真是交心。在性生活方面，也有相同的矛盾，摩羯座要用性來舒緩他沉重的壓力，水瓶座就不是很計較，覺得同吃飯睡覺一樣，大家要求不同，結果難以協調。夫妻恩愛甚佳，天梁善良，深情，體貼，天相易受感動，兩人互相諒解，真情流露，水乳交融，是一對天作之合。","characteristicdesc":"為人匪氣無賴。而且孤傲難以馴服，不通人情，說不上話來，三句話就罵娘的類型。處理問題簡單，腦子也簡單。不過身弱的好，身弱的保守思想，傳統意識強，為人自律嚴謹，原則性強，屬於比較謹慎。不善於表達，但是內心有叛逆意識，這種身弱的需要鼓勵。生活當中，八字七殺克身的對人生有一個客觀的認識，一般不佔人便宜，但是事業心強，屬於獨立創業的多。只是七殺貼身的不管是身旺身弱，都一生易招口舌，招小人。心性豪爽，顯象貴氣\b。為人敦厚，性情溫和，待人誠實，心地善良，能替別人著想，嚴以律己，寬以待人，故給人穩定的感覺。愛好和平，有惻隱之心，喜歡濟弱扶傾，擁有寬大的胸懷，能犧牲奉獻。重視形象外表，講究服飾打扮。行事小心具正義感，穩重而又樂善好施，喜歡名譽與聲望。","age":17,"num":0,"sex":"M","obligate":null,"friend":0,"name":"张三","haed":"http://192.168.1.73:8080/Screenshot_20190210-130016.jpg"}
+     * ":"挺難溝通的一對，摩羯座是固執的土象星座，水瓶座是變動的風象星座，大家基本觀念已經不同，要一起一定要付出努力。如果你們現在正在拍拖，那之前一定已經跨越了很多心理障礙，對摩羯座來講，在失意時候，因為水瓶座那種博愛的精神，會在你最需要人安慰時加以援手，你才可能因此愛上他，但一步入情況，你發覺他對所有人都是一樣！至於水瓶座會被摩羯座那種沉默寡言有深度的外型吸引住，感覺很沉穩老實，但當你接近他，就知他們其實老謀心算，非常自私。你不夠他玩的，因為你火爆衝動的性格，有事發生馬上寫在臉上，摩羯座卻能沉住氣，令你更生氣，完全給他吃住，兩個人很難真是交心。在性生活方面，也有相同的矛盾，摩羯座要用性來舒緩他沉重的壓力，水瓶座就不是很計較，覺得同吃飯睡覺一樣，大家要求不同，結果難以協調。夫妻恩愛甚佳，天梁善良，深情，體貼，天相易受感動，兩人互相諒解，真情流露，水乳交融，是一對天作之合。","characteristicdesc":"為人匪氣無賴。而且孤傲難以馴服，不通人情，說不上話來，三句話就罵娘的類型。處理問題簡單，腦子也簡單。不過身弱的好，身弱的保守思想，傳統意識強，為人自律嚴謹，原則性強，屬於比較謹慎。不善於表達，但是內心有叛逆意識，這種身弱的需要鼓勵。生活當中，八字七殺克身的對人生有一個客觀的認識，一般不佔人便宜，但是事業心強，屬於獨立創業的多。只是七殺貼身的不管是身旺身弱，都一生易招口舌，招小人。心性豪爽，顯象貴氣\b。為人敦厚，性情溫和，待人誠實，心地善良，能替別人著想，嚴以律己，寬以待人，故給人穩定的感覺。愛好和平，有惻隱之心，喜歡濟弱扶傾，擁有寬大的胸懷，能犧牲奉獻。重視形象外表，講究服飾打扮。行事小心具正義感，穩重而又樂善好施，喜歡名譽與聲望。","age":17,"num":0,"sex":"M","obligate":null,"friend":0,"name":"郑皓","head":"http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256-_3CA7C40A5FD276FF4A87F500D2927F1D.jpg","images":[{"id":22,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100421.jpg","updated":"2019-02-19T02:04:21.000+0000","facebookid":null,"imagename":"20190219100421.jpg","spare":"http://192.168.1.73:8080/88/b20190219100421.jpg","spareint":null},{"id":23,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100424.jpg","updated":"2019-02-19T02:04:24.000+0000","facebookid":null,"imagename":"20190219100424.jpg","spare":"http://192.168.1.73:8080/88/b20190219100424.jpg","spareint":null},{"id":24,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100428.jpg","updated":"2019-02-19T02:04:28.000+0000","facebookid":null,"imagename":"20190219100428.jpg","spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null}],"lookimages":1}
      */
 
     private String status;
@@ -48,7 +50,7 @@ public class AnalyzeLifeBookBean {
          * bodydesc : DESC
          * characterscore : 79
          * characterdesc : DESC
-         * distance : 12323
+         * distance : 1
          * spare : null
          * spare1 : null
          * spare2 : null
@@ -61,8 +63,23 @@ public class AnalyzeLifeBookBean {
          * sex : M
          * obligate : null
          * friend : 0
-         * name : 张三
-         * haed : http://192.168.1.73:8080/Screenshot_20190210-130016.jpg
+         * name : 郑皓
+         * head : http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
+         * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg
+         * images : [{"id":22,"userid":88,
+         * "image":"http://192.168.1.73:8080/88/20190219100421.jpg",
+         * "updated":"2019-02-19T02:04:21.000+0000","facebookid":null,
+         * "imagename":"20190219100421.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190219100421.jpg","spareint":null},{"id":23,
+         * "userid":88,"image":"http://192.168.1.73:8080/88/20190219100424.jpg",
+         * "updated":"2019-02-19T02:04:24.000+0000","facebookid":null,
+         * "imagename":"20190219100424.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190219100424.jpg","spareint":null},{"id":24,
+         * "userid":88,"image":"http://192.168.1.73:8080/88/20190219100428.jpg",
+         * "updated":"2019-02-19T02:04:28.000+0000","facebookid":null,
+         * "imagename":"20190219100428.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null}]
+         * lookimages : 1
          */
 
         private int id;
@@ -93,6 +110,8 @@ public class AnalyzeLifeBookBean {
         private int friend;
         private String name;
         private String head;
+        private int lookimages;
+        private List<ImagesBean> images;
 
         public int getId() {
             return id;
@@ -310,13 +329,114 @@ public class AnalyzeLifeBookBean {
             this.name = name;
         }
 
+        public String getHead() {
+            return head;
+        }
+
         public void setHead(String head) {
             this.head = head;
         }
 
-        public String getHead() {
+        public int getLookimages() {
+            return lookimages;
+        }
 
-            return head;
+        public void setLookimages(int lookimages) {
+            this.lookimages = lookimages;
+        }
+
+        public List<ImagesBean> getImages() {
+            return images;
+        }
+
+        public void setImages(List<ImagesBean> images) {
+            this.images = images;
+        }
+
+        public static class ImagesBean {
+            /**
+             * id : 22
+             * userid : 88
+             * image : http://192.168.1.73:8080/88/20190219100421.jpg
+             * updated : 2019-02-19T02:04:21.000+0000
+             * facebookid : null
+             * imagename : 20190219100421.jpg
+             * spare : http://192.168.1.73:8080/88/b20190219100421.jpg
+             * spareint : null
+             */
+
+            private int id;
+            private int userid;
+            private String image;
+            private String updated;
+            private Object facebookid;
+            private String imagename;
+            private String spare;
+            private Object spareint;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getUserid() {
+                return userid;
+            }
+
+            public void setUserid(int userid) {
+                this.userid = userid;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public String getUpdated() {
+                return updated;
+            }
+
+            public void setUpdated(String updated) {
+                this.updated = updated;
+            }
+
+            public Object getFacebookid() {
+                return facebookid;
+            }
+
+            public void setFacebookid(Object facebookid) {
+                this.facebookid = facebookid;
+            }
+
+            public String getImagename() {
+                return imagename;
+            }
+
+            public void setImagename(String imagename) {
+                this.imagename = imagename;
+            }
+
+            public String getSpare() {
+                return spare;
+            }
+
+            public void setSpare(String spare) {
+                this.spare = spare;
+            }
+
+            public Object getSpareint() {
+                return spareint;
+            }
+
+            public void setSpareint(Object spareint) {
+                this.spareint = spareint;
+            }
         }
     }
 }

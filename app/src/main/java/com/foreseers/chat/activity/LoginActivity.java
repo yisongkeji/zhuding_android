@@ -146,8 +146,8 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.login_wechat:
 //                facebookid= "467979503606542";
-                facebookid = "46797950360651";
-//                facebookid= "46797950360652";
+
+                facebookid= "46797950360652";
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);

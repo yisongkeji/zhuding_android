@@ -15,7 +15,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-
 import com.foreseers.chat.foreseers.R;
 
 /**
@@ -195,7 +194,8 @@ public class DoubleSlideSeekBar extends View {
                 case R.styleable.DoubleSlideSeekBar_textSize:
                     textSize = typedArray.getDimensionPixelSize(type, (int) TypedValue
                             .applyDimension(
-                            TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+                                    TypedValue.COMPLEX_UNIT_SP, 16, getResources()
+                                            .getDisplayMetrics()));
                     break;
                 case R.styleable.DoubleSlideSeekBar_imageLow:
                     bitmapLow = BitmapFactory.decodeResource(getResources(), typedArray
@@ -232,7 +232,8 @@ public class DoubleSlideSeekBar extends View {
                 case R.styleable.DoubleSlideSeekBar_ruleTextSize:
                     ruleTextSize = typedArray.getDimensionPixelSize(type, (int) TypedValue
                             .applyDimension(
-                            TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+                                    TypedValue.COMPLEX_UNIT_SP, 16, getResources()
+                                            .getDisplayMetrics()));
                     break;
                 case R.styleable.DoubleSlideSeekBar_ruleLineHeight:
                     ruleLineHeight = (int) typedArray.getDimension(type, dip2px(getContext(), 10));
@@ -366,6 +367,7 @@ public class DoubleSlideSeekBar extends View {
         if (bitmapPaint == null) {
             bitmapPaint = new Paint();
         }
+
         canvas.drawBitmap(bitmapLow, slideLowX - bitmapWidth / 2, lineY - bitmapHeight / 2,
                 bitmapPaint);
         canvas.drawBitmap(bitmapBig, slideBigX - bitmapWidth / 2, lineY - bitmapHeight / 2,
@@ -459,14 +461,26 @@ public class DoubleSlideSeekBar extends View {
         return true;
     }
 
-    public int getSmallRange(){
-        return (int) smallRange;
+    public int getSmallRange() {
+        return (int) computRange(slideLowX);
     }
 
     public int getBigRange() {
-        return (int) bigRange;
+        return (int) computRange(slideBigX);
     }
 
+    /**
+     * 修改当前位置
+     */
+    public void setRange(int small, int big) {
+        slideLowX =lineStart+((small-smallValue)*((lineEnd-lineStart)/(bigValue-smallValue)));
+        slideBigX =lineEnd-big;
+        smallRange = small;
+        bigRange = big;
+
+
+        postInvalidate();
+    }
 
     /**
      * 判断当前是否是最大值
@@ -538,4 +552,6 @@ public class DoubleSlideSeekBar extends View {
     public void setOnRangeListener(DoubleSlideSeekBar.onRangeListener onRangeListener) {
         this.onRangeListener = onRangeListener;
     }
+
+
 }

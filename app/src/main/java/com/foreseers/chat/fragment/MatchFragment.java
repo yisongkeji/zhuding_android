@@ -17,9 +17,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.foreseers.chat.decoration.GridItemDecoration;
+import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.google.gson.Gson;
 import com.hmy.popwindow.PopItemAction;
@@ -54,6 +57,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class MatchFragment extends BaseMainFragment {
 
+    private final String TAG="MatchFragment####";
 
     Unbinder unbinder;
 
@@ -79,6 +83,9 @@ public class MatchFragment extends BaseMainFragment {
     private String ageLittle;
     private String agebig;
     private int distance;
+    private RadioGroup radioGroup;
+    private View view;
+    private DoubleSlideSeekBar doubleslideAge;
 
     public MatchFragment() {
         // Required empty public constructor
@@ -107,8 +114,10 @@ public class MatchFragment extends BaseMainFragment {
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerPeople.setLayoutManager(gridLayoutManager);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
+        recyclerPeople.setLayoutManager(staggeredGridLayoutManager);
+        recyclerPeople.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
         recyclerPeople.setAdapter(peopleAdapter);
 
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -156,6 +165,7 @@ public class MatchFragment extends BaseMainFragment {
     private void getDataFromHttp() {
         GetLocation location = new GetLocation();
         locationBean = location.getLocation(getActivity());
+        Log.i(TAG, "locationBean: "+locationBean.getLng());
 
         OkGo.<String>post(Urls.Url_UserLocation).tag(this)
                 .params("facebookid", facebookid)
@@ -183,7 +193,7 @@ public class MatchFragment extends BaseMainFragment {
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
                         } else if (loginBean.getStatus().equals("fail")) {
-                            Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -214,8 +224,10 @@ public class MatchFragment extends BaseMainFragment {
 
     @OnClick(R.id.img_match_filter)
     public void onViewClicked() {
-        final View view = View.inflate(getActivity(), R.layout.item_match_filter, null);
-        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+
+        initPopupWind();
+
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup
                 .OnCheckedChangeListener() {
 
@@ -224,28 +236,32 @@ public class MatchFragment extends BaseMainFragment {
                 switch (i) {
                     case R.id.radio_left://男M
                         sex = "M";
-                        Log.i("radioGroup", "onCheckedChanged: "+sex);
+                        Log.i("radioGroup", "onCheckedChanged: " + sex);
                         break;
                     case R.id.radio_middle://不限
                         sex = "";
-                        Log.i("radioGroup", "onCheckedChanged: "+sex);
+                        Log.i("radioGroup", "onCheckedChanged: " + sex);
                         break;
                     case R.id.radio_right://女F
                         sex = "F";
-                        Log.i("radioGroup", "onCheckedChanged: "+sex);
+                        Log.i("radioGroup", "onCheckedChanged: " + sex);
                         break;
 
 
                 }
-                Log.i("radioGroup", "onCheckedChanged: "+sex);
+                Log.i("radioGroup", "onCheckedChanged: " + sex);
             }
         });
 
-        DoubleSlideSeekBar doubleslide_age = view.findViewById(R.id
-                .doubleslide_age);
+        doubleslideAge.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
+            @Override
+            public void onRange(float low, float big) {
+                ageLittle = doubleslideAge.getSmallRange() + "";
+                agebig = doubleslideAge.getBigRange() + "";
+            }
+        });
 
-        ageLittle = doubleslide_age.getSmallRange() + "";
-        agebig = doubleslide_age.getBigRange() + "";
+
         Log.i("@@@@@@@@@@", "onClick: " + ageLittle);
         DoubleSlideSeekBar doubleslide_distance = view.findViewById(R.id
                 .doubleslide_distance);
@@ -255,13 +271,12 @@ public class MatchFragment extends BaseMainFragment {
 
         new PopWindow.Builder(getActivity())
                 .setStyle(PopWindow.PopWindowStyle.PopUp)
-                .addContentView(view )
+                .addContentView(view)
                 .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new
                         PopItemAction.OnClickListener() {
                             @Override
                             public void onClick() {
                                 Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
-
 
 
                                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor
@@ -271,14 +286,55 @@ public class MatchFragment extends BaseMainFragment {
                                 editor.putString("agebig", agebig);
                                 editor.putInt("distance", distance);
                                 editor.commit();//提交修改
-                                Log.e("okgo", "sex: "+sex+"  ageLittle:"+ageLittle+"   agebig:"+agebig+"    distance:"+distance);
-                                Log.e("okgo","sex:"+sex );
+                                Log.e("okgo", "sex: " + sex + "  ageLittle:" + ageLittle + "   " +
+                                        "agebig:" + agebig + "    distance:" + distance);
+                                Log.e("okgo", "sex:" + sex);
 
                                 getDataForHttp();
                                 getDataFromHttp();
                             }
                         }))
                 .show();
+
+    }
+
+    private void initPopupWind() {
+        view = View.inflate(getActivity(), R.layout.item_match_filter, null);
+        radioGroup = view.findViewById(R.id.radioGroup);
+
+        RadioButton radioButton_left = view.findViewById(R.id.radio_left);
+        RadioButton radioButton_middle = view.findViewById(R.id.radio_middle);
+        RadioButton radioButton_right = view.findViewById(R.id.radio_right);
+
+
+        sex = userInfo.getString("sex", "");
+        switch (sex) {
+            case "M"://男M
+                radioButton_left.setChecked(true);
+                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                break;
+            case ""://不限
+                radioButton_middle.setChecked(true);
+                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                break;
+            case "F"://女F
+                radioButton_right.setChecked(true);
+                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                break;
+
+
+        }
+
+
+        doubleslideAge = view.findViewById(R.id.doubleslide_age);
+        ageLittle = userInfo.getString("ageLittle", "");
+        agebig = userInfo.getString("agebig", "");
+
+        doubleslideAge.setRange(Integer.parseInt(ageLittle), Integer.parseInt(agebig));
+
+
+        distance = userInfo.getInt("distance", 0);
+
 
     }
 

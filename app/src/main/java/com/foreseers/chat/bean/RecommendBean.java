@@ -7,13 +7,40 @@ public class RecommendBean {
     /**
      * status : success
      * data : [{"id":62,"username":"zheng3","sex":"F","date":"2002-01-16","time":"16:00:00",
-     * "zone":13,"facebook":"46797950360650","num":null,
-     * -2.3.1235-_F8FC5F21C67B7366457C2359888827AB.jpg","picture":null,"vip":null,"viptime":null,
+     * "zone":13,"facebook":"46797950360650","num":0,
+     * "head":"http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
+     * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg",
+     * "picture":"http://192.168.1.73:8080/88/1550541329742.jpg","vip":0,"viptime":null,
      * "city":"天津市","bazi":"辛巳,辛丑,甲申,壬申","zodiac":"蛇","xingzuo":"摩羯座","ziwei":"天相","area":"天津市",
      * "country":"中国","lat":39.177125,"lng":117.132536,"spare":"红桥区","spare1":"保康路天津市誉华专修学院",
-     * "updatetime":"2019-01-16T08:08:25.000+0000","obligate":null,"numerology":3,"userstar":8,
-     * "reservedint":null,"reservedvar":null,"reservedvar1":null,"cat1":"木","userscore":74,
-     * "distance":1,"numuser":1,"age":17}]
+     * "updatetime":"2019-02-19T02:21:00.000+0000","obligate":null,"numerology":3,"userstar":8,
+     * "reservedint":17,"reservedvar":"20","reservedvar1":null,"cat1":"木","userscore":74,
+     * "distance":1,"numuser":1,"age":17},{"id":66,"username":"王五","sex":"F","date":"2002-01-16",
+     * "time":"16:00:00","zone":13,"facebook":"46797950360653","num":0,
+     * "head":"http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
+     * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg",
+     * "picture":"http://192.168.1.73:8080/88/1550541329742.jpg","vip":0,"viptime":null,
+     * "city":"天津市","bazi":"辛巳,辛丑,甲申,壬申","zodiac":"蛇","xingzuo":"摩羯座","ziwei":"天相","area":"天津市",
+     * "country":"中国","lat":39.177098,"lng":117.132513,"spare":"红桥区","spare1":"保康路天津市誉华专修学院",
+     * "updatetime":"2019-02-19T02:21:02.000+0000","obligate":null,"numerology":3,"userstar":8,
+     * "reservedint":21,"reservedvar":"20","reservedvar1":null,"cat1":"木","userscore":74,
+     * "distance":1,"numuser":0,"age":17},{"id":86,"username":"郑皓","sex":"M","date":"2002-01-21",
+     * "time":"16:00:00","zone":19,"facebook":"468979503606542","num":0,
+     * "head":"http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
+     * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg",
+     * "picture":"http://192.168.1.73:8080/88/1550541329742.jpg","vip":0,"viptime":null,
+     * "city":"天津市","bazi":"辛巳,辛丑,己丑,壬申","zodiac":"蛇","xingzuo":"水瓶座","ziwei":"紫微,七殺",
+     * "area":"天津市","country":"中国","lat":39.177114,"lng":117.132497,"spare":"红桥区",
+     * "spare1":"保康路天津市誉华专修学院","updatetime":"2019-02-19T02:21:40.000+0000","obligate":null,
+     * "numerology":8,"userstar":7,"reservedint":25,"reservedvar":"20","reservedvar1":null,
+     * "cat1":"土","userscore":73,"distance":1,"numuser":0,"age":17},{"id":87,"username":"郑皓先生",
+     * "sex":"M","date":"2008-01-21","time":"16:00:00","zone":37,"facebook":"469979503606542",
+     * "num":0,"head":"http://192.168.1.73:8080/467979503606542.jpg","picture":null,"vip":0,
+     * "viptime":null,"city":"天津市","bazi":"丁亥,癸丑,庚申,甲申","zodiac":"豬","xingzuo":"水瓶座",
+     * "ziwei":"太陽","area":"天津市","country":"中国","lat":39.177111,"lng":117.132493,"spare":"红桥区",
+     * "spare1":"保康路天津市誉华专修学院","updatetime":"2019-02-12T02:33:04.000+0000","obligate":null,
+     * "numerology":5,"userstar":1,"reservedint":30,"reservedvar":"20","reservedvar1":null,
+     * "cat1":"金","userscore":72,"distance":1,"numuser":0,"age":11}]
      */
 
     private String status;
@@ -44,10 +71,11 @@ public class RecommendBean {
          * time : 16:00:00
          * zone : 13
          * facebook : 46797950360650
-         * num : null
-         * -_F8FC5F21C67B7366457C2359888827AB.jpg
-         * picture : null
-         * vip : null
+         * num : 0
+         * head : http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
+         * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg
+         * picture : http://192.168.1.73:8080/88/1550541329742.jpg
+         * vip : 0
          * viptime : null
          * city : 天津市
          * bazi : 辛巳,辛丑,甲申,壬申
@@ -60,12 +88,12 @@ public class RecommendBean {
          * lng : 117.132536
          * spare : 红桥区
          * spare1 : 保康路天津市誉华专修学院
-         * updatetime : 2019-01-16T08:08:25.000+0000
+         * updatetime : 2019-02-19T02:21:00.000+0000
          * obligate : null
          * numerology : 3
          * userstar : 8
-         * reservedint : null
-         * reservedvar : null
+         * reservedint : 17
+         * reservedvar : 20
          * reservedvar1 : null
          * cat1 : 木
          * userscore : 74
@@ -83,8 +111,8 @@ public class RecommendBean {
         private String facebook;
         private int num;
         private String head;
-        private Object picture;
-        private Object vip;
+        private String picture;
+        private int vip;
         private Object viptime;
         private String city;
         private String bazi;
@@ -102,22 +130,13 @@ public class RecommendBean {
         private int numerology;
         private int userstar;
         private int reservedint;
-        private Object reservedvar;
+        private String reservedvar;
         private Object reservedvar1;
         private String cat1;
         private int userscore;
         private int distance;
         private int numuser;
         private int age;
-
-        public void setNum(int num) {
-            this.num = num;
-        }
-
-        public int getNum() {
-
-            return num;
-        }
 
         public int getId() {
             return id;
@@ -175,7 +194,13 @@ public class RecommendBean {
             this.facebook = facebook;
         }
 
+        public int getNum() {
+            return num;
+        }
 
+        public void setNum(int num) {
+            this.num = num;
+        }
 
         public String getHead() {
             return head;
@@ -185,19 +210,19 @@ public class RecommendBean {
             this.head = head;
         }
 
-        public Object getPicture() {
+        public String getPicture() {
             return picture;
         }
 
-        public void setPicture(Object picture) {
+        public void setPicture(String picture) {
             this.picture = picture;
         }
 
-        public Object getVip() {
+        public int getVip() {
             return vip;
         }
 
-        public void setVip(Object vip) {
+        public void setVip(int vip) {
             this.vip = vip;
         }
 
@@ -329,20 +354,19 @@ public class RecommendBean {
             this.userstar = userstar;
         }
 
+        public int getReservedint() {
+            return reservedint;
+        }
+
         public void setReservedint(int reservedint) {
             this.reservedint = reservedint;
         }
 
-        public int getReservedint() {
-
-            return reservedint;
-        }
-
-        public Object getReservedvar() {
+        public String getReservedvar() {
             return reservedvar;
         }
 
-        public void setReservedvar(Object reservedvar) {
+        public void setReservedvar(String reservedvar) {
             this.reservedvar = reservedvar;
         }
 
