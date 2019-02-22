@@ -105,6 +105,7 @@ public class ChatFragment extends EaseBaseFragment {
 
     @Override
     protected void setUpView() {
+        conversationList.clear();
         conversationList.addAll(loadConversationList());
         conversation.init(conversationList);
 

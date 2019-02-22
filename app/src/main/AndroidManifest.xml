@@ -30,17 +30,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <receiver
-            android:name="com.foreseers.chat.service.AlarmReceiver">
-        </receiver>
-
+        <receiver android:name="com.foreseers.chat.service.AlarmReceiver" />
 
         <service android:name="com.foreseers.chat.service.MediaService" />
         <service android:name="com.foreseers.chat.service.HeadTimeService" />
         <service android:name="com.foreseers.chat.service.ImgsTimeService" />
         <service android:name="com.foreseers.chat.service.AlbumTimeService" />
-
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
@@ -116,12 +111,14 @@
                 android:resource="@xml/file_paths_public" />
         </provider>
 
-        <activity android:name="com.foreseers.chat.activity.ImgAlbumActivity" />
         <activity android:name="com.foreseers.chat.activity.ChangeUserDataActivity" />
         <activity android:name="com.foreseers.chat.activity.NewFriendsMsgActivity" />
-        <activity android:name="com.foreseers.chat.activity.MyVipActivity"></activity>
-
-
+        <activity android:name="com.foreseers.chat.activity.MyVipActivity" />
+        <activity
+            android:name="com.foreseers.chat.activity.ImgAlbumActivity"
+            android:theme="@style/SecondActivityTheme" />
+        <activity android:name="com.foreseers.chat.activity.SettingActivity" />
+        <activity android:name="com.foreseers.chat.activity.WipeHistoryActivity"></activity>
     </application>
 
 </manifest>

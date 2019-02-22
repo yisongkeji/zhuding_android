@@ -98,7 +98,7 @@ public class AnalyzeLifeBookBean {
         private int characterscore;
         private String characterdesc;
         private int distance;
-        private Object spare;
+        private String spare;
         private Object spare1;
         private Object spare2;
         private String commentdesc;
@@ -241,12 +241,14 @@ public class AnalyzeLifeBookBean {
             this.distance = distance;
         }
 
-        public Object getSpare() {
-            return spare;
+
+        public void setSpare(String spare) {
+            this.spare = spare;
         }
 
-        public void setSpare(Object spare) {
-            this.spare = spare;
+        public String getSpare() {
+
+            return spare;
         }
 
         public Object getSpare1() {

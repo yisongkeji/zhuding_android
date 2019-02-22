@@ -48,7 +48,7 @@ public class MediaService extends Service {
                 break;
         }
 
-        long triggerTime = SystemClock.elapsedRealtime() + 1500;
+//        long triggerTime = SystemClock.elapsedRealtime() + 1500;
         Intent i = new Intent(this, AlarmReceiver.class);
         i.putExtra("friendid",friendid);
         i.putExtra("userid",userid);

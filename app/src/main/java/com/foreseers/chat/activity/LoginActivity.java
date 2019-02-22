@@ -143,11 +143,13 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.login_facebook:
 
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                goLogin();
                 break;
             case R.id.login_wechat:
 //                facebookid= "467979503606542";
 
-                facebookid= "46797950360652";
+//                facebookid= "46797950360652";
+                facebookid= "46797950360652333";
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);

@@ -19,6 +19,7 @@ import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 
 /**
+ * 聊天
  * A simple {@link Fragment} subclass.
  */
 public class MyChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper {

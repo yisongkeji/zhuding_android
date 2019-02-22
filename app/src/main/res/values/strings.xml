@@ -50,8 +50,9 @@
     <string name="user_location">距離 ：</string>
     <string name="user_signature">簽名 ：</string>
 
-    <string name="character">分析TA的個人性格</string>
-    <string name="comment">分析你與TA的個人評語</string>
+    <string name="character">TA的個性</string>
+    <string name="comment">相處模式</string>
+    <string name="courting">如何追求TA</string>
 
     <string name="year">年</string>
     <string name="month">月</string>

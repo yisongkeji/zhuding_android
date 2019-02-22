@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -45,6 +47,8 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 
+import com.foreseers.chat.util.BitmapDispose;
+import com.foreseers.chat.util.FileUtil;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -59,6 +63,8 @@ import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -159,6 +165,8 @@ public class UserDataActivity extends AppCompatActivity {
     private UserDataBean userDataBean;
     private UserDataBean.DataBean userData;
     private static final int REQUEST_CODE_CHOOSE = 23;
+    private String path;
+    private String blurPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -551,7 +559,7 @@ public class UserDataActivity extends AppCompatActivity {
 //            mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
             Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)) +
                     "%%%%%%%%%" + Matisse.obtainPathResult(data).get(0));
-            String path = Matisse.obtainPathResult(data).get(0);
+            path = Matisse.obtainPathResult(data).get(0);
 
             String[] arr = path.split("_");
             String newpath = arr[arr.length - 1];
@@ -560,18 +568,24 @@ public class UserDataActivity extends AppCompatActivity {
             Glide.with(this).load(path).into(imgHeadAffirm);
             btAffirmHead.setBackgroundResource(R.drawable.rounded_text_accent);
             btAffirmHead.setEnabled(true);
+
+            try {
+
+                FileInputStream fis = new FileInputStream(path);
+                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+                Bitmap blurBitmap = BitmapDispose.blurBitmap(UserDataActivity.this, bitmap, 25);
+                blurPath = BitmapDispose.saveBitmap(blurBitmap);
+
+                Log.i("blurPath", "blurPath: " + blurPath);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
             Log.e("OnActivityResult ", "newpath: " + newpath);
 
             Log.e("OnActivityResult", "path: " + path);
-            OkGo.<String>post(Urls.Url_UserHead).tag(this)
-                    .params("facebookid", facebookId)
-                    .params("file", new File(path))
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
 
-                        }
-                    });
         }
     }
 
@@ -634,6 +648,28 @@ public class UserDataActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
+
+                    Log.i("okgo", "userid: "+userData.getId()+"   file: "+path);
+
+                    OkGo.<String>post(Urls.Url_UserHead).tag(this)
+                            .params("userid", userData.getId())
+                            .params("file", new File(path))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    OkGo.<String>post(Urls.Url_UserBlurHead).tag(this)
+                                            .params("userid", userData.getId())
+                                            .params("file", new File(blurPath))
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
+
+                                                    FileUtil.deleteFile(blurPath);
+
+                                                }
+                                            });
+                                }
+                            });
 
                     intent = new Intent(UserDataActivity.this, LifeBookActivity.class);
                     Bundle bundle = new Bundle();

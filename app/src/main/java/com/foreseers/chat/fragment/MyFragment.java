@@ -31,6 +31,8 @@ import butterknife.Unbinder;
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.MyVipActivity;
+import com.foreseers.chat.activity.SettingActivity;
+import com.foreseers.chat.activity.WipeHistoryActivity;
 import com.foreseers.chat.adapter.AlbumAdapter;
 import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
@@ -68,6 +70,8 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
+ *
+ * 个人
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends BaseMainFragment {
@@ -105,6 +109,7 @@ public class MyFragment extends BaseMainFragment {
     private static final int REQUEST_CODE_CHOOSE = 23;
     private static final int REQUEST_CODE_CHOOSE_IMG = 24;
     private static final int REQUEST_CODE_USER_DATA = 200;
+    private static final int REQUEST_CODE_DELETEIMG = 201;
 
     private AlbumBean albumBean;
     private AlbumAdapter albumAdapter;
@@ -141,7 +146,7 @@ public class MyFragment extends BaseMainFragment {
     @Override
     public void initViews() {
         getLoginToken();
-        albumAdapter = new AlbumAdapter(getActivity(), imgList);
+        albumAdapter = new AlbumAdapter(getActivity(),MyFragment.this, imgList);
         recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager
                 .HORIZONTAL, false));
         recyclerImg.setAdapter(albumAdapter);
@@ -257,7 +262,8 @@ public class MyFragment extends BaseMainFragment {
         }
     }
 
-    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip})
+    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip,R
+            .id.img_setting,R.id.layout_wipe})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -440,8 +446,16 @@ public class MyFragment extends BaseMainFragment {
 
 
                 break;
+            case R.id.img_setting://设置
 
+                intent=new Intent(getActivity(),SettingActivity.class);
+                getActivity().startActivity(intent);
+                break;
 
+            case R.id.layout_wipe:
+                intent=new Intent(getActivity(),WipeHistoryActivity.class);
+                getActivity().startActivity(intent);
+                break;
             default:
 
                 break;
@@ -545,6 +559,9 @@ public class MyFragment extends BaseMainFragment {
                 getDataFromHttp();
                 break;
 
+            case REQUEST_CODE_DELETEIMG:
+                getDataFromHttp();
+                break;
             default:
                 break;
         }

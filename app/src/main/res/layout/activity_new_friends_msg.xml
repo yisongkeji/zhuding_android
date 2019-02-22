@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.foreseers.chat.activity.NewFriendsMsgActivity">
+
+    <com.foreseers.chat.view.widget.MyTitleBar
+        android:id="@+id/my_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@mipmap/icon_me_06"
+        app:titleBarTitle="申请与通知"></com.foreseers.chat.view.widget.MyTitleBar>
+
+
+
+
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -15,4 +27,4 @@
         android:dividerHeight="1px"
         android:cacheColorHint="#00000000"
         android:fastScrollEnabled="true" />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

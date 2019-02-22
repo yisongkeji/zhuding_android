@@ -15,7 +15,8 @@ public  class Urls {
     public static final String Url_My = URL_User + "userpersonal";//我的模块
 
     public static final String Url_UserImg = URL+"/userimage/upload";//相册
-    public static final String Url_UserBlurImg = URL+"/userimage/uploadblurimage";//相册
+    public static final String Url_UserBlurImg = URL+"/userimage/uploadblurimage";//模糊相册
+    public static final String Url_DeleteImg = URL+"/userimage/deleteimage";//模糊相册
 
     public static final String Url_UserLocation = URL + "/match/matching";//主页
     public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";
@@ -32,7 +33,11 @@ public  class Urls {
     public static final String Url_ADDFriend = Url_Friend + "addfriend";//添加好友
     public static final String Url_FriendTime = Url_Friend + "friendTime";//校验添加好友时间
 
+    public static final String Url_GetFriendName = Url_Friend + "getname";
 
-    public static final String Url_GetFriendName = URL + "/userfriend/getname";
+
+    //擦照片
+    public static final String Url_Wipe = URL + "/userhistory/updatehistory";
+
 
 }

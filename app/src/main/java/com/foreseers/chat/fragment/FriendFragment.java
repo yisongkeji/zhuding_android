@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.foreseers.chat.activity.ChatActivity;
+import com.foreseers.chat.activity.NewFriendsMsgActivity;
 import com.foreseers.chat.activity.UserAnalyzeLifeBookActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.Constant;
@@ -106,6 +107,7 @@ public class FriendFragment extends EaseBaseFragment {
 
     @Override
     protected void initView() {
+
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat, null);
         HeaderItemClickListener clickListener = new HeaderItemClickListener();
 
@@ -441,7 +443,7 @@ public class FriendFragment extends EaseBaseFragment {
             switch (v.getId()) {
                 case R.id.item_layout_friend:
                     // 进入申请与通知页面
-//                    startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
+                    startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
 
 
                     break;

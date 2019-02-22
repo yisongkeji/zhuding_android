@@ -137,6 +137,16 @@ public class RecommendBean {
         private int distance;
         private int numuser;
         private int age;
+        private int lookhead;
+
+        public void setLookhead(int lookhead) {
+            this.lookhead = lookhead;
+        }
+
+        public int getLookhead() {
+
+            return lookhead;
+        }
 
         public int getId() {
             return id;

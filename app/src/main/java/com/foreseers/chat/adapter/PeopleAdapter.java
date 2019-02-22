@@ -50,8 +50,15 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         image = baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people);
 
+        switch (item.getLookhead()) {
+            case 0:
+                Glide.with(context).load(item.getPicture()).into(image);
+                break;
+            case 1:
+                Glide.with(context).load(item.getHead()).into(image);
+                break;
+        }
 
-        Glide.with(context).load(item.getPicture()).into(image);
 
         baseViewHolder.setTypeface(typeface);
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())

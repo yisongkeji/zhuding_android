@@ -1,6 +1,5 @@
 package com.foreseers.chat.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +12,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foreseers.chat.bean.AnalyzeLifeBookBean;
+import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.decoviewlib.DecoView;
+import com.foreseers.chat.view.decoviewlib.charts.SeriesItem;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -22,12 +28,6 @@ import com.ruffian.library.widget.RImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.foreseers.chat.foreseers.R;
-import com.foreseers.chat.bean.AnalyzeLifeBookBean;
-import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.util.Urls;
-import com.foreseers.chat.view.decoviewlib.DecoView;
-import com.foreseers.chat.view.decoviewlib.charts.SeriesItem;
 
 /**
  * 我與TA的詳細分析
@@ -62,12 +62,14 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
     TextView textCommentdesc;
     @BindView(R.id.text_characteristicdesc)
     TextView textCharacteristicdesc;
+    @BindView(R.id.text_courtingdesc)
+    TextView textCourtingdesc;
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
-    private int mindScore1;
+
     private String facebookid;
-    private int userid;
+    private String userid;
     private SharedPreferences sPreferences;
     private AnalyzeLifeBookBean analyzeLifeBookBean;
 
@@ -83,24 +85,15 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
 
     private void getData() {
 
-        sPreferences = getSharedPreferences("loginToken", MODE_PRIVATE);
-        facebookid = sPreferences.getString("token", "");
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        userid = bundle.getInt("userid");
-
-
-        mindScore1 = 40;
+        userid = getIntent().getStringExtra("userid");
 
         getDataFormHttp();
-
 
     }
 
     private void getDataFormHttp() {
         OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
-                .params("facebookid", facebookid)
+                .params("uid", GetLoginTokenUtil.getUserId(this))
                 .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override
@@ -119,20 +112,23 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    int characterscore=analyzeLifeBookBean.getData().getCharacterscore();
-                    int mindscore=analyzeLifeBookBean.getData().getMindscore();
-                    int bodyscore=analyzeLifeBookBean.getData().getBodyscore();
+                    int characterscore = analyzeLifeBookBean.getData().getCharacterscore();
+                    int mindscore = analyzeLifeBookBean.getData().getMindscore();
+                    int bodyscore = analyzeLifeBookBean.getData().getBodyscore();
 
 
-                    initView( characterscore, mindscore, bodyscore);
+                    initView(characterscore, mindscore, bodyscore);
                     textCommentdesc.setText(analyzeLifeBookBean.getData().getCommentdesc());
-                    textCharacteristicdesc.setText(analyzeLifeBookBean.getData().getCharacteristicdesc());
+                    textCharacteristicdesc.setText(analyzeLifeBookBean.getData()
+                            .getCharacteristicdesc());
+                    textCourtingdesc.setText(analyzeLifeBookBean.getData().getSpare());
                     break;
                 case DATAFELLED:
                     Toast.makeText(UserAnalyzeLifeBookActivity.this, "网络连接失败", Toast
@@ -141,7 +137,8 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
             }
         }
     };
-    private void initView(int characterscore,int mindscore,int bodyscore) {
+
+    private void initView(int characterscore, int mindscore, int bodyscore) {
         int series1Index = setDecoView(characterScore, Color.rgb(233, 233, 235), Color.rgb(100,
                 168, 235), characterscore, 20f);
         int series2Index = setDecoView(mindScore, Color.rgb(233, 233, 235), Color.rgb(248,

@@ -34,6 +34,7 @@
                         android:textSize="13sp"/>
 
                 <ImageView
+                    android:id="@+id/img_setting"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"
@@ -433,6 +434,7 @@
             android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/layout_wipe"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

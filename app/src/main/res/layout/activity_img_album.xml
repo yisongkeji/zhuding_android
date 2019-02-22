@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.foreseers.chat.activity.ImgAlbumActivity">
+    android:background="#000000"
+    android:id="@+id/vp_ll">
 
     <com.foreseers.chat.view.widget.MyTitleBar
         android:id="@+id/my_titlebar"
@@ -15,10 +15,20 @@
         app:titleBarRightImage="@mipmap/icon_delete_02"
         app:titleBarTitle="相册"></com.foreseers.chat.view.widget.MyTitleBar>
 
-
-    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/banner"
+    <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/vp"
 
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vp_text"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dp"
+        android:textSize="14sp"
+        />
 </LinearLayout>

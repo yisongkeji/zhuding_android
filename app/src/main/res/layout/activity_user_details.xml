@@ -35,6 +35,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
+                <LinearLayout
+                    android:id="@+id/layout_wipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp">
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                       android:background="@mipmap/icon_me_01" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="偷看头像"
+                        android:textSize="@dimen/sp_12"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+
+
             </FrameLayout>
 
             <!--信息-->

@@ -73,6 +73,8 @@ public class UserDetailsActivity extends BaseActivity {
     LinearLayout layoutAnalyzeLifeBook;
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.layout_wipe)
+    LinearLayout layoutWipe;
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
     private Intent intent;
@@ -125,6 +127,11 @@ public class UserDetailsActivity extends BaseActivity {
             @Override
             public void onPageSelected(int i) {
 
+                if (i == 0) {
+                    layoutWipe.setVisibility(View.VISIBLE);
+                } else {
+                    layoutWipe.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -139,67 +146,7 @@ public class UserDetailsActivity extends BaseActivity {
         Bundle bundle = intent.getExtras();
         userid = bundle.getString("userid");
 
-
-        OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
-                .params("uid", GetLoginTokenUtil.getUserId(this))
-                .params("userid", userid)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
-                            analyzeLifeBookBean = gson.fromJson(response.body(),
-                                    AnalyzeLifeBookBean.class);
-
-                            dataBean = analyzeLifeBookBean.getData();
-                            username = dataBean.getName();
-                            sex = dataBean.getSex();
-                            age = dataBean.getAge();
-                            num = dataBean.getNum();
-                            distance = dataBean.getDistance();
-                            userscore = dataBean.getUserscore();
-                            avatar = dataBean.getHead();
-
-                            imgList.add(avatar);
-                            imagesBeans = dataBean.getImages();
-                            switch (dataBean.getFriend()) {
-                                case 0://是好友
-                                    switch (dataBean.getLookimages()) {
-                                        case 0://模糊图片
-                                            for (int i = 0; i < imagesBeans.size(); i++) {
-                                                imgList.add(imagesBeans.get(i).getSpare());
-                                            }
-                                            break;
-
-                                        case 1://清晰图片
-                                            for (int i = 0; i < imagesBeans.size(); i++) {
-                                                imgList.add(imagesBeans.get(i).getImage());
-                                            }
-                                            break;
-
-                                    }
-
-
-                                    break;
-                                case 1://不是好友
-                                    //只能模糊图片
-                                    for (int i = 0; i < imagesBeans.size(); i++) {
-                                        imgList.add(imagesBeans.get(i).getSpare());
-                                    }
-                                    break;
-                            }
-
-
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-
-
-                        } else if (loginBean.getStatus().equals("fail")) {
-                            mHandler.obtainMessage(DATAFELLED).sendToTarget();
-
-                        }
-                    }
-                });
+        refresh();
 
     }
 
@@ -248,8 +195,8 @@ public class UserDetailsActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.img_add_friend, R.id
-            .layout_analyze_life_book, R.id.chat_user_details})
+    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id
+            .layout_wipe})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_add_friend://添加好友
@@ -345,9 +292,7 @@ public class UserDetailsActivity extends BaseActivity {
 
             case R.id.layout_analyze_life_book://我與TA的詳細分析
                 intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
-                bundle = new Bundle();
-                bundle.putString("userid", userid);
-                intent.putExtras(bundle);
+                intent.putExtra("userid",userid);
                 startActivity(intent);
                 break;
 
@@ -361,6 +306,19 @@ public class UserDetailsActivity extends BaseActivity {
 
                 startActivity(intent);
                 break;
+
+            case R.id.layout_wipe://擦照片
+                OkGo.<String>post(Urls.Url_Wipe).tag(this)
+                        .params("userid", GetLoginTokenUtil.getUserId(this))
+                        .params("caid", userid)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                imgList.clear();
+                                refresh();
+                            }
+                        });
+                break;
             default:
                 break;
         }
@@ -369,10 +327,7 @@ public class UserDetailsActivity extends BaseActivity {
     public class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-
-
             Glide.with(context).load(path).error(R.mipmap.default_image).into(imageView);
-
         }
 
     }
@@ -383,5 +338,69 @@ public class UserDetailsActivity extends BaseActivity {
         p.x = 0; //x小于0左移，大于0右移
         p.y = -300; //y小于0上移，大于0下移
         dialogWindow.setAttributes(p);
+    }
+
+    public void refresh() {
+        OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
+                .params("uid", GetLoginTokenUtil.getUserId(this))
+                .params("userid", userid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {
+                            analyzeLifeBookBean = gson.fromJson(response.body(),
+                                    AnalyzeLifeBookBean.class);
+
+                            dataBean = analyzeLifeBookBean.getData();
+                            username = dataBean.getName();
+                            sex = dataBean.getSex();
+                            age = dataBean.getAge();
+                            num = dataBean.getNum();
+                            distance = dataBean.getDistance();
+                            userscore = dataBean.getUserscore();
+                            avatar = dataBean.getHead();
+
+                            imgList.add(avatar);
+                            imagesBeans = dataBean.getImages();
+                            switch (dataBean.getFriend()) {
+                                case 0://是好友
+                                    switch (dataBean.getLookimages()) {
+                                        case 0://模糊图片
+                                            for (int i = 0; i < imagesBeans.size(); i++) {
+                                                imgList.add(imagesBeans.get(i).getSpare());
+                                            }
+                                            break;
+
+                                        case 1://清晰图片
+                                            for (int i = 0; i < imagesBeans.size(); i++) {
+                                                imgList.add(imagesBeans.get(i).getImage());
+                                            }
+                                            break;
+
+                                    }
+
+
+                                    break;
+                                case 1://不是好友
+                                    //只能模糊图片
+                                    for (int i = 0; i < imagesBeans.size(); i++) {
+                                        imgList.add(imagesBeans.get(i).getSpare());
+                                    }
+                                    break;
+                            }
+
+
+                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+
+
+                        } else if (loginBean.getStatus().equals("fail")) {
+                            mHandler.obtainMessage(DATAFELLED).sendToTarget();
+
+                        }
+                    }
+                });
+
     }
 }

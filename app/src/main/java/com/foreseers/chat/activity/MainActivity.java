@@ -163,48 +163,48 @@ public class MainActivity extends SupportActivity {
             }
         });
 
-        EMClient.getInstance().chatManager().addMessageListener(new EMMessageListener() {
-            @Override
-            public void onMessageReceived(List<EMMessage> list) {
-                for (EMMessage message : list) {
-                    EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
-                    //接收并处理扩展消息
-                    String userName = message.getStringAttribute(Constant.USER_NAME, "");
-                    String userId = message.getStringAttribute(Constant.USER, "");
-                    String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
-                    String hxIdFrom = message.getFrom();
-                    EaseUser easeUser = new EaseUser(hxIdFrom);
-                    easeUser.setAvatar(userPic);
-//                    easeUser.setNick(userName);
-                    getSharedPreferences("user",MODE_PRIVATE).edit().putString(hxIdFrom,userName+"&"+userPic).commit();
-                }
-            }
-
-            @Override
-            public void onCmdMessageReceived(List<EMMessage> list) {
-
-            }
-
-            @Override
-            public void onMessageRead(List<EMMessage> list) {
-
-            }
-
-            @Override
-            public void onMessageDelivered(List<EMMessage> list) {
-
-            }
-
-            @Override
-            public void onMessageRecalled(List<EMMessage> list) {
-
-            }
-
-            @Override
-            public void onMessageChanged(EMMessage emMessage, Object o) {
-
-            }
-        });
+//        EMClient.getInstance().chatManager().addMessageListener(new EMMessageListener() {
+//            @Override
+//            public void onMessageReceived(List<EMMessage> list) {
+//                for (EMMessage message : list) {
+//                    EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
+//                    //接收并处理扩展消息
+//                    String userName = message.getStringAttribute(Constant.USER_NAME, "");
+//                    String userId = message.getStringAttribute(Constant.USER, "");
+//                    String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
+//                    String hxIdFrom = message.getFrom();
+//                    EaseUser easeUser = new EaseUser(hxIdFrom);
+//                    easeUser.setAvatar(userPic);
+////                    easeUser.setNick(userName);
+//                    getSharedPreferences("user",MODE_PRIVATE).edit().putString(hxIdFrom,userName+"&"+userPic).commit();
+//                }
+//            }
+//
+//            @Override
+//            public void onCmdMessageReceived(List<EMMessage> list) {
+//
+//            }
+//
+//            @Override
+//            public void onMessageRead(List<EMMessage> list) {
+//
+//            }
+//
+//            @Override
+//            public void onMessageDelivered(List<EMMessage> list) {
+//
+//            }
+//
+//            @Override
+//            public void onMessageRecalled(List<EMMessage> list) {
+//
+//            }
+//
+//            @Override
+//            public void onMessageChanged(EMMessage emMessage, Object o) {
+//
+//            }
+//        });
 
 
 
