@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
+import com.foreseers.chat.bean.ErrBean;
 import com.foreseers.chat.bean.InquireFriendBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.AddFriendDialog;
@@ -308,14 +309,33 @@ public class UserDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.layout_wipe://擦照片
+
                 OkGo.<String>post(Urls.Url_Wipe).tag(this)
                         .params("userid", GetLoginTokenUtil.getUserId(this))
                         .params("caid", userid)
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                imgList.clear();
-                                refresh();
+
+                                Gson gson=new Gson();
+
+                                LoginBean loginBean = gson.fromJson(response.body(),LoginBean
+                                        .class);
+                                if (loginBean.getStatus().equals("success")){
+                                    imgList.clear();
+                                    refresh();
+                                }else if (loginBean.getStatus().equals("fail")){
+
+                                    ErrBean errBean=gson.fromJson(response.body(),ErrBean.class);
+                                    if (errBean.getData().getErrCode()==2000){
+                                        Toast.makeText(UserDetailsActivity.this,"擦字数不足",Toast
+                                                .LENGTH_LONG).show();
+                                    }
+
+                                }
+
+
+
                             }
                         });
                 break;

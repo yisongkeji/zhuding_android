@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foreseers.chat.foreseers.R;
 import com.hyphenate.chat.EMClient;
@@ -15,6 +16,9 @@ import com.hyphenate.exceptions.HyphenateException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class AddFriendDialog extends Dialog implements View.OnClickListener {
     @BindView(R.id.dialog_cancel)
@@ -86,8 +90,25 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
                     public void run() {
                         try {
                             EMClient.getInstance().contactManager().addContact(userName, "");
-                        } catch (HyphenateException e) {
-                            e.printStackTrace();
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+
+                                    String s1 = context.getResources().getString(R.string
+                                            .send_successful);
+                                    Toast.makeText(getApplicationContext(), s1, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } catch (final Exception e) {
+
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    String s2 = context.getResources().getString(R.string
+                                            .Request_add_buddy_failure);
+                                    Toast.makeText(getApplicationContext(), s2 + e.getMessage(),
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+
                             Log.e("huanxin", "run: "+e.toString() );
                         }
                     }
