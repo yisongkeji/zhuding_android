@@ -1,15 +1,12 @@
 package com.foreseers.chat.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,44 +23,40 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.foreseers.chat.activity.ChatActivity;
 import com.foreseers.chat.activity.NewFriendsMsgActivity;
-import com.foreseers.chat.activity.UserAnalyzeLifeBookActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
-import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.bean.FriendBean;
+import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
 import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMContactListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseBaseFragment;
 import com.hyphenate.easeui.ui.EaseContactListFragment;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import com.foreseers.chat.foreseers.R;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseContactList;
 import com.hyphenate.exceptions.HyphenateException;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.exception.OkGoException;
 import com.lzy.okgo.model.Response;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 import static android.content.Context.MODE_PRIVATE;
-import static com.hyphenate.easeui.utils.EaseUserUtils.getUserInfo;
 
 /**
  * 联系人
@@ -82,6 +75,10 @@ public class FriendFragment extends EaseBaseFragment {
     protected EaseContactList contactListLayout;
     protected boolean isConflict;
     protected FrameLayout contentContainer;
+    @BindView(R.id.my_titlebar)
+    MyTitleBar myTitlebar;
+
+    Unbinder unbinder;
 
     private Map<String, EaseUser> contactsMap;
     private LinearLayout addFriend;
@@ -93,7 +90,9 @@ public class FriendFragment extends EaseBaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_friend, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
@@ -124,7 +123,14 @@ public class FriendFragment extends EaseBaseFragment {
         query = (EditText) getView().findViewById(com.hyphenate.easeui.R.id.query);
         clearSearch = (ImageButton) getView().findViewById(com.hyphenate.easeui.R.id.search_clear);
 
+        myTitlebar.setRightLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 进入申请与通知页面
+                startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
 
+            }
+        });
     }
 
     @Override
@@ -139,24 +145,26 @@ public class FriendFragment extends EaseBaseFragment {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
                         if (friendBean.getStatus().equals("success")) {
-                            sharedPreferences = getActivity().getSharedPreferences("user",MODE_PRIVATE);
+                            sharedPreferences = getActivity().getSharedPreferences("user",
+                                    MODE_PRIVATE);
                             dataBeans = friendBean.getData();
                             for (int i = 0; i < dataBeans.size(); i++) {
-                                easeUser = new EaseUser(dataBeans.get(i).getUserid()+"");
+                                easeUser = new EaseUser(dataBeans.get(i).getUserid() + "");
                                 easeUser.setAvatar(dataBeans.get(i).getUserhead());
                                 easeUser.setNickname(dataBeans.get(i).getUsername());
 
 
-                                sharedPreferences.edit().putString(dataBeans.get(i).getUserid()+"",
-                                        dataBeans.get(i).getUsername()+"&"+dataBeans.get(i).getUserhead()).commit();
+                                sharedPreferences.edit().putString(dataBeans.get(i).getUserid() +
+                                                "",
+                                        dataBeans.get(i).getUsername() + "&" + dataBeans.get(i)
+                                                .getUserhead()).commit();
 
 
-
-                                map.put(dataBeans.get(i).getUserid()+"", easeUser);
+                                map.put(dataBeans.get(i).getUserid() + "", easeUser);
                             }
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
-                            Log.i(TAG, "onSuccess: "+map);
+                            Log.i(TAG, "onSuccess: " + map);
                         }
 
                     }
@@ -167,7 +175,7 @@ public class FriendFragment extends EaseBaseFragment {
         contactList = new ArrayList<EaseUser>();
         getContactList();
         //init list
-        Log.i(TAG, "contactList: "+contactList);
+        Log.i(TAG, "contactList: " + contactList);
         contactListLayout.init(contactList);
 
 
@@ -178,7 +186,7 @@ public class FriendFragment extends EaseBaseFragment {
                 EaseUser user = (EaseUser) listView.getItemAtPosition(position);
                 if (user != null) {
 
-                    String userid=user.getUsername();
+                    String userid = user.getUsername();
                     String username = user.getNickname();
 //                    String userId=user.getUsername();
 //                    // 进入用户详情页
@@ -191,7 +199,6 @@ public class FriendFragment extends EaseBaseFragment {
                 }
             }
         });
-
 
 
         if (listItemClickListener != null) {
@@ -340,7 +347,7 @@ public class FriendFragment extends EaseBaseFragment {
                         //filter out users in blacklist
                         EaseUser user = entry.getValue();
                         EaseCommonUtils.setUserInitialLetter(user);
-                        Log.i(TAG, "user: "+user.getAvatar());
+                        Log.i(TAG, "user: " + user.getAvatar());
                         contactList.add(user);
                     }
                 }
@@ -414,6 +421,12 @@ public class FriendFragment extends EaseBaseFragment {
      */
     public void setContactsMap(Map<String, EaseUser> contactsMap) {
         this.contactsMap = contactsMap;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     public interface EaseContactListItemClickListener {

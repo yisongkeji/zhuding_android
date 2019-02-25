@@ -10,24 +10,15 @@
     tools:context="com.foreseers.chat.fragment.FriendFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-
-    <FrameLayout
+    <com.foreseers.chat.view.widget.MyTitleBar
+        android:id="@+id/my_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@mipmap/icon_header_case_01"
-        android:elevation="1dp">
+        android:layout_height="wrap_content"
+
+        app:titleBarRightImage="@mipmap/icon_footer_profile_05"
+        app:titleBarTitle="@string/address_list"></com.foreseers.chat.view.widget.MyTitleBar>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@string/address_list"
-            android:textColor="@color/colorWhite" />
-
-    </FrameLayout>
 
     <include
         android:id="@+id/search_bar_view"
