@@ -17,14 +17,22 @@ import java.io.IOException;
 
 public class BitmapDispose {
     private static final String TAG = "BitmapDispose";
+    private static File f;
 
     /**
      * 保存方法
      */
-    public static String  saveBitmap(Bitmap bitmap) {
+    public static String  saveBitmap(Bitmap bitmap,int type) {
         Log.e(TAG, "保存图片");
-        File f =  FileUtil.createFile("/sdcard/foreseers/head", System.currentTimeMillis()+
-                ".jpg");
+        if (type==0) {
+            f = FileUtil.createFile("/sdcard/foreseers/head", System.currentTimeMillis() + ".jpg");
+        }else {
+            f = FileUtil.createFile("/sdcard/foreseers/compresshead", System.currentTimeMillis() + ".jpg");
+        }
+
+
+
+
 
         if (f.exists()) {
             f.delete();
@@ -33,7 +41,7 @@ public class BitmapDispose {
         try {
             f.createNewFile();
             FileOutputStream out = new FileOutputStream(f);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
             Log.i(TAG, "已经保存");
@@ -90,7 +98,7 @@ public class BitmapDispose {
         tmpOut.copyTo(outputBitmap);
 
 
-        saveBitmap(outputBitmap);
+        saveBitmap(outputBitmap,0);
 
 
         return outputBitmap;

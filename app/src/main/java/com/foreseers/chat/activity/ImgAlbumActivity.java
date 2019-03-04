@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.dialog.DelImgDialog;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.GetLoginTokenUtil;
@@ -51,6 +52,7 @@ public class ImgAlbumActivity extends BaseActivity {
     private float pivotX, pivotY;//放大缩小的中心点
     private TextView vp_text;
     private Context mContext;
+    private DelImgDialog delImgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,31 +116,64 @@ public class ImgAlbumActivity extends BaseActivity {
         myTitlebar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OkGo.<String>post(Urls.Url_DeleteImg).tag(this)
-                        .params("userid",GetLoginTokenUtil.getUserId(ImgAlbumActivity.this))
-                        .params("nameurl",urls.get(position))
-                        .execute(new StringCallback() {
+                delImgDialog = new DelImgDialog
+                        (ImgAlbumActivity.this, R.style.MyDialog, new DelImgDialog
+                                .LeaveMyDialogListener() {
+
                             @Override
-                            public void onSuccess(Response<String> response) {
-                                Gson gson=new Gson();
-                                LoginBean loginBean =gson.fromJson(response.body(),LoginBean.class);
-                                if (loginBean.getStatus().equals("success")){
-                                    urls.remove(position);
+                            public void onClick(View view) {
 
-                                    Log.i("TAG", "urls.size: "+urls.size());
-                                    Log.i("TAG", "urls.size: "+urls.toString());
-                                    if (position!=0){
-                                        position=position-1;
-                                    }
+                                switch (view.getId()) {
+                                    case R.id.button_ok:
+                                        delImgDialog.dismiss();
+                                        OkGo.<String>post(Urls.Url_DeleteImg).tag(this)
+                                                .params("userid", GetLoginTokenUtil.getUserId
+                                                        (ImgAlbumActivity.this))
+                                                .params("nameurl", urls.get(position))
+                                                .execute(new StringCallback() {
+                                                    @Override
+                                                    public void onSuccess(Response<String>
+                                                                                  response) {
+                                                        Gson gson = new Gson();
+                                                        LoginBean loginBean = gson.fromJson
+                                                                (response.body(), LoginBean
+                                                                        .class);
+                                                        if (loginBean.getStatus().equals
+                                                                ("success")) {
+                                                            urls.remove(position);
 
-                                    imageViews.clear();
-                                    refresh();
+                                                            Log.i("TAG", "urls.size: " + urls
+                                                                    .size());
+                                                            Log.i("TAG", "urls.size: " + urls
+                                                                    .toString());
+                                                            if (position != 0) {
+                                                                position = position - 1;
+                                                            }
+
+                                                            imageViews.clear();
+                                                            refresh();
+                                                        }
+
+
+                                                    }
+                                                });
+                                        break;
+                                    case R.id.button_cancel:
+                                        delImgDialog.dismiss();
+                                        break;
                                 }
-
 
 
                             }
                         });
+                delImgDialog.setCancelable(true);
+
+                //修改弹窗位置
+//                changeDialogLocation(addFriendDialog);
+
+                delImgDialog.show();
+
+
             }
         });
 
@@ -153,7 +188,7 @@ public class ImgAlbumActivity extends BaseActivity {
     private void initData() {
 
         urls = getIntent().getStringArrayListExtra("urls");
-        Log.i("TAG", "urls.size: "+urls.size());
+        Log.i("TAG", "urls.size: " + urls.size());
 
         refresh();
 

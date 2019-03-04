@@ -6,6 +6,8 @@
 
 
 
+    <color name="colorLucency">#00000000</color>
+
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
 
@@ -30,6 +32,7 @@
     <color name="colorAccent">#01bca8</color>
     <color name="colorMain">#066b91</color>
     <color name="colorGray">#646464</color>
+    <color name="colorGray4">#f2f8fe</color>
     <color name="colorGrayBackground">#f3f3f3</color>
     <color name="colorGreen">#18e9d5</color>
     <color name="colorRed">#ff0000</color>

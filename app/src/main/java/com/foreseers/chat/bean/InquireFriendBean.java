@@ -2,9 +2,10 @@ package com.foreseers.chat.bean;
 
 public class InquireFriendBean {
 
+
     /**
      * status : success
-     * data : {"status":0,"userint":20}
+     * data : {"head":"http://192.168.1.73:8080/88/1550541329742.jpg","name":"郑皓","status":0,"userint":16}
      */
 
     private String status;
@@ -28,12 +29,32 @@ public class InquireFriendBean {
 
     public static class DataBean {
         /**
+         * head : http://192.168.1.73:8080/88/1550541329742.jpg
+         * name : 郑皓
          * status : 0
-         * userint : 20
+         * userint : 16
          */
 
+        private String head;
+        private String name;
         private int status;
         private int userint;
+
+        public String getHead() {
+            return head;
+        }
+
+        public void setHead(String head) {
+            this.head = head;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
 
         public int getStatus() {
             return status;

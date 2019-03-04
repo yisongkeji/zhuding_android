@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
@@ -21,6 +22,8 @@ public class AlbumTimeService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -48,6 +51,8 @@ public class AlbumTimeService extends Service {
                         LoginBean bean=gson.fromJson(response.body(),LoginBean.class);
                         if (bean.getStatus().equals("fail")){
                             refresh();
+                        }else if (bean.getStatus().equals("success")){
+
                         }
 
                     }

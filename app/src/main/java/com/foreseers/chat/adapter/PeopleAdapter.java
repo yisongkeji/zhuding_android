@@ -52,16 +52,17 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         switch (item.getLookhead()) {
             case 0:
-                Glide.with(context).load(item.getPicture()).into(image);
+                Glide.with(context).load(item.getPicture()).error(R.mipmap.icon_me_loading_03).into(image);
                 break;
             case 1:
-                Glide.with(context).load(item.getHead()).into(image);
+                Glide.with(context).load(item.getHead()).error(R.mipmap.icon_me_loading_03).into(image);
                 break;
         }
 
 
         baseViewHolder.setTypeface(typeface);
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())
+                .setText(R.id.text_desc, item.getDesc())
                 .setText(R.id.text_people_progress, item.getUserscore() + "")
                 .setText(R.id.text_people_location, item.getDistance() + "km");
 
@@ -92,6 +93,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                         Intent intent = new Intent(context, UserDetailsActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("userid", item.getId() + "");
+                        bundle.putInt("lookhead", item.getLookhead() );
 
                         intent.putExtras(bundle);
                         context.startActivity(intent);

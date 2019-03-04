@@ -1,103 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_linelayout"
     tools:context="com.foreseers.chat.dialog.AddFriendDialog">
 
-    <FrameLayout
-        android:id="@+id/layout_send"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="23dp"
-            android:background="@drawable/rounded_linelayout"
-            android:orientation="vertical">
-
-            <com.ruffian.library.widget.RImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                app:icon_src_normal="@mipmap/icon_avatar_01"
-                app:is_circle="true" />
-
-
-            <TextView
-                android:id="@+id/text_add_friend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
-                android:layout_marginTop="23dp"
-                android:layout_marginRight="55dp"
-                android:layout_marginBottom="70dp"
-                android:gravity="center"
-                android:text="@string/my_add_friend"
-                android:textColor="@color/colorBlack" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/dialog_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_notice_no_01" />
-
-            <ImageButton
-                android:id="@+id/dialog_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_notice_ok_01" />
-        </LinearLayout>
-
-
-    </FrameLayout>
-
-
-    <FrameLayout
-        android:id="@+id/layout_send_success"
+        android:text="添加好友"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="17sp"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:text="是否确认添加这个好友"
+        android:layout_marginTop="28dp"
+        android:layout_gravity="center"
+        android:textSize="@dimen/sp_16"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="22dp"
-            android:background="@drawable/rounded_linelayout">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="115dp"
+            android:layout_height="39dp"
+            android:text="確定"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16"
+            android:background="@drawable/button_blue_default"/>
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="115dp"
+            android:layout_height="39dp"
+            android:text="取消"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button_blue_presed"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_send_seccess"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="37dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginBottom="59dp"
-                android:text="@string/send_success"
-                android:textColor="@color/colorBlack"
-                android:textSize="13sp" />
-        </FrameLayout>
-
-        <ImageButton
-            android:id="@+id/dialog_send_success_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:background="@mipmap/icon_notice_ok_02" />
-    </FrameLayout>
 
 
-</FrameLayout>
+
+</LinearLayout>

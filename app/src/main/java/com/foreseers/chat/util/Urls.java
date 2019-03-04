@@ -21,10 +21,9 @@ public  class Urls {
     public static final String Url_UserLocation = URL + "/match/matching";//主页
     public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";
 
-
-
     public static final String Url_Countage = URL_User + "countage";
 
+    public static final String Url_UserSign = URL_User + "setObligate";   //签名
 
     //好友
     public static final String Url_Friend = URL + "/userfriend/";
@@ -32,12 +31,22 @@ public  class Urls {
     public static final String Url_UserFriend = Url_Friend + "isfull";//查询是否可以添加好友
     public static final String Url_ADDFriend = Url_Friend + "addfriend";//添加好友
     public static final String Url_FriendTime = Url_Friend + "friendTime";//校验添加好友时间
+    public static final String Url_DelFriend = Url_Friend + "deletefriend";//删除好友
 
-    public static final String Url_GetFriendName = Url_Friend + "getname";
+
+    //历史记录
+    public static final String Url_UserHistory = URL + "/userhistory/";
+    public static final String Url_Wipe = Url_UserHistory + "updatehistory";//擦照片
+    public static final String Url_History = Url_UserHistory + "showUserHistory";//历史记录
 
 
-    //擦照片
-    public static final String Url_Wipe = URL + "/userhistory/updatehistory";
+    //擦子
+    public static final String Url_Canums = URL + "/userCanums/";
+    public static final String Url_UserCanums = Url_Canums + "updatenums"; //领擦子
+    public static final String Url_UserCanumsNum = Url_Canums + "getUserNums"; //擦子数
+
+
+
 
 
 }

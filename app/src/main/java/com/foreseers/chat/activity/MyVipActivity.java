@@ -6,11 +6,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import com.bumptech.glide.Glide;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.view.widget.MyTitleBar;
+import com.ruffian.library.widget.RImageView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MyVipActivity extends BaseActivity {
 
@@ -27,6 +31,15 @@ public class MyVipActivity extends BaseActivity {
     LinearLayout layoutVip2;
     @BindView(R.id.layout_vip3)
     LinearLayout layoutVip3;
+    @BindView(R.id.rimg_head)
+    RImageView rimgHead;
+    @BindView(R.id.text_username)
+    TextView textUsername;
+    @BindView(R.id.text_day)
+    TextView textDay;
+    private String head;
+    private String day;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +47,23 @@ public class MyVipActivity extends BaseActivity {
         setContentView(R.layout.activity_my_vip);
         ButterKnife.bind(this);
 
+        initData();
         initView();
     }
 
+    private void initData() {
+        Bundle bundle = getIntent().getExtras();
+        head = bundle.getString("head", "");
+        day = bundle.getString("day", "");
+        name = bundle.getString("name", "");
+
+    }
+
     private void initView() {
+        Glide.with(this).load(head).into(rimgHead);
+        textUsername.setText(name);
+        textDay.setText(day);
+
         text1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         text2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 

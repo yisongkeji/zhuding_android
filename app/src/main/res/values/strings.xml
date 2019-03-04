@@ -46,7 +46,7 @@
     <string name="ta_life_book">TA的命書</string>
     <string name="send_message">傳訊息</string>
 
-    <string name="user_name">暱稱 ：</string>
+    <string name="user_nickname">暱稱 ：</string>
     <string name="user_location">距離 ：</string>
     <string name="user_signature">簽名 ：</string>
 
@@ -78,6 +78,7 @@
     <!--tittle-->
     <string name="change_user_data">更改个人信息</string>
     <string name="address_list">通讯录</string>
+    <string name="address_chat">好友聊天</string>
 
 
     <!--提示-->
@@ -96,4 +97,14 @@
 
     <string name="error_gif">长宽不小于 %1$dpx，且大小不超过 %2$sM。</string>
     <string name="permission_request_denied">需要相应的权限</string>
+
+
+    <string name="Are_refuse_with">正在拒绝……</string>
+    <string name="Refuse_with_failure">拒绝失败:</string>
+    <string name="multi_device_contact_accept">接受%s的好友邀请[remote]</string>
+    <string name="multi_device_contact_decline">拒绝%s的好友邀请[remote]</string>
+    <string name="multi_device_contact_add">发送好友邀请给%s[remote]</string>
+    <string name="multi_device_contact_ban">加%s到黑名单[remote]</string>
+    <string name="multi_device_contact_allow">移除%s从黑名单[remote]</string>
+
 </resources>

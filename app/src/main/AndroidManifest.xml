@@ -8,12 +8,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -99,11 +96,11 @@
         <activity android:name="com.foreseers.chat.activity.LifeBookActivity" />
         <activity
             android:name="com.foreseers.chat.activity.ChatActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan" />
-
+            android:windowSoftInputMode = "adjustUnspecified"/>
+        <!--android:windowSoftInputMode="stateVisible|adjustResize"-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.foreseers.chat.foreseers"
+            android:authorities="com.foreseers.chat.foreseers.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -118,7 +115,8 @@
             android:name="com.foreseers.chat.activity.ImgAlbumActivity"
             android:theme="@style/SecondActivityTheme" />
         <activity android:name="com.foreseers.chat.activity.SettingActivity" />
-        <activity android:name="com.foreseers.chat.activity.WipeHistoryActivity"></activity>
+        <activity android:name="com.foreseers.chat.activity.WipeHistoryActivity" />
+        <activity android:name="com.foreseers.chat.activity.SignActivity"></activity>
     </application>
 
 </manifest>

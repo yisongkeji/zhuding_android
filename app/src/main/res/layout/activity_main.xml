@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,13 +10,15 @@
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+      android:layout_marginBottom="50dp"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
         <View
             android:layout_width="match_parent"
@@ -45,6 +47,7 @@
           />
 
             <com.chaychan.library.BottomBarItem
+                android:id="@+id/buttom_friend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -60,13 +63,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                app:iconNormal="@mipmap/icon_header_match_1"
-                app:iconSelected="@mipmap/icon_header_match_1"
+                app:iconNormal="@color/colorWhite"
+                app:iconSelected="@color/colorWhite"
                 app:itemTextSize="10sp"
                 app:textColorNormal="@color/colorBlack"
                 app:textColorSelected="@color/colorAccent" />
 
             <com.chaychan.library.BottomBarItem
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -92,5 +96,11 @@
         </com.chaychan.library.BottomBarLayout>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/img_main"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:background="@mipmap/icon_header_match_1"
+        android:layout_gravity="bottom|center"/>
 
-</LinearLayout>
+</FrameLayout>

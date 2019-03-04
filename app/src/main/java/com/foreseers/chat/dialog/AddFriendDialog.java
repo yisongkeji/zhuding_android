@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import com.foreseers.chat.foreseers.R;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.exceptions.HyphenateException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,25 +21,17 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 public class AddFriendDialog extends Dialog implements View.OnClickListener {
-    @BindView(R.id.dialog_cancel)
-    ImageButton dialogCancel;
-    @BindView(R.id.dialog_send)
-    ImageButton dialogSend;
-    @BindView(R.id.layout_send)
-    FrameLayout layoutSend;
-    @BindView(R.id.layout_send_success)
-    FrameLayout layoutSendSuccess;
-    @BindView(R.id.text_send_seccess)
-    TextView textSendSeccess;
-    @BindView(R.id.dialog_send_success_cancel)
-    ImageButton dialogSendSuccessCancel;
-    @BindView(R.id.text_add_friend)
-    TextView textAddFriend;
+
+    @BindView(R.id.button_ok)
+    Button buttonOk;
+    @BindView(R.id.button_cancel)
+    Button buttonCancel;
     private Context context;
     private int num;
     private String name;
     private String userName;
     private LeaveMyDialogListener listener;
+    private String avatar;
 
 
     public interface LeaveMyDialogListener {
@@ -51,15 +43,15 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         this.context = context;
     }
 
-    public AddFriendDialog(Context context, int theme, String name,String userName, int num,
-                           LeaveMyDialogListener listener) {
+    public AddFriendDialog(Context context, int theme, String name, String userName, String avatar, int num, LeaveMyDialogListener listener) {
         super(context, theme);
         // TODO Auto-generated constructor stub
         this.context = context;
         this.name = name;
         this.num = num;
-        this.userName=userName;
+        this.userName = userName;
         this.listener = listener;
+        this.avatar = avatar;
     }
 
     @Override
@@ -68,28 +60,24 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
         this.setContentView(R.layout.activity_add_friend_dialog);
         ButterKnife.bind(this);
 
+        buttonOk.setOnClickListener(this);
+        buttonCancel.setOnClickListener(this);
 
-        textAddFriend.setText(context.getString(R.string.my_add_friend).replace("name", name).replace("num", num + ""));
-        layoutSend.setVisibility(View.VISIBLE);
-        layoutSendSuccess.setVisibility(View.GONE);
-        dialogCancel.setOnClickListener(this);
-        dialogSend.setOnClickListener(this);
-        dialogSendSuccessCancel.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.dialog_cancel:
+            case R.id.button_cancel:
                 listener.onClick(view);
                 break;
-            case R.id.dialog_send:
+            case R.id.button_ok:
                 //参数为要添加的好友的username和添加理由
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            EMClient.getInstance().contactManager().addContact(userName, "");
+                            EMClient.getInstance().contactManager().addContact(userName, name + "|" + avatar);
                             runOnUiThread(new Runnable() {
                                 public void run() {
 
@@ -104,29 +92,19 @@ public class AddFriendDialog extends Dialog implements View.OnClickListener {
                                 public void run() {
                                     String s2 = context.getResources().getString(R.string
                                             .Request_add_buddy_failure);
-                                    Toast.makeText(getApplicationContext(), s2 + e.getMessage(),
-                                            Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), s2 + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
-                            Log.e("huanxin", "run: "+e.toString() );
+                            Log.e("huanxin", "run: " + e.toString());
                         }
                     }
                 }).start();
 
-
-                layoutSend.setVisibility(View.GONE);
-                layoutSendSuccess.setVisibility(View.VISIBLE);
-
-//                layoutSend.setVisibility(View.GONE);
-//                layoutSendSuccess.setVisibility(View.VISIBLE);
-//                textSendSeccess.setText(R.string.send_defeated);
-                break;
-
-
-            case R.id.dialog_send_success_cancel:
                 listener.onClick(view);
                 break;
+
+
+
             default:
                 break;
 

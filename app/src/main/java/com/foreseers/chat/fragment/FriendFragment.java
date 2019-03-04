@@ -11,7 +11,9 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 import com.foreseers.chat.activity.NewFriendsMsgActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.FriendBean;
+import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
@@ -86,7 +89,7 @@ public class FriendFragment extends EaseBaseFragment {
     private Map<String, EaseUser> map = new HashMap<>();
     private EaseUser easeUser;
     private SharedPreferences sharedPreferences;
-
+    private InviteMessgeDao inviteMessgeDao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -107,18 +110,18 @@ public class FriendFragment extends EaseBaseFragment {
     @Override
     protected void initView() {
 
-        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat, null);
-        HeaderItemClickListener clickListener = new HeaderItemClickListener();
+//        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat, null);
+//        HeaderItemClickListener clickListener = new HeaderItemClickListener();
 
-        addFriend = headerView.findViewById(R.id.item_layout_friend);
-        addFriend.setOnClickListener(clickListener);
+//        addFriend = headerView.findViewById(R.id.item_layout_friend);
+//        addFriend.setOnClickListener(clickListener);
         contentContainer = (FrameLayout) getView().findViewById(R.id
                 .content_container);
 
         contactListLayout = (EaseContactList) getView().findViewById(R.id
                 .contact_list);
         listView = contactListLayout.getListView();
-        listView.addHeaderView(headerView);
+//        listView.addHeaderView(headerView);
         //search
         query = (EditText) getView().findViewById(com.hyphenate.easeui.R.id.query);
         clearSearch = (ImageButton) getView().findViewById(com.hyphenate.easeui.R.id.search_clear);
@@ -147,6 +150,7 @@ public class FriendFragment extends EaseBaseFragment {
                         if (friendBean.getStatus().equals("success")) {
                             sharedPreferences = getActivity().getSharedPreferences("user",
                                     MODE_PRIVATE);
+//                            sharedPreferences.edit().clear().commit();
                             dataBeans = friendBean.getData();
                             for (int i = 0; i < dataBeans.size(); i++) {
                                 easeUser = new EaseUser(dataBeans.get(i).getUserid() + "");
@@ -174,8 +178,7 @@ public class FriendFragment extends EaseBaseFragment {
 
         contactList = new ArrayList<EaseUser>();
         getContactList();
-        //init list
-        Log.i(TAG, "contactList: " + contactList);
+
         contactListLayout.init(contactList);
 
 
@@ -188,9 +191,8 @@ public class FriendFragment extends EaseBaseFragment {
 
                     String userid = user.getUsername();
                     String username = user.getNickname();
-//                    String userId=user.getUsername();
+
 //                    // 进入用户详情页
-//                    Log.i(TAG, "onItemClick: "+userid);
                     Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("userid", userid);
@@ -311,6 +313,14 @@ public class FriendFragment extends EaseBaseFragment {
     public void refresh() {
         getContactList();
         contactListLayout.refresh();
+        if(inviteMessgeDao == null){
+            inviteMessgeDao = new InviteMessgeDao(getActivity());
+        }
+        if(inviteMessgeDao.getUnreadMessagesCount() > 0){
+          myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_06);
+        }else{
+          myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_05);
+        }
     }
 
 
@@ -414,6 +424,75 @@ public class FriendFragment extends EaseBaseFragment {
 
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        toBeProcessUser = (EaseUser) listView.getItemAtPosition(((AdapterView.AdapterContextMenuInfo) menuInfo).position);
+        toBeProcessUsername = toBeProcessUser.getUsername();
+        getActivity().getMenuInflater().inflate(R.menu.em_context_contact_list, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete_contact) {
+            try {
+                // delete contact
+                deleteContact(toBeProcessUser);
+                // remove invitation message
+                InviteMessgeDao dao = new InviteMessgeDao(getActivity());
+                dao.deleteMessage(toBeProcessUser.getUsername());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }else if(item.getItemId() == R.id.add_to_blacklist){
+            moveToBlacklist(toBeProcessUsername);
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+    /**
+     * delete contact
+     *
+     * @param tobeDeleteUser
+     */
+    public void deleteContact(final EaseUser tobeDeleteUser) {
+        String st1 = getResources().getString(R.string.deleting);
+        final String st2 = getResources().getString(R.string.Delete_failed);
+        final ProgressDialog pd = new ProgressDialog(getActivity());
+        pd.setMessage(st1);
+        pd.setCanceledOnTouchOutside(false);
+        pd.show();
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    EMClient.getInstance().contactManager().deleteContact(tobeDeleteUser.getUsername());
+                    // remove user from memory and database
+//                    UserDao dao = new UserDao(getActivity());
+//                    dao.deleteContact(tobeDeleteUser.getUsername());
+//                    DemoHelper.getInstance().getContactList().remove(tobeDeleteUser.getUsername());
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            pd.dismiss();
+                            contactList.remove(tobeDeleteUser);
+                            contactListLayout.refresh();
+
+                        }
+                    });
+                } catch (final Exception e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            pd.dismiss();
+                            Toast.makeText(getActivity(), st2 + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+
+            }
+        }).start();
+
+    }
     /**
      * set contacts map, key is the hyphenate id
      *
@@ -449,24 +528,7 @@ public class FriendFragment extends EaseBaseFragment {
         this.listItemClickListener = listItemClickListener;
     }
 
-    protected class HeaderItemClickListener implements View.OnClickListener {
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.item_layout_friend:
-                    // 进入申请与通知页面
-                    startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
-
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-    }
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
@@ -476,8 +538,6 @@ public class FriendFragment extends EaseBaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-
-
                     setContactsMap(map);
                     refresh();
                     break;

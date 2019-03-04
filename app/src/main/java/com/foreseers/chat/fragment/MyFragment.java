@@ -19,19 +19,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.MyVipActivity;
 import com.foreseers.chat.activity.SettingActivity;
+import com.foreseers.chat.activity.SignActivity;
 import com.foreseers.chat.activity.WipeHistoryActivity;
 import com.foreseers.chat.adapter.AlbumAdapter;
 import com.foreseers.chat.bean.AlbumBean;
@@ -42,6 +39,7 @@ import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
+import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
@@ -58,19 +56,24 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
 
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- *
  * 个人
  * A simple {@link Fragment} subclass.
  */
@@ -104,13 +107,22 @@ public class MyFragment extends BaseMainFragment {
     TextView textVipDay;
     @BindView(R.id.layout_vip)
     LinearLayout layoutVip;
+    @BindView(R.id.img_setting)
+    ImageView imgSetting;
+    @BindView(R.id.img_album)
+    ImageView imgAlbum;
+    @BindView(R.id.layout_wipe)
+    LinearLayout layoutWipe;
 
-    private String facebookId;
+
     private static final int REQUEST_CODE_CHOOSE = 23;
     private static final int REQUEST_CODE_CHOOSE_IMG = 24;
     private static final int REQUEST_CODE_USER_DATA = 200;
     private static final int REQUEST_CODE_DELETEIMG = 201;
-
+    @BindView(R.id.text_sign)
+    TextView textSign;
+    @BindView(R.id.layout_sign)
+    LinearLayout layoutSign;
     private AlbumBean albumBean;
     private AlbumAdapter albumAdapter;
     private RxPermissions rxPermissions;
@@ -121,17 +133,15 @@ public class MyFragment extends BaseMainFragment {
     private AddVIPDialog addVIPDialog;
     private String blurPath;
     private String blurImagePath;
-
+    private int vip;
+    private String newpath;
 
     public MyFragment() {
-        // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -145,8 +155,7 @@ public class MyFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
-        getLoginToken();
-        albumAdapter = new AlbumAdapter(getActivity(),MyFragment.this, imgList);
+        albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
         recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager
                 .HORIZONTAL, false));
         recyclerImg.setAdapter(albumAdapter);
@@ -154,6 +163,7 @@ public class MyFragment extends BaseMainFragment {
 
     @Override
     public void initDatas() {
+        userid = GetLoginTokenUtil.getUserId(getActivity());
         getDataFromHttp();
     }
 
@@ -173,6 +183,7 @@ public class MyFragment extends BaseMainFragment {
                             dataBean = albumBean.getData();
 
                             imgList = albumBean.getData().getListimage();
+                            vip = dataBean.getVip();
 
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
@@ -198,9 +209,12 @@ public class MyFragment extends BaseMainFragment {
             case DATASUCCESS:
 
                 if (dataBean.getCountnum() >= 6) {
-                    layoutAlbum.setClickable(false);
+//                    layoutAlbum.setClickable(false);
+                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+
                 } else {
-                    layoutAlbum.setClickable(true);
+//                    layoutAlbum.setClickable(true);
+                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                 }
 
                 Glide.with(getActivity()).load(dataBean.getHead()).into(imageHead);
@@ -208,6 +222,9 @@ public class MyFragment extends BaseMainFragment {
                 textName.setText(dataBean.getUsername());
                 textMyNum.setText(dataBean.getNum() + "");
                 textVipDay.setText(dataBean.getVipday() + "");
+                textSign.setText(dataBean.getObligate());
+
+
 
                 textName2.setText(dataBean.getUsername());
                 textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
@@ -237,8 +254,9 @@ public class MyFragment extends BaseMainFragment {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-
-                                FileUtil.deleteFile(blurPath);
+//
+//                                FileUtil.deleteFile(blurPath);
+//                                FileUtil.deleteFile(newpath);
 
                             }
                         });
@@ -254,7 +272,18 @@ public class MyFragment extends BaseMainFragment {
                             public void onSuccess(Response<String> response) {
 
                                 FileUtil.deleteFile(blurImagePath);
-                                getDataFromHttp();
+                                FileUtil.deleteFile(newpath);
+                                if (dataBean.getCountnum() >= 6) {
+                                    layoutAlbum.setClickable(false);
+                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
+                                            .show();
+                                } else {
+                                    layoutAlbum.setClickable(true);
+                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
+                                }
+
+                                albumAdapter.setNewData(imgList);
                             }
                         });
 
@@ -262,8 +291,8 @@ public class MyFragment extends BaseMainFragment {
         }
     }
 
-    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip,R
-            .id.img_setting,R.id.layout_wipe})
+    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip, R
+            .id.img_setting, R.id.layout_wipe, R.id.layout_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -281,10 +310,11 @@ public class MyFragment extends BaseMainFragment {
                                 if (aBoolean) {
                                     Matisse.from(MyFragment.this)
                                             .choose(MimeType.ofAll(), false)
-                                            .countable(true)
+                                            .countable(false)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.fileprovider", "test"))
+                                                    ".foreseers.chat.foreseers.fileprovider",
+                                                    "test"))
                                             .maxSelectable(1)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
                                                     Filter.K))
@@ -343,80 +373,85 @@ public class MyFragment extends BaseMainFragment {
 
                 break;
             case R.id.layout_album://添加相冊
-
-                rxPermissions = new RxPermissions(getActivity());
-                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
-                        .permission.CAMERA)
-                        .subscribe(new Observer<Boolean>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                            }
-
-                            @Override
-                            public void onNext(Boolean aBoolean) {
-                                if (aBoolean) {
-                                    Matisse.from(MyFragment.this)
-                                            .choose(MimeType.ofAll(), false)
-                                            .countable(true)
-                                            .capture(true)
-                                            .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.fileprovider", "test"))
-                                            .maxSelectable(1)
-                                            .addFilter(new GifSizeFilter(320, 320, Filter.K *
-                                                    Filter.K))
-                                            .gridExpectedSize(getResources()
-                                                    .getDimensionPixelSize(R.dimen
-                                                            .grid_expected_size))
-                                            .restrictOrientation(ActivityInfo
-                                                    .SCREEN_ORIENTATION_PORTRAIT)
-                                            .thumbnailScale(0.85f)
-//                                            .imageEngine(new GlideEngine())  // for glide-V3
-                                            .imageEngine(new GlideEngine())    // for glide-V4
-                                            .setOnSelectedListener(new OnSelectedListener() {
-                                                @Override
-                                                public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull
-                                                        List<String> pathList) {
-                                                    // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("onSelected", "onSelected: pathList=" +
-                                                            pathList);
-
-                                                }
-                                            })
-                                            .originalEnable(true)
-                                            .maxOriginalSize(10)
-                                            .autoHideToolbarOnSingleTap(true)
-                                            .setOnCheckedListener(new OnCheckedListener() {
-                                                @Override
-                                                public void onCheck(boolean isChecked) {
-                                                    // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("isChecked", "onCheck: isChecked=" +
-                                                            isChecked);
-                                                }
-                                            })
-                                            .forResult(REQUEST_CODE_CHOOSE_IMG);
-
-
-                                } else {
-                                    Toast.makeText(getActivity(), R.string
-                                            .permission_request_denied, Toast.LENGTH_LONG)
-                                            .show();
+                if (dataBean.getCountnum() >= 6) {
+                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG).show();
+                } else {
+                    rxPermissions = new RxPermissions(getActivity());
+                    rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
+                            .permission.CAMERA)
+                            .subscribe(new Observer<Boolean>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
                                 }
 
-                            }
+                                @Override
+                                public void onNext(Boolean aBoolean) {
+                                    if (aBoolean) {
+                                        Matisse.from(MyFragment.this)
+                                                .choose(MimeType.ofAll(), false)//图片类型
+                                                .countable(false)//true:选中后显示数字;false:选中后显示对号
+                                                .capture(false)//选择照片时，是否显示拍照
+                                                .captureStrategy(new CaptureStrategy(true, "com" +
+                                                        ".foreseers.chat.foreseers.fileprovider",
+                                                        "test"))
 
-                            @Override
-                            public void onError(Throwable e) {
+                                                .maxSelectable(1)
+                                                .addFilter(new GifSizeFilter(320, 320, Filter.K *
+                                                        Filter.K))
+                                                .gridExpectedSize(getResources()
+                                                        .getDimensionPixelSize(R.dimen
+                                                                .grid_expected_size))
+                                                .restrictOrientation(ActivityInfo
+                                                        .SCREEN_ORIENTATION_PORTRAIT)
+                                                .thumbnailScale(0.85f)
+//                                            .imageEngine(new GlideEngine())  // for glide-V3
+                                                .imageEngine(new GlideEngine())    // for glide-V4
+                                                .setOnSelectedListener(new OnSelectedListener() {
+                                                    @Override
+                                                    public void onSelected(
+                                                            @NonNull List<Uri> uriList, @NonNull
+                                                            List<String> pathList) {
+                                                        // DO SOMETHING IMMEDIATELY HERE
+                                                        Log.e("onSelected", "onSelected: " +
+                                                                "pathList=" +
+                                                                pathList);
 
-                            }
+                                                    }
+                                                })
+                                                .originalEnable(true)
+                                                .maxOriginalSize(10)
+                                                .autoHideToolbarOnSingleTap(true)
+                                                .setOnCheckedListener(new OnCheckedListener() {
+                                                    @Override
+                                                    public void onCheck(boolean isChecked) {
+                                                        // DO SOMETHING IMMEDIATELY HERE
+                                                        Log.e("isChecked", "onCheck: isChecked=" +
+                                                                isChecked);
+                                                    }
+                                                })
+                                                .forResult(REQUEST_CODE_CHOOSE_IMG);
 
-                            @Override
-                            public void onComplete() {
 
-                            }
-                        });
+                                    } else {
+                                        Toast.makeText(getActivity(), R.string
+                                                .permission_request_denied, Toast.LENGTH_LONG)
+                                                .show();
+                                    }
 
+                                }
 
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                }
                 break;
 
             case R.id.layout_change_user_data://修改個人信息
@@ -428,34 +463,51 @@ public class MyFragment extends BaseMainFragment {
 
             case R.id.layout_vip://添加vip
 
-                intent = new Intent(getActivity(), MyVipActivity.class);
-                getActivity().startActivity(intent);
+                if (vip == 1) {
+                    String[] arr = dataBean.getViptime().split(" ");
 
 
-//                addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog
-//                        .LeaveMyDialogListener() {
-//
-//
-//                    @Override
-//                    public void onClick(View view) {
-//                        addVIPDialog.dismiss();
-//                    }
-//                });
-//                addVIPDialog.setCancelable(true);
-//                addVIPDialog.show();
+                    intent = new Intent(getActivity(), MyVipActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("head", dataBean.getHead());
+                    bundle.putString("day", arr[0]);
+                    bundle.putString("name", dataBean.getUsername());
+
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
+                } else {
+
+                    addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new
+                            AddVIPDialog
+                            .LeaveMyDialogListener() {
+
+
+                        @Override
+                        public void onClick(View view) {
+                            addVIPDialog.dismiss();
+                        }
+                    });
+                    addVIPDialog.setCancelable(true);
+                    addVIPDialog.show();
+                }
 
 
                 break;
             case R.id.img_setting://设置
 
-                intent=new Intent(getActivity(),SettingActivity.class);
+                intent = new Intent(getActivity(), SettingActivity.class);
                 getActivity().startActivity(intent);
                 break;
 
             case R.id.layout_wipe:
-                intent=new Intent(getActivity(),WipeHistoryActivity.class);
+                intent = new Intent(getActivity(), WipeHistoryActivity.class);
                 getActivity().startActivity(intent);
                 break;
+            case R.id.layout_sign:
+                intent = new Intent(getActivity(), SignActivity.class);
+                getActivity().startActivity(intent);
+                break;
+
             default:
 
                 break;
@@ -478,8 +530,12 @@ public class MyFragment extends BaseMainFragment {
 
                         FileInputStream fis = new FileInputStream(path);
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
-                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
-                        blurPath = BitmapDispose.saveBitmap(blurBitmap);
+                        Bitmap compressbitmap = compressImage(bitmap);
+                        newpath = BitmapDispose.saveBitmap(compressbitmap, 1);
+
+                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(),
+                                compressbitmap, 25);
+                        blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                         Log.i("blurPath", "blurPath: " + blurPath);
 
@@ -490,7 +546,7 @@ public class MyFragment extends BaseMainFragment {
 
                     OkGo.<String>post(Urls.Url_UserHead).tag(this)
                             .params("userid", userid)
-                            .params("file", new File(path))
+                            .params("file", new File(newpath))
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
@@ -519,21 +575,20 @@ public class MyFragment extends BaseMainFragment {
                 if (resultCode == RESULT_OK) {
                     String path = Matisse.obtainPathResult(data).get(0);
                     Log.i("useridMyfragment", "userid: " + userid);
-                    Glide.with(this).load(path).into(imageHead);
+
 
                     try {
 
                         FileInputStream fis = new FileInputStream(path);
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
                         Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
-                        blurImagePath = BitmapDispose.saveBitmap(blurBitmap);
+                        blurImagePath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                         Log.i("blurPath", "blurPath: " + blurImagePath);
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
 
 
                     OkGo.<String>post(Urls.Url_UserImg).tag(this)
@@ -569,19 +624,66 @@ public class MyFragment extends BaseMainFragment {
 
     }
 
-    /**
-     * 获取登录token（facebookID）
-     */
-
-    public void getLoginToken() {
-        SharedPreferences userInfo = getActivity().getSharedPreferences("loginToken", MODE_PRIVATE);
-        facebookId = userInfo.getString("token", null);
-        userid = userInfo.getString("huanXinId", "");
-    }
 
     @Override
     public void onResume() {
         super.onResume();
 //        getDataFromHttp();
+    }
+
+    private Bitmap compressImage(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        Log.i("######", "compressImage: " + baos.toByteArray().length);
+        while (baos.toByteArray().length / 1024 > 400) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            Log.i("######", "compressImage: " + baos.toByteArray().length);
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        //把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+        return bitmap;
+    }
+
+
+    private Bitmap comp(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory
+            // .decodeStream）时溢出
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 1280f;//这里设置高度为800f
+        float ww = 768f;//这里设置宽度为480f
+        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 1;//be=1表示不缩放
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;//设置缩放比例
+        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        isBm = new ByteArrayInputStream(baos.toByteArray());
+        bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+//        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
+        return bitmap;//压缩好比例大小后再进行质量压缩
     }
 }

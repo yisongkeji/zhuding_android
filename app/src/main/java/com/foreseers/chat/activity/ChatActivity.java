@@ -35,7 +35,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-//        StatusNavUtils.setStatusBarColor(this,0x00000000);
+        StatusNavUtils.setStatusBarColor(this,0x00000000);
 //        Window window = getWindow();
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |

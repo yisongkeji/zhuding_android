@@ -38,6 +38,7 @@
                     android:layout_marginLeft="15dp">
 
                 <com.ruffian.library.widget.RImageView
+                    android:id="@+id/rimg_head"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
                         android:scaleType="fitCenter"
@@ -60,6 +61,7 @@
                     android:layout_marginLeft="15dp">
 
                 <TextView
+                    android:id="@+id/text_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorBlack"
@@ -78,6 +80,7 @@
                             android:textSize="@dimen/sp_11"/>
 
                     <TextView
+                        android:id="@+id/text_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorAccent"

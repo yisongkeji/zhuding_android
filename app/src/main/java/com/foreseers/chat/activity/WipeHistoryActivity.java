@@ -1,8 +1,11 @@
 package com.foreseers.chat.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.SupportActivity;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,8 +18,7 @@ import com.foreseers.chat.global.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WipeHistoryActivity extends BaseActivity implements RadioGroup
-        .OnCheckedChangeListener {
+public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.radiobutton1)
     RadioButton radiobutton1;
@@ -30,6 +32,9 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
     private FragmentManager fragmentManager;
 
     private LookHistoryFragment lookHistoryFragment;
+    private FragmentTransaction transaction;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +53,12 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
 
 
         fragmentManager = getSupportFragmentManager();
-        FragmentTransaction   transaction = fragmentManager.beginTransaction();
+        transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.layout_frame, wipeHistoryFragment);
         transaction.add(R.id.layout_frame, lookHistoryFragment);
         transaction.hide(lookHistoryFragment).show(wipeHistoryFragment);
         transaction.commit();
-
+        radiobutton1.setChecked(true);
 
     }
 
@@ -61,31 +66,31 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
         switch (i) {
             case R.id.radiobutton1:
-                FragmentTransaction   transaction = fragmentManager.beginTransaction();
+                transaction = fragmentManager.beginTransaction();
 
                 if (lookHistoryFragment != null) {
                     transaction.hide(lookHistoryFragment);
                 }
                 if (wipeHistoryFragment == null) {
                     wipeHistoryFragment = new WipeHistoryFragment();
-                    transaction.add(R.id.layout_frame,wipeHistoryFragment);
+                    transaction.add(R.id.layout_frame, wipeHistoryFragment);
                 }
                 transaction.show(wipeHistoryFragment);
                 transaction.commit();
                 break;
 
             case R.id.radiobutton2:
-                FragmentTransaction   transaction2 = fragmentManager.beginTransaction();
+                transaction = fragmentManager.beginTransaction();
 
                 if (wipeHistoryFragment != null) {
-                    transaction2.hide(wipeHistoryFragment);
+                    transaction.hide(wipeHistoryFragment);
                 }
                 if (lookHistoryFragment == null) {
                     lookHistoryFragment = new LookHistoryFragment();
-                    transaction2.add(R.id.layout_frame,lookHistoryFragment);
+                    transaction.add(R.id.layout_frame, lookHistoryFragment);
                 }
-                transaction2.show(lookHistoryFragment);
-                transaction2.commit();
+                transaction.show(lookHistoryFragment);
+                transaction.commit();
                 break;
             default:
                 break;

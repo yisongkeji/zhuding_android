@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLucency"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:background="@mipmap/icon_store_vip_03" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="让你知道谁曾查看过你"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="为你心动"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/sp_16" />
+
+
+
+</LinearLayout>

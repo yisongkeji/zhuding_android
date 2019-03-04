@@ -4,57 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/colorGray4"
     tools:context="com.foreseers.chat.fragment.ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <FrameLayout
+    <com.foreseers.chat.view.widget.MyTitleBar
+        android:id="@+id/my_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@mipmap/icon_header_case_01"
-        android:elevation="1dp">
+        android:layout_height="wrap_content"
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="9dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_header_eraser_01" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                android:textColor="@color/colorWhite"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/friend"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/colorWhite" />
-
-    </FrameLayout>
+        app:titleBarRightImage="@mipmap/icon_header_btn_04"
+        app:titleBarTitle="@string/address_chat"></com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fl_error_item"
-        >
+        android:id="@+id/fl_error_item">
     </FrameLayout>
 
     <com.hyphenate.easeui.widget.EaseConversationList
@@ -65,5 +34,8 @@
         android:cacheColorHint="#00000000"
         android:divider="@null"
         hyphenate:cvsListPrimaryTextSize="16sp"
-        android:overScrollMode="never" />
+        android:overScrollMode="never"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

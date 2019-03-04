@@ -20,11 +20,13 @@ import android.widget.FrameLayout;
 
 import android.widget.Toast;
 import com.foreseers.chat.activity.ChatActivity;
+import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.foreseers.R;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
@@ -67,6 +69,7 @@ public class ChatFragment extends EaseBaseFragment {
     protected boolean hidden;
     private final static int MSG_REFRESH = 2;
     private SharedPreferences sharedPreferences ;
+    private MessageListener messageListener;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -87,6 +90,8 @@ public class ChatFragment extends EaseBaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         unbinder = ButterKnife.bind(this, view);
+        messageListener = new MessageListener();
+        EMClient.getInstance().chatManager().addMessageListener(messageListener);
         return view;
     }
 
@@ -139,11 +144,10 @@ public class ChatFragment extends EaseBaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 EMConversation emconversation = conversation.getItem(position);
                 String username = emconversation.conversationId();
-                Log.i("$$$$$$$$", "onItemClick: " + username);
+                Log.i("@@@@@", "onItemClick: " + username);
 //                EaseUser user=new EaseUser(username);
                 sharedPreferences = getActivity().getSharedPreferences("user",MODE_PRIVATE);
                 String info= sharedPreferences.getString(username,"");
-
 
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 Bundle bundle = new Bundle();
@@ -151,6 +155,7 @@ public class ChatFragment extends EaseBaseFragment {
                 bundle.putString("username", info.split("&")[0]);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                ((MainActivity) getActivity()).changeBottombar();
             }
         });
 
@@ -313,6 +318,7 @@ public class ChatFragment extends EaseBaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EMClient.getInstance().removeConnectionListener(connectionListener);
+        EMClient.getInstance().chatManager().removeMessageListener(messageListener);
     }
 
     @Override
@@ -349,4 +355,55 @@ public class ChatFragment extends EaseBaseFragment {
         this.listItemClickListener = listItemClickListener;
     }
 
+    public class MessageListener implements EMMessageListener {
+        @Override
+        public void onMessageReceived(List<EMMessage> list) {//收到消息
+            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+
+        }
+
+        @Override
+        public void onCmdMessageReceived(List<EMMessage> list) {  //收到透传消息
+
+        }
+
+        @Override
+        public void onMessageRead(List<EMMessage> list) {  //收到已读回执
+
+        }
+
+        @Override
+        public void onMessageDelivered(List<EMMessage> list) { //收到已送达回执
+
+        }
+
+        @Override
+        public void onMessageRecalled(List<EMMessage> list) {  //消息被撤回
+
+        }
+
+        @Override
+        public void onMessageChanged(EMMessage emMessage, Object o) { //消息状态变动
+
+        }
+
+    }
+    private final int DATASUCCESS = 1;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DATASUCCESS:
+                    setUpView();
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+
+    };
 }

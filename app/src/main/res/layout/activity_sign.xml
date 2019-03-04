@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.foreseers.chat.activity.SignActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarTitle="更改签名"></com.foreseers.chat.view.widget.MyTitleBar>
+
+        <TextView
+            android:id="@+id/text_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="保存"
+            android:textColor="@color/colorWhite" />
+
+    </FrameLayout>
+
+
+    <EditText
+        android:id="@+id/edittext"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="14dp"
+        android:background="@color/colorWhite"
+        android:maxLength="20"
+        android:paddingLeft="13dp"
+        android:paddingTop="13dp"
+        android:textColor="@color/colorMain"
+        android:textSize="@dimen/sp_14" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp">
+        <TextView
+            android:id="@+id/text_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/20"/>
+    </LinearLayout>
+
+</LinearLayout>

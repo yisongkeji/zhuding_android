@@ -101,13 +101,11 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
-                            analyzeLifeBookBean = gson.fromJson(response.body
-                                    (), AnalyzeLifeBookBean.class);
+                            analyzeLifeBookBean = gson.fromJson(response.body(), AnalyzeLifeBookBean.class);
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
                         } else if (loginBean.getStatus().equals("fail")) {
                             mHandler.obtainMessage(DATAFELLED).sendToTarget();
-
                         }
                     }
                 });
@@ -122,9 +120,14 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
                     int characterscore = analyzeLifeBookBean.getData().getCharacterscore();
                     int mindscore = analyzeLifeBookBean.getData().getMindscore();
                     int bodyscore = analyzeLifeBookBean.getData().getBodyscore();
-
-
                     initView(characterscore, mindscore, bodyscore);
+                    characterScoreTxt.setTag(characterscore+"");
+                    mindScoreTxt.setText(mindscore+"");
+                    bodyScoreTxt.setText(bodyscore+"");
+
+
+                    progressMatchingRate.setProgress(analyzeLifeBookBean.getData().getUserscore());
+                    progressText.setText("匹配度"+analyzeLifeBookBean.getData().getUserscore()+"%");
                     textCommentdesc.setText(analyzeLifeBookBean.getData().getCommentdesc());
                     textCharacteristicdesc.setText(analyzeLifeBookBean.getData()
                             .getCharacteristicdesc());

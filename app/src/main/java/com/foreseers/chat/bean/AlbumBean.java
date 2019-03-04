@@ -110,7 +110,7 @@ public class AlbumBean {
         private String spare;
         private String spare1;
         private String updatetime;
-        private Object obligate;
+        private String obligate;
         private int numerology;
         private int userstar;
         private int reservedint;
@@ -314,12 +314,14 @@ public class AlbumBean {
             this.updatetime = updatetime;
         }
 
-        public Object getObligate() {
-            return obligate;
+
+        public void setObligate(String obligate) {
+            this.obligate = obligate;
         }
 
-        public void setObligate(Object obligate) {
-            this.obligate = obligate;
+        public String getObligate() {
+
+            return obligate;
         }
 
         public int getNumerology() {

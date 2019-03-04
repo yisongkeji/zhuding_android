@@ -3,6 +3,8 @@ package com.foreseers.chat.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +24,7 @@ import com.foreseers.chat.bean.InquireFriendBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.AddFriendDialog;
 import com.foreseers.chat.dialog.AddFriendErrorDialog;
+import com.foreseers.chat.dialog.DelFriendDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
 import com.foreseers.chat.foreseers.R;
 import com.foreseers.chat.global.BaseActivity;
@@ -76,6 +79,21 @@ public class UserDetailsActivity extends BaseActivity {
     Banner banner;
     @BindView(R.id.layout_wipe)
     LinearLayout layoutWipe;
+
+    @BindView(R.id.text_ziwei)
+    TextView textZiwei;
+    @BindView(R.id.text_1)
+    TextView text1;
+    @BindView(R.id.text_2)
+    TextView text2;
+    @BindView(R.id.text_sign)
+    TextView textSign;
+    @BindView(R.id.text_desc)
+    TextView textDesc;
+    @BindView(R.id.img_ani)
+    ImageView imgAni;
+
+
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
     private Intent intent;
@@ -93,6 +111,15 @@ public class UserDetailsActivity extends BaseActivity {
     private String avatar;
     private List<AnalyzeLifeBookBean.DataBean.ImagesBean> imagesBeans = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
+    private int friend;
+    private DelFriendDialog delFriendDialog;
+    private String ziwei;
+    private int thirthday;
+    private int sevenday;
+    private int lookhead;
+    private String sign;
+    private String desc;
+    private AnimationDrawable animationDrawable;
 
 
     @Override
@@ -101,13 +128,14 @@ public class UserDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_user_details);
         ButterKnife.bind(this);
 
-        initView();
         initData();
+        initView();
 
 
     }
 
     private void initView() {
+
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,9 +157,17 @@ public class UserDetailsActivity extends BaseActivity {
             public void onPageSelected(int i) {
 
                 if (i == 0) {
-                    layoutWipe.setVisibility(View.VISIBLE);
+                    if (lookhead == 1) {
+                        layoutWipe.setVisibility(View.GONE);
+                    } else if (lookhead == 0) {
+                        layoutWipe.setVisibility(View.VISIBLE);
+                    }
                 } else {
-                    layoutWipe.setVisibility(View.GONE);
+                    if (lookhead == 1) {
+                        layoutWipe.setVisibility(View.GONE);
+                    } else if (lookhead == 0) {
+                        layoutWipe.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -149,16 +185,33 @@ public class UserDetailsActivity extends BaseActivity {
 
         refresh();
 
+        imgAni.setBackgroundResource(R.drawable.start_show);
+        animationDrawable = (AnimationDrawable) imgAni.getBackground();
+
+
     }
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
+    private final int ANIMATION = 3;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
+
+                    switch (lookhead) {
+
+                        case 0:
+                            layoutWipe.setVisibility(View.VISIBLE);
+                            break;
+
+                        case 1:
+                            layoutWipe.setVisibility(View.GONE);
+                            break;
+                    }
+
 
                     //设置图片集合
                     banner.update(imgList);
@@ -181,120 +234,183 @@ public class UserDetailsActivity extends BaseActivity {
                         default:
                             break;
                     }
+
+                    switch (friend) {
+
+                        case 0:
+                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_03);
+                            break;
+
+                        case 1:
+                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_01);
+                            break;
+                    }
+
                     textAge.setText(age + "");
                     textNum.setText(num + "");
-
-                    textLocation.setText(distance + "km");
-
+                    textZiwei.setText(ziwei);
+                    textLocation.setText(distance + "km +");
                     progressText.setText(userscore + "");
+                    textDesc.setText(desc);
+                    textSign.setText(sign);
+
+                    if (sevenday == 0) {
+                        text1.setText(R.string.life_book);
+                        text1.getPaint().setAntiAlias(true);//抗锯齿
+                        text1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
+                                .ANTI_ALIAS_FLAG);
+
+                    } else {
+                        text1.getPaint().setFlags(0);
+                    }
+                    if (thirthday == 0) {
+
+                        text2.setText(R.string.ta_life_book);
+                        text2.getPaint().setAntiAlias(true);//抗锯齿
+                        text2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
+                                .ANTI_ALIAS_FLAG);
+
+                    } else {
+                        text2.getPaint().setFlags(0);
+                    }
+
+
                     break;
                 case DATAFELLED:
                     Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast
                             .LENGTH_SHORT).show();
                     break;
+                case ANIMATION:
+                    imgAni.setVisibility(View.GONE);
+                    animationDrawable.stop();
+                    break;
             }
         }
     };
 
-    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id
-            .layout_wipe})
+    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_add_friend://添加好友
 
-                OkGo.<String>post(Urls.Url_UserFriend).tag(this)
-                        .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
-                        .params("friendid", userid)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                Gson gson = new Gson();
+                if (friend == 1) {
+                    OkGo.<String>post(Urls.Url_UserFriend).tag(this)
+                            .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
+                            .params("friendid", userid)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
 
-                                InquireFriendBean inquireFriendBean = gson.fromJson(response.body(),
-                                        InquireFriendBean.class);
-                                if (inquireFriendBean.getStatus().equals("success")) {
-                                    switch (inquireFriendBean.getData().getStatus()) {
-                                        case 0://可以添加好友
-                                            addFriendDialog = new AddFriendDialog
-                                                    (UserDetailsActivity.this, R.style.MyDialog,
-                                                            username, userid + "",
-                                                            inquireFriendBean
-                                                                    .getData().getUserint()
-                                                            , new
-                                                            AddFriendDialog.LeaveMyDialogListener
-                                                                    () {
+                                    InquireFriendBean inquireFriendBean = gson.fromJson(response
+                                            .body(), InquireFriendBean.class);
+                                    if (inquireFriendBean.getStatus().equals("success")) {
+                                        switch (inquireFriendBean.getData().getStatus()) {
+                                            case 0://可以添加好友
+                                                addFriendDialog = new AddFriendDialog
+                                                        (UserDetailsActivity.this, R.style.MyDialog, inquireFriendBean.getData().getName(), userid,
+                                                                inquireFriendBean.getData().getHead(), inquireFriendBean.getData().getUserint(),
+                                                                new AddFriendDialog.LeaveMyDialogListener() {
 
-                                                                @Override
-                                                                public void onClick(View view) {
-                                                                    addFriendDialog.dismiss();
-                                                                }
-                                                            });
-                                            addFriendDialog.setCancelable(true);
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        addFriendDialog.dismiss();
+                                                                    }
+                                                                });
+                                                addFriendDialog.setCancelable(true);
 
-                                            //修改弹窗位置
-                                            changeDialogLocation(addFriendDialog);
+                                                //修改弹窗位置
+                                                changeDialogLocation(addFriendDialog);
 
-                                            addFriendDialog.show();
+                                                addFriendDialog.show();
 
-                                            break;
-                                        case 1://自己好友位已满
-                                            noFriendNumberDialog = new NoFriendNumberDialog
-                                                    (UserDetailsActivity.this,
-                                                            R.style.MyDialog, new
-                                                            NoFriendNumberDialog
-                                                                    .LeaveMyDialogListener() {
+                                                break;
+                                            case 1://自己好友位已满
+                                                noFriendNumberDialog = new NoFriendNumberDialog
+                                                        (UserDetailsActivity.this, R.style.MyDialog, new NoFriendNumberDialog.LeaveMyDialogListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                noFriendNumberDialog.dismiss();
+                                                            }
+                                                        });
 
-                                                                @Override
-                                                                public void onClick(View view) {
-                                                                    noFriendNumberDialog.dismiss();
-                                                                }
-                                                            });
+                                                noFriendNumberDialog.setCancelable(true);
 
-                                            noFriendNumberDialog.setCancelable(true);
+                                                //修改弹窗位置
+                                                changeDialogLocation(noFriendNumberDialog);
 
-                                            //修改弹窗位置
-                                            changeDialogLocation(noFriendNumberDialog);
+                                                noFriendNumberDialog.show();
+                                                break;
 
-                                            noFriendNumberDialog.show();
-                                            break;
+                                            case 2://目标好友位已满
 
-                                        case 2://目标好友位已满
+                                                addFriendErrorDialog = new AddFriendErrorDialog(UserDetailsActivity.this, R.style.MyDialog, new
+                                                        AddFriendErrorDialog.LeaveMyDialogListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        addFriendErrorDialog.dismiss();
+                                                    }
+                                                });
+                                                //修改弹窗位置
+                                                changeDialogLocation(addFriendErrorDialog);
+                                                addFriendErrorDialog.show();
 
-                                            addFriendErrorDialog = new AddFriendErrorDialog
-                                                    (UserDetailsActivity.this,
-                                                            R.style
-                                                                    .MyDialog, new
-                                                            AddFriendErrorDialog
-                                                                    .LeaveMyDialogListener
-                                                                    () {
-                                                                @Override
-                                                                public void onClick(View view) {
-                                                                    addFriendErrorDialog.dismiss();
-                                                                }
-                                                            });
-                                            //修改弹窗位置
-                                            changeDialogLocation(addFriendErrorDialog);
-                                            addFriendErrorDialog.show();
-
-                                            break;
+                                                break;
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                } else if (friend == 0) {
 
+                    delFriendDialog = new DelFriendDialog
+                            (UserDetailsActivity.this, R.style.MyDialog, new DelFriendDialog.LeaveMyDialogListener() {
+
+                                @Override
+                                public void onClick(View view) {
+
+                                    switch (view.getId()) {
+                                        case R.id.button_ok:
+                                            delFriendDialog.dismiss();
+                                            OkGo.<String>post(Urls.Url_DelFriend).tag(this)
+                                                    .params("userid", GetLoginTokenUtil.getUserId(UserDetailsActivity.this))
+                                                    .params("friendid", userid)
+                                                    .params("reation", 2)
+                                                    .execute(new StringCallback() {
+                                                        @Override
+                                                        public void onSuccess(Response<String> response) {
+                                                            refresh();
+                                                        }
+                                                    });
+                                            break;
+                                        case R.id.button_cancel:
+                                            delFriendDialog.dismiss();
+                                            break;
+                                    }
+
+//                                     delFriendDialog.dismiss();
+                                }
+                            });
+                    delFriendDialog.setCancelable(true);
+
+                    //修改弹窗位置
+//                changeDialogLocation(addFriendDialog);
+
+                    delFriendDialog.show();
+
+
+                }
 
                 break;
 
-
-//            case R.id.layout_remark:
-//                intent = new Intent(this, RemarkActivity.class);
-//                startActivity(intent);
-//                break;
-
             case R.id.layout_analyze_life_book://我與TA的詳細分析
-                intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
-                intent.putExtra("userid",userid);
-                startActivity(intent);
+                if (sevenday == 1) {
+                    intent = new Intent(this, UserAnalyzeLifeBookActivity.class);
+                    intent.putExtra("userid", userid);
+                    startActivity(intent);
+                }
+
+
+
                 break;
 
             case R.id.chat_user_details://发消息
@@ -309,35 +425,74 @@ public class UserDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.layout_wipe://擦照片
+                delFriendDialog = new DelFriendDialog
+                        (UserDetailsActivity.this, R.style.MyDialog, new DelFriendDialog
+                                .LeaveMyDialogListener() {
 
-                OkGo.<String>post(Urls.Url_Wipe).tag(this)
-                        .params("userid", GetLoginTokenUtil.getUserId(this))
-                        .params("caid", userid)
-                        .execute(new StringCallback() {
                             @Override
-                            public void onSuccess(Response<String> response) {
+                            public void onClick(View view) {
 
-                                Gson gson=new Gson();
+                                switch (view.getId()) {
+                                    case R.id.button_ok:
+                                        delFriendDialog.dismiss();
+                                        OkGo.<String>post(Urls.Url_Wipe).tag(this)
+                                                .params("userid", GetLoginTokenUtil.getUserId(UserDetailsActivity.this))
+                                                .params("caid", userid)
+                                                .execute(new StringCallback() {
+                                                    @Override
+                                                    public void onSuccess(Response<String> response) {
+                                                        imgAni.setVisibility(View.VISIBLE);
+                                                        Gson gson = new Gson();
+                                                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                                        if (loginBean.getStatus().equals("success")) {
+                                                            imgList.clear();
+                                                            layoutWipe.setVisibility(View.GONE);
+                                                            refresh();
+                                                            imgAni.setVisibility(View.VISIBLE);
+                                                            animationDrawable.start();
+                                                            new Thread(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    try {
+                                                                        Thread.sleep(12*100);
+                                                                        mHandler.obtainMessage(ANIMATION).sendToTarget();
+                                                                    } catch (InterruptedException e) {
+                                                                        e.printStackTrace();
+                                                                    }
+                                                                }
+                                                            }).start();
 
-                                LoginBean loginBean = gson.fromJson(response.body(),LoginBean
-                                        .class);
-                                if (loginBean.getStatus().equals("success")){
-                                    imgList.clear();
-                                    refresh();
-                                }else if (loginBean.getStatus().equals("fail")){
 
-                                    ErrBean errBean=gson.fromJson(response.body(),ErrBean.class);
-                                    if (errBean.getData().getErrCode()==2000){
-                                        Toast.makeText(UserDetailsActivity.this,"擦字数不足",Toast
-                                                .LENGTH_LONG).show();
-                                    }
 
+                                                        } else if (loginBean.getStatus().equals("fail")) {
+
+                                                            ErrBean errBean = gson.fromJson(response.body(), ErrBean.class);
+                                                            if (errBean.getData().getErrCode() == 2000) {
+                                                                Toast.makeText(UserDetailsActivity.this, "擦字数不足", Toast.LENGTH_LONG).show();
+                                                            } else {
+                                                                Toast.makeText(UserDetailsActivity.this, "发送失败，请检查网络", Toast.LENGTH_LONG).show();
+                                                            }
+
+                                                        }
+                                                    }
+                                                });
+                                        break;
+                                    case R.id.button_cancel:
+                                        delFriendDialog.dismiss();
+                                        break;
                                 }
 
-
-
+//                                     delFriendDialog.dismiss();
                             }
                         });
+                delFriendDialog.setCancelable(true);
+
+                //修改弹窗位置
+//                changeDialogLocation(addFriendDialog);
+
+                delFriendDialog.show();
+
+
                 break;
             default:
                 break;
@@ -381,6 +536,14 @@ public class UserDetailsActivity extends BaseActivity {
                             distance = dataBean.getDistance();
                             userscore = dataBean.getUserscore();
                             avatar = dataBean.getHead();
+                            friend = dataBean.getFriend();
+                            ziwei = dataBean.getZiwei();
+                            sevenday = dataBean.getSevenday();
+                            thirthday = dataBean.getThirthday();
+                            desc = dataBean.getUserdesc();
+                            sign = dataBean.getObligate();
+                            lookhead = dataBean.getLookhead();
+
 
                             imgList.add(avatar);
                             imagesBeans = dataBean.getImages();
@@ -400,7 +563,6 @@ public class UserDetailsActivity extends BaseActivity {
                                             break;
 
                                     }
-
 
                                     break;
                                 case 1://不是好友

@@ -37,16 +37,17 @@ public class FriendTimeBean {
          * userid : 88
          */
 
-        private int hour;
+        private long hour;
         private String friend;
         private String userid;
 
-        public int getHour() {
-            return hour;
+        public void setHour(long hour) {
+            this.hour = hour;
         }
 
-        public void setHour(int hour) {
-            this.hour = hour;
+        public long getHour() {
+
+            return hour;
         }
 
         public String getFriend() {

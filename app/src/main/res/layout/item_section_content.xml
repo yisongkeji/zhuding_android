@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:foreground="?android:attr/selectableItemBackground"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="2dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_header_gradient"
+        android:orientation="vertical">
+
+
+        <com.ruffian.library.widget.RImageView
+            android:id="@+id/image_people"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:adjustViewBounds="true"
+
+            android:scaleType="fitXY"
+            app:corner_radius="15px"
+            app:icon_src_normal="@mipmap/icon_me_loading_03" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/text_people_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="9dp"
+                android:text="name"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="匹配度"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/text_people_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorMain"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_people_name"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/text_people_name">
+
+                <TextView
+                    android:id="@+id/text_people_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="sex"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="7sp"
+                    card_view:layout_editor_absoluteX="2dp"
+                    card_view:layout_editor_absoluteY="41dp" />
+
+                <TextView
+                    android:id="@+id/text_people_ziwei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/rounded_layout_yellow"
+                    android:gravity="center"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="七殺"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="7sp" />
+
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/text_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/layout_age"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/icon_header_btn_03"
+                android:gravity="center"
+
+                android:textColor="@color/colorWhite"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

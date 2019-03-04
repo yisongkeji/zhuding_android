@@ -2,15 +2,22 @@ package com.foreseers.chat.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.foreseers.chat.activity.MainActivity;
+import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.Constant;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
@@ -18,11 +25,14 @@ import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
 
+import java.util.List;
+
 /**
  * 聊天
  * A simple {@link Fragment} subclass.
  */
-public class MyChatFragment extends EaseChatFragment implements EaseChatFragment.EaseChatFragmentHelper {
+public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
+        .EaseChatFragmentHelper {
 
 
     private SharedPreferences sharedPreferences;
@@ -33,8 +43,12 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         setChatFragmentHelper(this);
+//        fragmentArgs = getArguments();
+//        toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
+
         sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -68,7 +82,16 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
 
     @Override
     public void onAvatarClick(String username) {
-        Toast.makeText(getActivity(), "头像被点击了", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "头像被点击了" + username, Toast.LENGTH_SHORT).show();
+        if (username.equals(EMClient.getInstance().getCurrentUser())) {
+
+        } else {
+            Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("userid", username);
+            intent.putExtras(bundle);
+            getActivity().startActivity(intent);
+        }
 
     }
 
@@ -96,4 +119,8 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
     public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
         return null;
     }
+
+
+
+
 }

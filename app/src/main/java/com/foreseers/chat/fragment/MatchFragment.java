@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -19,11 +18,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foreseers.chat.decoration.GridItemDecoration;
+import com.foreseers.chat.adapter.PeopleAdapter;
+import com.foreseers.chat.bean.LocationBean;
+import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.RecommendBean;
+import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
+import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.global.BaseMainFragment;
+import com.foreseers.chat.util.GetLocation;
 import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.DoubleSlideSeekBar;
 import com.google.gson.Gson;
 import com.hmy.popwindow.PopItemAction;
 import com.hmy.popwindow.PopWindow;
@@ -39,16 +48,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import com.foreseers.chat.foreseers.R;
-import com.foreseers.chat.adapter.PeopleAdapter;
-import com.foreseers.chat.bean.LocationBean;
-import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.bean.RecommendBean;
-import com.foreseers.chat.global.BaseMainFragment;
-import com.foreseers.chat.util.GetLocation;
-import com.foreseers.chat.util.Urls;
-import com.foreseers.chat.view.DoubleSlideSeekBar;
-
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -58,7 +57,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class MatchFragment extends BaseMainFragment {
 
-    private final String TAG="MatchFragment####";
+    private final String TAG = "MatchFragment####";
 
     Unbinder unbinder;
 
@@ -68,9 +67,11 @@ public class MatchFragment extends BaseMainFragment {
     ImageView imgMatchFilter;
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
-
+    @BindView(R.id.text_canums_num)
+    TextView textCanumsNum;
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 0;
+
     private List<RecommendBean.DataBean> recommendBeans = new ArrayList<>();
     private RecommendBean recommendBean;
     private PeopleAdapter peopleAdapter;
@@ -87,6 +88,9 @@ public class MatchFragment extends BaseMainFragment {
     private RadioGroup radioGroup;
     private View view;
     private DoubleSlideSeekBar doubleslideAge;
+    private LoginBean loginBean;
+    private UserCanumsNumBean userCanumsNumBean;
+    private int num;
 
     public MatchFragment() {
         // Required empty public constructor
@@ -142,23 +146,10 @@ public class MatchFragment extends BaseMainFragment {
 
     private void getDataForHttp() {
 
-        sex = userInfo.getString("sex", "");
-        if (sex == null) {
-            sex = "";
-        }
-        ageLittle = userInfo.getString("ageLittle", "");
-        if (ageLittle == null || ageLittle.equals("")) {
-            ageLittle = "12";
-        }
-        agebig = userInfo.getString("agebig", "");
-        if (agebig.equals("") || agebig == null) {
-            agebig = "50";
-        }
-        distance = userInfo.getInt("distance", 0);
-        if (distance == 0) {
-            distance = 100;
-        }
-
+        sex = "";
+        ageLittle = "12";
+        agebig = "50";
+        distance = 100;
 
     }
 
@@ -166,7 +157,7 @@ public class MatchFragment extends BaseMainFragment {
     private void getDataFromHttp() {
         GetLocation location = new GetLocation();
         locationBean = location.getLocation(getActivity());
-        Log.i(TAG, "locationBean: "+locationBean.getLng());
+        Log.i(TAG, "locationBean: " + locationBean.getLng());
 
         OkGo.<String>post(Urls.Url_UserLocation).tag(this)
                 .params("facebookid", facebookid)
@@ -185,7 +176,7 @@ public class MatchFragment extends BaseMainFragment {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        loginBean = gson.fromJson(response.body(), LoginBean.class);
 
                         if (loginBean.getStatus().equals("success")) {
                             recommendBean = gson.fromJson(response.body(), RecommendBean.class);
@@ -200,6 +191,25 @@ public class MatchFragment extends BaseMainFragment {
 
                     }
                 });
+
+        OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
+                .params("userid", huanXinId)
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        Gson gson = new Gson();
+                        loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {
+                            userCanumsNumBean = gson.fromJson(response.body(),
+                                    UserCanumsNumBean.class);
+                            num = userCanumsNumBean.getData().getNums();
+                            textCanumsNum.setText(num+"");
+                        }
+                    }
+                });
+
     }
 
     @Override
@@ -280,18 +290,21 @@ public class MatchFragment extends BaseMainFragment {
                                 Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
 
 
-                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
-                                // 得到Editor后，写入需要保存的数据
-                                editor.putString("sex", sex);
-                                editor.putString("ageLittle", ageLittle);
-                                editor.putString("agebig", agebig);
-                                editor.putInt("distance", distance);
-                                editor.commit();//提交修改
-                                Log.e("okgo", "sex: " + sex + "  ageLittle:" + ageLittle + "   " +
-                                        "agebig:" + agebig + "    distance:" + distance);
-                                Log.e("okgo", "sex:" + sex);
-
+//                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+//                                // 得到Editor后，写入需要保存的数据
+//                                editor.putString("sex", sex);
+//                                editor.putString("ageLittle", ageLittle);
+//                                editor.putString("agebig", agebig);
+//                                editor.putInt("distance", distance);
+//                                editor.commit();//提交修改
+//                                Log.e("okgo", "sex: " + sex + "  ageLittle:" + ageLittle + "   " +
+//                                        "agebig:" + agebig + "    distance:" + distance);
+//                                Log.e("okgo", "sex:" + sex);
+//
                                 getDataForHttp();
+
+
+
                                 getDataFromHttp();
                             }
                         }))
@@ -323,19 +336,11 @@ public class MatchFragment extends BaseMainFragment {
                 Log.i("radioGroup", "onCheckedChanged: " + sex);
                 break;
 
-
         }
 
 
         doubleslideAge = view.findViewById(R.id.doubleslide_age);
-        ageLittle = userInfo.getString("ageLittle", "");
-        agebig = userInfo.getString("agebig", "");
-
-        doubleslideAge.setRange(Integer.parseInt(ageLittle), Integer.parseInt(agebig));
-
-
         distance = userInfo.getInt("distance", 0);
-
 
     }
 

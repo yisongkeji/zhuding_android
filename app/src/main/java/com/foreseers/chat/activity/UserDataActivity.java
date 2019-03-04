@@ -476,7 +476,7 @@ public class UserDataActivity extends AppCompatActivity {
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.fileprovider", "test"))
+                                                    ".foreseers.chat.foreseers.fileprovider", "test"))
                                             .maxSelectable(1)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
                                                     Filter.K))
@@ -574,7 +574,7 @@ public class UserDataActivity extends AppCompatActivity {
                 FileInputStream fis = new FileInputStream(path);
                 Bitmap bitmap = BitmapFactory.decodeStream(fis);
                 Bitmap blurBitmap = BitmapDispose.blurBitmap(UserDataActivity.this, bitmap, 25);
-                blurPath = BitmapDispose.saveBitmap(blurBitmap);
+                blurPath = BitmapDispose.saveBitmap(blurBitmap,0);
 
                 Log.i("blurPath", "blurPath: " + blurPath);
 

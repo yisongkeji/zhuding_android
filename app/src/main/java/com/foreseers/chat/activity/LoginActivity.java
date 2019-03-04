@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (object != null) {
                     facebookName = object.optString("name");
                     facebookid = object.optString("id");
-//                    goLogin();
+                    goLogin();
                 }
             }
         }).executeAsync();
@@ -143,21 +143,20 @@ public class LoginActivity extends AppCompatActivity {
             case R.id.login_facebook:
 
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-                goLogin();
+
                 break;
             case R.id.login_wechat:
-//                facebookid= "467979503606542";
-
-//                facebookid= "46797950360652";
-                facebookid= "46797950360652333";
-                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
-                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
-                editor.putString("token", facebookid);
-                editor.putString("huanXinId", huanXinId + "");
-                editor.commit();//提交修改
-                Toast.makeText(this, facebookid, Toast.LENGTH_LONG).show();
-
-                goLogin();
+////                facebookid= "467979503606542";
+//
+//                facebookid= "46797950360653";
+////                facebookid= "46797950360652333";
+//                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+//                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+//                editor.putString("token", facebookid);
+//                editor.putString("huanXinId", huanXinId + "");
+//                editor.commit();//提交修改
+//
+//                goLogin();
                 break;
         }
     }
@@ -177,7 +176,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        Toast.makeText(LoginActivity.this, loginBean.getStatus(), Toast.LENGTH_LONG).show();
 
                         if (loginBean.getStatus().equals("success")) {//老用户
                             dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
@@ -280,13 +278,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * 位置权限
+     * 申请权限
      */
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,};
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }

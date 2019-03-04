@@ -6,12 +6,15 @@ public class AnalyzeLifeBookBean {
 
     /**
      * status : success
-     * data : {"id":131,"zhuid":88,"congid":63,"userscore":74,"userdesc":"DESC",
+     * data : {"id":152,"zhuid":99,"congid":88,"userscore":77,"userdesc":"一見如故",
      * "commentgood":null,"commentbad":null,"characteristicgood":null,"characteristicbad":null,
-     * "mindscore":78,"minddesc":"DESC","bodyscore":57,"bodydesc":"DESC","characterscore":79,
-     * "characterdesc":"DESC","distance":1,"spare":null,"spare1":null,"spare2":null,
-     * "commentdesc
-     * ":"挺難溝通的一對，摩羯座是固執的土象星座，水瓶座是變動的風象星座，大家基本觀念已經不同，要一起一定要付出努力。如果你們現在正在拍拖，那之前一定已經跨越了很多心理障礙，對摩羯座來講，在失意時候，因為水瓶座那種博愛的精神，會在你最需要人安慰時加以援手，你才可能因此愛上他，但一步入情況，你發覺他對所有人都是一樣！至於水瓶座會被摩羯座那種沉默寡言有深度的外型吸引住，感覺很沉穩老實，但當你接近他，就知他們其實老謀心算，非常自私。你不夠他玩的，因為你火爆衝動的性格，有事發生馬上寫在臉上，摩羯座卻能沉住氣，令你更生氣，完全給他吃住，兩個人很難真是交心。在性生活方面，也有相同的矛盾，摩羯座要用性來舒緩他沉重的壓力，水瓶座就不是很計較，覺得同吃飯睡覺一樣，大家要求不同，結果難以協調。夫妻恩愛甚佳，天梁善良，深情，體貼，天相易受感動，兩人互相諒解，真情流露，水乳交融，是一對天作之合。","characteristicdesc":"為人匪氣無賴。而且孤傲難以馴服，不通人情，說不上話來，三句話就罵娘的類型。處理問題簡單，腦子也簡單。不過身弱的好，身弱的保守思想，傳統意識強，為人自律嚴謹，原則性強，屬於比較謹慎。不善於表達，但是內心有叛逆意識，這種身弱的需要鼓勵。生活當中，八字七殺克身的對人生有一個客觀的認識，一般不佔人便宜，但是事業心強，屬於獨立創業的多。只是七殺貼身的不管是身旺身弱，都一生易招口舌，招小人。心性豪爽，顯象貴氣\b。為人敦厚，性情溫和，待人誠實，心地善良，能替別人著想，嚴以律己，寬以待人，故給人穩定的感覺。愛好和平，有惻隱之心，喜歡濟弱扶傾，擁有寬大的胸懷，能犧牲奉獻。重視形象外表，講究服飾打扮。行事小心具正義感，穩重而又樂善好施，喜歡名譽與聲望。","age":17,"num":0,"sex":"M","obligate":null,"friend":0,"name":"郑皓","head":"http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256-_3CA7C40A5FD276FF4A87F500D2927F1D.jpg","images":[{"id":22,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100421.jpg","updated":"2019-02-19T02:04:21.000+0000","facebookid":null,"imagename":"20190219100421.jpg","spare":"http://192.168.1.73:8080/88/b20190219100421.jpg","spareint":null},{"id":23,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100424.jpg","updated":"2019-02-19T02:04:24.000+0000","facebookid":null,"imagename":"20190219100424.jpg","spare":"http://192.168.1.73:8080/88/b20190219100424.jpg","spareint":null},{"id":24,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100428.jpg","updated":"2019-02-19T02:04:28.000+0000","facebookid":null,"imagename":"20190219100428.jpg","spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null}],"lookimages":1}
+     * "mindscore":78,"minddesc":"","bodyscore":80,"bodydesc":"","characterscore":77,
+     * "characterdesc":"","distance":1,
+     * "spare":"TA就是人緣好，身邊超多朋友，身上又散發魅力所以好多異性追TA，想追TA首先要接受這點，千萬不要干擾，不要囉嗦，也不要吃太大的醋！因為TA
+     * 就是見友忘情的人，所以不能急，要有耐性～之後要有一件東西可以令TA佩服你，像是專業，感覺你是有料子的，TA就會對你另眼相看的～","spare1":null,
+     * "spare2":null,
+     * "commentdesc":"你跟TA
+     * 是同一類人：對自己極有自信，對愛情的期望很高，對感情的需求十分強烈。你們會完全深陷地愛上對方，同時會以愛做藉口不停進行苛索，所以往往越是投入，越是會失望，偏偏二人都愛表現強悍的一面，經常為大小事爭吵，而且互不屈服...... 其實在愛情的國度裡，是沒有高下之分的！贏了糖，輸了廠，值得嗎？","characteristicdesc":"\"魅力型 \",\"桃花旺盛 \",\"梟雄\",\"翻版名偵探柯南\",\"多才多藝，具有優異的藝術才華\",\"所有東西都設置密碼，自我保護\",\"喜歡取巧，有時會遊走法律邊緣及挑戰現有規則\",\"說得出做得到\",\"經常搬屋，轉工作\",\"做事有效率，說到做到\"","age":17,"num":0,"sex":"M","obligate":null,"friend":0,"name":"郑皓","head":"http://192.168.1.73:8080/88/1550541329742.jpg","images":[{"id":22,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100421.jpg","updated":"2019-02-19T02:04:21.000+0000","facebookid":null,"imagename":"20190219100421.jpg","spare":"http://192.168.1.73:8080/88/b20190219100421.jpg","spareint":null},{"id":23,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100424.jpg","updated":"2019-02-19T02:04:24.000+0000","facebookid":null,"imagename":"20190219100424.jpg","spare":"http://192.168.1.73:8080/88/b20190219100424.jpg","spareint":null},{"id":24,"userid":88,"image":"http://192.168.1.73:8080/88/20190219100428.jpg","updated":"2019-02-19T02:04:28.000+0000","facebookid":null,"imagename":"20190219100428.jpg","spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null},{"id":45,"userid":88,"image":"http://192.168.1.73:8080/88/20190225172026.jpg","updated":"2019-02-25T09:20:26.000+0000","facebookid":null,"imagename":"20190225172026.jpg","spare":"http://192.168.1.73:8080/88/b20190225172026.jpg","spareint":null},{"id":46,"userid":88,"image":"http://192.168.1.73:8080/88/20190225172029.jpg","updated":"2019-02-25T09:20:29.000+0000","facebookid":null,"imagename":"20190225172029.jpg","spare":"http://192.168.1.73:8080/88/b20190225172029.jpg","spareint":null},{"id":47,"userid":88,"image":"http://192.168.1.73:8080/88/20190225172033.jpg","updated":"2019-02-25T09:20:33.000+0000","facebookid":null,"imagename":"20190225172033.jpg","spare":"http://192.168.1.73:8080/88/b20190225172033.jpg","spareint":null}],"lookimages":0,"ziwei":"破軍","sevenday":0,"thirthday":0}
      */
 
     private String status;
@@ -35,37 +38,37 @@ public class AnalyzeLifeBookBean {
 
     public static class DataBean {
         /**
-         * id : 131
-         * zhuid : 88
-         * congid : 63
-         * userscore : 74
-         * userdesc : DESC
+         * id : 152
+         * zhuid : 99
+         * congid : 88
+         * userscore : 77
+         * userdesc : 一見如故
          * commentgood : null
          * commentbad : null
          * characteristicgood : null
          * characteristicbad : null
          * mindscore : 78
-         * minddesc : DESC
-         * bodyscore : 57
-         * bodydesc : DESC
-         * characterscore : 79
-         * characterdesc : DESC
+         * minddesc :
+         * bodyscore : 80
+         * bodydesc :
+         * characterscore : 77
+         * characterdesc :
          * distance : 1
-         * spare : null
+         * spare : TA就是人緣好，身邊超多朋友，身上又散發魅力所以好多異性追TA，想追TA首先要接受這點，千萬不要干擾，不要囉嗦，也不要吃太大的醋！因為TA
+         * 就是見友忘情的人，所以不能急，要有耐性～之後要有一件東西可以令TA佩服你，像是專業，感覺你是有料子的，TA就會對你另眼相看的～
          * spare1 : null
          * spare2 : null
          * commentdesc :
-         * 挺難溝通的一對，摩羯座是固執的土象星座，水瓶座是變動的風象星座，大家基本觀念已經不同，要一起一定要付出努力。如果你們現在正在拍拖，那之前一定已經跨越了很多心理障礙，對摩羯座來講，在失意時候，因為水瓶座那種博愛的精神，會在你最需要人安慰時加以援手，你才可能因此愛上他，但一步入情況，你發覺他對所有人都是一樣！至於水瓶座會被摩羯座那種沉默寡言有深度的外型吸引住，感覺很沉穩老實，但當你接近他，就知他們其實老謀心算，非常自私。你不夠他玩的，因為你火爆衝動的性格，有事發生馬上寫在臉上，摩羯座卻能沉住氣，令你更生氣，完全給他吃住，兩個人很難真是交心。在性生活方面，也有相同的矛盾，摩羯座要用性來舒緩他沉重的壓力，水瓶座就不是很計較，覺得同吃飯睡覺一樣，大家要求不同，結果難以協調。夫妻恩愛甚佳，天梁善良，深情，體貼，天相易受感動，兩人互相諒解，真情流露，水乳交融，是一對天作之合。
-         * characteristicdesc :
-         * 為人匪氣無賴。而且孤傲難以馴服，不通人情，說不上話來，三句話就罵娘的類型。處理問題簡單，腦子也簡單。不過身弱的好，身弱的保守思想，傳統意識強，為人自律嚴謹，原則性強，屬於比較謹慎。不善於表達，但是內心有叛逆意識，這種身弱的需要鼓勵。生活當中，八字七殺克身的對人生有一個客觀的認識，一般不佔人便宜，但是事業心強，屬於獨立創業的多。只是七殺貼身的不管是身旺身弱，都一生易招口舌，招小人。心性豪爽，顯象貴氣。為人敦厚，性情溫和，待人誠實，心地善良，能替別人著想，嚴以律己，寬以待人，故給人穩定的感覺。愛好和平，有惻隱之心，喜歡濟弱扶傾，擁有寬大的胸懷，能犧牲奉獻。重視形象外表，講究服飾打扮。行事小心具正義感，穩重而又樂善好施，喜歡名譽與聲望。
+         * 你跟TA是同一類人：對自己極有自信，對愛情的期望很高，對感情的需求十分強烈。你們會完全深陷地愛上對方，同時會以愛做藉口不停進行苛索，所以往往越是投入，越是會失望，偏偏二人都愛表現強悍的一面，經常為大小事爭吵，而且互不屈服...... 其實在愛情的國度裡，是沒有高下之分的！贏了糖，輸了廠，值得嗎？
+         * characteristicdesc : "魅力型 ","桃花旺盛 ","梟雄","翻版名偵探柯南","多才多藝，具有優異的藝術才華","所有東西都設置密碼，自我保護",
+         * "喜歡取巧，有時會遊走法律邊緣及挑戰現有規則","說得出做得到","經常搬屋，轉工作","做事有效率，說到做到"
          * age : 17
          * num : 0
          * sex : M
          * obligate : null
          * friend : 0
          * name : 郑皓
-         * head : http://192.168.1.73:8080/88/magazine-unlock-06-2.3.1256
-         * -_3CA7C40A5FD276FF4A87F500D2927F1D.jpg
+         * head : http://192.168.1.73:8080/88/1550541329742.jpg
          * images : [{"id":22,"userid":88,
          * "image":"http://192.168.1.73:8080/88/20190219100421.jpg",
          * "updated":"2019-02-19T02:04:21.000+0000","facebookid":null,
@@ -78,8 +81,24 @@ public class AnalyzeLifeBookBean {
          * "userid":88,"image":"http://192.168.1.73:8080/88/20190219100428.jpg",
          * "updated":"2019-02-19T02:04:28.000+0000","facebookid":null,
          * "imagename":"20190219100428.jpg",
-         * "spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null}]
-         * lookimages : 1
+         * "spare":"http://192.168.1.73:8080/88/b20190219100428.jpg","spareint":null},{"id":45,
+         * "userid":88,"image":"http://192.168.1.73:8080/88/20190225172026.jpg",
+         * "updated":"2019-02-25T09:20:26.000+0000","facebookid":null,
+         * "imagename":"20190225172026.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190225172026.jpg","spareint":null},{"id":46,
+         * "userid":88,"image":"http://192.168.1.73:8080/88/20190225172029.jpg",
+         * "updated":"2019-02-25T09:20:29.000+0000","facebookid":null,
+         * "imagename":"20190225172029.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190225172029.jpg","spareint":null},{"id":47,
+         * "userid":88,"image":"http://192.168.1.73:8080/88/20190225172033.jpg",
+         * "updated":"2019-02-25T09:20:33.000+0000","facebookid":null,
+         * "imagename":"20190225172033.jpg",
+         * "spare":"http://192.168.1.73:8080/88/b20190225172033.jpg","spareint":null}]
+         * lookimages : 0
+         * ziwei : 破軍
+         * sevenday : 0
+         * thirthday : 0
+         * "lookhead": 0
          */
 
         private int id;
@@ -106,12 +125,25 @@ public class AnalyzeLifeBookBean {
         private int age;
         private int num;
         private String sex;
-        private Object obligate;
+        private String obligate;
         private int friend;
         private String name;
         private String head;
         private int lookimages;
+        private String ziwei;
+        private int sevenday;
+        private int thirthday;
+        private int lookhead;
         private List<ImagesBean> images;
+
+        public void setLookhead(int lookhead) {
+            this.lookhead = lookhead;
+        }
+
+        public int getLookhead() {
+
+            return lookhead;
+        }
 
         public int getId() {
             return id;
@@ -241,14 +273,12 @@ public class AnalyzeLifeBookBean {
             this.distance = distance;
         }
 
+        public String getSpare() {
+            return spare;
+        }
 
         public void setSpare(String spare) {
             this.spare = spare;
-        }
-
-        public String getSpare() {
-
-            return spare;
         }
 
         public Object getSpare1() {
@@ -307,12 +337,13 @@ public class AnalyzeLifeBookBean {
             this.sex = sex;
         }
 
-        public Object getObligate() {
-            return obligate;
+        public void setObligate(String obligate) {
+            this.obligate = obligate;
         }
 
-        public void setObligate(Object obligate) {
-            this.obligate = obligate;
+        public String getObligate() {
+
+            return obligate;
         }
 
         public int getFriend() {
@@ -345,6 +376,30 @@ public class AnalyzeLifeBookBean {
 
         public void setLookimages(int lookimages) {
             this.lookimages = lookimages;
+        }
+
+        public String getZiwei() {
+            return ziwei;
+        }
+
+        public void setZiwei(String ziwei) {
+            this.ziwei = ziwei;
+        }
+
+        public int getSevenday() {
+            return sevenday;
+        }
+
+        public void setSevenday(int sevenday) {
+            this.sevenday = sevenday;
+        }
+
+        public int getThirthday() {
+            return thirthday;
+        }
+
+        public void setThirthday(int thirthday) {
+            this.thirthday = thirthday;
         }
 
         public List<ImagesBean> getImages() {

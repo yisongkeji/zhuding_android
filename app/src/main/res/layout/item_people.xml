@@ -25,7 +25,7 @@
 
             android:scaleType="fitCenter"
             app:corner_radius="15px"
-            app:icon_src_normal="@mipmap/icon_avatar_02" />
+            app:icon_src_normal="@mipmap/icon_me_loading_03" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -122,6 +122,7 @@
 
 
             <TextView
+                android:id="@+id/text_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/layout_age"
