@@ -3,7 +3,7 @@ package com.foreseers.chat.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.view.widget.MyTitleBar;
 

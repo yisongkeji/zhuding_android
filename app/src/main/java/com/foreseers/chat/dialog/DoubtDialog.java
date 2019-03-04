@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 public class DoubtDialog extends Dialog implements View.OnClickListener {
     @BindView(R.id.bt_know)

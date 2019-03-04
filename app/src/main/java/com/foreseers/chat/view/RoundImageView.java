@@ -16,7 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 /**
  * xiangpan

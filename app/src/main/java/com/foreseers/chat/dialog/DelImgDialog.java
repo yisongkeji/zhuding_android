@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

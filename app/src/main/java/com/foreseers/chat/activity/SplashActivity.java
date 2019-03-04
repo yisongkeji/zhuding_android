@@ -15,7 +15,7 @@ import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.layout_Splash)

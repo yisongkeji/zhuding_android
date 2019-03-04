@@ -29,7 +29,7 @@ import com.foreseers.chat.activity.NewFriendsMsgActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.FriendBean;
 import com.foreseers.chat.db.InviteMessgeDao;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -90,6 +90,8 @@ public class FriendFragment extends EaseBaseFragment {
     private EaseUser easeUser;
     private SharedPreferences sharedPreferences;
     private InviteMessgeDao inviteMessgeDao;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -547,5 +549,6 @@ public class FriendFragment extends EaseBaseFragment {
             }
         }
     };
+
 
 }

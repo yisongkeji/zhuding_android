@@ -27,7 +27,7 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 public class GifSizeFilter extends Filter {
 

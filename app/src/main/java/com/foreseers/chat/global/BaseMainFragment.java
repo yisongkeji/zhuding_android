@@ -4,7 +4,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 
 

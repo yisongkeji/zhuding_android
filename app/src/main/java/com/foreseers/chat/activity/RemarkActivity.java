@@ -3,7 +3,7 @@ package com.foreseers.chat.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 /**
  *

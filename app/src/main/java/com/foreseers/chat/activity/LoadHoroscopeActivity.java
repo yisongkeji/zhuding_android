@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 public class LoadHoroscopeActivity extends AppCompatActivity {
 

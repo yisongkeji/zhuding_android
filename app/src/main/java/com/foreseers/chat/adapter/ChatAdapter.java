@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.ChatBean;
 
 public class ChatAdapter extends BaseQuickAdapter <ChatBean,BaseViewHolder>{

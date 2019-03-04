@@ -27,7 +27,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.GetLocation;
 import com.foreseers.chat.util.GetLoginTokenUtil;
@@ -70,6 +70,7 @@ public class MatchFragment extends BaseMainFragment {
     @BindView(R.id.text_canums_num)
     TextView textCanumsNum;
     private final int DATASUCCESS = 1;
+    private final int DATASUCCESS2 = 2;
     private final int DATAFELLED = 0;
 
     private List<RecommendBean.DataBean> recommendBeans = new ArrayList<>();
@@ -91,6 +92,7 @@ public class MatchFragment extends BaseMainFragment {
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private int num;
+
 
     public MatchFragment() {
         // Required empty public constructor
@@ -116,6 +118,7 @@ public class MatchFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
+        textCanumsNum.setText("0");
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
@@ -127,7 +130,7 @@ public class MatchFragment extends BaseMainFragment {
 
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
 
-
+        textCanumsNum.setText("0");
     }
 
     @Override
@@ -205,7 +208,8 @@ public class MatchFragment extends BaseMainFragment {
                             userCanumsNumBean = gson.fromJson(response.body(),
                                     UserCanumsNumBean.class);
                             num = userCanumsNumBean.getData().getNums();
-                            textCanumsNum.setText(num+"");
+                            getHandler().obtainMessage(DATASUCCESS2).sendToTarget();
+
                         }
                     }
                 });
@@ -221,12 +225,18 @@ public class MatchFragment extends BaseMainFragment {
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
+                swipeLayout.setRefreshing(false);
                 if (recommendBeans != null && recommendBeans.size() > 0) {
                     peopleAdapter.setNewData(recommendBeans);
-                    swipeLayout.setRefreshing(false);
-                }
-                break;
 
+                }
+
+                break;
+            case DATASUCCESS2:
+//                if (hidd) {
+                    textCanumsNum.setText(num + "");
+//                }
+                break;
             case DATAFELLED:
                 swipeLayout.setRefreshing(false);
                 break;
@@ -368,4 +378,5 @@ public class MatchFragment extends BaseMainFragment {
         peopleAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
         getDataFromHttp();
     }
+
 }

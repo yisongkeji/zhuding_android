@@ -35,7 +35,7 @@ import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.AddVIPDialog;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
@@ -70,6 +70,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import okhttp3.OkHttpClient;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -135,6 +136,8 @@ public class MyFragment extends BaseMainFragment {
     private String blurImagePath;
     private int vip;
     private String newpath;
+    private int albumNum;
+
 
     public MyFragment() {
     }
@@ -142,6 +145,7 @@ public class MyFragment extends BaseMainFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
+        Log.i("shengming", "onCreateView: MyFragment ");
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -156,9 +160,10 @@ public class MyFragment extends BaseMainFragment {
     @Override
     public void initViews() {
         albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
-        recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager
-                .HORIZONTAL, false));
+        recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerImg.setAdapter(albumAdapter);
+        layoutAlbum.setClickable(false);
+        imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
     }
 
     @Override
@@ -168,7 +173,8 @@ public class MyFragment extends BaseMainFragment {
     }
 
     private void getDataFromHttp() {
-        OkGo.<String>post(Urls.Url_My).tag(this)
+        OkGo.<String>post(Urls.Url_My)
+                .tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
 
@@ -184,6 +190,12 @@ public class MyFragment extends BaseMainFragment {
 
                             imgList = albumBean.getData().getListimage();
                             vip = dataBean.getVip();
+                            albumNum = dataBean.getCountnum();
+
+
+
+
+
 
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
@@ -208,40 +220,39 @@ public class MyFragment extends BaseMainFragment {
         switch (msg.what) {
             case DATASUCCESS:
 
-                if (dataBean.getCountnum() >= 6) {
-//                    layoutAlbum.setClickable(false);
-                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+                    if (albumNum >= 6) {
+                        layoutAlbum.setClickable(false);
+                        imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
 
-                } else {
-//                    layoutAlbum.setClickable(true);
-                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
-                }
-
-                Glide.with(getActivity()).load(dataBean.getHead()).into(imageHead);
-
-                textName.setText(dataBean.getUsername());
-                textMyNum.setText(dataBean.getNum() + "");
-                textVipDay.setText(dataBean.getVipday() + "");
-                textSign.setText(dataBean.getObligate());
-
-
-
-                textName2.setText(dataBean.getUsername());
-                textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
-                textData.setText(dataBean.getDate());
-                textAge.setText(dataBean.getReservedint() + "");
-                textZiwei.setText(dataBean.getZiwei());
-
-
-                if (imgList == null || imgList.size() == 0) {
-                    for (int i = 0; i < 1; i++) {
-                        imgList.add("");
+                    } else {
+                        layoutAlbum.setClickable(true);
+                        imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                     }
-                }
+
+                    Glide.with(getActivity()).load(dataBean.getHead()).into(imageHead);
+
+                    textName.setText(dataBean.getUsername());
+                    textMyNum.setText(dataBean.getNum() + "");
+                    textVipDay.setText(dataBean.getVipday() + "");
+                    textSign.setText(dataBean.getObligate());
 
 
-                albumAdapter.setNewData(imgList);
-                break;
+                    textName2.setText(dataBean.getUsername());
+                    textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
+                    textData.setText(dataBean.getDate());
+                    textAge.setText(dataBean.getReservedint() + "");
+                    textZiwei.setText(dataBean.getZiwei());
+
+
+                    if (imgList == null || imgList.size() == 0) {
+                        for (int i = 0; i < 1; i++) {
+                            imgList.add("");
+                        }
+                    }
+
+
+                    albumAdapter.setNewData(imgList);
+                    break;
 
             case DATAFELLED:
 
@@ -255,8 +266,8 @@ public class MyFragment extends BaseMainFragment {
                             @Override
                             public void onSuccess(Response<String> response) {
 //
-//                                FileUtil.deleteFile(blurPath);
-//                                FileUtil.deleteFile(newpath);
+                                FileUtil.deleteFile(blurPath);
+                                FileUtil.deleteFile(newpath);
 
                             }
                         });
@@ -273,17 +284,18 @@ public class MyFragment extends BaseMainFragment {
 
                                 FileUtil.deleteFile(blurImagePath);
                                 FileUtil.deleteFile(newpath);
-                                if (dataBean.getCountnum() >= 6) {
-                                    layoutAlbum.setClickable(false);
-                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
-                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
-                                            .show();
-                                } else {
-                                    layoutAlbum.setClickable(true);
-                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
-                                }
-
-                                albumAdapter.setNewData(imgList);
+                                getDataFromHttp();
+//                                if (albumNum >= 6) {
+//                                    layoutAlbum.setClickable(false);
+//                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+//                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
+//                                            .show();
+//                                } else {
+//                                    layoutAlbum.setClickable(true);
+//                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
+//                                }
+//
+//                                albumAdapter.setNewData(imgList);
                             }
                         });
 
@@ -313,7 +325,7 @@ public class MyFragment extends BaseMainFragment {
                                             .countable(false)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.foreseers.fileprovider",
+                                                    ".foreseers.chat.fileprovider",
                                                     "test"))
                                             .maxSelectable(1)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
@@ -373,7 +385,7 @@ public class MyFragment extends BaseMainFragment {
 
                 break;
             case R.id.layout_album://添加相冊
-                if (dataBean.getCountnum() >= 6) {
+                if (albumNum >= 6) {
                     Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG).show();
                 } else {
                     rxPermissions = new RxPermissions(getActivity());
@@ -392,7 +404,7 @@ public class MyFragment extends BaseMainFragment {
                                                 .countable(false)//true:选中后显示数字;false:选中后显示对号
                                                 .capture(false)//选择照片时，是否显示拍照
                                                 .captureStrategy(new CaptureStrategy(true, "com" +
-                                                        ".foreseers.chat.foreseers.fileprovider",
+                                                        ".foreseers.chat.fileprovider",
                                                         "test"))
 
                                                 .maxSelectable(1)
@@ -685,5 +697,25 @@ public class MyFragment extends BaseMainFragment {
         bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
 //        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
         return bitmap;//压缩好比例大小后再进行质量压缩
+    }
+
+
+    /**
+     *
+     *
+     */
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("shengming", "onStop: MyFragment ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("shengming", "onDestroy: MyFragment ");
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
     }
 }

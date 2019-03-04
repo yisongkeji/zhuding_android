@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.RecommendBean;
 

@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

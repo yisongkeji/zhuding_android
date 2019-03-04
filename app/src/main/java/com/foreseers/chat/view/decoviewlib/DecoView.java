@@ -31,7 +31,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.view.decoviewlib.charts.ChartSeries;
 import com.foreseers.chat.view.decoviewlib.charts.DecoDrawEffect;
 import com.foreseers.chat.view.decoviewlib.charts.LineArcSeries;

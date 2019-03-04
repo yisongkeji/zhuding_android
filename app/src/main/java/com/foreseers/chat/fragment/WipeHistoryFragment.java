@@ -20,7 +20,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MySection;
 import com.foreseers.chat.bean.Video;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseFragment;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;

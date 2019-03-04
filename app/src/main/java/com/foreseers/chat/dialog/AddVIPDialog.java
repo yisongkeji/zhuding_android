@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 public class AddVIPDialog extends Dialog implements View.OnClickListener {
     @BindView(R.id.layout_vip1)

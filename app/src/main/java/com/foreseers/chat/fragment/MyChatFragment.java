@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.foreseers.chat.activity.MainActivity;
+import com.foreseers.chat.activity.MyActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.Constant;
 import com.hyphenate.EMMessageListener;
@@ -36,6 +37,7 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
 
 
     private SharedPreferences sharedPreferences;
+    private Intent intent;
 
     public MyChatFragment() {
         // Required empty public constructor
@@ -82,11 +84,12 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
 
     @Override
     public void onAvatarClick(String username) {
-        Toast.makeText(getActivity(), "头像被点击了" + username, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "头像被点击了" + username, Toast.LENGTH_SHORT).show();
         if (username.equals(EMClient.getInstance().getCurrentUser())) {
-
+//            intent = new Intent(getActivity(), MyActivity.class);
+//            getActivity().startActivity(intent);
         } else {
-            Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
+            intent = new Intent(getActivity(), UserDetailsActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("userid", username);
             intent.putExtras(bundle);

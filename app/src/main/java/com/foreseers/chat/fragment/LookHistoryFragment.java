@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 /**
  * A simple {@link Fragment} subclass.

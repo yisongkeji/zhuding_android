@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 /**
  * @author txs

@@ -14,7 +14,8 @@ import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.cy.translucentparent.StatusNavUtils;
 import com.foreseers.chat.bean.FriendTimeBean;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
+import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.fragment.ChatFragment;
 import com.foreseers.chat.fragment.FriendFragment;
 import com.foreseers.chat.fragment.MatchFragment;
@@ -84,60 +85,65 @@ public class MainActivity extends SupportActivity {
                     public void onSuccess(Response<String> response) {
 
                         Gson gson = new Gson();
-                        friendTimeBean = gson.fromJson(response.body(),
-                                FriendTimeBean.class);
-                        dataBean = friendTimeBean.getData();
-                        for (int i = 0; i < dataBean.size(); i++) {
+                        LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
+                        if (loginBean.getStatus().equals("success")){
+
+                            friendTimeBean = gson.fromJson(response.body(),
+                                    FriendTimeBean.class);
+                            dataBean = friendTimeBean.getData();
+                            for (int i = 0; i < dataBean.size(); i++) {
 
 
-                            Log.d("TAG@@@", i + "网络请求成功：" + "   hour：" + dataBean.get(i).getHour());
-                            if (dataBean.get(i).getHour() < 8 * 3600000) {//成为好友小于8小时，不可查看清晰头像
-                                Log.d("TAG@@@", "网络请求成功：" + "   hour888888888888888");
-                                Intent intent = new Intent(MainActivity.this, MediaService.class);
-                                intent.putExtra("type", 0);
-                                intent.putExtra("hour", dataBean.get(i).getHour());
-                                intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                intent.putExtra("userid", dataBean.get(i).getUserid());
-                                startService(intent);
-                            } else if (dataBean.get(i).getHour() < 24 * 3600000)
-                            {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
-                                Log.d("TAG@@@", "网络请求成功：" + "   hour4444444444444444");
-                                Intent intent = new Intent(MainActivity.this, MediaService.class);
-                                intent.putExtra("type", 1);
-                                intent.putExtra("hour", dataBean.get(i).getHour());
-                                intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                intent.putExtra("userid", dataBean.get(i).getUserid());
-                                startService(intent);
-                            } else if (dataBean.get(i).getHour() < 72 * 3600000)
-                            {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
-                                Log.d("TAG@@@", "网络请求成功：" + "   hour777777777777777777");
-                                Intent intent = new Intent(MainActivity.this, MediaService.class);
-                                intent.putExtra("type", 2);
-                                intent.putExtra("hour", dataBean.get(i).getHour());
-                                intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                intent.putExtra("userid", dataBean.get(i).getUserid());
-                                startService(intent);
-                            } else {
-                                OkGo.<String>post(Urls.Url_FriendTime).tag(this)
-                                        .params("userid", userid)
-                                        .params("friendid", dataBean.get(i).getFriend())
-                                        .params("lookhead", "1")
-                                        .params("sendpix", "1")
-                                        .params("lookimages", "1")
-                                        .execute(new StringCallback() {
-                                            @Override
-                                            public void onSuccess(Response<String> response) {
+                                Log.d("TAG@@@", i + "网络请求成功：" + "   hour：" + dataBean.get(i).getHour());
+                                if (dataBean.get(i).getHour() < 8 * 3600000) {//成为好友小于8小时，不可查看清晰头像
+                                    Log.d("TAG@@@", "网络请求成功：" + "   hour888888888888888");
+                                    Intent intent = new Intent(MainActivity.this, MediaService.class);
+                                    intent.putExtra("type", 0);
+                                    intent.putExtra("hour", dataBean.get(i).getHour());
+                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
+                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    startService(intent);
+                                } else if (dataBean.get(i).getHour() < 24 * 3600000)
+                                {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
+                                    Log.d("TAG@@@", "网络请求成功：" + "   hour4444444444444444");
+                                    Intent intent = new Intent(MainActivity.this, MediaService.class);
+                                    intent.putExtra("type", 1);
+                                    intent.putExtra("hour", dataBean.get(i).getHour());
+                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
+                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    startService(intent);
+                                } else if (dataBean.get(i).getHour() < 72 * 3600000)
+                                {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
+                                    Log.d("TAG@@@", "网络请求成功：" + "   hour777777777777777777");
+                                    Intent intent = new Intent(MainActivity.this, MediaService.class);
+                                    intent.putExtra("type", 2);
+                                    intent.putExtra("hour", dataBean.get(i).getHour());
+                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
+                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    startService(intent);
+                                } else {
+                                    OkGo.<String>post(Urls.Url_FriendTime).tag(this)
+                                            .params("userid", userid)
+                                            .params("friendid", dataBean.get(i).getFriend())
+                                            .params("lookhead", "1")
+                                            .params("sendpix", "1")
+                                            .params("lookimages", "1")
+                                            .execute(new StringCallback() {
+                                                @Override
+                                                public void onSuccess(Response<String> response) {
 //                                                Log.d("TAG@@@", "OkGo");
 //                                                Gson gson = new Gson();
 //                                                LoginBean bean = gson.fromJson(response.body(),
 // LoginBean.class);
 //
-                                            }
-                                        });
+                                                }
+                                            });
+                                }
+
+
                             }
-
-
                         }
+
 
 
                     }

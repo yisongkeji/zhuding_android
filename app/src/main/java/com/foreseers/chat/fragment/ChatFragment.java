@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.foreseers.chat.activity.ChatActivity;
 import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.bean.Constant;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;

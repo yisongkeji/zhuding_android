@@ -31,7 +31,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.util.Urls;
 import com.hyphenate.chat.EMClient;
 import com.lzy.okgo.OkGo;

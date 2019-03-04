@@ -74,7 +74,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LocationBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.DoubtDialog;
@@ -476,7 +476,7 @@ public class UserDataActivity extends AppCompatActivity {
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.foreseers.fileprovider", "test"))
+                                                    ".foreseers.chat.fileprovider", "test"))
                                             .maxSelectable(1)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
                                                     Filter.K))

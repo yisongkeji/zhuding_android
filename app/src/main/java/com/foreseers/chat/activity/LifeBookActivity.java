@@ -8,7 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 
 /**
  * 我的命书信息

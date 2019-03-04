@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;

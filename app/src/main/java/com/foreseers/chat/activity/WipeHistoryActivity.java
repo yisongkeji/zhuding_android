@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.fragment.LookHistoryFragment;
 import com.foreseers.chat.fragment.WipeHistoryFragment;
 import com.foreseers.chat.global.BaseActivity;

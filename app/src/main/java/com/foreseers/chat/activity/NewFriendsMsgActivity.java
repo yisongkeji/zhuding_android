@@ -7,7 +7,7 @@ import android.widget.ListView;
 import com.foreseers.chat.adapter.NewFriendsMsgAdapter;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.view.widget.MyTitleBar;
 

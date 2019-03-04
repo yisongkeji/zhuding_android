@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.foreseers.chat.adapter.ViewAdapter;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
-import com.foreseers.chat.foreseers.R;
+import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
@@ -59,6 +59,8 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     private List<View> viewList = new ArrayList<View>();
     private PagerAdapter viewAdapter;
     private LayoutInflater inflater;
+    private int num;
+
 
     public ShopFragment() {
         // Required empty public constructor
@@ -69,6 +71,7 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.i("shengming", "onCreateView: ShopFragment ");
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -105,10 +108,10 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
-                            userCanumsNumBean = gson.fromJson(response.body(),
-                                    UserCanumsNumBean.class);
-                            int num = userCanumsNumBean.getData().getNums();
-                            textNum.setText(num + "");
+                            userCanumsNumBean = gson.fromJson(response.body(), UserCanumsNumBean.class);
+                            num = userCanumsNumBean.getData().getNums();
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+
                         }
                     }
                 });
@@ -121,8 +124,14 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
 
     @Override
     public void processHandlerMessage(Message msg) {
-
+        switch (msg.what) {
+            case DATASUCCESS:
+                Log.i("shengming", "handler: ShopFragment ");
+                textNum.setText(num + "");
+                break;
+        }
     }
+
 
     @Override
     public void onDestroyView() {
@@ -185,5 +194,11 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     public void onPageScrollStateChanged(int i) {
         //当滚动状态改变时被调用
 
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("shengming", "onDestroy: ShopFragment ");
+//        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
     }
 }
