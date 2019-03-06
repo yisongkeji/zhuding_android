@@ -1,6 +1,7 @@
 package com.foreseers.chat.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.foreseers.chat.activity.WipeDayHistoryActivity;
 import com.foreseers.chat.adapter.WipeHistoryAdapter;
 import com.foreseers.chat.bean.HistoryBean;
 import com.foreseers.chat.bean.LoginBean;
@@ -54,6 +56,7 @@ public class WipeHistoryFragment extends Fragment {
     private LoginBean loginBean;
     private HistoryBean historyBean;
     private WipeHistoryAdapter wipeHistoryAdapter;
+    private Intent intent;
 
 
     public WipeHistoryFragment() {
@@ -82,10 +85,13 @@ public class WipeHistoryFragment extends Fragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 MySection mySection = mData.get(position);
                 if (mySection.isHeader) {
-                    Toast.makeText(getActivity(), mySection.header, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getActivity(), mySection.header, Toast.LENGTH_LONG).show();
+
+
+
+
                 } else {
-                    Toast.makeText(getActivity(), mySection.t.getUsername(), Toast.LENGTH_LONG)
-                            .show();
+//                    Toast.makeText(getActivity(), mySection.t.getUsername(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -94,8 +100,13 @@ public class WipeHistoryFragment extends Fragment {
                 .OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {//more
-                Toast.makeText(getActivity(), "more onItemChildClick" + position, Toast
-                        .LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "more onItemChildClick" + position, Toast.LENGTH_LONG).show();
+                MySection mySection = mData.get(position);
+                intent = new Intent(getActivity(),WipeDayHistoryActivity.class);
+                intent.putExtra("datetime",mySection.header);
+                getActivity().startActivity(intent);
+
+
             }
         });
     }

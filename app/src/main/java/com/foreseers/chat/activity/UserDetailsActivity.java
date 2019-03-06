@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,8 +28,10 @@ import com.foreseers.chat.dialog.AddFriendErrorDialog;
 import com.foreseers.chat.dialog.DelFriendDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
 import com.foreseers.chat.R;
+import com.foreseers.chat.dialog.WipeDialog;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -120,6 +123,7 @@ public class UserDetailsActivity extends BaseActivity {
     private String sign;
     private String desc;
     private AnimationDrawable animationDrawable;
+    private WipeDialog wiped;
 
 
     @Override
@@ -146,7 +150,7 @@ public class UserDetailsActivity extends BaseActivity {
         //设置自动轮播，默认为true
         banner.isAutoPlay(false);
         //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
+        banner.setImageLoader( new GlideUtil.GlideImageLoader());
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -194,99 +198,7 @@ public class UserDetailsActivity extends BaseActivity {
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
     private final int ANIMATION = 3;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case DATASUCCESS:
 
-                    switch (lookhead) {
-
-                        case 0:
-                            layoutWipe.setVisibility(View.VISIBLE);
-                            break;
-
-                        case 1:
-                            layoutWipe.setVisibility(View.GONE);
-                            break;
-                    }
-
-
-                    //设置图片集合
-                    banner.update(imgList);
-                    //banner设置方法全部调用完毕时最后调用
-                    banner.start();
-
-
-                    myTitlebar.setTitle(username);
-                    textUserDetailsName.setText(username);
-                    switch (sex) {
-                        case "F":
-
-                            textSex.setText(R.string.woman);
-                            break;
-                        case "M":
-
-                            textSex.setText(R.string.man);
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    switch (friend) {
-
-                        case 0:
-                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_03);
-                            break;
-
-                        case 1:
-                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_01);
-                            break;
-                    }
-
-                    textAge.setText(age + "");
-                    textNum.setText(num + "");
-                    textZiwei.setText(ziwei);
-                    textLocation.setText(distance + "km +");
-                    progressText.setText(userscore + "");
-                    textDesc.setText(desc);
-                    textSign.setText(sign);
-
-                    if (sevenday == 0) {
-                        text1.setText(R.string.life_book);
-                        text1.getPaint().setAntiAlias(true);//抗锯齿
-                        text1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
-                                .ANTI_ALIAS_FLAG);
-
-                    } else {
-                        text1.getPaint().setFlags(0);
-                    }
-                    if (thirthday == 0) {
-
-                        text2.setText(R.string.ta_life_book);
-                        text2.getPaint().setAntiAlias(true);//抗锯齿
-                        text2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
-                                .ANTI_ALIAS_FLAG);
-
-                    } else {
-                        text2.getPaint().setFlags(0);
-                    }
-
-
-                    break;
-                case DATAFELLED:
-                    Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast
-                            .LENGTH_SHORT).show();
-                    break;
-                case ANIMATION:
-                    imgAni.setVisibility(View.GONE);
-                    animationDrawable.stop();
-                    break;
-            }
-        }
-    };
 
     @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe})
     public void onViewClicked(View view) {
@@ -425,72 +337,73 @@ public class UserDetailsActivity extends BaseActivity {
                 break;
 
             case R.id.layout_wipe://擦照片
-                delFriendDialog = new DelFriendDialog
-                        (UserDetailsActivity.this, R.style.MyDialog, new DelFriendDialog
-                                .LeaveMyDialogListener() {
+                //                                     delFriendDialog.dismiss();
+                wiped = new WipeDialog
+                          (UserDetailsActivity.this, R.style.MyDialog, new WipeDialog
+                                  .LeaveMyDialogListener() {
 
-                            @Override
-                            public void onClick(View view) {
+                              @Override
+                              public void onClick(View view) {
 
-                                switch (view.getId()) {
-                                    case R.id.button_ok:
-                                        delFriendDialog.dismiss();
-                                        OkGo.<String>post(Urls.Url_Wipe).tag(this)
-                                                .params("userid", GetLoginTokenUtil.getUserId(UserDetailsActivity.this))
-                                                .params("caid", userid)
-                                                .execute(new StringCallback() {
-                                                    @Override
-                                                    public void onSuccess(Response<String> response) {
-                                                        imgAni.setVisibility(View.VISIBLE);
-                                                        Gson gson = new Gson();
-                                                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                                                        if (loginBean.getStatus().equals("success")) {
-                                                            imgList.clear();
-                                                            layoutWipe.setVisibility(View.GONE);
-                                                            refresh();
-                                                            imgAni.setVisibility(View.VISIBLE);
-                                                            animationDrawable.start();
-                                                            new Thread(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    try {
-                                                                        Thread.sleep(12*100);
-                                                                        mHandler.obtainMessage(ANIMATION).sendToTarget();
-                                                                    } catch (InterruptedException e) {
-                                                                        e.printStackTrace();
-                                                                    }
-                                                                }
-                                                            }).start();
+                                  switch (view.getId()) {
+                                      case R.id.button_ok:
+                                          wiped.dismiss();
+                                          OkGo.<String>post(Urls.Url_Wipe).tag(this)
+                                                  .params("userid", GetLoginTokenUtil.getUserId(UserDetailsActivity.this))
+                                                  .params("caid", userid)
+                                                  .execute(new StringCallback() {
+                                                      @Override
+                                                      public void onSuccess(Response<String> response) {
+                                                          imgAni.setVisibility(View.VISIBLE);
+                                                          Gson gson = new Gson();
+                                                          LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                                          if (loginBean.getStatus().equals("success")) {
+                                                              imgList.clear();
+                                                              layoutWipe.setVisibility(View.GONE);
+                                                              refresh();
+                                                              imgAni.setVisibility(View.VISIBLE);
+                                                              animationDrawable.start();
+                                                              new Thread(new Runnable() {
+                                                                  @Override
+                                                                  public void run() {
+                                                                      try {
+                                                                          Thread.sleep(12*100);
+                                                                          getHandler().obtainMessage(ANIMATION).sendToTarget();
+                                                                      } catch (InterruptedException e) {
+                                                                          e.printStackTrace();
+                                                                      }
+                                                                  }
+                                                              }).start();
 
 
 
-                                                        } else if (loginBean.getStatus().equals("fail")) {
+                                                          } else if (loginBean.getStatus().equals("fail")) {
 
-                                                            ErrBean errBean = gson.fromJson(response.body(), ErrBean.class);
-                                                            if (errBean.getData().getErrCode() == 2000) {
-                                                                Toast.makeText(UserDetailsActivity.this, "擦字数不足", Toast.LENGTH_LONG).show();
-                                                            } else {
-                                                                Toast.makeText(UserDetailsActivity.this, "发送失败，请检查网络", Toast.LENGTH_LONG).show();
-                                                            }
+                                                              ErrBean errBean = gson.fromJson(response.body(), ErrBean.class);
+                                                              if (errBean.getData().getErrCode() == 2000) {
+                                                                  Toast.makeText(UserDetailsActivity.this, "擦字数不足", Toast.LENGTH_LONG).show();
+                                                              } else {
+                                                                  Toast.makeText(UserDetailsActivity.this, "发送失败，请检查网络", Toast.LENGTH_LONG).show();
+                                                              }
 
-                                                        }
-                                                    }
-                                                });
-                                        break;
-                                    case R.id.button_cancel:
-                                        delFriendDialog.dismiss();
-                                        break;
-                                }
+                                                          }
+                                                      }
+                                                  });
+                                          break;
+                                      case R.id.button_cancel:
+                                          wiped.dismiss();
+                                          break;
+                                  }
 
-//                                     delFriendDialog.dismiss();
-                            }
-                        });
-                delFriendDialog.setCancelable(true);
+  //                                     delFriendDialog.dismiss();
+                              }
+                          });
+                wiped.setCancelable(true);
 
                 //修改弹窗位置
 //                changeDialogLocation(addFriendDialog);
 
-                delFriendDialog.show();
+                wiped.show();
 
 
                 break;
@@ -499,13 +412,120 @@ public class UserDetailsActivity extends BaseActivity {
         }
     }
 
-    public class GlideImageLoader extends ImageLoader {
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load(path).error(R.mipmap.default_image).into(imageView);
-        }
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
 
     }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+        switch (msg.what) {
+            case DATASUCCESS:
+
+                if (layoutWipe!=null){
+                    switch (lookhead) {
+
+                        case 0:
+                            layoutWipe.setVisibility(View.VISIBLE);
+                            break;
+
+                        case 1:
+                            layoutWipe.setVisibility(View.GONE);
+                            break;
+                    }
+
+
+                    //设置图片集合
+                    banner.update(imgList);
+                    //banner设置方法全部调用完毕时最后调用
+                    banner.start();
+
+
+                    myTitlebar.setTitle(username);
+                    textUserDetailsName.setText(username);
+                    switch (sex) {
+                        case "F":
+
+                            textSex.setText(R.string.woman);
+                            break;
+                        case "M":
+
+                            textSex.setText(R.string.man);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    switch (friend) {
+
+                        case 0:
+                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_03);
+                            break;
+
+                        case 1:
+                            imgAddFriend.setBackgroundResource(R.mipmap.icon_data_01);
+                            break;
+                    }
+
+                    textAge.setText(age + "");
+                    textNum.setText(num + "");
+                    textZiwei.setText(ziwei);
+                    textLocation.setText(distance + "km +");
+                    progressText.setText(userscore + "");
+                    textDesc.setText(desc);
+                    textSign.setText(sign);
+
+                    if (sevenday == 0) {
+                        text1.setText(R.string.life_book);
+                        text1.getPaint().setAntiAlias(true);//抗锯齿
+                        text1.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
+                                .ANTI_ALIAS_FLAG);
+
+                    } else {
+                        text1.getPaint().setFlags(0);
+                    }
+                    if (thirthday == 0) {
+
+                        text2.setText(R.string.ta_life_book);
+                        text2.getPaint().setAntiAlias(true);//抗锯齿
+                        text2.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint
+                                .ANTI_ALIAS_FLAG);
+
+                    } else {
+                        text2.getPaint().setFlags(0);
+                    }
+
+
+                }
+
+                break;
+            case DATAFELLED:
+                Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast
+                        .LENGTH_SHORT).show();
+                break;
+            case ANIMATION:
+                imgAni.setVisibility(View.GONE);
+                animationDrawable.stop();
+                break;
+        }
+    }
+
 
     private void changeDialogLocation(Dialog dialog) {
         Window dialogWindow = dialog.getWindow();
@@ -574,11 +594,11 @@ public class UserDetailsActivity extends BaseActivity {
                             }
 
 
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
 
                         } else if (loginBean.getStatus().equals("fail")) {
-                            mHandler.obtainMessage(DATAFELLED).sendToTarget();
+                            getHandler().obtainMessage(DATAFELLED).sendToTarget();
 
                         }
                     }

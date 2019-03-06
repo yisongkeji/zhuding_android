@@ -8,34 +8,14 @@
     tools:context="com.foreseers.chat.activity.UserAnalyzeLifeBookActivity">
 
     <!--bar-->
-    <FrameLayout
+    <com.foreseers.chat.view.widget.MyTitleBar
+        android:id="@+id/my_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@mipmap/icon_header_case_01"
-        android:elevation="1dp">
-
-        <FrameLayout
-            android:id="@+id/goback"
-            android:layout_width="50dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/icon_filter_02" />
-        </FrameLayout>
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@mipmap/icon_me_06"
+        app:titleBarTitle="我與TA的詳細分析"></com.foreseers.chat.view.widget.MyTitleBar>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="我與TA的詳細分析"
-            android:textColor="@color/colorWhite"
-            android:textSize="22sp" />
-
-    </FrameLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -48,70 +28,95 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
                 <com.ruffian.library.widget.RImageView
                     android:id="@+id/item_popular"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:layout_marginLeft="23dp"
                     android:scaleType="fitXY"
                     app:corner_radius="5dp"
-                    app:icon_src_normal="@mipmap/icon_avatar_02"
-                    android:layout_marginLeft="23dp"/>
+                    app:icon_src_normal="@mipmap/icon_avatar_02" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/text_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/name"
                             android:textColor="@color/colorBlack"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/text_sex"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_marginLeft="8dp"
+                            android:background="@drawable/rounded_layout_blue"
+                            android:gravity="center"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_layout_blue"
-                            android:text="♂ 20"
-                            android:gravity="center"
-                            android:textColor="@color/colorWhite"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:textSize="10sp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="8dp"/>
+                            android:text="@string/user_location"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="10sp" />
 
+                        <TextView
+                            android:id="@+id/text_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="10sp" />
                     </LinearLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/user_name"
-                        android:textSize="10sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_marginTop="9dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_location"
-                        android:textSize="10sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_marginTop="4dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_signature"
-                        android:textSize="10sp"
-                        android:textColor="@color/colorBlack"
-                        android:layout_marginTop="4dp"/>
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_signature"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/text_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -125,11 +130,11 @@
                 android:id="@+id/container_score"
                 android:layout_width="match_parent"
                 android:layout_height="86dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -167,7 +172,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="0"
+
                                 android:textSize="13sp" />
 
                         </LinearLayout>
@@ -298,11 +303,12 @@
                             android:visibility="gone" />
 
                         <TextView
+                            android:id="@+id/text_desc"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
 
                             android:gravity="center"
-                            android:text="天生一對"
+
                             android:textColor="@color/colorBlack"
                             android:textSize="18dp" />
 
@@ -346,18 +352,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/comment"
-                android:textColor="@color/colorBlue"
+                android:layout_marginLeft="19dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginLeft="19dp"/>
+                android:text="@string/comment"
+                android:textColor="@color/colorBlue" />
 
             <TextView
                 android:id="@+id/text_commentdesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="20dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -368,18 +374,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/character"
-                android:textColor="@color/colorAccent"
+                android:layout_marginLeft="19dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginLeft="19dp"/>
+                android:text="@string/character"
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/text_characteristicdesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="20dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -390,23 +396,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/courting"
-                android:textColor="@color/colorAccent"
+                android:layout_marginLeft="19dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginLeft="19dp"/>
+                android:text="@string/courting"
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/text_courtingdesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="20dp" />
 
         </LinearLayout>
 
     </ScrollView>
-
 
 
 </LinearLayout>

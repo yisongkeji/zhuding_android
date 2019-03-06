@@ -123,7 +123,7 @@ public class MainActivity extends SupportActivity {
                                     startService(intent);
                                 } else {
                                     OkGo.<String>post(Urls.Url_FriendTime).tag(this)
-                                            .params("userid", userid)
+                                            .params("userid", dataBean.get(i).getUserid())
                                             .params("friendid", dataBean.get(i).getFriend())
                                             .params("lookhead", "1")
                                             .params("sendpix", "1")

@@ -2,8 +2,10 @@ package com.foreseers.chat.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +59,7 @@ public class ImgAlbumActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
-                .LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_img_album);
         ButterKnife.bind(this);
@@ -211,6 +212,31 @@ public class ImgAlbumActivity extends BaseActivity {
         vp.setAdapter(adapter);
         vp.setCurrentItem(position, true);
         vp_text.setText((position + 1) + "/" + urls.size());
+
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
 
     }
 

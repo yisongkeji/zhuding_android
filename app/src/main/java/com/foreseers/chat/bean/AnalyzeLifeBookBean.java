@@ -65,7 +65,7 @@ public class AnalyzeLifeBookBean {
          * age : 17
          * num : 0
          * sex : M
-         * obligate : null
+         * obligate : 签名
          * friend : 0
          * name : 郑皓
          * head : http://192.168.1.73:8080/88/1550541329742.jpg

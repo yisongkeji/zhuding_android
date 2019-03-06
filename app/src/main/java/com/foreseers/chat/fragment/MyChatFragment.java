@@ -86,8 +86,8 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
     public void onAvatarClick(String username) {
 //        Toast.makeText(getActivity(), "头像被点击了" + username, Toast.LENGTH_SHORT).show();
         if (username.equals(EMClient.getInstance().getCurrentUser())) {
-//            intent = new Intent(getActivity(), MyActivity.class);
-//            getActivity().startActivity(intent);
+            intent = new Intent(getActivity(), MyActivity.class);
+            getActivity().startActivity(intent);
         } else {
             intent = new Intent(getActivity(), UserDetailsActivity.class);
             Bundle bundle = new Bundle();

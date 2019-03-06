@@ -550,5 +550,9 @@ public class FriendFragment extends EaseBaseFragment {
         }
     };
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
+    }
 }

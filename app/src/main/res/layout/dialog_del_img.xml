@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="删除照片"
+        android:text="擦看照片"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:textColor="@color/colorAccent"
@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="是否确认删除这张照片"
+        android:text="是否确认擦看这张照片"
         android:layout_marginTop="28dp"
         android:layout_gravity="center"
         android:textSize="@dimen/sp_16"/>

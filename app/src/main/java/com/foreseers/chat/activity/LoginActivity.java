@@ -146,17 +146,17 @@ public class LoginActivity extends AppCompatActivity {
 
                 break;
             case R.id.login_wechat:
-////                facebookid= "467979503606542";
-//
+                facebookid= "467979503606542";
+
 //                facebookid= "46797950360653";
-////                facebookid= "46797950360652333";
-//                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
-//                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
-//                editor.putString("token", facebookid);
-//                editor.putString("huanXinId", huanXinId + "");
-//                editor.commit();//提交修改
-//
-//                goLogin();
+//                facebookid= "46797950360652333";
+                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+                editor.putString("token", facebookid);
+                editor.putString("huanXinId", huanXinId + "");
+                editor.commit();//提交修改
+
+                goLogin();
                 break;
         }
     }
@@ -192,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                             bundle.putString("facebookId", facebookid);
                             intent.putExtras(bundle);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 });
@@ -230,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginHuanXin();
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                     break;
                 case DATAFELLED:
 

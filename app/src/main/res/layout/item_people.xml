@@ -17,15 +17,43 @@
         >
 
 
-        <com.ruffian.library.widget.RImageView
-            android:id="@+id/image_people"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
+            android:layout_height="wrap_content">
+            <com.ruffian.library.widget.RImageView
+                android:id="@+id/image_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
 
-            android:scaleType="fitCenter"
-            app:corner_radius="15px"
-            app:icon_src_normal="@mipmap/icon_me_loading_03" />
+                android:scaleType="fitCenter"
+                app:corner_radius="15px"
+                app:icon_src_normal="@mipmap/icon_me_loading_03" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_renqi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp">
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/icon_top_01" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="人气用户"
+                    android:textColor="@color/colorGreen" />
+            </LinearLayout>
+
+        </FrameLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"

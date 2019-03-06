@@ -1,6 +1,8 @@
 package com.foreseers.chat.activity;
 
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -40,6 +42,54 @@ public class SignActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
+
+
+    }
+
+    @OnClick(R.id.text_save)
+    public void onViewClicked() {
+        String sign = edittext.getText().toString();
+        if (sign != null && !sign.isEmpty()) {
+            OkGo.<String>post(Urls.Url_UserSign).tag(this)
+                    .params("userid", GetLoginTokenUtil.getUserId(this))
+                    .params("obligate", sign)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Gson gson=new Gson();
+                            LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
+                            if (loginBean.getStatus().equals("success")){
+                                finish();
+                            }else {
+                                Toast.makeText(SignActivity.this, "发送失败，请检查网络重新发送", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "签名不能为空", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,35 +114,10 @@ public class SignActivity extends BaseActivity {
             }
         });
 
-
     }
 
-    @OnClick(R.id.text_save)
-    public void onViewClicked() {
-        String sign = edittext.getText().toString();
-        if (sign != null && !sign.isEmpty()) {
-            OkGo.<String>post(Urls.Url_UserSign).tag(this)
-                    .params("userid", GetLoginTokenUtil.getUserId(this))
-                    .params("obligate", sign)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            Gson gson=new Gson();
-                            LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
-                            if (loginBean.getStatus().equals("success")){
-                                finish();
-                            }else {
-                                Toast.makeText(SignActivity.this, "发送失败，请检查网络重新发送", Toast
-                                        .LENGTH_LONG)
-                                        .show();
-                            }
-
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "签名不能为空", Toast.LENGTH_LONG).show();
-        }
-
+    @Override
+    public void processHandlerMessage(Message msg) {
 
     }
 }

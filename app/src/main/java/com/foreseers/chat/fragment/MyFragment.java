@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
+import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
 import com.foreseers.chat.activity.SettingActivity;
 import com.foreseers.chat.activity.SignActivity;
@@ -137,6 +138,7 @@ public class MyFragment extends BaseMainFragment {
     private int vip;
     private String newpath;
     private int albumNum;
+    private Intent intent;
 
 
     public MyFragment() {
@@ -193,10 +195,6 @@ public class MyFragment extends BaseMainFragment {
                             albumNum = dataBean.getCountnum();
 
 
-
-
-
-
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
 
@@ -220,6 +218,7 @@ public class MyFragment extends BaseMainFragment {
         switch (msg.what) {
             case DATASUCCESS:
 
+                if (layoutAlbum != null) {
                     if (albumNum >= 6) {
                         layoutAlbum.setClickable(false);
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
@@ -252,7 +251,9 @@ public class MyFragment extends BaseMainFragment {
 
 
                     albumAdapter.setNewData(imgList);
-                    break;
+                }
+
+                break;
 
             case DATAFELLED:
 
@@ -304,7 +305,7 @@ public class MyFragment extends BaseMainFragment {
     }
 
     @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip, R
-            .id.img_setting, R.id.layout_wipe, R.id.layout_sign})
+            .id.img_setting, R.id.layout_wipe, R.id.layout_sign, R.id.lifebook})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -465,10 +466,13 @@ public class MyFragment extends BaseMainFragment {
 
                 }
                 break;
-
+            case R.id.lifebook://命书
+                intent = new Intent(getActivity(), LifeBookActivity.class);
+                getActivity().startActivity(intent);
+                break;
             case R.id.layout_change_user_data://修改個人信息
 
-                Intent intent = new Intent(getActivity(), ChangeUserDataActivity.class);
+                intent = new Intent(getActivity(), ChangeUserDataActivity.class);
 
                 MyFragment.this.startActivityForResult(intent, REQUEST_CODE_USER_DATA);
                 break;
@@ -491,14 +495,14 @@ public class MyFragment extends BaseMainFragment {
 
                     addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new
                             AddVIPDialog
-                            .LeaveMyDialogListener() {
+                                    .LeaveMyDialogListener() {
 
 
-                        @Override
-                        public void onClick(View view) {
-                            addVIPDialog.dismiss();
-                        }
-                    });
+                                @Override
+                                public void onClick(View view) {
+                                    addVIPDialog.dismiss();
+                                }
+                            });
                     addVIPDialog.setCancelable(true);
                     addVIPDialog.show();
                 }
@@ -716,6 +720,6 @@ public class MyFragment extends BaseMainFragment {
     public void onDestroy() {
         super.onDestroy();
         Log.i("shengming", "onDestroy: MyFragment ");
-        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
     }
 }

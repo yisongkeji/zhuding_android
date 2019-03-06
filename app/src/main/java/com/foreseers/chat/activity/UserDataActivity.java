@@ -603,7 +603,6 @@ public class UserDataActivity extends AppCompatActivity {
         LocationBean locationBean = getLocation.getLocation(this);
 
         OkGo.<String>post(Urls.Url_UserData).tag(this)
-//                .isSpliceUrl(true)
                 .params("username", editUserName.getText().toString())
                 .params("date", date)
                 .params("time", time2)
@@ -684,6 +683,7 @@ public class UserDataActivity extends AppCompatActivity {
                     startActivity(intent);
                     saveLogin(userData.getId());
 
+                    finish();
 
                     break;
                 case DATAFELLED:

@@ -125,7 +125,8 @@
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.WipeHistoryActivity" />
         <activity android:name=".activity.SignActivity" />
-        <activity android:name=".activity.MyActivity"></activity>
+        <activity android:name=".activity.MyActivity" />
+        <activity android:name=".activity.WipeDayHistoryActivity"></activity>
     </application>
 
 </manifest>

@@ -2,13 +2,17 @@ package com.foreseers.chat.fragment;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -49,6 +53,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.foreseers.chat.util.JudgeNetAndGPS.isGpsEnabled;
 
 
 /**
@@ -158,42 +163,75 @@ public class MatchFragment extends BaseMainFragment {
 
 
     private void getDataFromHttp() {
-        GetLocation location = new GetLocation();
-        locationBean = location.getLocation(getActivity());
-        Log.i(TAG, "locationBean: " + locationBean.getLng());
-
-        OkGo.<String>post(Urls.Url_UserLocation).tag(this)
-                .params("facebookid", facebookid)
-                .params("country", locationBean.getCountry())
-                .params("city", locationBean.getCity())
-                .params("area", locationBean.getArea())
-                .params("addr", locationBean.getAddr())
-                .params("addrs", locationBean.getAddrs())
-                .params("lat", locationBean.getLat())
-                .params("lng", locationBean.getLng())
-                .params("sex", sex)
-                .params("ageLittle", ageLittle)
-                .params("agebig", agebig)
-                .params("distance", distance)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        loginBean = gson.fromJson(response.body(), LoginBean.class);
-
-                        if (loginBean.getStatus().equals("success")) {
-                            recommendBean = gson.fromJson(response.body(), RecommendBean.class);
-                            recommendBeans = recommendBean.getData();
-
-                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
-
-                        } else if (loginBean.getStatus().equals("fail")) {
-                            Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
-                        }
 
 
+        if (isGpsEnabled(getContext())) {
+            GetLocation location = new GetLocation();
+
+            while(locationBean == null){
+                locationBean = location.getLocation(getActivity());
+            }
+            if (locationBean != null) {
+                OkGo.<String>post(Urls.Url_UserLocation).tag(this)
+                        .params("facebookid", facebookid)
+                        .params("country", locationBean.getCountry())
+                        .params("city", locationBean.getCity())
+                        .params("area", locationBean.getArea())
+                        .params("addr", locationBean.getAddr())
+                        .params("addrs", locationBean.getAddrs())
+                        .params("lat", locationBean.getLat())
+                        .params("lng", locationBean.getLng())
+                        .params("sex", sex)
+                        .params("ageLittle", ageLittle)
+                        .params("agebig", agebig)
+                        .params("distance", distance)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+                                loginBean = gson.fromJson(response.body(), LoginBean.class);
+
+                                if (loginBean.getStatus().equals("success")) {
+                                    recommendBean = gson.fromJson(response.body(), RecommendBean.class);
+                                    recommendBeans = recommendBean.getData();
+
+                                    getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+
+                                } else if (loginBean.getStatus().equals("fail")) {
+                                    Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
+                                }
+
+
+                            }
+                        });
+            }
+
+        } else {
+
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setTitle("请打开GPS连接");
+            dialog.setMessage("为方便司机更容易接到您，请先打开GPS");
+            dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    // 转到手机设置界面，用户设置GPS
+                    if (swipeLayout != null) {
+                        swipeLayout.setRefreshing(false);
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        Toast.makeText(getActivity(), "打开后直接点击返回键即可，若不打开返回下次将再次出现", Toast.LENGTH_SHORT).show();
+                        MatchFragment.this.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
                     }
-                });
+                }
+            });
+            dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    arg0.dismiss();
+                }
+            });
+            dialog.show();
+        }
+
 
         OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
                 .params("userid", huanXinId)
@@ -217,6 +255,17 @@ public class MatchFragment extends BaseMainFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 33:
+                swipeLayout.setRefreshing(true);
+                refresh();
+                break;
+        }
+    }
+
+    @Override
     public void installListeners() {
 
     }
@@ -225,17 +274,20 @@ public class MatchFragment extends BaseMainFragment {
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
-                swipeLayout.setRefreshing(false);
-                if (recommendBeans != null && recommendBeans.size() > 0) {
-                    peopleAdapter.setNewData(recommendBeans);
+                if (swipeLayout != null) {
+                    swipeLayout.setRefreshing(false);
+                    if (recommendBeans != null && recommendBeans.size() > 0) {
+                        peopleAdapter.setNewData(recommendBeans);
 
+                    }
                 }
+
 
                 break;
             case DATASUCCESS2:
-//                if (hidd) {
+                if (textCanumsNum != null) {
                     textCanumsNum.setText(num + "");
-//                }
+                }
                 break;
             case DATAFELLED:
                 swipeLayout.setRefreshing(false);
@@ -297,7 +349,7 @@ public class MatchFragment extends BaseMainFragment {
                         PopItemAction.OnClickListener() {
                             @Override
                             public void onClick() {
-                                Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
+//                                Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
 
 
 //                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
@@ -311,11 +363,11 @@ public class MatchFragment extends BaseMainFragment {
 //                                        "agebig:" + agebig + "    distance:" + distance);
 //                                Log.e("okgo", "sex:" + sex);
 //
-                                getDataForHttp();
 
 
-
+                                Log.i(TAG, "onClickPopWindow: "+ageLittle);
                                 getDataFromHttp();
+                                getDataForHttp();
                             }
                         }))
                 .show();
@@ -331,7 +383,7 @@ public class MatchFragment extends BaseMainFragment {
         RadioButton radioButton_right = view.findViewById(R.id.radio_right);
 
 
-        sex = userInfo.getString("sex", "");
+//        sex = userInfo.getString("sex", "");
         switch (sex) {
             case "M"://男M
                 radioButton_left.setChecked(true);
@@ -350,7 +402,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
         doubleslideAge = view.findViewById(R.id.doubleslide_age);
-        distance = userInfo.getInt("distance", 0);
+//        distance = userInfo.getInt("distance", 0);
 
     }
 

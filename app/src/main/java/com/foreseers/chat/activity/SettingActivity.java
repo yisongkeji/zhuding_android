@@ -1,6 +1,8 @@
 package com.foreseers.chat.activity;
 
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.foreseers.chat.R;
@@ -26,5 +28,30 @@ public class SettingActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 }

@@ -60,6 +60,16 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
         }
 
 
+        switch (item.getNumuser()){
+            case 0:
+                baseViewHolder.setVisible(R.id.layout_renqi,false);
+                break;
+            case 1:
+                baseViewHolder.setVisible(R.id.layout_renqi,true);
+                break;
+        }
+
+
         baseViewHolder.setTypeface(typeface);
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())
                 .setText(R.id.text_desc, item.getDesc())

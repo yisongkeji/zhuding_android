@@ -6,19 +6,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.R;
+import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.decoviewlib.DecoView;
 import com.foreseers.chat.view.decoviewlib.charts.SeriesItem;
+import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -32,16 +37,14 @@ import butterknife.OnClick;
 /**
  * 我與TA的詳細分析
  */
-public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
+public class UserAnalyzeLifeBookActivity extends BaseActivity {
 
-    @BindView(R.id.goback)
-    FrameLayout goback;
+
     @BindView(R.id.item_popular)
     RImageView itemPopular;
     @BindView(R.id.characterScore)
     DecoView characterScore;
-    @BindView(R.id.characterScoreTxt)
-    TextView characterScoreTxt;
+
     @BindView(R.id.mindScore)
     DecoView mindScore;
     @BindView(R.id.mindScoreTxt)
@@ -67,11 +70,26 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
+    @BindView(R.id.text_name)
+    TextView textName;
+    @BindView(R.id.text_sex)
+    TextView textSex;
+    @BindView(R.id.text_sign)
+    TextView textSign;
+    @BindView(R.id.characterScoreTxt)
+    TextView characterScoreTxt;
+    @BindView(R.id.text_distance)
+    TextView textDistance;
+    @BindView(R.id.text_desc)
+    TextView textDesc;
+    @BindView(R.id.my_titlebar)
+    MyTitleBar myTitlebar;
 
     private String facebookid;
     private String userid;
     private SharedPreferences sPreferences;
     private AnalyzeLifeBookBean analyzeLifeBookBean;
+    private AnalyzeLifeBookBean.DataBean dataBean;
 
 
     @Override
@@ -80,7 +98,12 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_analyze_life_book);
         ButterKnife.bind(this);
         getData();
-
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void getData() {
@@ -102,6 +125,7 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
                             analyzeLifeBookBean = gson.fromJson(response.body(), AnalyzeLifeBookBean.class);
+                            dataBean = analyzeLifeBookBean.getData();
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
                         } else if (loginBean.getStatus().equals("fail")) {
@@ -117,21 +141,38 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    int characterscore = analyzeLifeBookBean.getData().getCharacterscore();
-                    int mindscore = analyzeLifeBookBean.getData().getMindscore();
-                    int bodyscore = analyzeLifeBookBean.getData().getBodyscore();
+                    GlideUtil.glide(UserAnalyzeLifeBookActivity.this, dataBean.getHead(), itemPopular);
+                    textName.setText(dataBean.getName());
+
+                    switch (dataBean.getSex()) {
+
+                        case "F":
+                            textSex.setText("♀ " + dataBean.getAge());
+                            break;
+                        case "M":
+                            textSex.setText("♂ " + dataBean.getAge());
+                            break;
+                    }
+
+                    textSign.setText(dataBean.getObligate());
+                    textDistance.setText(dataBean.getDistance() + " km +");
+                    textDesc.setText(dataBean.getUserdesc());
+                    int characterscore = dataBean.getCharacterscore();
+                    int mindscore = dataBean.getMindscore();
+                    int bodyscore = dataBean.getBodyscore();
                     initView(characterscore, mindscore, bodyscore);
-                    characterScoreTxt.setTag(characterscore+"");
-                    mindScoreTxt.setText(mindscore+"");
-                    bodyScoreTxt.setText(bodyscore+"");
+                    characterScoreTxt.setText(characterscore + "");
 
+                    mindScoreTxt.setText(mindscore + "");
+                    bodyScoreTxt.setText(bodyscore + "");
 
-                    progressMatchingRate.setProgress(analyzeLifeBookBean.getData().getUserscore());
-                    progressText.setText("匹配度"+analyzeLifeBookBean.getData().getUserscore()+"%");
-                    textCommentdesc.setText(analyzeLifeBookBean.getData().getCommentdesc());
-                    textCharacteristicdesc.setText(analyzeLifeBookBean.getData()
-                            .getCharacteristicdesc());
-                    textCourtingdesc.setText(analyzeLifeBookBean.getData().getSpare());
+                    Log.i("11111111", characterscore + "   " + mindscore + "    " + bodyscore);
+
+                    progressMatchingRate.setProgress(dataBean.getUserscore());
+                    progressText.setText("匹配度" + dataBean.getUserscore() + "%");
+                    textCommentdesc.setText(dataBean.getCommentdesc());
+                    textCharacteristicdesc.setText(dataBean.getCharacteristicdesc());
+                    textCourtingdesc.setText(dataBean.getSpare());
                     break;
                 case DATAFELLED:
                     Toast.makeText(UserAnalyzeLifeBookActivity.this, "网络连接失败", Toast
@@ -163,8 +204,29 @@ public class UserAnalyzeLifeBookActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.goback)
-    public void onViewClicked() {
-        finish();
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 }

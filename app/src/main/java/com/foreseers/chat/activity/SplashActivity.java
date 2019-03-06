@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import com.foreseers.chat.R;
 
 public class SplashActivity extends AppCompatActivity {
+    private final String TAG ="SplashActivity";
     @BindView(R.id.layout_Splash)
     LinearLayout layoutSplash;
     private String facebookid;
@@ -54,14 +55,16 @@ public class SplashActivity extends AppCompatActivity {
 
     private void isFirst() {
         if (isFirstStart(this)) {// 第一次打开——》登录
-
+            Log.i(TAG, "isFirst: 1");
+            finish();
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-
 
         } else {//不是第一次打开——》判断是否登陆过
             getHuanXinLogin();
-            Log.i("facebookid", "isFirst: " + facebookid + "huanXinId" + huanXinId);
+
             if (facebookid == null || huanXinId == "") {//没登陆过
+                Log.i(TAG, "isFirst: 2");
+                finish();
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
             } else {//登陆过
@@ -77,20 +80,20 @@ public class SplashActivity extends AppCompatActivity {
 //                            e.printStackTrace();
 //                        }
 //                    }
-
+                    Log.i(TAG, "isFirst: 3");
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
-
                     finish();
                 } else {
 //                    try {
 //                        Thread.sleep(sleepTime);
 //                    } catch (InterruptedException e) {
 //                    }
+                    Log.i(TAG, "isFirst: 4");
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
 //                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+//                finish();
             }
 
         }

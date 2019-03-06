@@ -2,10 +2,13 @@ package com.foreseers.chat.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SupportActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -42,25 +45,11 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
         setContentView(R.layout.activity_wipe_history);
         ButterKnife.bind(this);
 
-        initView();
+        radiobutton1.setChecked(true);
         radiogroup.setOnCheckedChangeListener(this);
     }
 
-    private void initView() {
-        wipeHistoryFragment = new WipeHistoryFragment();
 
-        lookHistoryFragment = new LookHistoryFragment();
-
-
-        fragmentManager = getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.layout_frame, wipeHistoryFragment);
-        transaction.add(R.id.layout_frame, lookHistoryFragment);
-        transaction.hide(lookHistoryFragment).show(wipeHistoryFragment);
-        transaction.commit();
-        radiobutton1.setChecked(true);
-
-    }
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -95,6 +84,43 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
             default:
                 break;
         }
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+        wipeHistoryFragment = new WipeHistoryFragment();
+
+        lookHistoryFragment = new LookHistoryFragment();
+
+
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.layout_frame, wipeHistoryFragment);
+        transaction.add(R.id.layout_frame, lookHistoryFragment);
+        transaction.hide(lookHistoryFragment).show(wipeHistoryFragment);
+        transaction.commit();
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+        Log.i("@#@#@#@#@#", "installListeners: ");
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 
 

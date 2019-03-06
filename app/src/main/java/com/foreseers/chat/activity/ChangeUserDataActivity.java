@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -134,9 +135,8 @@ public class ChangeUserDataActivity extends BaseActivity {
     private void getDataFromHttp() {
 
 
-        String facebookid = GetLoginTokenUtil.getFaceBookId(this);
         OkGo.<String>post(Urls.Url_Query).tag(this)
-                .params("facebookid", facebookid)
+                .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -226,8 +226,7 @@ public class ChangeUserDataActivity extends BaseActivity {
         String birth = dataBean.getDate();
         //出生日期
         String[] data = birth.split("-");
-        String birthData = data[0] + getString(R.string.year) + data[1] + getString(R.string.month) +
-                data[2] + getString(R.string.day);
+        String birthData = data[0] + getString(R.string.year) + data[1] + getString(R.string.month) + data[2] + getString(R.string.day);
         //出生时间
         String time1 = dataBean.getTime();
         int index = time1.indexOf(":");
@@ -280,12 +279,9 @@ public class ChangeUserDataActivity extends BaseActivity {
                                 if (loginBean.getStatus().equals("success")) {//老用户
                                     userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     dataBean = userDataBean.getData();
-
                                     REQUEST_CODE_USER_DATA = 200;
                                     mHandler.obtainMessage(DATATIMESUCCESS).sendToTarget();
                                 }
-
-
                             }
                         });
             }
@@ -322,8 +318,7 @@ public class ChangeUserDataActivity extends BaseActivity {
                                     isChecked) {
                                 pvCustomLunar.setLunarCalendar(!pvCustomLunar.isLunarCalendar());
                                 //自适应宽
-                                setTimePickerChildWeight(v, isChecked ? 0.8f : 1f, isChecked ? 1f
-                                        : 1.1f);
+                                setTimePickerChildWeight(v, isChecked ? 0.8f : 1f, isChecked ? 1f : 1.1f);
                             }
                         });
 
@@ -338,14 +333,12 @@ public class ChangeUserDataActivity extends BaseActivity {
                     private void setTimePickerChildWeight(View v, float yearWeight, float weight) {
                         ViewGroup timePicker = (ViewGroup) v.findViewById(R.id.timepicker);
                         View year = timePicker.getChildAt(0);
-                        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year
-                                .getLayoutParams());
+                        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year.getLayoutParams());
                         lp.weight = yearWeight;
                         year.setLayoutParams(lp);
                         for (int i = 1; i < timePicker.getChildCount(); i++) {
                             View childAt = timePicker.getChildAt(i);
-                            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams)
-                                    childAt.getLayoutParams());
+                            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams) childAt.getLayoutParams());
                             childLp.weight = weight;
                             childAt.setLayoutParams(childLp);
                         }
@@ -426,4 +419,28 @@ public class ChangeUserDataActivity extends BaseActivity {
     }
 
 
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
+    }
 }

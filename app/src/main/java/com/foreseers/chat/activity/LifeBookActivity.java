@@ -2,13 +2,24 @@ package com.foreseers.chat.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.foreseers.chat.R;
+import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.UserDataBean;
+import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.Urls;
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 /**
  * 我的命书信息
@@ -42,6 +53,8 @@ public class LifeBookActivity extends AppCompatActivity {
     private String ziwei;
     private int numerology;
     private String[] bazi;
+    private UserDataBean.DataBean dataBean;
+    private UserDataBean userDataBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,26 +66,70 @@ public class LifeBookActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        textHoroscope.setText(xingzuo);
-        textZodiac.setText(zodiac);
-        textZiwei.setText(ziwei);
-        textNumerology.setText(numerology+"");
-        textBazi4.setText(bazi[0]);
-        textBazi3.setText(bazi[1]);
-        textBazi2.setText(bazi[2]);
-        textBazi1.setText(bazi[3]);
+
     }
 
     private void initData() {
-        Bundle bundle = getIntent().getExtras();
-        xingzuo = bundle.getString("xingzuo");
-        zodiac = bundle.getString("zodiac");
-        ziwei = bundle.getString("ziwei");
-        numerology = bundle.getInt("numerology");
-        bazi = bundle.getString("bazi").split(",");
+
+
+
+        OkGo.<String>post(Urls.Url_Query).tag(this)
+                .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                      LoginBean  loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {//老用户
+
+                            userDataBean = gson.fromJson(response.body(), UserDataBean.class);
+
+                            dataBean = userDataBean.getData();
+
+                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+
+
+                        } else if (loginBean.getStatus().equals("fail")) {
+
+                        }
+                    }
+                });
+
     }
 
+    private final int DATASUCCESS = 1;
 
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case DATASUCCESS:
+                    if (textBazi1!=null){
+                        xingzuo = dataBean.getXingzuo();
+                        zodiac = dataBean.getZodiac();
+                        ziwei =  dataBean.getZiwei();
+                        numerology=dataBean.getNumerology();
+                                bazi =dataBean.getBazi().split(",");
+
+
+
+                        textHoroscope.setText(xingzuo);
+                        textZodiac.setText(zodiac);
+                        textZiwei.setText(ziwei);
+                        textNumerology.setText(numerology+"");
+                        textBazi4.setText(bazi[0]);
+                        textBazi3.setText(bazi[1]);
+                        textBazi2.setText(bazi[2]);
+                        textBazi1.setText(bazi[3]);
+                    }
+
+
+                    break;
+
+            }
+        }
+    };
     @OnClick(R.id.gotoMainPage)
     public void onViewClicked() {
      startActivity(new Intent(this,MainActivity.class));

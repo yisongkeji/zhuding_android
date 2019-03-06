@@ -16,14 +16,14 @@ import java.util.List;
 import com.foreseers.chat.bean.LocationBean;
 
 import static android.content.Context.LOCATION_SERVICE;
-import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.foreseers.chat.global.MyApplication.getContext;
 
 public class GetLocation {
     private LocationManager locationManager;// 位置服务
     private Location location;// 位置
     private LocationBean locationBean = new LocationBean();
 
-    public LocationBean getLocation(Activity activity) {
+    public  LocationBean getLocation(Activity activity) {
 
         try {
             // 获取系统服务
@@ -32,25 +32,21 @@ public class GetLocation {
             // 如果GPS不行，再判断network，还是获取不到，那就报错
             if (locationInitByGPS() || locationInitByNETWORK()) {
                 // 上面两个只是获取经纬度的，获取经纬度location后，再去调用谷歌解析来获取地理位置名称
-                Log.i("GPS", "locationInit: 经度" + location.getLatitude() + "维度" + location
-                        .getLongitude());
+                Log.i("GPS", "locationInit: 经度" + location.getLatitude() + "维度" + location.getLongitude());
                 showLocation(location);
             } else {
                 Log.e("Exception", "获取地理位置失败 ");
-//                tv_show.setText("获取地理位置失败，上次的地理位置为：" );
             }
         } catch (Exception e) {
             Log.e("Exception", "getLocation: " + e.toString());
-//            tv_show.setText("获取地理位置失败，上次的地理位置为：" );
         }
-        Log.i("location###########", "############" + locationBean.getAddr());
         return locationBean;
     }
 
     //这是根据经纬度，向谷歌的API解析发网络请求，然后获取response，这里超时时间不要太短，否则来不及返回位置信息，直接失败了
     private void showLocation(final Location loc) {
         List<Address> addList = null;
-        Geocoder ge = new Geocoder(getApplicationContext());
+        Geocoder ge = new Geocoder(getContext());
         try {
             addList = ge.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 //            addList = ge.getFromLocation(22.3043710000, 114.1853080000, 1);
@@ -77,6 +73,13 @@ public class GetLocation {
                 //维度
                 locationBean.setLng(location.getLongitude());
             }
+        }else {
+
+            //经度
+            locationBean.setLat(location.getLatitude());
+            //维度
+            locationBean.setLng(location.getLongitude());
+
         }
 
 
@@ -92,11 +95,8 @@ public class GetLocation {
         }
 //        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                100000, 0, locationListener);
-        location = locationManager
-                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100000, 0, locationListener);
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             return true;//设置location成功，返回true
         } else {
@@ -108,8 +108,7 @@ public class GetLocation {
     @SuppressLint("MissingPermission")
     public boolean locationInitByNETWORK() {
         // 没有NETWORK，直接返回
-        if (!locationManager
-                .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             return false;
         }
         locationManager.requestLocationUpdates(
@@ -141,10 +140,10 @@ public class GetLocation {
 
         @Override
         public void onLocationChanged(Location loc) {
-//            if (loc != null) {
-//                location = loc;
-//                showLocation(location);
-//            }
+            if (loc != null) {
+                location = loc;
+                showLocation(location);
+            }
         }
     };
 

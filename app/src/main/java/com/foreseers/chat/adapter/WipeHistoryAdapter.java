@@ -42,7 +42,7 @@ public class WipeHistoryAdapter extends BaseSectionQuickAdapter<MySection, BaseV
         helper.setText(R.id.text_people_name,video.getUsername());
         helper.setText(R.id.text_people_progress,video.getUserscore()+"");
         helper.setText(R.id.text_people_ziwei,video.getZiwei());
-        helper.setText(R.id.text_desc,video.getDESC());
+
 
         switch (video.getSex()) {
             case "F":

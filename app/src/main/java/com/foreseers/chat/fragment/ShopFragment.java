@@ -127,7 +127,10 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
         switch (msg.what) {
             case DATASUCCESS:
                 Log.i("shengming", "handler: ShopFragment ");
-                textNum.setText(num + "");
+                if (textNum!=null){
+                    textNum.setText(num + "");
+                }
+
                 break;
         }
     }
@@ -195,10 +198,11 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
         //当滚动状态改变时被调用
 
     }
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("shengming", "onDestroy: ShopFragment ");
-//        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
+    public void onStop() {
+        super.onStop();
+        viewList.clear();
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
     }
 }
