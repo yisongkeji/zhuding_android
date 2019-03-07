@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="黑名单"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_blacklist">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
 </LinearLayout>

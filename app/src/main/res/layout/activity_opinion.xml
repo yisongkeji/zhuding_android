@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="意见与反馈"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_opinion_feekback">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +35,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@color/colorWhite"
                 android:gravity="top"
-                android:hint="请详细描述问题和意见"
+                android:hint="@string/foreseers_please_opinion"
                 android:padding="7dp"
                 android:paddingTop="2dp"
                 android:textColor="@color/colorAccent"
@@ -92,7 +94,7 @@
                 android:gravity="center"
                 android:background="@drawable/button_blue_default"
                 android:textColor="@color/colorWhite"
-                android:text="提交"
+                android:text="@string/foreseers_submit"
                 android:layout_marginTop="150dp"/>
 
         </LinearLayout>

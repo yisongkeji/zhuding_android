@@ -18,7 +18,7 @@
     <string name="accomplish">完成</string>
     //text
     <string name="name">姓名</string>
-    <string name="nickname">暱稱</string>
+    <string name="nickname">昵稱</string>
     <string name="birth">出生日期</string>
     <string name="sex">性別</string>
     <string name="age">年齡</string>
@@ -46,7 +46,7 @@
     <string name="ta_life_book">TA的命書</string>
     <string name="send_message">傳訊息</string>
 
-    <string name="user_nickname">暱稱 ：</string>
+    <string name="user_nickname">昵稱 ：</string>
     <string name="user_location">距離 ：</string>
     <string name="user_signature">簽名 ：</string>
 
@@ -84,7 +84,7 @@
     <!--提示-->
     <string name="press_again_exit">再次點擊退出</string>
     <string name="no_friend_number">您的好友位置已被充滿，\n請擴充後再來發送好友請求吧。</string>
-    <string name="my_add_friend">要向name發送好友請求嗎？您還剩餘num個好友位置。（對方同意才能成為您的好友）</string>
+    <string name="my_add_friend">要向name發送好友請求嗎？您還剩余num個好友位置。（對方同意才能成為您的好友）</string>
     <string name="send_success">好友請求發送成功！請等待對方同意。</string>
     <string name="send_defeated">好友請求發送失敗，您的好友位置已被充滿。</string>
 
@@ -167,11 +167,12 @@
     //user_details
     <string name="foreseers_user_nickname">用戶暱稱</string>
     <string name="foreseers_match_degree">匹配度</string>
-    <string name="foreseers_seven_day">成爲好友7天後可查看</string>
-    <string name="foreseers_thirty_day">成爲好友30天後可查看</string>
+    <string name="foreseers_seven_day">成為好友7天後可查看</string>
+    <string name="foreseers_thirty_day">成為好友30天後可查看</string>
 
     //wipe_day_history
     <string name="foreseers_all">全部</string>
+
 
     //dialog_add_vip
     <string name="foreseers_add_friends">好友擴充</string>
@@ -233,7 +234,7 @@
     <string name="foreseers_lunar">農曆</string>
 
     //view_page1
-    <string name="foreseers_catch_you">讓對方一眼發現你</string>
+    <string name="foreseers_catch_you">讓對方壹眼發現妳</string>
 
     //view_page2
     <string name="foreseers_ten_per_day">每日贈送10擦子</string>
@@ -244,17 +245,35 @@
     <string name="foreseers_follow_your_heart">隨心添加不受限制</string>
 
     //view_page4
-    <string name="foreseers_who_see_you">讓你知道誰曾查看過你</string>
-    <string name="foreseers_crush_on_you">爲你心動</string>
+    <string name="foreseers_who_see_you">讓妳知道誰曾查看過妳</string>
+    <string name="foreseers_crush_on_you">為妳心動</string>
 
     view_page5
     <string name="foreseers_who_see_you_photo">讓你知道誰偷看了你的頭像</string>
     <string name="foreseers_immediately_TA">立即去撩TA</string>
 
+    //about
+    <string name="foreseers_about_app_name">關於註定</string>
+    <string name="foreseers_version">版本V1.0</string>
+    <string name="foreseers_about_content">\t玄人文化企業有限公司(下稱玄人)為一間新世代的企業，將多年來的中西玄學術數知識和數據系統化，再作出有效分析，從而得出更準確更有效的結果，除此之外，更會提供一站網上以及智能手機應用程式平台，供普羅大眾使用，大家可以利用該平台尋找心儀的玄學服務，無論一般文字咨詢，以至一對一的視像面談，一一都可以在玄人找到。
+ \t中西玄學文化實在博大精深，有見及此，玄人還會提供網上學習平台，將知識推廣至更闊的層面，無遠弗屆，不論求問者，服務提供者，從此都不會再受到地域及時間限制，無論身處地球上任何一個角落，只要一機在手，隨時都能夠輕鬆地接觸玄學，令玄學的普世價值漸漸重回正軌。"
+                </string>
+    <string name="foreseers_terms_conditions">《條款細則》</string>
+    <string name="foreseers_and">和</string>
+    <string name="foreseers_privacy_policy">《隱私政策》</string>
 
+    //clause
+    <string name="foreseers_terms">註定條款細則</string>
 
+    //opinion
+    <string name="foreseers_opinion_feekback">意見與反饋</string>
+    <string name="foreseers_please_opinion">请详细描述问题和意见</string>
+    <string name="foreseers_submit">提交</string>
 
+    //wipe_history
+    <string name="foreseers_became_vip_see">成為會員後可查看</string>
 
+    //em_row_invite_msg
 
 
 

@@ -73,7 +73,7 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="成为会员后可查看"
+            android:text="@string/foreseers_became_vip_see"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:textSize="20sp"
