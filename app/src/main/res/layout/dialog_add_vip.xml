@@ -16,19 +16,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="好友扩充"
+            android:text="@string/foreseers_add_friends"
             android:textColor="@color/colorWhite" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="特殊会员标识"
+            android:text="@string/foreseers_special_vip_id"
             android:textColor="@color/colorWhite" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="特殊会员标识"
+            android:text="@string/foreseers_special_vip_id"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:background="@drawable/button_vip"
             android:elevation="3dp"
             android:gravity="center"
-            android:text="8折"
+            android:text="@string/foreseers_discount"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_11" />
 
@@ -88,19 +88,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="天"
+                            android:text="@string/foreseers_day"
                             android:textSize="@dimen/sp_10" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥0.3/天" />
+                        android:text="@string/foreseers_point_three" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥108" />
+                        android:text="¥108" />
                 </LinearLayout>
 
 
@@ -128,20 +128,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="天"
+                            android:text="@string/foreseers_day"
                             android:textSize="@dimen/sp_10" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥0.4/天"
+                        android:text="@string/foreseers_point_four"
                         android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥36"
+                        android:text="¥36"
                         android:textColor="@color/colorAccent"/>
                 </LinearLayout>
 
@@ -169,19 +169,19 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="天"
+                            android:text="@string/foreseers_day"
                             android:textSize="@dimen/sp_10" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥0.5/天" />
+                        android:text="@string/foreseers_point_five" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥15" />
+                        android:text="¥15" />
                 </LinearLayout>
 
 
@@ -196,7 +196,7 @@
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/button_vip"
-                android:text="扩充好友"
+                android:text="@string/foreseers_expand_friends"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>

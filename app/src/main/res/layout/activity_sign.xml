@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleBarLeftImage="@mipmap/icon_me_06"
-            app:titleBarTitle="更改签名"></com.foreseers.chat.view.widget.MyTitleBar>
+            app:titleBarTitle="@string/foreseers_rename">
+
+        </com.foreseers.chat.view.widget.MyTitleBar>
 
         <TextView
             android:id="@+id/text_save"
@@ -25,7 +27,7 @@
             android:layout_gravity="right|bottom"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="20dp"
-            android:text="保存"
+            android:text="@string/foreseers_save"
             android:textColor="@color/colorWhite" />
 
     </FrameLayout>

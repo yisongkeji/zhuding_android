@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="申请与通知"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_apply_msg">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
 

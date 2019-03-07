@@ -69,14 +69,18 @@
                         android:layout_height="77dp"
                         android:layout_marginRight="85dp"
                         android:background="@drawable/radio_man"
-                        android:button="@null"></RadioButton>
+                        android:button="@null">
+
+                    </RadioButton>
 
                     <RadioButton
                         android:id="@+id/radio_sex_woman"
                         android:layout_width="77dp"
                         android:layout_height="77dp"
                         android:background="@drawable/radio_woman"
-                        android:button="@null"></RadioButton>
+                        android:button="@null">
+
+                    </RadioButton>
                 </RadioGroup>
 
 
@@ -186,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="請選擇一張照片作為您的頭像。"
+                    android:text="@string/foreseers_choose_photo"
                     android:textColor="@color/colorBlack"
                     android:textSize="25sp" />
 

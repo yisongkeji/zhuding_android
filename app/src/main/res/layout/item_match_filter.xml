@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="性别范围"
+        android:text="@string/foreseers_gender_scope"
         android:textColor="@color/colorBlack"
         android:textSize="18sp" />
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="年龄范围"
+        android:text="@string/foreseers_age_scope"
         android:textColor="@color/colorBlack"
         android:textSize="18sp" />
 
@@ -85,8 +85,7 @@
             rsb:outColor="#eeeeee"
             rsb:smallValue="12"
             rsb:textColor="#8ce6e3"
-            rsb:textSize="15sp"
-            rsb:unit="歲" />
+            rsb:textSize="15sp"/>
     </LinearLayout>
 
 
@@ -95,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:text="距离"
+        android:text="@string/foreseers_location"
         android:textColor="@color/colorBlack"
         android:textSize="18sp" />
 

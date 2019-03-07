@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="無限好友欄位"
+        android:text="@string/foreseers_infinate_priends_num"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="隨心添加不受限制"
+        android:text="@string/foreseers_follow_your_heart"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 

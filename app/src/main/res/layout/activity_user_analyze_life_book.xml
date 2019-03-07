@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="我與TA的詳細分析"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_detailed_analysis">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <ScrollView
@@ -163,7 +165,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="性格"
+                                android:text="@string/character"
                                 android:textColor="@color/colorBlue"
                                 android:textSize="15sp" />
 
@@ -203,7 +205,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="心靈"
+                                android:text="@string/spirit"
                                 android:textColor="@color/colorPink"
                                 android:textSize="15sp" />
 
@@ -243,7 +245,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="肉體"
+                                android:text="@string/body"
                                 android:textColor="@color/colorGreen"
                                 android:textSize="15sp" />
 
@@ -288,7 +290,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="登對指數"
+                            android:text="@string/foreseers_index"
                             android:textSize="12dp"
                             android:visibility="gone" />
 
@@ -333,7 +335,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="匹配度35%"
+                                android:text="@string/foreseers_match_degree_percent"
                                 android:textColor="@color/white"
                                 android:textSize="13sp" />
                         </RelativeLayout>

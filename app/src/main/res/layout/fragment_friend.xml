@@ -16,7 +16,9 @@
         android:layout_height="wrap_content"
 
         app:titleBarRightImage="@mipmap/icon_footer_profile_05"
-        app:titleBarTitle="@string/address_list"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/address_list">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
 

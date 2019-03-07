@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="人气用户"
+                    android:text="@string/foreseers_users"
                     android:textColor="@color/colorGreen" />
             </LinearLayout>
 
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="匹配度"
+                    android:text="@string/foreseers_match_degree"
                     android:textColor="@color/colorBlack"
                     android:textSize="9sp" />
 
@@ -128,7 +128,7 @@
                     android:id="@+id/text_people_ziwei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="七殺"
+                    android:text="@string/foreseers_seven_killed"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:gravity="center"
@@ -158,7 +158,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@mipmap/icon_header_btn_03"
                 android:gravity="center"
-                android:text="一见如故"
+                android:text="@string/foreseers_first_meet"
                 android:textColor="@color/colorWhite"
                 android:textSize="10sp" />
 

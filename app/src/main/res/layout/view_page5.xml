@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="讓你知道誰偷看了你的頭像"
+        android:text="@string/foreseers_who_see_you_photo"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="立即去撩TA"
+        android:text="@string/foreseers_immediately_TA"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 

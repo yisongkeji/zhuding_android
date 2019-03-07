@@ -12,9 +12,11 @@
             android:id="@+id/my_titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:titleBarTitle="我的會員"
+            app:titleBarTitle="@string/foreseers_my_vip"
             app:titleBarLeftImage="@mipmap/icon_me_06"
-            ></com.foreseers.chat.view.widget.MyTitleBar>
+            >
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <LinearLayout
@@ -76,7 +78,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="注定会员："
+                            android:text="@string/foreseers_destined_vip"
                             android:textSize="@dimen/sp_11"/>
 
                     <TextView
@@ -89,7 +91,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="到期"
+                            android:text="@string/foreseers_expire_vip"
                             android:textSize="@dimen/sp_11"/>
                 </LinearLayout>
 
@@ -108,7 +110,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="注定会员"
+                    android:text="@string/foreseers_destined"
                     android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
@@ -116,7 +118,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="点击选择续费时长"
+                    android:text="@string/foreseers_renew"
                     android:textColor="@color/colorGray2"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
@@ -167,7 +169,7 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="天"
+                                android:text="@string/foreseers_day"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="@dimen/sp_10"/>
                     </LinearLayout>
@@ -184,7 +186,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥108"
+                            android:text="¥108"
                             android:textColor="@color/colorRed"
                             android:textSize="@dimen/sp_16"/>
                 </LinearLayout>
@@ -229,7 +231,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="天"
+                            android:text="@string/foreseers_day"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp_10"/>
                 </LinearLayout>
@@ -246,7 +248,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥36"
+                        android:text="¥36"
                         android:textColor="@color/colorRed"
                         android:textSize="@dimen/sp_16"/>
             </LinearLayout>
@@ -276,7 +278,7 @@
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="天"
+                            android:text="@string/foreseers_day"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp_10"/>
                 </LinearLayout>
@@ -292,7 +294,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="￥15"
+                        android:text="¥15"
                         android:textColor="@color/colorRed"
                         android:textSize="@dimen/sp_16"/>
             </LinearLayout>
@@ -311,7 +313,7 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="注定会员特权"
+                    android:text="@string/foreseers_destined_vip_pre"
                     android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"/>
@@ -345,7 +347,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="会员标识"
+                        android:text="@string/foreseers_vip_id"
                         android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"/>
@@ -367,7 +369,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="谁看过我"
+                        android:text="@string/foreseers_who_see_me"
                         android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"/>
@@ -389,7 +391,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="谁擦过我"
+                        android:text="@string/foreseers_who_catch_me"
                         android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"/>
@@ -411,7 +413,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="每日擦子"
+                        android:text="@string/foreseers_everyday"
                         android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"/>
@@ -433,7 +435,7 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="无限栏位"
+                        android:text="@string/foreseers_infinite"
                         android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"/>

@@ -155,7 +155,7 @@ public class MatchFragment extends BaseMainFragment {
     private void getDataForHttp() {
 
         sex = "";
-        ageLittle = "12";
+        ageLittle = "12"+R.string.foreseers_age;
         agebig = "50";
         distance = 100;
 

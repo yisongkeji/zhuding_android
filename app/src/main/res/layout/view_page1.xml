@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="特殊会员标识"
+        android:text="@string/foreseers_special_vip_id"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="让对方一眼发现你"
+        android:text="@string/foreseers_catch_you"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 

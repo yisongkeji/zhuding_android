@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="添加好友"
+        android:text="@string/foreseers_add_friend"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:textColor="@color/colorAccent"
@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="是否确认添加这个好友"
+        android:text="@string/foreseers_whether_add_friend"
         android:layout_marginTop="28dp"
         android:layout_gravity="center"
         android:textSize="@dimen/sp_16"/>
@@ -36,7 +36,7 @@
             android:id="@+id/button_ok"
             android:layout_width="115dp"
             android:layout_height="39dp"
-            android:text="確定"
+            android:text="@string/foreseers_confirm"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_16"
             android:background="@drawable/button_blue_default"/>
@@ -44,7 +44,7 @@
             android:id="@+id/button_cancel"
             android:layout_width="115dp"
             android:layout_height="39dp"
-            android:text="取消"
+            android:text="@string/foreseers_cancel"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/sp_16"
             android:layout_marginLeft="20dp"

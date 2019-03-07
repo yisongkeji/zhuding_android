@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="17dp"
-            android:text="农历"
+            android:text="@string/foreseers_lunar"
             android:textColor="#24AD9D"
             android:textSize="18sp" />
 
@@ -41,7 +41,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="17dp"
             android:padding="8dp"
-            android:text="完成"
+            android:text="@string/accomplish"
             android:textColor="#24AD9D"
             android:textSize="18sp" />
 

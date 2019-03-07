@@ -17,7 +17,9 @@
             android:id="@+id/viewpager"
             android:layout_marginTop="60dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
 
 
         <LinearLayout
@@ -75,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="18dp"
-                android:text="商店"
+                android:text="@string/item4"
                 android:textColor="@color/colorWhite"
                 android:textSize="13sp" />
 
@@ -133,7 +135,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="个人信息"
+                    android:text="@string/foreseers_personal_info"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/sp_14" />
 
@@ -142,7 +144,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:text="选择开通时间"
+                    android:text="@string/foreseers_choose_open_time"
                     android:textColor="@color/colorGray" />
             </LinearLayout>
 
@@ -168,7 +170,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="360天"
+                        android:text="@string/foreseers_three_six_day"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 
@@ -182,7 +184,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp" />
                 </LinearLayout>
@@ -207,13 +209,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:text="￥108" />
+                        android:text="¥108" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="￥108" />
+                        android:text="¥108" />
 
                 </LinearLayout>
 
@@ -229,7 +231,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -256,7 +258,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="90天"
+                        android:text="@string/foreseers_ninety_day"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 
@@ -270,7 +272,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp"
                         android:visibility="invisible" />
@@ -318,7 +320,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -345,7 +347,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="30天"
+                        android:text="@string/foreseers_thirty_day"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 
@@ -359,7 +361,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp"
                         android:visibility="invisible" />
@@ -402,7 +404,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -428,7 +430,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="道具擦子"
+                    android:text="@string/foreseers_prop_wipe"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/sp_14" />
 
@@ -437,7 +439,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:text="提前查看对方头像"
+                    android:text="@string/foreseers_advance_see_photo"
                     android:textColor="@color/colorGray" />
             </LinearLayout>
 
@@ -462,7 +464,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="200个"
+                        android:text="@string/foreseers_two_hundred_num"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 
@@ -476,7 +478,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp" />
                 </LinearLayout>
@@ -523,7 +525,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -550,7 +552,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="90个"
+                        android:text="@string/foreseers_ninety_num"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 
@@ -564,7 +566,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp"
                         android:visibility="invisible" />
@@ -612,7 +614,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -653,7 +655,7 @@
                         android:paddingTop="1dp"
                         android:paddingRight="3dp"
                         android:paddingBottom="1dp"
-                        android:text="超值"
+                        android:text="@string/foreseers_overbalance"
                         android:textColor="@color/colorWhite"
                         android:textSize="7sp"
                         android:visibility="invisible" />
@@ -696,7 +698,7 @@
                         android:layout_height="20dp"
                         android:layout_marginRight="15dp"
                         android:background="@color/colorAccent"
-                        android:text="开通"
+                        android:text="@string/foreseers_open"
                         android:textColor="@color/colorWhite" />
                 </LinearLayout>
 
@@ -724,7 +726,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="测算"
+                    android:text="@string/foreseers_measure"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/sp_14" />
 
@@ -738,7 +740,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(开发中)"/>
+                    android:text="@string/foreseers_developing"/>
             </LinearLayout>
 
 

@@ -13,12 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="全部"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_all">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

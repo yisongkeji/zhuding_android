@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"
-                android:text="附近的人"
+                android:text="@string/foreseers_nearby"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </LinearLayout>

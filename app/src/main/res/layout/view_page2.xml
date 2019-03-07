@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="每日赠送10擦子"
+        android:text="@string/foreseers_ten_per_day"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="快去偷看心儀的TA"
+        android:text="@string/foreseers_look_TA"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 

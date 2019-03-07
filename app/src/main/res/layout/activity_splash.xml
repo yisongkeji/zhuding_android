@@ -12,5 +12,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语欢迎语"/>
+        android:text="@string/foreseers_welcome"/>
 </LinearLayout>

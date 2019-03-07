@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="申请与通知"
+            android:text="@string/foreseers_apply_msg"
             android:textSize="15sp" />
 
 

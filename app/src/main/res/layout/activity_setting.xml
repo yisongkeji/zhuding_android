@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="系统设置"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarTitle="@string/foreseers_system_setting">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <ScrollView
@@ -29,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="13dp"
-                android:text="缓存管理"
+                android:text="@string/foreseers_cache_manage"
                 android:textColor="@color/colorGray"
                 android:textSize="@dimen/sp_14" />
 
@@ -51,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
-                        android:text="清理缓存"
+                        android:text="@string/foreseers_cache_clean"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -81,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_weight="1"
-                        android:text="清空临时会话记录"
+                        android:text="@string/foreseers_clean_temp_record"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -105,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_weight="1"
-                        android:text="清空好友聊天记录"
+                        android:text="@string/foreseers_clean_friend_record"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -124,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="13dp"
-                android:text="账号与安全"
+                android:text="@string/foreseers_id_secure"
                 android:textColor="@color/colorGray"
                 android:textSize="@dimen/sp_14" />
 
@@ -149,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_weight="1"
-                        android:text="黑名单"
+                        android:text="@string/foreseers_blacklist"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -168,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="13dp"
-                android:text="账号与安全"
+                android:text="@string/foreseers_id_secure"
                 android:textColor="@color/colorGray"
                 android:textSize="@dimen/sp_14" />
 
@@ -192,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_weight="1"
-                        android:text="意见与反馈"
+                        android:text="@string/foreseers_idea_feedback"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -216,7 +218,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dp"
                         android:layout_weight="1"
-                        android:text="关于我们"
+                        android:text="@string/foreseers_about_us"
                         android:textColor="@color/colorMain"
                         android:textSize="@dimen/sp_14" />
 
@@ -239,7 +241,7 @@
                 android:layout_marginTop="33dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/colorWhite"
-                android:text="退出登录"
+                android:text="@string/foreseers_log_out"
                 android:textColor="@color/colorGray"/>
 
 

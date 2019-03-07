@@ -29,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="18dp"
-                    android:text="我的资料"
+                    android:text="@string/foreseers_my_info"
                     android:textColor="@color/colorWhite"
                     android:textSize="13sp" />
 
@@ -118,7 +118,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:text="我的相册"
+                        android:text="@string/foreseers_my_album"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/sp_14" />
 
@@ -155,7 +155,9 @@
                         android:id="@+id/recycler_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"></android.support.v7.widget.RecyclerView>
+                        android:orientation="horizontal">
+
+                    </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
 
 
@@ -172,7 +174,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="15dp"
-                        android:text="个人信息"
+                        android:text="@string/foreseers_personal_info"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/sp_14" />
 
@@ -209,7 +211,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="2"
-                        android:text="昵称"
+                        android:text="@string/foreseers_nickname"
                         android:textColor="@color/colorGray2"
                         android:textSize="@dimen/sp_14" />
 
@@ -254,7 +256,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="2"
-                        android:text="性别"
+                        android:text="@string/sex"
                         android:textColor="@color/colorGray2"
                         android:textSize="@dimen/sp_14" />
 
@@ -299,7 +301,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="2"
-                        android:text="出生日期"
+                        android:text="@string/birth"
                         android:textColor="@color/colorGray2"
                         android:textSize="@dimen/sp_14" />
 
@@ -345,7 +347,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="2"
-                        android:text="年龄"
+                        android:text="@string/age"
                         android:textColor="@color/colorGray2"
                         android:textSize="@dimen/sp_14" />
 
@@ -391,7 +393,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="2"
-                        android:text="星宿"
+                        android:text="@string/xingsu"
                         android:textColor="@color/colorGray2"
                         android:textSize="@dimen/sp_14" />
 
@@ -470,7 +472,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="擦过我"
+                    android:text="@string/foreseers_catch_me"
                     android:textColor="@color/colorGray2"
                     android:textSize="@dimen/sp_11" />
             </LinearLayout>
@@ -503,7 +505,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="VIP剩余"
+                    android:text="@string/foreseers_vip_remain"
                     android:textColor="@color/colorGray2"
                     android:textSize="@dimen/sp_11" />
 
@@ -518,7 +520,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="天"
+                    android:text="@string/day"
                     android:textColor="@color/colorGray2"
                     android:textSize="@dimen/sp_11" />
             </LinearLayout>
@@ -549,7 +551,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="命书"
+                android:text="@string/foreseers_lifebook"
                 android:textColor="@color/colorGray2"
                 android:textSize="@dimen/sp_11" />
 

@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="让你知道谁曾查看过你"
+        android:text="@string/foreseers_who_see_you"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="为你心动"
+        android:text="@string/foreseers_crush_on_you"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/sp_16" />
 

@@ -32,7 +32,7 @@
                 android:background="@drawable/radio_look_me"
                 android:button="@null"
                 android:gravity="center"
-                android:text="谁擦过我"
+                android:text="@string/foreseers_who_catch_me"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_16" />
 
@@ -44,7 +44,7 @@
                 android:background="@drawable/radio_look_me"
                 android:button="@null"
                 android:gravity="center"
-                android:text="谁看过我"
+                android:text="@string/foreseers_who_see_me"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_16" />
         </RadioGroup>

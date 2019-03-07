@@ -12,7 +12,9 @@
         android:id="@+id/my_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"></com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarLeftImage="@mipmap/icon_me_06">
+
+    </com.foreseers.chat.view.widget.MyTitleBar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,7 +59,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="偷看头像"
+                        android:text="@string/foreseers_peep"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -194,7 +196,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="人气用户"
+                            android:text="@string/foreseers_users"
                             android:textColor="@color/colorGreen" />
 
                     </LinearLayout>
