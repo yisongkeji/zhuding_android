@@ -22,9 +22,9 @@
     <application
         android:name=".global.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/dating_app_logo_512"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/dating_app_logo_512"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".service.AlarmReceiver" />
@@ -55,7 +55,16 @@
             </intent-filter>
             <!-- 可选filter -->
         </receiver>
-
+        <!-- 显示下载大图页面 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
+        <!-- 下载文件 -->
+        <activity
+            android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -126,7 +135,11 @@
         <activity android:name=".activity.WipeHistoryActivity" />
         <activity android:name=".activity.SignActivity" />
         <activity android:name=".activity.MyActivity" />
-        <activity android:name=".activity.WipeDayHistoryActivity"></activity>
+        <activity android:name=".activity.WipeDayHistoryActivity" />
+        <activity android:name=".activity.BlackListActivity" />
+        <activity android:name=".activity.OpinionActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.ClauseActivity"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        Log.i("11111111", "onCreate: 11111111");
         StatusNavUtils.setStatusBarColor(this,0x00000000);
         mHandler = new Handler(){
             @Override
@@ -31,7 +30,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
         initViews();
         initDatas();
         installListeners();
-        Log.i("11111111", "onCreate: 222222222");
     }
 
     @Override

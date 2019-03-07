@@ -139,6 +139,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layout_black"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -182,6 +183,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layout_opinion"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -206,6 +208,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout_about"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -234,6 +237,7 @@
 
 
             <Button
+                android:id="@+id/button_out"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_marginTop="33dp"

@@ -85,8 +85,7 @@
             rsb:outColor="#eeeeee"
             rsb:smallValue="12"
             rsb:textColor="#8ce6e3"
-            rsb:textSize="15sp"
-            rsb:unit="歲" />
+            rsb:textSize="15sp" />
     </LinearLayout>
 
 

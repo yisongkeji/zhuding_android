@@ -1,17 +1,17 @@
 package com.foreseers.chat.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.SupportActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.fragment.LookHistoryFragment;
@@ -21,7 +21,8 @@ import com.foreseers.chat.global.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class WipeHistoryActivity extends BaseActivity implements RadioGroup
+        .OnCheckedChangeListener {
 
     @BindView(R.id.radiobutton1)
     RadioButton radiobutton1;
@@ -31,12 +32,15 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
     RadioGroup radiogroup;
     @BindView(R.id.layout_frame)
     FrameLayout layoutFrame;
+    @BindView(R.id.img)
+    ImageButton img;
+    @BindView(R.id.text)
+    TextView text;
     private WipeHistoryFragment wipeHistoryFragment;
     private FragmentManager fragmentManager;
 
     private LookHistoryFragment lookHistoryFragment;
     private FragmentTransaction transaction;
-
 
 
     @Override
@@ -47,8 +51,21 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
 
         radiobutton1.setChecked(true);
         radiogroup.setOnCheckedChangeListener(this);
-    }
 
+        int vip = getIntent().getIntExtra("vip", 0);
+        switch (vip) {
+            case 0:
+                img.setVisibility(View.VISIBLE);
+                text.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                img.setVisibility(View.GONE);
+                text.setVisibility(View.GONE);
+                break;
+        }
+
+
+    }
 
 
     @Override

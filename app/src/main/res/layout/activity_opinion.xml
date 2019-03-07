@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.OpinionActivity">
+
+
+    <com.foreseers.chat.view.widget.MyTitleBar
+        android:id="@+id/my_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@mipmap/icon_me_06"
+        app:titleBarTitle="意见与反馈"></com.foreseers.chat.view.widget.MyTitleBar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="167dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorWhite"
+                android:gravity="top"
+                android:hint="请详细描述问题和意见"
+                android:padding="7dp"
+                android:paddingTop="2dp"
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:id="@+id/img_add"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@mipmap/icon_say_01" />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp">
+
+                        <ImageView
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:background="@mipmap/icon_say_01" />
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="right"
+                            android:layout_margin="3dp"
+                            android:background="@mipmap/icon_say_02" />
+
+
+                    </FrameLayout>
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
+            <TextView
+                android:id="@+id/text_ok"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_height="39dp"
+                android:gravity="center"
+                android:background="@drawable/button_blue_default"
+                android:textColor="@color/colorWhite"
+                android:text="提交"
+                android:layout_marginTop="150dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

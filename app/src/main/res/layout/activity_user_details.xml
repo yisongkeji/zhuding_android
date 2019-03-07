@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
+        app:titleBarRightImage="@mipmap/icon_header_btn_04"
         app:titleBarTitle="用戶暱稱"></com.foreseers.chat.view.widget.MyTitleBar>
 
 

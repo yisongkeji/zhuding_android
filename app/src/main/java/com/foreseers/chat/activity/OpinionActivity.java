@@ -1,12 +1,12 @@
 package com.foreseers.chat.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
@@ -16,22 +16,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseActivity {
+public class OpinionActivity extends BaseActivity {
+
 
     @BindView(R.id.my_titlebar)
     MyTitleBar myTitlebar;
-    @BindView(R.id.layout_black)
-    LinearLayout layoutBlack;
-    @BindView(R.id.layout_about)
-    LinearLayout layoutAbout;
-    @BindView(R.id.button_out)
-    Button buttonOut;
-    private Intent intent;
+    @BindView(R.id.edittext)
+    EditText edittext;
+    @BindView(R.id.img_add)
+    ImageView imgAdd;
+    @BindView(R.id.text_ok)
+    TextView textOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_opinion);
         ButterKnife.bind(this);
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
@@ -41,9 +41,11 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
+
+
     @Override
     public AppCompatActivity getActivity() {
-        return this;
+        return null;
     }
 
     @Override
@@ -66,23 +68,12 @@ public class SettingActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.layout_black, R.id.layout_about, R.id.button_out, R.id.layout_opinion})
+    @OnClick({R.id.img_add, R.id.text_ok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.layout_black:
-                intent = new Intent(this, BlackListActivity.class);
-                startActivity(intent);
+            case R.id.img_add:
                 break;
-            case R.id.layout_about://关于我们
-                intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-
-                break;
-            case R.id.layout_opinion://意见与反馈
-                intent = new Intent(this, OpinionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.button_out:
+            case R.id.text_ok:
                 break;
         }
     }
