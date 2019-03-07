@@ -21,5 +21,8 @@ public class GlideUtil {
         Glide.with(context).load(path).error(R.mipmap.default_image).placeholder(R.mipmap.default_image).into(imageView);
 
     }
+    public static void glideMatch (Context context,String path,ImageView imageView){
+        Glide.with(context).load(path).error(R.mipmap.icon_me_loading_03).placeholder(R.mipmap.icon_me_loading_03).into(imageView);
 
+    }
 }

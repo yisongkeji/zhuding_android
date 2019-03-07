@@ -515,8 +515,9 @@ public class MyFragment extends BaseMainFragment {
                 getActivity().startActivity(intent);
                 break;
 
-            case R.id.layout_wipe:
+            case R.id.layout_wipe://谁擦过我
                 intent = new Intent(getActivity(), WipeHistoryActivity.class);
+                intent.putExtra("vip",vip);
                 getActivity().startActivity(intent);
                 break;
             case R.id.layout_sign:

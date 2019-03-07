@@ -2,7 +2,7 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-    public static final String URL = "http://192.168.1.73:8080";
+    public static final String URL = "http://192.168.1.73:80";
 //    public static final String URL = "http://chat.foreseers.cn:80";
 
 
@@ -39,8 +39,13 @@ public  class Urls {
     //历史记录
     public static final String Url_UserHistory = URL + "/userhistory/";
     public static final String Url_Wipe = Url_UserHistory + "updatehistory";//擦照片
-    public static final String Url_History = Url_UserHistory + "showUserHistory";//历史记录
-    public static final String Url_HistoryDay = Url_UserHistory + "showBydate";//历史记录全天
+    public static final String Url_History = Url_UserHistory + "showUserHistory";//谁擦过我历史记录
+    public static final String Url_HistoryDay = Url_UserHistory + "showBydate";//谁擦过我历史记录全天
+
+    //谁看过我
+    public static final String Url_Look = URL + "/userLook/";//谁看过我
+    public static final String Url_UserLook = Url_Look + "updateUserLook";//插入谁看过我历史表
+    public static final String Url_ShowLook = Url_Look + "showUserLook";//谁看过我历史表
 
 
     //擦子

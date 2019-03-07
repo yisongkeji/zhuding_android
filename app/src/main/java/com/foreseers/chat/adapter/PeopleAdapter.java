@@ -21,6 +21,7 @@ import butterknife.BindView;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.RecommendBean;
+import com.foreseers.chat.util.GlideUtil;
 
 public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, BaseViewHolder> {
 
@@ -52,10 +53,10 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         switch (item.getLookhead()) {
             case 0:
-                Glide.with(context).load(item.getPicture()).error(R.mipmap.icon_me_loading_03).into(image);
+                GlideUtil.glideMatch(context,item.getPicture(),image);
                 break;
             case 1:
-                Glide.with(context).load(item.getHead()).error(R.mipmap.icon_me_loading_03).into(image);
+                GlideUtil.glideMatch(context,item.getHead(),image);
                 break;
         }
 

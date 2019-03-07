@@ -13,9 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="@string/foreseers_user_nickname">
-
-    </com.foreseers.chat.view.widget.MyTitleBar>
+        app:titleBarRightImage="@mipmap/icon_header_btn_04"
+        app:titleBarTitle="用戶暱稱"></com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <ScrollView
@@ -61,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/foreseers_peep"
+                        android:text="偷看头像"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -166,7 +165,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginLeft="5dp"
-                            android:text="@string/foreseers_match_degree"
+                            android:text="匹配度"
                             android:textColor="@color/colorBlack"
                             android:textSize="@dimen/sp_11" />
 
@@ -277,7 +276,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
-                            android:text="@string/foreseers_users"
+                            android:text="人气用户"
                             android:textColor="@color/colorGreen" />
 
                     </LinearLayout>
@@ -349,7 +348,7 @@
                     android:layout_marginRight="14dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="@string/foreseers_seven_day"
+                    android:text="成为好友7天后可查看"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
@@ -383,7 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="14dp"
-                    android:text="@string/foreseers_thirty_day"
+                    android:text="成为好友30天后可查看"
                     android:textColor="@color/colorGray"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>
