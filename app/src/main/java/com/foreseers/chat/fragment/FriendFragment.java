@@ -150,6 +150,7 @@ public class FriendFragment extends EaseBaseFragment {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
                         if (friendBean.getStatus().equals("success")) {
+                            map.clear();
                             sharedPreferences = getActivity().getSharedPreferences("user",
                                     MODE_PRIVATE);
 //                            sharedPreferences.edit().clear().commit();
@@ -167,6 +168,7 @@ public class FriendFragment extends EaseBaseFragment {
 
 
                                 map.put(dataBeans.get(i).getUserid() + "", easeUser);
+                                Log.i(TAG, "onSuccessmap: "+map);
                             }
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 

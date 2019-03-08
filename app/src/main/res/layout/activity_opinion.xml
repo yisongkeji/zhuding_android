@@ -36,10 +36,29 @@
                 android:background="@color/colorWhite"
                 android:gravity="top"
                 android:hint="@string/foreseers_please_opinion"
+                android:maxLength="500"
                 android:padding="7dp"
                 android:paddingTop="2dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/colorAccent" />
+                android:textColor="@color/colorAccent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/500" />
+            </LinearLayout>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -53,28 +72,99 @@
                     android:orientation="horizontal">
 
 
-                    <ImageView
-                        android:id="@+id/img_add"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
-                        android:background="@mipmap/icon_say_01" />
+                    <FrameLayout
+                        android:id="@+id/layout_thirdly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/img_thirdly"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:background="@mipmap/icon_say_01"
+                            android:scaleType="center" />
+                        <FrameLayout
+                            android:id="@+id/layout_cancel3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="3dp"
+                                android:background="@mipmap/icon_say_02"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"/>
+                        </FrameLayout>
+
+
+                    </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/layout_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:id="@+id/img_second"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:background="@mipmap/icon_say_01"
+                            android:scaleType="center" />
+                        <FrameLayout
+                            android:id="@+id/layout_cancel2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="3dp"
+                                android:background="@mipmap/icon_say_02"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"/>
+                        </FrameLayout>
+
+
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/layout_first"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp">
 
                         <ImageView
+                            android:id="@+id/img_first"
                             android:layout_width="65dp"
                             android:layout_height="65dp"
-                            android:background="@mipmap/icon_say_01" />
+                            android:background="@mipmap/icon_say_01"
+                            android:scaleType="center" />
 
-                        <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
+                        <FrameLayout
+                            android:id="@+id/layout_cancel1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_margin="3dp"
-                            android:background="@mipmap/icon_say_02" />
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_margin="3dp"
+                                android:background="@mipmap/icon_say_02"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"/>
+                        </FrameLayout>
 
 
                     </FrameLayout>
@@ -84,18 +174,17 @@
             </HorizontalScrollView>
 
 
-
             <TextView
                 android:id="@+id/text_ok"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
                 android:layout_height="39dp"
-                android:gravity="center"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginRight="60dp"
                 android:background="@drawable/button_blue_default"
-                android:textColor="@color/colorWhite"
+                android:gravity="center"
                 android:text="@string/foreseers_submit"
-                android:layout_marginTop="150dp"/>
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 

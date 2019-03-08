@@ -10,8 +10,10 @@ import android.util.Log;
 
 import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.bean.Constant;
+import com.foreseers.chat.db.DemoDBManager;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
@@ -279,7 +281,46 @@ public class HuanXinHelper {
         return EMClient.getInstance().isLoggedInBefore();
     }
 
+    /**
+     * logout
+     *
+     * @param unbindDeviceToken
+     *            whether you need unbind your device token
+     * @param callback
+     *            callback
+     */
+    public void logout(boolean unbindDeviceToken, final EMCallBack callback) {
+        endCall();
+        Log.d(TAG, "logout: " + unbindDeviceToken);
+        EMClient.getInstance().logout(unbindDeviceToken, new EMCallBack() {
 
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "logout: onSuccess");
+                reset();
+                if (callback != null) {
+                    callback.onSuccess();
+                }
+
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                if (callback != null) {
+                    callback.onProgress(progress, status);
+                }
+            }
+
+            @Override
+            public void onError(int code, String error) {
+                Log.d(TAG, "logout: onSuccess");
+                reset();
+                if (callback != null) {
+                    callback.onError(code, error);
+                }
+            }
+        });
+    }
 
     /**
      * save and notify invitation message
@@ -301,5 +342,19 @@ public class HuanXinHelper {
      */
     public EaseNotifier getNotifier(){
         return easeUI.getNotifier();
+    }
+
+
+    void endCall() {
+        try {
+            EMClient.getInstance().callManager().endCall();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    synchronized void reset(){
+
+        DemoDBManager.getInstance().closeDB();
     }
 }

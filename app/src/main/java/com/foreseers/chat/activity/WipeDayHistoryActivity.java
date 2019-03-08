@@ -38,6 +38,7 @@ public class WipeDayHistoryActivity extends BaseActivity {
     private String datetime;
     private List<WipeDayHistoryBean.DataBean> dataBeans = new ArrayList<>();
     private WipeDayHistoryAdapter wipeDayHistoryAdapter;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,31 +70,53 @@ public class WipeDayHistoryActivity extends BaseActivity {
 
     private void initData() {
         datetime = getIntent().getStringExtra("datetime");
+        type = getIntent().getIntExtra("type",0);
     }
 
     private void getDataFromHttp() {
-        OkGo.<String>post(Urls.Url_HistoryDay).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(this))
-                .params("datetime", datetime)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
+        switch (type){
+            case 1:
+                OkGo.<String>post(Urls.Url_HistoryDay).tag(this)
+                        .params("userid", GetLoginTokenUtil.getUserId(this))
+                        .params("datetime", datetime)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
 
-                        Gson gson = new Gson();
-                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
-                            WipeDayHistoryBean wipeDayHistoryBean = gson.fromJson(response.body(), WipeDayHistoryBean.class);
-                            dataBeans = wipeDayHistoryBean.getData();
-                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
-                        }
-                    }
-                });
+                                Gson gson = new Gson();
+                                LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                if (loginBean.getStatus().equals("success")) {
+                                    WipeDayHistoryBean wipeDayHistoryBean = gson.fromJson(response.body(), WipeDayHistoryBean.class);
+                                    dataBeans = wipeDayHistoryBean.getData();
+                                    getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                                }
+                            }
+                        });
+                break;
+            case 2:
+                OkGo.<String>post(Urls.Url_ShowLookDay).tag(this)
+                        .params("userid", GetLoginTokenUtil.getUserId(this))
+                        .params("datetime", datetime)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+
+                                Gson gson = new Gson();
+                                LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                if (loginBean.getStatus().equals("success")) {
+                                    WipeDayHistoryBean wipeDayHistoryBean = gson.fromJson(response.body(), WipeDayHistoryBean.class);
+                                    dataBeans = wipeDayHistoryBean.getData();
+                                    getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                                }
+                            }
+                        });
+                break;
+        }
+
     }
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
-
-
 
     @Override
     public AppCompatActivity getActivity() {

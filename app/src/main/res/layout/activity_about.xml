@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".activity.AboutActivity">
 
 
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@mipmap/icon_me_06"
-        >
+        app:titleBarTitle="@string/foreseers_about_app_name">
 
     </com.foreseers.chat.view.widget.MyTitleBar>
 
@@ -43,6 +44,7 @@
                 android:textSize="17sp" />
 
             <TextView
+                android:id="@+id/text_versions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -51,47 +53,46 @@
                 android:textSize="6sp" />
 
 
-            <TextView
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></WebView>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="32dp"
-                android:text="@string/foreseers_about_content"
-                android:textSize="@dimen/sp_12" />
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="15dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
+                <TextView
+                    android:id="@+id/text_clause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/foreseers_terms_conditions"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_13" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/foreseers_and"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/text_privacy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/foreseers_privacy_policy"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_13" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/text_clause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/foreseers_terms_conditions"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_13" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/foreseers_and"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/sp_13" />
-
-            <TextView
-                android:id="@+id/text_privacy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/foreseers_privacy_policy"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/sp_13" />
-
-        </LinearLayout>
 
     </FrameLayout>
 

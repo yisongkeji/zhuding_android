@@ -86,10 +86,6 @@ public class WipeHistoryFragment extends Fragment {
                 MySection mySection = mData.get(position);
                 if (mySection.isHeader) {
 //                    Toast.makeText(getActivity(), mySection.header, Toast.LENGTH_LONG).show();
-
-
-
-
                 } else {
 //                    Toast.makeText(getActivity(), mySection.t.getUsername(), Toast.LENGTH_LONG).show();
                 }
@@ -103,6 +99,7 @@ public class WipeHistoryFragment extends Fragment {
 //                Toast.makeText(getActivity(), "more onItemChildClick" + position, Toast.LENGTH_LONG).show();
                 MySection mySection = mData.get(position);
                 intent = new Intent(getActivity(),WipeDayHistoryActivity.class);
+                intent.putExtra("type",1);
                 intent.putExtra("datetime",mySection.header);
                 getActivity().startActivity(intent);
 

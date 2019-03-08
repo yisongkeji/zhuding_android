@@ -12,7 +12,7 @@ import com.foreseers.chat.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BlackDialog extends Dialog implements View.OnClickListener {
+public class InformDialog  extends Dialog implements View.OnClickListener {
 
     @BindView(R.id.text_title)
     TextView textTitle;
@@ -24,20 +24,22 @@ public class BlackDialog extends Dialog implements View.OnClickListener {
     Button buttonCancel;
     private Context context;
     private LeaveMyDialogListener listener;
+    private int type;
 
     public interface LeaveMyDialogListener {
         public void onClick(View view);
     }
 
-    public BlackDialog(Context context) {
+    public InformDialog(Context context) {
         super(context);
         this.context = context;
     }
 
-    public BlackDialog(Context context, int theme, LeaveMyDialogListener listener) {
+    public InformDialog(Context context,int type, int theme, LeaveMyDialogListener listener) {
         super(context, theme);
         this.context = context;
         this.listener = listener;
+        this.type=type;
     }
 
     @Override
@@ -47,8 +49,25 @@ public class BlackDialog extends Dialog implements View.OnClickListener {
         ButterKnife.bind(this);
         buttonOk.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
-        textTitle.setText("是否拉黑对方？");
-        text.setText("拉黑后将删除对方所有消息并不再接收任何新消息");
+        switch (type){
+            case 1:
+                textTitle.setText("是否移出黑名单");
+                text.setText("移出黑名单也不会回复好友关系");
+                break;
+            case 2:
+                textTitle.setText("是否清空临时会话记录");
+                text.setText("将删除临时聊天记录");
+                break;
+            case 3:
+                textTitle.setText("是否清空好友聊天记录");
+                text.setText("将删除所有好友的聊天记录");
+                break;
+            case 4:
+                textTitle.setText("是否清理缓存");
+                text.setText("将删除缓存");
+                break;
+        }
+
     }
 
     @Override

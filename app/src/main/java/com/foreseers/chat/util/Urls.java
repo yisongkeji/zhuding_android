@@ -2,8 +2,8 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-    public static final String URL = "http://192.168.1.73:80";
-//    public static final String URL = "http://chat.foreseers.cn:80";
+    public static final String URL = "https://192.168.1.73:80";
+//    public static final String URL = "https://chat.foreseers.cn:80";
 
 
     public static final String URL_User = URL + "/user/";
@@ -36,6 +36,12 @@ public  class Urls {
     public static final String Url_DelFriend = Url_Friend + "deletefriend";//删除好友
 
 
+    //拉黑
+    public static final String Url_Black = URL + "/userDefriend/";
+    public static final String Url_AddBlack = Url_Black + "pullDefriend";//添加黑名单
+    public static final String Url_BlackList = Url_Black + "getBlackList";//拉黑列表
+    public static final String Url_RemoveBlack = Url_Black + "removeUser";//移除拉黑列表
+
     //历史记录
     public static final String Url_UserHistory = URL + "/userhistory/";
     public static final String Url_Wipe = Url_UserHistory + "updatehistory";//擦照片
@@ -46,7 +52,7 @@ public  class Urls {
     public static final String Url_Look = URL + "/userLook/";//谁看过我
     public static final String Url_UserLook = Url_Look + "updateUserLook";//插入谁看过我历史表
     public static final String Url_ShowLook = Url_Look + "showUserLook";//谁看过我历史表
-
+    public static final String Url_ShowLookDay = Url_Look + "showByDate";//谁看过我历史表全天
 
     //擦子
     public static final String Url_Canums = URL + "/userCanums/";

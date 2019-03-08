@@ -85,7 +85,8 @@
             rsb:outColor="#eeeeee"
             rsb:smallValue="12"
             rsb:textColor="#8ce6e3"
-            rsb:textSize="15sp"/>
+            rsb:textSize="15sp"
+            app:unit="@string/foreseers_age"/>
     </LinearLayout>
 
 

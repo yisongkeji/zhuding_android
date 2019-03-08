@@ -47,7 +47,7 @@ public class AlbumAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
         data = getData();
-        Glide.with(context).load(item.toString()).error(R.mipmap.icon_me_loading_02).into(
+        Glide.with(context).load(item.toString()).error(R.mipmap.default_image).placeholder(R.mipmap.default_image).into(
                 (ImageView) helper.getView(R.id.img_album));
 
         helper.getView(R.id.img_album).setOnClickListener(new View.OnClickListener() {

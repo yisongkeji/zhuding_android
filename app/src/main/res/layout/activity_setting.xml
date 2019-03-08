@@ -44,6 +44,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/layout_cache"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -58,6 +59,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/text_num"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -72,7 +74,15 @@
                         android:background="@mipmap/icon_site_04" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray2"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="40dp"/>
+
                 <LinearLayout
+                    android:id="@+id/layout_temporarychat"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -96,7 +106,15 @@
                         android:background="@mipmap/icon_site_04" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray2"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="40dp"/>
+
                 <LinearLayout
+                    android:id="@+id/layout_friendchat"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
@@ -183,7 +201,6 @@
                 android:elevation="1dp"
                 android:orientation="vertical">
 
-
                 <LinearLayout
                     android:id="@+id/layout_opinion"
                     android:layout_width="match_parent"
@@ -209,6 +226,13 @@
                         android:background="@mipmap/icon_site_04" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGray2"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="40dp"/>
+
                 <LinearLayout
                     android:id="@+id/layout_about"
                     android:layout_width="match_parent"
@@ -233,8 +257,6 @@
                         android:background="@mipmap/icon_site_04" />
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
 
@@ -246,7 +268,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@color/colorWhite"
                 android:text="@string/foreseers_log_out"
-                android:textColor="@color/colorGray"/>
+                android:textColor="@color/colorGray2"/>
 
 
         </LinearLayout>

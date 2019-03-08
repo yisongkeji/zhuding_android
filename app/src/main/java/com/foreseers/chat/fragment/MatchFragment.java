@@ -93,7 +93,7 @@ public class MatchFragment extends BaseMainFragment {
     private int distance;
     private RadioGroup radioGroup;
     private View view;
-    private DoubleSlideSeekBar doubleslideAge;
+    private DoubleSlideSeekBar doubleslideAge,doubleslideDistance;
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private int num;
@@ -155,7 +155,7 @@ public class MatchFragment extends BaseMainFragment {
     private void getDataForHttp() {
 
         sex = "";
-        ageLittle = "12"+R.string.foreseers_age;
+        ageLittle = "12";
         agebig = "50";
         distance = 100;
 
@@ -210,7 +210,7 @@ public class MatchFragment extends BaseMainFragment {
 
             final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
             dialog.setTitle("请打开GPS连接");
-            dialog.setMessage("为方便司机更容易接到您，请先打开GPS");
+            dialog.setMessage("请先打开GPS");
             dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
@@ -333,13 +333,13 @@ public class MatchFragment extends BaseMainFragment {
                 agebig = doubleslideAge.getBigRange() + "";
             }
         });
+        doubleslideDistance.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
+            @Override
+            public void onRange(float low, float big) {
+                distance = (int) doubleslideDistance.getBigRange();
+            }
+        });
 
-
-        Log.i("@@@@@@@@@@", "onClick: " + ageLittle);
-        DoubleSlideSeekBar doubleslide_distance = view.findViewById(R.id
-                .doubleslide_distance);
-
-        distance = (int) doubleslide_distance.getBigRange();
 
 
         new PopWindow.Builder(getActivity())
@@ -402,6 +402,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
         doubleslideAge = view.findViewById(R.id.doubleslide_age);
+        doubleslideDistance=view.findViewById(R.id.doubleslide_distance);
 //        distance = userInfo.getInt("distance", 0);
 
     }

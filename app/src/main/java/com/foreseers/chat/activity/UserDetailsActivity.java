@@ -26,6 +26,7 @@ import com.foreseers.chat.bean.InquireFriendBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.AddFriendDialog;
 import com.foreseers.chat.dialog.AddFriendErrorDialog;
+import com.foreseers.chat.dialog.BlackDialog;
 import com.foreseers.chat.dialog.DelFriendDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
 import com.foreseers.chat.R;
@@ -129,6 +130,7 @@ public class UserDetailsActivity extends BaseActivity {
     private String desc;
     private AnimationDrawable animationDrawable;
     private WipeDialog wiped;
+    private BlackDialog blackDialog;
 
 
     @Override
@@ -556,7 +558,7 @@ public class UserDetailsActivity extends BaseActivity {
                     }
 
                     OkGo.<String>post(Urls.Url_UserLook).tag(this)
-                            .params("userid",GetLoginTokenUtil.getUserId(this))
+                            .params("userid", GetLoginTokenUtil.getUserId(this))
                             .params("lookid", userid)
                             .execute(new StringCallback() {
                                 @Override
@@ -673,18 +675,46 @@ public class UserDetailsActivity extends BaseActivity {
                         PopItemAction.OnClickListener() {
                             @Override
                             public void onClick() {
-                                new Thread(new Runnable() {
+
+                                blackDialog = new BlackDialog(UserDetailsActivity.this, R.style.MyDialog, new BlackDialog.LeaveMyDialogListener() {
+
                                     @Override
-                                    public void run() {
-                                        try {
-                                            EMClient.getInstance().contactManager()
-                                                    .addUserToBlackList
-                                                            (userid, true);
-                                        } catch (HyphenateException e) {
-                                            e.printStackTrace();
+                                    public void onClick(View view) {
+
+                                        switch (view.getId()) {
+                                            case R.id.button_ok:
+                                                blackDialog.dismiss();
+                                                OkGo.<String>post(Urls.Url_AddBlack).tag(this)
+                                                        .params("userid", EMClient.getInstance().getCurrentUser())
+                                                        .params("blackid", userid)
+                                                        .execute(new StringCallback() {
+                                                            @Override
+                                                            public void onSuccess(Response<String> response) {
+
+                                                            }
+                                                        });
+
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        try {
+                                                            EMClient.getInstance().contactManager().addUserToBlackList(userid, true);
+                                                            EMClient.getInstance().contactManager().deleteContact(userid);
+                                                        } catch (HyphenateException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                }).start();
+                                                break;
+                                            case R.id.button_cancel:
+                                                blackDialog.dismiss();
+                                                break;
                                         }
                                     }
-                                }).start();
+                                });
+                                blackDialog.setCancelable(true);
+                                blackDialog.show();
+
 
                             }
                         }))
