@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
@@ -20,8 +23,16 @@ import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.util.EMLog;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.https.HttpsUtils;
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+
+import okhttp3.OkHttpClient;
 
 import static android.content.ContentValues.TAG;
 
@@ -53,25 +64,47 @@ public class MyApplication extends Application {
         // 初始化环信SDK
         initEasemob();
 
+
+
     }
 
 
     private void initOkGo() {
 
-//        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //log相关
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
+        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);        //log打印级别，决定了log显示的详细程度
+        loggingInterceptor.setColorLevel(Level.INFO);                               //log颜色级别，决定了log在控制台显示的颜色
+        builder.addInterceptor(loggingInterceptor);                                 //添加OkGo默认debug日志
 //        //全局的读取超时时间
-//        builder.readTimeout(15000, TimeUnit.MILLISECONDS);
+        builder.readTimeout(15000, TimeUnit.MILLISECONDS);
 ////全局的写入超时时间
 //        builder.writeTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
 ////全局的连接超时时间
 //        builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
 
-        OkGo.getInstance().init(this);
+        //https相关设置，以下几种方案根据需要自己设置
+        //方法三：使用预埋证书，校验服务端证书（自签名证书）
+        HttpsUtils.SSLParams sslParams3 = null;
+        try {
+            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
+            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
+
+            OkGo.getInstance().init(this)
+                    .setOkHttpClient(builder.build());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //让Glide能用HTTPS
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory
+                (builder.build()));
+
     }
 
     private void initEasemob() {
-
-
         //init demo helper
         HuanXinHelper.getInstance().init(mContext);
 
@@ -81,147 +114,8 @@ public class MyApplication extends Application {
 //            HMSPushHelper.getInstance().initHMSAgent(instance);
         }
 
-
-
-
-//        inviteMessgeDao = new InviteMessgeDao(mContext);
-//        EMOptions options = new EMOptions();
-//        options.setAcceptInvitationAlways(false);
-//        options.setAutoLogin(true);
-//
-//        EaseUI.getInstance().init(this, options);
-//        easeUI = EaseUI.getInstance();
-//        setEaseUIProviders();
-//        registerMessageListener();
-//        registerFriendListener();
-
     }
 
-//    private void setEaseUIProviders() {
-//        easeUI.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
-//            @Override
-//            public EaseUser getUser(String username) {
-//                return getUserInfo(username);
-//            }
-//        });
-//    }
-//
-//    private EaseUser getUserInfo(String username) {
-//        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-//        //获取 EaseUser实例, 这里从内存中读取
-//        //如果你是从服务器中读读取到的，最好在本地进行缓存
-//        EaseUser user = null;
-//        //如果用户是本人，就设置自己的头像
-//        if (username.equals(EMClient.getInstance().getCurrentUser())) {
-//            user = new EaseUser(username);
-//            user.setAvatar((String) sharedPreferences.getString("url", ""));
-//            user.setNickname((String) sharedPreferences.getString("nick", ""));
-//            return user;
-//        }
-//        user = new EaseUser(username);
-//        String info = sharedPreferences.getString(username, "");
-//        if (info.split("&").length > 1) {
-//            user.setAvatar(info.split("&")[1]);
-//            user.setNickname(info.split("&")[0]);
-//        }
-//        Log.i("zcb", "头像：" + user.getAvatar());
-//        return user;
-//    }
-//
-//    protected void registerMessageListener() {
-//        messageListener = new EMMessageListener() {
-//            private BroadcastReceiver broadCastReceiver = null;
-//
-//            @Override
-//            public void onMessageReceived(List<EMMessage> messages) {
-//                for (EMMessage message : messages) {
-//                    EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
-//                    //接收并处理扩展消息
-//                    String userName = message.getStringAttribute(Constant.USER_NAME, "");
-//                    String userId = message.getStringAttribute(Constant.USER, "");
-//                    String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
-//                    String hxIdFrom = message.getFrom();
-//                    EaseUser easeUser = new EaseUser(hxIdFrom);
-//                    easeUser.setAvatar(userPic);
-//                    easeUser.setNickname(userName);
-//                    sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCmdMessageReceived(List<EMMessage> messages) {
-//                for (EMMessage message : messages) {
-//                    EMLog.d(TAG, "receive command message");
-//                }
-//            }
-//
-//            @Override
-//            public void onMessageRead(List<EMMessage> messages) {
-//            }
-//
-//            @Override
-//            public void onMessageDelivered(List<EMMessage> message) {
-//            }
-//
-//            @Override
-//            public void onMessageRecalled(List<EMMessage> list) {
-//
-//            }
-//
-//            @Override
-//            public void onMessageChanged(EMMessage message, Object change) {
-//            }
-//        };
-//        EMClient.getInstance().chatManager().addMessageListener(messageListener);
-//    }
-//
-//    private void registerFriendListener() {
-//        EMClient.getInstance().contactManager().setContactListener(new EMContactListener() {
-//
-//
-//            @Override
-//            public void onContactInvited(String username, String reason) {
-//                //收到好友邀请
-//                List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
-//
-//                for (InviteMessage inviteMessage : msgs) {
-//                    if (inviteMessage.getGroupId() == null && inviteMessage.getFrom().equals(username)) {
-//                        inviteMessgeDao.deleteMessage(username);
-//                    }
-//                }
-//                // save invitation as message
-//                InviteMessage msg = new InviteMessage();
-//                msg.setFrom(username);
-//                msg.setTime(System.currentTimeMillis());
-//                msg.setReason(reason);
-//
-//                // set invitation status
-//                msg.setStatus(InviteMessage.InviteMessageStatus.BEINVITEED);
-//            }
-//
-//            @Override
-//            public void onFriendRequestAccepted(String s) {
-//                //好友请求被同意
-//            }
-//
-//            @Override
-//            public void onFriendRequestDeclined(String s) {
-//                //好友请求被拒绝
-//            }
-//
-//            @Override
-//            public void onContactDeleted(String username) {
-//                //被删除时回调此方法
-//            }
-//
-//
-//            @Override
-//            public void onContactAdded(String username) {
-//                //增加了联系人时回调此方法
-//            }
-//        });
-//    }
 
     public static MyApplication getInstance() {
         return instance;

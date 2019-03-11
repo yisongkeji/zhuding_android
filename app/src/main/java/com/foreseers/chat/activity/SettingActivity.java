@@ -2,6 +2,7 @@ package com.foreseers.chat.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -253,24 +254,22 @@ public class SettingActivity extends BaseActivity {
                 break;
         }
     }
+
     void logout() {
-        final ProgressDialog pd = new ProgressDialog(getActivity());
-        String st = getResources().getString(R.string.Are_logged_out);
-        pd.setMessage(st);
-        pd.setCanceledOnTouchOutside(false);
-        pd.show();
-        HuanXinHelper.getInstance().logout(true,new EMCallBack() {
+
+        HuanXinHelper.getInstance().logout(true, new EMCallBack() {
 
             @Override
             public void onSuccess() {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        pd.dismiss();
-                        // show login screen
-                        finish();
-//                        ((MainActivity) getActivity()).finish();
-                        finish();
-                        startActivity(new Intent(getActivity(), LoginActivity.class));
+                        SharedPreferences preferences = getSharedPreferences("loginToken", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.clear();
+                        editor.commit();
+
+                        startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+                                .FLAG_ACTIVITY_NEW_TASK));
 
                     }
                 });
@@ -288,7 +287,7 @@ public class SettingActivity extends BaseActivity {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        pd.dismiss();
+
                     }
                 });
             }
