@@ -61,6 +61,7 @@ public class MyApplication extends Application {
         mContext = this;
         instance = this;
         initOkGo();
+//        OkGo.getInstance().init(this);
         // 初始化环信SDK
         initEasemob();
 
@@ -101,6 +102,9 @@ public class MyApplication extends Application {
         //让Glide能用HTTPS
         Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory
                 (builder.build()));
+
+
+
 
     }
 

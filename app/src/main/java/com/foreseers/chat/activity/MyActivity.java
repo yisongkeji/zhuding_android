@@ -70,7 +70,12 @@ public class MyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         ButterKnife.bind(this);
-        Log.i("11111111", "onCreate: 3333333");
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         //设置自动轮播，默认为true
         banner.isAutoPlay(false);
         //设置图片加载器
@@ -168,7 +173,11 @@ public class MyActivity extends BaseActivity {
                         if (loginBean.getStatus().equals("success")) {
                             myBean = gson.fromJson(response.body(), MyBean.class);
                             dataBean = myBean.getData();
-                            imgList = dataBean.getImages();
+                            imgList.add(dataBean.getHead());
+                            for (int i = 0; i < dataBean.getImages().size(); i++) {
+                                imgList.add( dataBean.getImages().get(i));
+                            }
+
 
 
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();

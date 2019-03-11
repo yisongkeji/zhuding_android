@@ -128,7 +128,6 @@
                     android:id="@+id/text_people_ziwei"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/foreseers_seven_killed"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:gravity="center"

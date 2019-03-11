@@ -289,7 +289,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);

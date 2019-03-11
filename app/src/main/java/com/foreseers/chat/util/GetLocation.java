@@ -2,18 +2,23 @@ package com.foreseers.chat.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
 
 import com.foreseers.chat.bean.LocationBean;
+import com.foreseers.chat.fragment.MatchFragment;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static com.foreseers.chat.global.MyApplication.getContext;
@@ -23,19 +28,40 @@ public class GetLocation {
     private Location location;// 位置
     private LocationBean locationBean = new LocationBean();
 
-    public  LocationBean getLocation(Activity activity) {
+    public  LocationBean getLocation(final Activity activity) {
 
         try {
             // 获取系统服务
             locationManager = (LocationManager) activity.getSystemService(LOCATION_SERVICE);
             // 判断GPS是否可以获取地理位置，如果可以，展示位置，
             // 如果GPS不行，再判断network，还是获取不到，那就报错
-            if (locationInitByGPS() || locationInitByNETWORK()) {
+//            if (locationInitByGPS() || locationInitByNETWORK(activity)) {
+            if ( locationInitByNETWORK()) {
                 // 上面两个只是获取经纬度的，获取经纬度location后，再去调用谷歌解析来获取地理位置名称
                 Log.i("GPS", "locationInit: 经度" + location.getLatitude() + "维度" + location.getLongitude());
                 showLocation(location);
             } else {
                 Log.e("Exception", "获取地理位置失败 ");
+                final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
+                dialog.setTitle("请打开位置服务");
+                dialog.setMessage("请先打开定位服务");
+                dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // 转到手机设置界面，用户设置GPS
+
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        activity.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
+
+                    }
+                });
+                dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        arg0.dismiss();
+                    }
+                });
+                dialog.show();
             }
         } catch (Exception e) {
             Log.e("Exception", "getLocation: " + e.toString());
@@ -72,6 +98,7 @@ public class GetLocation {
                 locationBean.setLat(location.getLatitude());
                 //维度
                 locationBean.setLng(location.getLongitude());
+                Log.e("location", "Country: "+ ad.getCountryName()+"   "+ad.getAdminArea());
             }
         }else {
 
@@ -109,6 +136,7 @@ public class GetLocation {
     public boolean locationInitByNETWORK() {
         // 没有NETWORK，直接返回
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
             return false;
         }
         locationManager.requestLocationUpdates(

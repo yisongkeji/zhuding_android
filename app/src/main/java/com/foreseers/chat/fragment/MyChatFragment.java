@@ -18,6 +18,7 @@ import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.activity.MyActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.Constant;
+import com.foreseers.chat.util.HuanXinHelper;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
@@ -50,7 +51,7 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
         setChatFragmentHelper(this);
 //        fragmentArgs = getArguments();
 //        toChatUsername = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
-
+        HuanXinHelper.getInstance().isLoggedIn();
         sharedPreferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -122,8 +123,6 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
     public EaseCustomChatRowProvider onSetCustomChatRowProvider() {
         return null;
     }
-
-
 
 
 }

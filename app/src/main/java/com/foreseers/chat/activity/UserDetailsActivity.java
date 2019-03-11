@@ -118,7 +118,6 @@ public class UserDetailsActivity extends BaseActivity {
     private AnalyzeLifeBookBean analyzeLifeBookBean;
     private AnalyzeLifeBookBean.DataBean dataBean;
     private String avatar;
-    private List<AnalyzeLifeBookBean.DataBean.ImagesBean> imagesBeans = new ArrayList<>();
     private List<String> imgList = new ArrayList<>();
     private int friend;
     private DelFriendDialog delFriendDialog;
@@ -620,31 +619,10 @@ public class UserDetailsActivity extends BaseActivity {
 
 
                             imgList.add(avatar);
-                            imagesBeans = dataBean.getImages();
-                            switch (dataBean.getFriend()) {
-                                case 0://是好友
-                                    switch (dataBean.getLookimages()) {
-                                        case 0://模糊图片
-                                            for (int i = 0; i < imagesBeans.size(); i++) {
-                                                imgList.add(imagesBeans.get(i).getSpare());
-                                            }
-                                            break;
 
-                                        case 1://清晰图片
-                                            for (int i = 0; i < imagesBeans.size(); i++) {
-                                                imgList.add(imagesBeans.get(i).getImage());
-                                            }
-                                            break;
 
-                                    }
-
-                                    break;
-                                case 1://不是好友
-                                    //只能模糊图片
-                                    for (int i = 0; i < imagesBeans.size(); i++) {
-                                        imgList.add(imagesBeans.get(i).getSpare());
-                                    }
-                                    break;
+                            for (int i = 0; i < dataBean.getImages().size(); i++) {
+                                imgList.add(dataBean.getImages().get(i));
                             }
 
 
@@ -676,7 +654,8 @@ public class UserDetailsActivity extends BaseActivity {
                             @Override
                             public void onClick() {
 
-                                blackDialog = new BlackDialog(UserDetailsActivity.this, R.style.MyDialog, new BlackDialog.LeaveMyDialogListener() {
+                                blackDialog = new BlackDialog(UserDetailsActivity.this, R.style
+                                        .MyDialog, new BlackDialog.LeaveMyDialogListener() {
 
                                     @Override
                                     public void onClick(View view) {
@@ -685,11 +664,13 @@ public class UserDetailsActivity extends BaseActivity {
                                             case R.id.button_ok:
                                                 blackDialog.dismiss();
                                                 OkGo.<String>post(Urls.Url_AddBlack).tag(this)
-                                                        .params("userid", EMClient.getInstance().getCurrentUser())
+                                                        .params("userid", EMClient.getInstance()
+                                                                .getCurrentUser())
                                                         .params("blackid", userid)
                                                         .execute(new StringCallback() {
                                                             @Override
-                                                            public void onSuccess(Response<String> response) {
+                                                            public void onSuccess
+                                                                    (Response<String> response) {
 
                                                             }
                                                         });
@@ -698,8 +679,11 @@ public class UserDetailsActivity extends BaseActivity {
                                                     @Override
                                                     public void run() {
                                                         try {
-                                                            EMClient.getInstance().contactManager().addUserToBlackList(userid, true);
-                                                            EMClient.getInstance().contactManager().deleteContact(userid);
+                                                            EMClient.getInstance().contactManager
+                                                                    ().addUserToBlackList(userid,
+                                                                    true);
+                                                            EMClient.getInstance().contactManager
+                                                                    ().deleteContact(userid);
                                                         } catch (HyphenateException e) {
                                                             e.printStackTrace();
                                                         }

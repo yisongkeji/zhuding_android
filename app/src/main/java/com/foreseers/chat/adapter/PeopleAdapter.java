@@ -51,14 +51,14 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         image = baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people);
 
-        switch (item.getLookhead()) {
-            case 0:
-                GlideUtil.glideMatch(context,item.getPicture(),image);
-                break;
-            case 1:
+//        switch (item.getLookhead()) {
+//            case 0:
+//                GlideUtil.glideMatch(context,item.getPicture(),image);
+//                break;
+//            case 1:
                 GlideUtil.glideMatch(context,item.getHead(),image);
-                break;
-        }
+//                break;
+//        }
 
 
         switch (item.getNumuser()){
@@ -73,6 +73,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         baseViewHolder.setTypeface(typeface);
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())
+                .setText(R.id.text_people_ziwei, item.getZiwei())
                 .setText(R.id.text_desc, item.getDesc())
                 .setText(R.id.text_people_progress, item.getUserscore() + "")
                 .setText(R.id.text_people_location, item.getDistance() + "km");

@@ -167,7 +167,7 @@ public class MatchFragment extends BaseMainFragment {
     private void getDataFromHttp() {
         Log.d(TAG, "getDataFromHttp: ");
 
-        if (isGpsEnabled(getContext())) {
+//        if (isGpsEnabled(getContext())) {
             GetLocation location = new GetLocation();
 
             while(locationBean == null){
@@ -208,31 +208,30 @@ public class MatchFragment extends BaseMainFragment {
                         });
             }
 
-        } else {
-
-            final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setTitle("请打开GPS连接");
-            dialog.setMessage("请先打开GPS");
-            dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    // 转到手机设置界面，用户设置GPS
-                    if (swipeLayout != null) {
-                        swipeLayout.setRefreshing(false);
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        Toast.makeText(getActivity(), "打开后直接点击返回键即可，若不打开返回下次将再次出现", Toast.LENGTH_SHORT).show();
-                        MatchFragment.this.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
-                    }
-                }
-            });
-            dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    arg0.dismiss();
-                }
-            });
-            dialog.show();
-        }
+//        } else {
+//
+//            final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+//            dialog.setTitle("请打开位置服务");
+//            dialog.setMessage("请先打开定位服务");
+//            dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface arg0, int arg1) {
+//                    // 转到手机设置界面，用户设置GPS
+//                    if (swipeLayout != null) {
+//                        swipeLayout.setRefreshing(false);
+//                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                        MatchFragment.this.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
+//                    }
+//                }
+//            });
+//            dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface arg0, int arg1) {
+//                    arg0.dismiss();
+//                }
+//            });
+//            dialog.show();
+//        }
 
 
         OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
