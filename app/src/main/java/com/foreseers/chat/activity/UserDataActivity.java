@@ -74,6 +74,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LocationBean;
 import com.foreseers.chat.bean.UserDataBean;
@@ -82,6 +83,7 @@ import com.foreseers.chat.util.GetLocation;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.LimitInputTextWatcher;
 import com.foreseers.chat.util.Urls;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -285,7 +287,8 @@ public class UserDataActivity extends AppCompatActivity {
         Calendar startDate = Calendar.getInstance();
         startDate.set(1940, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH)+1, selectedDate.get(Calendar.DAY_OF_MONTH));
+        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1,
+                selectedDate.get(Calendar.DAY_OF_MONTH));
         //时间选择器 ，自定义布局
         pvCustomLunar = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -574,7 +577,7 @@ public class UserDataActivity extends AppCompatActivity {
                 FileInputStream fis = new FileInputStream(path);
                 Bitmap bitmap = BitmapFactory.decodeStream(fis);
                 Bitmap blurBitmap = BitmapDispose.blurBitmap(UserDataActivity.this, bitmap, 25);
-                blurPath = BitmapDispose.saveBitmap(blurBitmap,0);
+                blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                 Log.i("blurPath", "blurPath: " + blurPath);
 
@@ -648,7 +651,7 @@ public class UserDataActivity extends AppCompatActivity {
             switch (msg.what) {
                 case DATASUCCESS:
 
-                    Log.i("okgo", "userid: "+userData.getId()+"   file: "+path);
+                    Log.i("okgo", "userid: " + userData.getId() + "   file: " + path);
 
                     OkGo.<String>post(Urls.Url_UserHead).tag(this)
                             .params("userid", userData.getId())
@@ -671,15 +674,7 @@ public class UserDataActivity extends AppCompatActivity {
                             });
 
                     intent = new Intent(UserDataActivity.this, LifeBookActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("xingzuo", userData.getXingzuo());
-                    bundle.putString("zodiac", userData.getZodiac());
-                    bundle.putString("ziwei", userData.getZiwei());
-                    bundle.putInt("numerology", userData.getNumerology());
-                    bundle.putString("bazi", userData.getBazi());
-                    Log.i("intent", "handleMessage:" + userData.getXingzuo() + "&&" + userData
-                            .getBazi());
-                    intent.putExtras(bundle);
+                    intent.putExtra("type", 1);
                     startActivity(intent);
                     saveLogin(userData.getId());
 

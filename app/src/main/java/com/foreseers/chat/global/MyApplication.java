@@ -85,7 +85,7 @@ public class MyApplication extends Application {
 //        builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
 
         //https相关设置，以下几种方案根据需要自己设置
-        //方法三：使用预埋证书，校验服务端证书（自签名证书）
+        //使用预埋证书，校验服务端证书（自签名证书）
         HttpsUtils.SSLParams sslParams3 = null;
         try {
             sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));

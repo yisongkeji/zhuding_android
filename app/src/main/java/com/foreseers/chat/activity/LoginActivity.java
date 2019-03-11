@@ -122,7 +122,9 @@ public class LoginActivity extends AppCompatActivity {
                 if (object != null) {
                     facebookName = object.optString("name");
                     facebookid = object.optString("id");
-                    goLogin();
+                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo11111111111111111111" );
+                    isFirst();
+                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo" );
                 }
             }
         }).executeAsync();
@@ -169,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //    判断是不是新用户
     private void isFirst() {
+        Log.e("@##@#@#@#@", "isFirst: " );
         OkGo.<String>post(Urls.Url_Query).tag(this)
                 .params("facebookid", facebookid)
                 .execute(new StringCallback() {
@@ -180,7 +183,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (loginBean.getStatus().equals("success")) {//老用户
                             dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
                             huanXinId = dataBean.getId();
-                            Log.i("okgo", "onSuccess: " + huanXinId);
+                            Log.e("okgo", "onSuccess: " + huanXinId);
+
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
 
@@ -228,8 +232,9 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("EMClient", "登录聊天服务器失败！");
                         }
                     });
-                    loginHuanXin();
+//                    loginHuanXin();
                     intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
                     startActivity(intent);
                     finish();
                     break;
@@ -252,7 +257,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 } else {
-                    goLogin();
+//                    goLogin();
                 }
             }
         }).start();

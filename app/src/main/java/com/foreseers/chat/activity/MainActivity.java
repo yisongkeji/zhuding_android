@@ -44,6 +44,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 
 public class MainActivity extends SupportActivity {
 
+    private  final String TAG="MainActivity@@@@@";
     @BindView(R.id.fl_content)
     FrameLayout flContent;
     @BindView(R.id.bbl)
@@ -175,7 +176,7 @@ public class MainActivity extends SupportActivity {
 //        匹配
         matchFragment = new MatchFragment();
         mFragmentList.add(matchFragment);
-
+        Log.d(TAG, "initView: matchFragment ");
 
 //        商店
         shopFragment = new ShopFragment();

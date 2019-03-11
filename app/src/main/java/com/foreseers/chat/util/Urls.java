@@ -2,7 +2,7 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-//    public static final String URL = "https://192.168.1.73:80";
+//    public static final String URL = "https://192.168.1.73:8080";
     public static final String URL = "https://chat.foreseers.cn:443";
 
 

@@ -6,11 +6,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
@@ -23,7 +25,6 @@ import com.lzy.okgo.model.Response;
 
 /**
  * 我的命书信息
- *
  */
 public class LifeBookActivity extends AppCompatActivity {
 
@@ -66,11 +67,15 @@ public class LifeBookActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        int type = getIntent().getIntExtra("type", 0);
+        if (type == 0) {
+            gotoMainPage.setVisibility(View.GONE);
+        }else {
+            gotoMainPage.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initData() {
-
 
 
         OkGo.<String>post(Urls.Url_Query).tag(this)
@@ -79,7 +84,7 @@ public class LifeBookActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
-                      LoginBean  loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {//老用户
 
                             userDataBean = gson.fromJson(response.body(), UserDataBean.class);
@@ -105,19 +110,18 @@ public class LifeBookActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    if (textBazi1!=null){
+                    if (textBazi1 != null) {
                         xingzuo = dataBean.getXingzuo();
                         zodiac = dataBean.getZodiac();
-                        ziwei =  dataBean.getZiwei();
-                        numerology=dataBean.getNumerology();
-                                bazi =dataBean.getBazi().split(",");
-
+                        ziwei = dataBean.getZiwei();
+                        numerology = dataBean.getNumerology();
+                        bazi = dataBean.getBazi().split(",");
 
 
                         textHoroscope.setText(xingzuo);
                         textZodiac.setText(zodiac);
                         textZiwei.setText(ziwei);
-                        textNumerology.setText(numerology+"");
+                        textNumerology.setText(numerology + "");
                         textBazi4.setText(bazi[0]);
                         textBazi3.setText(bazi[1]);
                         textBazi2.setText(bazi[2]);
@@ -130,8 +134,9 @@ public class LifeBookActivity extends AppCompatActivity {
             }
         }
     };
+
     @OnClick(R.id.gotoMainPage)
     public void onViewClicked() {
-     startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

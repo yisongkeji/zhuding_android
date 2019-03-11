@@ -110,7 +110,7 @@ public class MatchFragment extends BaseMainFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        Log.d(TAG, "onCreateView: ");
         return view;
     }
 
@@ -123,6 +123,7 @@ public class MatchFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
+        Log.d(TAG, "initViews: ");
         textCanumsNum.setText("0");
         initauthority();
         //匹配
@@ -140,6 +141,7 @@ public class MatchFragment extends BaseMainFragment {
 
     @Override
     public void initDatas() {
+        Log.d(TAG, "initDatas: ");
         facebookid = GetLoginTokenUtil.getFaceBookId(getActivity());
         huanXinId = GetLoginTokenUtil.getUserId(getActivity());
         userInfo = getActivity().getSharedPreferences("condition", MODE_PRIVATE);
@@ -153,7 +155,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
     private void getDataForHttp() {
-
+        Log.d(TAG, "getDataForHttp: ");
         sex = "";
         ageLittle = "12";
         agebig = "50";
@@ -163,7 +165,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
     private void getDataFromHttp() {
-
+        Log.d(TAG, "getDataFromHttp: ");
 
         if (isGpsEnabled(getContext())) {
             GetLocation location = new GetLocation();
@@ -259,6 +261,7 @@ public class MatchFragment extends BaseMainFragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 33:
+                Log.d(TAG, "onActivityResult: ");
                 swipeLayout.setRefreshing(true);
                 refresh();
                 break;
@@ -274,6 +277,7 @@ public class MatchFragment extends BaseMainFragment {
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
+                Log.d(TAG, "processHandlerMessage: ");
                 if (swipeLayout != null) {
                     swipeLayout.setRefreshing(false);
                     if (recommendBeans != null && recommendBeans.size() > 0) {
@@ -427,6 +431,7 @@ public class MatchFragment extends BaseMainFragment {
     }
 
     private void refresh() {
+        Log.d(TAG, "refresh: ");
         mNextRequestPage = 1;
         peopleAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
         getDataFromHttp();

@@ -468,6 +468,7 @@ public class MyFragment extends BaseMainFragment {
                 break;
             case R.id.lifebook://命书
                 intent = new Intent(getActivity(), LifeBookActivity.class);
+                intent.putExtra("type",0);
                 getActivity().startActivity(intent);
                 break;
             case R.id.layout_change_user_data://修改個人信息
@@ -520,7 +521,7 @@ public class MyFragment extends BaseMainFragment {
                 intent.putExtra("vip",vip);
                 getActivity().startActivity(intent);
                 break;
-            case R.id.layout_sign:
+            case R.id.layout_sign://签名
                 intent = new Intent(getActivity(), SignActivity.class);
                 getActivity().startActivity(intent);
                 break;
