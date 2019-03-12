@@ -91,6 +91,17 @@ public class MatchFragment extends BaseMainFragment {
     private String ageLittle;
     private String agebig;
     private int distance;
+
+    /**
+     * 获取年龄、距离
+     */
+    private int ageLow;
+    private int ageBig;
+    private Float ageLowContent;
+    private int distanceLow;
+    private int distanceBig;
+    private Float distanceLowContent;
+
     private RadioGroup radioGroup;
     private View view;
     private DoubleSlideSeekBar doubleslideAge,doubleslideDistance;
@@ -208,31 +219,6 @@ public class MatchFragment extends BaseMainFragment {
                         });
             }
 
-//        } else {
-//
-//            final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-//            dialog.setTitle("请打开位置服务");
-//            dialog.setMessage("请先打开定位服务");
-//            dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface arg0, int arg1) {
-//                    // 转到手机设置界面，用户设置GPS
-//                    if (swipeLayout != null) {
-//                        swipeLayout.setRefreshing(false);
-//                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                        MatchFragment.this.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
-//                    }
-//                }
-//            });
-//            dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface arg0, int arg1) {
-//                    arg0.dismiss();
-//                }
-//            });
-//            dialog.show();
-//        }
-
 
         OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
                 .params("userid", huanXinId)
@@ -301,7 +287,23 @@ public class MatchFragment extends BaseMainFragment {
     @OnClick(R.id.img_match_filter)
     public void onViewClicked() {
 
-        initPopupWind();
+        String  s=userInfo.getString("sex",null);
+        ageLowContent=userInfo.getFloat("ageLowContent",0);
+        ageLow = userInfo.getInt("ageLow",0);
+        ageBig = userInfo.getInt("ageBig",0);
+        distanceLowContent=userInfo.getFloat("distanceLowContent",0);
+        distanceLow = userInfo.getInt("distanceLow",0);
+        distanceBig = userInfo.getInt("distanceBig",0);
+        /**
+         * 用户保存信息
+         */
+        if (ageLow!=0){
+            showUserInfo(ageLowContent,ageLow,ageBig,distanceLowContent,distanceLow,distanceBig,s);
+        }else {
+            initPopupWind();
+        }
+
+
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup
@@ -334,12 +336,20 @@ public class MatchFragment extends BaseMainFragment {
             public void onRange(float low, float big) {
                 ageLittle = doubleslideAge.getSmallRange() + "";
                 agebig = doubleslideAge.getBigRange() + "";
+
+                ageLow = doubleslideAge.getSmallX();
+                ageBig = doubleslideAge.getBigX();
+                ageLowContent=doubleslideAge.getSmallContent();
             }
         });
         doubleslideDistance.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
             @Override
             public void onRange(float low, float big) {
-                distance = (int) doubleslideDistance.getBigRange();
+                distance =  doubleslideDistance.getBigRange();
+
+                distanceLowContent = doubleslideDistance.getSmallContent();
+                distanceLow = doubleslideDistance.getSmallX();
+                distanceBig = doubleslideDistance.getBigX();
             }
         });
 
@@ -355,18 +365,16 @@ public class MatchFragment extends BaseMainFragment {
 //                                Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
 
 
-//                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
-//                                // 得到Editor后，写入需要保存的数据
-//                                editor.putString("sex", sex);
-//                                editor.putString("ageLittle", ageLittle);
-//                                editor.putString("agebig", agebig);
-//                                editor.putInt("distance", distance);
-//                                editor.commit();//提交修改
-//                                Log.e("okgo", "sex: " + sex + "  ageLittle:" + ageLittle + "   " +
-//                                        "agebig:" + agebig + "    distance:" + distance);
-//                                Log.e("okgo", "sex:" + sex);
-//
-
+                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+                                // 得到Editor后，写入需要保存的数据
+                                editor.putString("sex", sex);
+                                editor.putInt("ageLow", ageLow);
+                                editor.putInt("ageBig", ageBig);
+                                editor.putFloat("ageLowContent",ageLowContent);
+                                editor.putInt("distanceLow", distanceLow);
+                                editor.putInt("distanceBig",distanceBig);
+                                editor.putFloat("distanceLowContent",distanceLowContent);
+                                editor.commit();//提交修改
 
                                 Log.i(TAG, "onClickPopWindow: "+ageLittle);
                                 getDataFromHttp();
@@ -387,7 +395,9 @@ public class MatchFragment extends BaseMainFragment {
 
 
 //        sex = userInfo.getString("sex", "");
+        Log.d(TAG, "initPopupWind: -----"+ sex);
         switch (sex) {
+
             case "M"://男M
                 radioButton_left.setChecked(true);
                 Log.i("radioGroup", "onCheckedChanged: " + sex);
@@ -434,6 +444,12 @@ public class MatchFragment extends BaseMainFragment {
         mNextRequestPage = 1;
         peopleAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
         getDataFromHttp();
+    }
+    private void showUserInfo(float ageLowContent,int ageLow,int ageBig,float distanceLowContent,int distanceLow,int distanceBig,String s){
+        sex = s;
+        initPopupWind();
+        doubleslideAge.setRange(ageLowContent,ageLow,ageBig);
+        doubleslideDistance.setRange(distanceLowContent,distanceLow,distanceBig);
     }
 
 }

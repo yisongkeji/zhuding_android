@@ -1,6 +1,7 @@
 package com.foreseers.chat.view;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,8 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +29,7 @@ public class DoubleSlideSeekBar extends View {
     /**
      * 线条（进度条）的宽度
      */
+
     private int lineWidth;
     /**
      * 线条（进度条）的长度
@@ -163,6 +167,15 @@ public class DoubleSlideSeekBar extends View {
     private Paint textPaint;
     private Paint paintRule;
 
+    /**
+     * 记录游标位置
+     */
+    private int recordLow;
+    private int recordBig;
+
+    private SharedPreferences sp;
+
+
     public DoubleSlideSeekBar(Context context) {
         this(context, null);
     }
@@ -280,10 +293,25 @@ public class DoubleSlideSeekBar extends View {
         bitmapHeight = bitmapLow.getHeight();
         bitmapWidth = bitmapLow.getWidth();
         /**初始化两个游标的位置*/
-        slideLowX = lineStart;
-        slideBigX = lineEnd;
+        if (recordLow != 0 && recordBig != 0) {
+            slideLowX = recordLow;
+            slideBigX = recordBig;
+        } else if (recordLow == 0 && recordBig != 0) {
+            slideLowX = lineStart;
+            slideBigX = recordBig;
+        } else if (recordLow != 0 && recordBig == 0) {
+            slideLowX = recordLow;
+            slideBigX = lineEnd;
+        } else {
+            slideLowX = lineStart;
+            slideBigX = lineEnd;
+        }
+
+
         smallRange = smallValue;
         bigRange = bigValue;
+
+
         if (hasRule) {
             //有刻度时 paddingTop 要加上（text高度）和（刻度线高度加刻度线上边文字的高度和） 之间的最大值
             paddingTop = paddingTop + Math.max(textSize, ruleLineHeight + ruleTextSize);
@@ -333,14 +361,26 @@ public class DoubleSlideSeekBar extends View {
         //线（进度条）的开始位置
         lineStart = paddingLeft + bitmapWidth / 2;
         //初始化 游标位置
-        slideBigX = lineEnd;
-        slideLowX = lineStart;
+        if (recordLow != 0 && recordBig != 0) {
+            slideLowX = recordLow;
+            slideBigX = recordBig;
+        } else if (recordLow == 0 && recordBig != 0) {
+            slideLowX = lineStart;
+            slideBigX = recordBig;
+        } else if (recordLow != 0 && recordBig == 0) {
+            slideLowX = recordLow;
+            slideBigX = lineEnd;
+        } else {
+            slideLowX = lineStart;
+            slideBigX = lineEnd;
+        }
         return size;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
         // Y轴 坐标
         lineY = getHeight() - paddingBottom - bitmapHeight / 2;
         // 字所在高度 100$
@@ -380,8 +420,10 @@ public class DoubleSlideSeekBar extends View {
         textPaint.setTextSize(textSize);
         textPaint.setAntiAlias(true);
 
+
         canvas.drawText(String.format("%.0f" + unit, smallRange), lineStart - 100, textHeight +
                 10, textPaint);
+
         if (range()) {
             canvas.drawText(String.format("%.0f" + unit + "+", bigRange), lineEnd + 50,
                     textHeight + 10, textPaint);
@@ -417,6 +459,11 @@ public class DoubleSlideSeekBar extends View {
                     postInvalidate();
                 } else if (nowX <= lineEnd && nowX >= slideBigX + bitmapWidth / 2 && rightY) {
                     slideBigX = (int) nowX;
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+                    editor.putInt("lowX", slideLowX);
+                    editor.putInt("bigX", slideBigX);
+                    editor.putFloat("ageLow",smallRange);
+                    editor.commit();
                     updateRange();
                     postInvalidate();
                 }
@@ -431,6 +478,11 @@ public class DoubleSlideSeekBar extends View {
                             slideLowX = lineStart;
                         }
                         //更新进度
+                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+                        editor.putInt("lowX", slideLowX);
+                        editor.putInt("bigX", slideBigX);
+                        editor.putFloat("ageLow",smallRange);
+                        editor.commit();
                         updateRange();
                         postInvalidate();
                     }
@@ -443,6 +495,11 @@ public class DoubleSlideSeekBar extends View {
                             slideBigX = lineEnd;
                         }
                         //更新进度
+                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+                        editor.putInt("lowX", slideLowX);
+                        editor.putInt("bigX", slideBigX);
+                        editor.putFloat("ageLow",smallRange);
+                        editor.commit();
                         updateRange();
                         postInvalidate();
 
@@ -462,25 +519,28 @@ public class DoubleSlideSeekBar extends View {
     }
 
     public int getSmallRange() {
+
         return (int) computRange(slideLowX);
     }
 
     public int getBigRange() {
         return (int) computRange(slideBigX);
     }
-
-    /**
-     * 修改当前位置
-     */
-    public void setRange(int small, int big) {
-        slideLowX =lineStart+((small-smallValue)*((lineEnd-lineStart)/(bigValue-smallValue)));
-        slideBigX =lineEnd-big;
-        smallRange = small;
-        bigRange = big;
-
-
-        postInvalidate();
+    public int getSmallX(){
+        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return sp.getInt("lowX",0);
     }
+    public int getBigX(){
+        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return sp.getInt("bigX",0);
+    }
+    public float getSmallContent(){
+        sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        return sp.getFloat("ageLow",0);
+    }
+
+
+
 
     /**
      * 判断当前是否是最大值
@@ -488,10 +548,7 @@ public class DoubleSlideSeekBar extends View {
     private boolean range() {
         //当前 右边游标数值
         bigRange = computRange(slideBigX);
-        if (bigRange == bigValue) {
-            return true;
-        }
-        return false;
+        return bigRange == bigValue;
     }
 
 
@@ -516,6 +573,7 @@ public class DoubleSlideSeekBar extends View {
     public int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+
     }
 
     /**
@@ -553,5 +611,17 @@ public class DoubleSlideSeekBar extends View {
         this.onRangeListener = onRangeListener;
     }
 
+    /**
+     * 修改当前位置
+     */
+    public void setRange(float low, int lowLen, int bigLen) {
+        recordLow = lowLen;
+        recordBig = bigLen;
+        smallRange = low;
+        postInvalidate();
+    }
+
 
 }
+
+
