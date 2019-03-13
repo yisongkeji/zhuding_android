@@ -1,22 +1,43 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key'
+            keyPassword '123456'
+            storeFile file('foreseers.jks')
+            storePassword '123456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.foreseers.chat"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
+        versionCode 6
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     buildTypes {
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+//            signingConfig signingConfigs.config
         }
     }
     useLibrary 'org.apache.http.legacy'
+
 }
 
 dependencies {
@@ -43,18 +64,15 @@ dependencies {
     //okgo
     implementation 'com.google.code.gson:gson:2.8.2'
     //gson
-
     implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-//    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    //    implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
-
-    implementation 'com.github.AnJiaoDe:StatusNavigationTransparent:V1.1.2'//透明系统状态栏
-
-//    implementation 'com.youth.banner:banner:1.4.10'
-
+    implementation 'com.github.AnJiaoDe:StatusNavigationTransparent:V1.1.2'
+    //透明系统状态栏
+    //    implementation 'com.youth.banner:banner:1.4.10'
     implementation project(path: ':library')
     implementation project(':easeui')
     implementation project(':banner')

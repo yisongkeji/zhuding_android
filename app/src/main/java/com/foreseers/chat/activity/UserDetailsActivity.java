@@ -34,6 +34,7 @@ import com.foreseers.chat.dialog.WipeDialog;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.GlideUtil;
+import com.foreseers.chat.util.HuanXinHelper;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -218,6 +219,7 @@ public class UserDetailsActivity extends BaseActivity {
             case R.id.img_add_friend://添加好友
 
                 if (friend == 1) {
+                    HuanXinHelper.getInstance().isLoggedIn();
                     OkGo.<String>post(Urls.Url_UserFriend).tag(this)
                             .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
                             .params("friendid", userid)
@@ -318,11 +320,17 @@ public class UserDetailsActivity extends BaseActivity {
                                                     .params("reation", 2)
                                                     .execute(new StringCallback() {
                                                         @Override
-                                                        public void onSuccess(Response<String>
-                                                                                      response) {
+                                                        public void onSuccess(Response<String> response) {
+                                                            try {
+                                                                EMClient.getInstance().contactManager().deleteContact(userid);
+                                                            } catch (HyphenateException e) {
+                                                                e.printStackTrace();
+                                                            }
                                                             refresh();
                                                         }
                                                     });
+
+
                                             break;
                                         case R.id.button_cancel:
                                             delFriendDialog.dismiss();

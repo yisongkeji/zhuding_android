@@ -148,10 +148,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 break;
             case R.id.login_wechat:
-                facebookid= "467979503606542";
+//                facebookid= "467979503606542";
 
 //                facebookid= "46797950360653";
-//                facebookid= "46797950360652333";
+                facebookid= "46797950360652333";
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);
@@ -209,7 +209,8 @@ public class LoginActivity extends AppCompatActivity {
             switch (msg.what) {
                 case DATASUCCESS:
                     saveLogin(huanXinId);
-                    EMClient.getInstance().login(huanXinId1 + "", "123", new EMCallBack() {//回调
+                    Log.i("EMClient", "huanXinId: "+huanXinId+"    huanXinId1: "+huanXinId1);
+                    EMClient.getInstance().login(huanXinId + "", "123", new EMCallBack() {//回调
                         @Override
                         public void onSuccess() {
                             EMClient.getInstance().groupManager().loadAllGroups();
@@ -233,6 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 //                    loginHuanXin();
+                    getHuanXinLogin();
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
                     startActivity(intent);

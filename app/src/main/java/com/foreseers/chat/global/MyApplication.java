@@ -87,25 +87,25 @@ public class MyApplication extends Application {
 
         //https相关设置，以下几种方案根据需要自己设置
         //使用预埋证书，校验服务端证书（自签名证书）
-//        HttpsUtils.SSLParams sslParams3 = null;
-//        try {
-//            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
-//            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
-//
-//            OkGo.getInstance().init(this)
-//                    .setOkHttpClient(builder.build());
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        HttpsUtils.SSLParams sslParams3 = null;
+        try {
+            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
+            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
 
-//        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
-//        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
-        OkGo.getInstance().init(this);
-//                    .setOkHttpClient(builder.build())
-        //让Glide能用HTTPS
-//        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory
-//                (builder.build()));
+            OkGo.getInstance().init(this)
+                    .setOkHttpClient(builder.build());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
+        OkGo.getInstance().init(this)
+                    .setOkHttpClient(builder.build());
+//        让Glide能用HTTPS
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory
+                (builder.build()));
 
 
 

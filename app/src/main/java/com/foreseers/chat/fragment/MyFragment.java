@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
@@ -228,7 +229,7 @@ public class MyFragment extends BaseMainFragment {
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                     }
 
-                    Glide.with(getActivity()).load(dataBean.getHead()).into(imageHead);
+                    Glide.with(getActivity()).load(dataBean.getHead()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
 
                     textName.setText(dataBean.getUsername());
                     textMyNum.setText(dataBean.getNum() + "");

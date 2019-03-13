@@ -42,6 +42,29 @@ public class SignActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                textNum.setText(String.valueOf(edittext.getText().length()));
+
+            }
+        });
 
 
     }
@@ -90,29 +113,6 @@ public class SignActivity extends BaseActivity {
 
     @Override
     public void installListeners() {
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        edittext.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                textNum.setText(String.valueOf(edittext.getText().length()));
-
-            }
-        });
 
     }
 

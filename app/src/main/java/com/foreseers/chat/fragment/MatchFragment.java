@@ -395,9 +395,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
 //        sex = userInfo.getString("sex", "");
-        Log.d(TAG, "initPopupWind: -----"+ sex);
         switch (sex) {
-
             case "M"://男M
                 radioButton_left.setChecked(true);
                 Log.i("radioGroup", "onCheckedChanged: " + sex);

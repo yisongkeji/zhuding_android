@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
@@ -84,12 +85,27 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 } else {
-//                    try {
-//                        Thread.sleep(sleepTime);
-//                    } catch (InterruptedException e) {
-//                    }
+                    EMClient.getInstance().login(huanXinId + "", "123", new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            Log.d("EMClient", "登录聊天服务器成功！");
+
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+                            Log.d("EMClient", "登录聊天服务器失败！");
+                        }
+                    });
                     Log.i(TAG, "isFirst: 4");
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 }
 //                startActivity(new Intent(SplashActivity.this, MainActivity.class));

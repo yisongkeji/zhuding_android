@@ -227,18 +227,18 @@ public class HuanXinHelper {
 //            showToast(username + " accept your to be friend");
             msg.setStatus(InviteMessage.InviteMessageStatus.BEAGREED);
             notifyNewInviteMessage(msg);
-
-            OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
-                    .params("userid",EMClient.getInstance().getCurrentUser())
-                    .params("friendid",username)
-                    .params("reation",0)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-
-                            Log.e("friend", "onSuccess: 添加好友被同意" );
-                        }
-                    });
+//
+//            OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
+//                    .params("userid",EMClient.getInstance().getCurrentUser())
+//                    .params("friendid",username)
+//                    .params("reation",0)
+//                    .execute(new StringCallback() {
+//                        @Override
+//                        public void onSuccess(Response<String> response) {
+//
+//                            Log.e("friend", "onSuccess: 添加好友被同意" );
+//                        }
+//                    });
         }
 
         @Override
@@ -249,16 +249,16 @@ public class HuanXinHelper {
         @Override
         public void onContactDeleted(String username) {
             //被删除时回调此方法
-            OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
-                    .params("userid",EMClient.getInstance().getCurrentUser())
-                    .params("friendid",username)
-                    .params("reation",2)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-
-                        }
-                    });
+//            OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
+//                    .params("userid",EMClient.getInstance().getCurrentUser())
+//                    .params("friendid",username)
+//                    .params("reation",2)
+//                    .execute(new StringCallback() {
+//                        @Override
+//                        public void onSuccess(Response<String> response) {
+//
+//                        }
+//                    });
 
 
         }

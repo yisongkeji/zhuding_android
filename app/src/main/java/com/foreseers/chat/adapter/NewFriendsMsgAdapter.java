@@ -29,10 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.foreseers.chat.bean.UserBean;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
 import com.foreseers.chat.R;
 import com.foreseers.chat.util.Urls;
+import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -75,50 +77,48 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
         if (msg != null) {
             holder.agreeBtn.setVisibility(View.GONE);
             holder.refuseBtn.setVisibility(View.GONE);
+            Log.i("msg@@@@@", "getView: " + msg.getReason());
+            OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                    .params("userid",msg.getFrom())
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Gson gson=new Gson();
+                            UserBean userBean =gson.fromJson(response.body(),UserBean.class);
+                           String  head = userBean.getData().getHead();
+                           String name=userBean.getData().getUsername();
+
+                            if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAGREED) {//已同意你的好友请求
+                                holder.agreeBtn.setVisibility(View.GONE);
+                                holder.refuseBtn.setVisibility(View.GONE);
+                                holder.message.setText(context.getResources().getString(R.string
+                                        .Has_agreed_to_your_friend_request));
+                                Glide.with(context).load(head).error(R.mipmap.icon_me_loading_03).into(holder.avator);
+                            } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED || msg
+                                    .getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED ||
+                                    msg.getStatus() == InviteMessage.InviteMessageStatus.GROUPINVITATION) {
+                                String[] arr = msg.getReason().split("\\|");
 
 
-            String[] arr = msg.getReason().split("\\|");
+                                holder.name.setText(arr[0]);
 
-//            holder.message.setText(msg.getReason());//信息
-            holder.name.setText(arr[0]);
-//            Glide.with(context).load(arr[1]).into(holder.avator);
+                                Glide.with(context).load(arr[1]).error(R.mipmap.icon_me_loading_03).into(holder.avator);
 
-
-
-            // holder.time.setText(DateUtils.getTimestampString(new
-            // Date(msg.getTime())));
-            Log.i("friend@@@@", "msg.getStatus(): "+msg.getStatus().toString());
-            if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAGREED) {//已同意你的好友请求
-                holder.agreeBtn.setVisibility(View.GONE);
-                holder.refuseBtn.setVisibility(View.GONE);
-                holder.message.setText(context.getResources().getString(R.string
-                        .Has_agreed_to_your_friend_request));
-                Glide.with(context).load(arr[1]).error(R.mipmap.icon_me_loading_03).into(holder.avator);
-            } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED || msg
-                    .getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED ||
-                    msg.getStatus() == InviteMessage.InviteMessageStatus.GROUPINVITATION) {
-
-//                String[] arr = msg.getReason().split("\\|");
-//
-//                holder.message.setText(msg.getReason());
-//                holder.name.setText(arr[0]);
-                Glide.with(context).load(arr[1]).error(R.mipmap.icon_me_loading_03).into(holder.avator);
-
-                holder.agreeBtn.setVisibility(View.VISIBLE);
-                holder.refuseBtn.setVisibility(View.VISIBLE);
-                if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED) {
-                    if (msg.getReason() == null) {
-                        // use default text
-                        holder.message.setText(context.getResources().getString(R.string
-                                .Request_to_add_you_as_a_friend));
-                    }
-                } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED) {
-                    //application to join group
-                    if (TextUtils.isEmpty(msg.getReason())) {
-                        holder.message.setText(context.getResources().getString(R.string
-                                .Apply_to_the_group_of) + msg.getGroupName());
-                    }
-                }
+                                holder.agreeBtn.setVisibility(View.VISIBLE);
+                                holder.refuseBtn.setVisibility(View.VISIBLE);
+                                if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED) {
+                                    if (msg.getReason() == null) {
+                                        // use default text
+                                        holder.message.setText(context.getResources().getString(R.string
+                                                .Request_to_add_you_as_a_friend));
+                                    }
+                                } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED) {
+                                    //application to join group
+                                    if (TextUtils.isEmpty(msg.getReason())) {
+                                        holder.message.setText(context.getResources().getString(R.string
+                                                .Apply_to_the_group_of) + msg.getGroupName());
+                                    }
+                                }
 //				else if (msg.getStatus() == InviteMessage.InviteMessageStatus.GROUPINVITATION) {
 //				    if (TextUtils.isEmpty(msg.getReason())) {
 //                        holder.message.setText(context.getResources().getString(R.string
@@ -126,34 +126,34 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 //                    }
 //				}
 
-                // set click listener
-                holder.agreeBtn.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // accept invitation
-                        acceptInvitation(holder.avator,holder.agreeBtn, holder.refuseBtn, msg);
+                                // set click listener
+                                holder.agreeBtn.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // accept invitation
+                                        acceptInvitation(holder.avator, holder.agreeBtn, holder.refuseBtn, msg);
 
-                    }
-                });
-                holder.refuseBtn.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // decline invitation
-                        refuseInvitation(holder.agreeBtn, holder.refuseBtn, msg);
-                    }
-                });
-            } else {
-                String str = "";
-                InviteMessage.InviteMessageStatus status = msg.getStatus();
-                switch (status) {
-                    case AGREED:
-                        str = context.getResources().getString(R.string.Has_agreed_to);
-                        Glide.with(context).load(arr[1]).into(holder.avator);
-                        break;
-                    case REFUSED:
-                        str = context.getResources().getString(R.string.Has_refused_to);
-                        Glide.with(context).load(arr[1]).into(holder.avator);
-                        break;
+                                    }
+                                });
+                                holder.refuseBtn.setOnClickListener(new OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // decline invitation
+                                        refuseInvitation(holder.agreeBtn, holder.refuseBtn, msg);
+                                    }
+                                });
+                            } else {
+                                String str = "";
+                                InviteMessage.InviteMessageStatus status = msg.getStatus();
+                                switch (status) {
+                                    case AGREED:
+                                        str = context.getResources().getString(R.string.Has_agreed_to);
+                                        Glide.with(context).load(head).into(holder.avator);
+                                        break;
+                                    case REFUSED:
+                                        str = context.getResources().getString(R.string.Has_refused_to);
+                                        Glide.with(context).load(head).into(holder.avator);
+                                        break;
 //                    case GROUPINVITATION_ACCEPTED:
 //                        str = context.getResources().getString(R.string.accept_join_group);
 //                        str = String.format(str, msg.getGroupInviter());
@@ -162,28 +162,28 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 //                        str = context.getResources().getString(R.string.refuse_join_group);
 //                        str = String.format(str, msg.getGroupInviter());
 //                        break;
-                    case MULTI_DEVICE_CONTACT_ADD:
-                        str = context.getResources().getString(R.string.multi_device_contact_add);
-                        str = String.format(str, msg.getFrom());
-                        break;
-                    case MULTI_DEVICE_CONTACT_BAN:
-                        str = context.getResources().getString(R.string.multi_device_contact_ban);
-                        str = String.format(str, msg.getFrom());
-                        break;
-                    case MULTI_DEVICE_CONTACT_ALLOW:
-                        str = context.getResources().getString(R.string.multi_device_contact_allow);
-                        str = String.format(str, msg.getFrom());
-                        break;
-                    case MULTI_DEVICE_CONTACT_ACCEPT:
-                        str = context.getResources().getString(R.string
-                                .multi_device_contact_accept);
-                        str = String.format(str, msg.getFrom());
-                        break;
-                    case MULTI_DEVICE_CONTACT_DECLINE:
-                        str = context.getResources().getString(R.string
-                                .multi_device_contact_decline);
-                        str = String.format(str, msg.getFrom());
-                        break;
+                                    case MULTI_DEVICE_CONTACT_ADD:
+                                        str = context.getResources().getString(R.string.multi_device_contact_add);
+                                        str = String.format(str, msg.getFrom());
+                                        break;
+                                    case MULTI_DEVICE_CONTACT_BAN:
+                                        str = context.getResources().getString(R.string.multi_device_contact_ban);
+                                        str = String.format(str, msg.getFrom());
+                                        break;
+                                    case MULTI_DEVICE_CONTACT_ALLOW:
+                                        str = context.getResources().getString(R.string.multi_device_contact_allow);
+                                        str = String.format(str, msg.getFrom());
+                                        break;
+                                    case MULTI_DEVICE_CONTACT_ACCEPT:
+                                        str = context.getResources().getString(R.string
+                                                .multi_device_contact_accept);
+                                        str = String.format(str, msg.getFrom());
+                                        break;
+                                    case MULTI_DEVICE_CONTACT_DECLINE:
+                                        str = context.getResources().getString(R.string
+                                                .multi_device_contact_decline);
+                                        str = String.format(str, msg.getFrom());
+                                        break;
 //                    case MULTI_DEVICE_GROUP_CREATE:
 //                        str = context.getResources().getString(R.string
 // .multi_device_group_create);
@@ -270,11 +270,25 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 // .multi_device_group_remove_mute);
 //                        str = String.format(str, msg.getGroupInviter());
 //                        break;
-                    default:
-                        break;
-                }
-                holder.message.setText(str);
-            }
+                                    default:
+                                        break;
+                                }
+                                holder.message.setText(str);
+                            }
+                            }
+                    });
+
+
+
+
+
+//            Glide.with(context).load(arr[1]).into(holder.avator);
+
+//             holder.time.setText(DateUtils.getTimestampString(new
+//             Date(msg.getTime())));
+
+            Log.i("friend@@@@", "msg.getStatus(): " + msg.getStatus().toString());
+
         }
 
         return convertView;
@@ -300,19 +314,19 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
             public void run() {
                 // call api
                 try {
-                    if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED)
-                    {//accept be friends接受做朋友
-                        Log.i("BEINVITEED", "msg.getFrom(): "+msg.getFrom());
+                    if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED) {//accept be friends接受做朋友
+                        Log.i("BEINVITEED", "msg.getFrom(): " + msg.getFrom());
+//                        EMClient.getInstance().contactManager().addContact(msg.getFrom(), msg.getFrom() + "|" + avator);
                         EMClient.getInstance().contactManager().acceptInvitation(msg.getFrom());
                         OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
-                                .params("userid",EMClient.getInstance().getCurrentUser())
-                                .params("friendid",msg.getFrom())
-                                .params("reation",0)
+                                .params("userid", EMClient.getInstance().getCurrentUser())
+                                .params("friendid", msg.getFrom())
+                                .params("reation", 0)
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
 
-                                        Log.e("friend", "onSuccess: 添加好友被同意" );
+                                        Log.e("friend", "onSuccess: 添加好友被同意");
                                     }
                                 });
 
@@ -340,7 +354,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                             buttonAgree.setEnabled(false);
                             String[] arr = msg.getReason().split("\\|");
 
-            Glide.with(context).load(arr[1]).into(avator);
+                            Glide.with(context).load(arr[1]).into(avator);
                             buttonRefuse.setVisibility(View.INVISIBLE);
                         }
                     });
@@ -381,8 +395,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
             public void run() {
                 // call api
                 try {
-                    if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED)
-                    {//decline the invitation
+                    if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED) {//decline the invitation
                         EMClient.getInstance().contactManager().declineInvitation(msg.getFrom());
                     } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED) {
                         //decline application to join group
