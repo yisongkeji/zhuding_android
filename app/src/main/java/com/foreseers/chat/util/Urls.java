@@ -2,13 +2,13 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-//    public static final String URL = "http://192.168.1.73:8080";
-    public static final String URL = "https://chat.foreseers.cn:443";
+    public static final String URL = "https://192.168.1.73:8080";
+//    public static final String URL = "https://chat.foreseers.cn:443";
 
 
     public static final String URL_User = URL + "/user/";
     public static final String Url_Query = URL_User + "queryUser";//判断是不是新用户
-    public static final String Url_UserData = URL_User + "insertUser";
+    public static final String Url_UserData = URL_User + "insertUser";//注册
     public static final String Url_UserHead = URL_User + "uploadhead";//头像
     public static final String Url_UserBlurHead = URL_User + "uploadblurhead";//模糊头像
     public static final String Url_UserShow = URL_User + "show";//个人信息

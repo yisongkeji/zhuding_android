@@ -7,7 +7,7 @@
 
     //hint
     <string name="user_data_name_hint">那麼怎麼稱呼您？</string>
-    <string name="user_data_birth_hint">請告知我們您的出生年月以及出生日期。</string>
+    <string name="user_data_birth_hint">請告知我們您的出生年月以及出生時間。</string>
     <string name="user_data_affirm_hint">请確認您的個人信息是否正確無誤？</string>
     <string name="doubt">在您首次登錄[註定]時，需要填寫您的真實信息，我們會根據這些信息精確地為您匹配靈魂伴侶并免費贈送一次基礎的命書測算。</string>
     //按鈕
@@ -213,6 +213,7 @@
     <string name="foreseers_overbalance">超值</string>
     <string name="foreseers_open">開通</string>
     <string name="foreseers_ninety_day">90天</string>
+    <string name="foreseers_thirty">30天</string>
     <string name="foreseers_prop_wipe">道具擦子</string>
     <string name="foreseers_advance_see_photo">提前查看對方頭像</string>
     <string name="foreseers_two_hundred_num">200個</string>

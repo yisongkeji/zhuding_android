@@ -25,6 +25,7 @@ import com.android.vending.billing.IInAppBillingService;
 import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.ViewAdapter;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.ShopBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.GetLoginTokenUtil;
@@ -75,6 +76,12 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     Button buttonProp2;
     @BindView(R.id.button_prop3)
     Button buttonProp3;
+    @BindView(R.id.price_vip360)
+    TextView priceVip360;
+    @BindView(R.id.price_vip90)
+    TextView priceVip90;
+    @BindView(R.id.price_vip30)
+    TextView priceVip30;
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private List<View> viewList = new ArrayList<View>();
@@ -85,6 +92,11 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     private IInAppBillingService mService;
     private ServiceConnection mServiceConn;
     private BroadcastReceiver mBroadcastReceiver;
+    private ArrayList a;
+    private String productId;
+    private String price;
+    private ArrayList<String> obj;
+    private ArrayList<ShopBean >  shopBeans=new ArrayList<>();
 
 
     public ShopFragment() {
@@ -170,11 +182,25 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                 }
                 break;
             case 0x998:
-                ArrayList a = (ArrayList) msg.obj;
-                String productId = (String) a.get(0);
-                String price = (String) a.get(1);
+                a = (ArrayList) msg.obj;
+                productId = (String) a.get(0);
+                price = (String) a.get(1);
                 showLog(productId + "的价格：" + price);
-//                GetView.setEnabled(true);
+                priceVip360.setText(price);
+                break;
+            case 0x997:
+                a = (ArrayList) msg.obj;
+                productId = (String) a.get(0);
+                price = (String) a.get(1);
+                showLog(productId + "的价格：" + price);
+                priceVip90.setText(price);
+                break;
+            case 0x996:
+                a = (ArrayList) msg.obj;
+                productId = (String) a.get(0);
+                price = (String) a.get(1);
+                showLog(productId + "的价格：" + price);
+                priceVip30.setText(price);
                 break;
         }
     }
@@ -184,8 +210,8 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
         switch (view.getId()) {
             case R.id.button_1:
                 try {
-                    showLog("开始请求购买");
-                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName,packageName+ product1, ITEM_TYPE_INAPP, developerPayload);
+                    showLog("开始请求购买360");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + product1, ITEM_TYPE_INAPP, developerPayload);
                     int response_code = buyIntentBundle.getInt("RESPONSE_CODE");
                     showLog(response_code + "");
                     PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
@@ -200,38 +226,38 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                 }
                 break;
             case R.id.button_2:
-//                try {
-//                    showLog("开始请求购买");
-//                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName,packageName+ product2, ITEM_TYPE_INAPP, developerPayload);
-//                    int response_code = buyIntentBundle.getInt("RESPONSE_CODE");
-//                    showLog(response_code + "");
-//                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-//                    if (pendingIntent == null) {
-//                        showLog("错误");
-//                    } else {
-//                        showLog("成功");
-//                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-//                    }
-//                } catch (RemoteException | IntentSender.SendIntentException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    showLog("开始请求购买90");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + product2, ITEM_TYPE_INAPP, developerPayload);
+                    int response_code = buyIntentBundle.getInt("RESPONSE_CODE");
+                    showLog(response_code + "");
+                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    if (pendingIntent == null) {
+                        showLog("错误");
+                    } else {
+                        showLog("成功");
+                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+                    }
+                } catch (RemoteException | IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_3:
-//                try {
-//                    showLog("开始请求购买");
-//                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName,packageName+ product2, ITEM_TYPE_INAPP, developerPayload);
-//                    int response_code = buyIntentBundle.getInt("RESPONSE_CODE");
-//                    showLog(response_code + "");
-//                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
-//                    if (pendingIntent == null) {
-//                        showLog("错误");
-//                    } else {
-//                        showLog("成功");
-//                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-//                    }
-//                } catch (RemoteException | IntentSender.SendIntentException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    showLog("开始请求购买30");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + product3, ITEM_TYPE_INAPP, developerPayload);
+                    int response_code = buyIntentBundle.getInt("RESPONSE_CODE");
+                    showLog(response_code + "");
+                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    if (pendingIntent == null) {
+                        showLog("错误");
+                    } else {
+                        showLog("成功");
+                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+                    }
+                } catch (RemoteException | IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_prop1:
                 break;
@@ -279,7 +305,9 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                         @Override
                         public void run() {
                             ArrayList<String> skuList = new ArrayList<String>();
-                            skuList.add(packageName+product1);
+                            skuList.add(packageName + product1);
+                            skuList.add(packageName + product2);
+                            skuList.add(packageName + product3);
                             Bundle querySkus = new Bundle();
                             querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
                             try {
@@ -291,18 +319,39 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                                 getHandler().sendMessage(message);
                                 if (response == 0) {
                                     ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
-                                    showLog("list:  "+responseList);
+                                    showLog("list:  " + responseList);
                                     for (String thisResponse : responseList) {
                                         JSONObject object = new JSONObject(thisResponse);
                                         String sku = object.getString("productId");
                                         String price = object.getString("price");
-                                        if (sku.equals(packageName+product1)) {
-                                            ArrayList<String> obj = new ArrayList<>();
-                                            showLog("listobj:  "+obj);
+                                        showLog("object######:  " + object.toString());
+                                        if (sku.equals(packageName + product1)) {
+                                            obj = new ArrayList<>();
+                                            showLog("listobj:  " + obj);
                                             obj.add(0, sku);
                                             obj.add(1, price);
                                             Message message1 = new Message();
                                             message1.what = 0x998;
+                                            message1.obj = obj;
+                                            getHandler().sendMessage(message1);
+                                        }
+                                        if (sku.equals(packageName + product2)) {
+                                            obj = new ArrayList<>();
+                                            showLog("listobj:  " + obj);
+                                            obj.add(0, sku);
+                                            obj.add(1, price);
+                                            Message message1 = new Message();
+                                            message1.what = 0x997;
+                                            message1.obj = obj;
+                                            getHandler().sendMessage(message1);
+                                        }
+                                        if (sku.equals(packageName + product3)) {
+                                            obj = new ArrayList<>();
+                                            showLog("listobj:  " + obj);
+                                            obj.add(0, sku);
+                                            obj.add(1, price);
+                                            Message message1 = new Message();
+                                            message1.what = 0x996;
                                             message1.obj = obj;
                                             getHandler().sendMessage(message1);
                                         }

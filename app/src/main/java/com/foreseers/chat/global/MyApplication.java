@@ -13,6 +13,7 @@ import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
 import com.foreseers.chat.util.HuanXinHelper;
+import com.foreseers.chat.util.Urls;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
@@ -22,6 +23,7 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.util.EMLog;
+import com.hyphenate.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
@@ -33,6 +35,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import okhttp3.OkHttpClient;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import static android.content.ContentValues.TAG;
 
@@ -85,27 +90,28 @@ public class MyApplication extends Application {
 ////全局的连接超时时间
 //        builder.connectTimeout(OkGo.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS);
 
-        //https相关设置，以下几种方案根据需要自己设置
-        //使用预埋证书，校验服务端证书（自签名证书）
-        HttpsUtils.SSLParams sslParams3 = null;
-        try {
-            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
-            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
 
-            OkGo.getInstance().init(this)
-                    .setOkHttpClient(builder.build());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        //https相关设置，
+        //信任所有证书,不安全有风险
         HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+        //使用预埋证书，校验服务端证书（自签名证书）
+//        HttpsUtils.SSLParams sslParams3 = null;
+//        try {
+////            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
+//            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("tomcat.key"));
+//            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
-        OkGo.getInstance().init(this)
-                    .setOkHttpClient(builder.build());
+        //配置https的域名匹配规则
+        builder.hostnameVerifier(new SafeHostnameVerifier());
+
+        OkGo.getInstance().init(this).setOkHttpClient(builder.build());
 //        让Glide能用HTTPS
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory
-                (builder.build()));
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
 
 
 
@@ -130,4 +136,11 @@ public class MyApplication extends Application {
     }
 
 
+    private class SafeHostnameVerifier implements HostnameVerifier {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            //验证主机名是否匹配
+            return hostname.equals("192.168.1.73");
+        }
+    }
 }

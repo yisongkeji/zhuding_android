@@ -206,16 +206,12 @@
                         android:orientation="horizontal">
 
                     <TextView
+                            android:id="@+id/price_vip360"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:text="¥108"/>
+                    />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="¥108"/>
 
                 </LinearLayout>
 
@@ -296,16 +292,13 @@
                         android:orientation="horizontal">
 
                     <TextView
+
+                            android:id="@+id/price_vip90"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:text="¥36"/>
+                    />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="¥36"/>
 
                 </LinearLayout>
 
@@ -349,7 +342,7 @@
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_thirty_day"
+                            android:text="@string/foreseers_thirty"
                             android:textColor="@color/colorGray"
                             android:textSize="@dimen/sp_13"/>
 
@@ -386,10 +379,10 @@
                         android:orientation="horizontal">
 
                     <TextView
+                            android:id="@+id/price_vip30"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:text="¥15"/>
+                            android:layout_marginLeft="30dp"/>
 
 
                 </LinearLayout>
