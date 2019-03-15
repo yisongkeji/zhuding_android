@@ -11,25 +11,17 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Toast;
-
+import android.view.*;
+import android.widget.*;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import com.foreseers.chat.R;
 import com.foreseers.chat.activity.NewFriendsMsgActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.FriendBean;
+import com.foreseers.chat.bean.FriendNumBean;
 import com.foreseers.chat.db.InviteMessgeDao;
-import com.foreseers.chat.R;
 import com.foreseers.chat.util.GetLoginTokenUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -47,17 +39,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import java.util.*;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -82,6 +64,16 @@ public class FriendFragment extends EaseBaseFragment {
     MyTitleBar myTitlebar;
 
     Unbinder unbinder;
+    @BindView(R.id.text_num1)
+    TextView textNum1;
+    @BindView(R.id.text_num2)
+    TextView textNum2;
+
+    @BindView(R.id.search_clear)
+    ImageButton searchClear;
+
+    @BindView(R.id.layout_FriendFragment)
+    LinearLayout layoutFriendFragment;
 
     private Map<String, EaseUser> contactsMap;
     private LinearLayout addFriend;
@@ -117,11 +109,9 @@ public class FriendFragment extends EaseBaseFragment {
 
 //        addFriend = headerView.findViewById(R.id.item_layout_friend);
 //        addFriend.setOnClickListener(clickListener);
-        contentContainer = (FrameLayout) getView().findViewById(R.id
-                .content_container);
+        contentContainer = (FrameLayout) getView().findViewById(R.id.content_container);
 
-        contactListLayout = (EaseContactList) getView().findViewById(R.id
-                .contact_list);
+        contactListLayout = (EaseContactList) getView().findViewById(R.id.contact_list);
         listView = contactListLayout.getListView();
 //        listView.addHeaderView(headerView);
         //search
@@ -140,6 +130,19 @@ public class FriendFragment extends EaseBaseFragment {
 
     @Override
     protected void setUpView() {
+
+        OkGo.<String> post(Urls.Url_GetFriendNum).tag(this)
+                .params("userid",GetLoginTokenUtil.getUserId(getActivity()))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        Gson gson= new Gson();
+                        FriendNumBean friendNumBean=gson.fromJson(response.body(),FriendNumBean.class);
+                        textNum2.setText(friendNumBean.getData().getFriendNums()+"");
+                        textNum1.setText(friendNumBean.getData().getUsenums()+"/");
+                }
+                });
 
 
         OkGo.<String>post(Urls.Url_GetFriend).tag(this)
@@ -168,7 +171,7 @@ public class FriendFragment extends EaseBaseFragment {
 
 
                                 map.put(dataBeans.get(i).getUserid() + "", easeUser);
-                                Log.i(TAG, "onSuccessmap: "+map);
+                                Log.i(TAG, "onSuccessmap: " + map);
                             }
                             mHandler.obtainMessage(DATASUCCESS).sendToTarget();
 
@@ -317,13 +320,13 @@ public class FriendFragment extends EaseBaseFragment {
     public void refresh() {
         getContactList();
         contactListLayout.refresh();
-        if(inviteMessgeDao == null){
+        if (inviteMessgeDao == null) {
             inviteMessgeDao = new InviteMessgeDao(getActivity());
         }
-        if(inviteMessgeDao.getUnreadMessagesCount() > 0){
-          myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_06);
-        }else{
-          myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_05);
+        if (inviteMessgeDao.getUnreadMessagesCount() > 0) {
+            myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_06);
+        } else {
+            myTitlebar.setRightImageResource(R.mipmap.icon_footer_profile_05);
         }
     }
 
@@ -449,12 +452,13 @@ public class FriendFragment extends EaseBaseFragment {
                 e.printStackTrace();
             }
             return true;
-        }else if(item.getItemId() == R.id.add_to_blacklist){
+        } else if (item.getItemId() == R.id.add_to_blacklist) {
             moveToBlacklist(toBeProcessUsername);
             return true;
         }
         return super.onContextItemSelected(item);
     }
+
     /**
      * delete contact
      *
@@ -497,6 +501,7 @@ public class FriendFragment extends EaseBaseFragment {
         }).start();
 
     }
+
     /**
      * set contacts map, key is the hyphenate id
      *
@@ -533,7 +538,6 @@ public class FriendFragment extends EaseBaseFragment {
     }
 
 
-
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
     private Handler mHandler = new Handler() {
@@ -555,6 +559,6 @@ public class FriendFragment extends EaseBaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(),this);
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
     }
 }

@@ -496,16 +496,12 @@
                         android:orientation="horizontal">
 
                     <TextView
+                            android:id="@+id/text_item3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:text="¥108"/>
+                    />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="¥108"/>
 
                 </LinearLayout>
 
@@ -586,16 +582,12 @@
                         android:orientation="horizontal">
 
                     <TextView
+                            android:id="@+id/text_item2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:text="¥36"/>
+                    />
 
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="¥36"/>
 
                 </LinearLayout>
 
@@ -676,10 +668,11 @@
                         android:orientation="horizontal">
 
                     <TextView
+                            android:id="@+id/text_item1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
-                            android:text="¥15"/>
+                    />
 
 
                 </LinearLayout>

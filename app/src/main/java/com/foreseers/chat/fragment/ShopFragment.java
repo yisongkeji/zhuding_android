@@ -25,7 +25,6 @@ import com.android.vending.billing.IInAppBillingService;
 import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.ViewAdapter;
 import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.bean.ShopBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.global.BaseMainFragment;
 import com.foreseers.chat.util.GetLoginTokenUtil;
@@ -38,7 +37,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.foreseers.chat.util.GooglePayHelper.*;
 
@@ -82,6 +83,12 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     TextView priceVip90;
     @BindView(R.id.price_vip30)
     TextView priceVip30;
+    @BindView(R.id.text_item3)
+    TextView textItem3;
+    @BindView(R.id.text_item2)
+    TextView textItem2;
+    @BindView(R.id.text_item1)
+    TextView textItem1;
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private List<View> viewList = new ArrayList<View>();
@@ -94,9 +101,6 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
     private BroadcastReceiver mBroadcastReceiver;
     private ArrayList a;
     private String productId;
-    private String price;
-    private ArrayList<String> obj;
-    private ArrayList<ShopBean >  shopBeans=new ArrayList<>();
 
 
     public ShopFragment() {
@@ -181,26 +185,32 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                     showLog("拉取vip信息失败");
                 }
                 break;
-            case 0x998:
-                a = (ArrayList) msg.obj;
-                productId = (String) a.get(0);
-                price = (String) a.get(1);
-                showLog(productId + "的价格：" + price);
-                priceVip360.setText(price);
-                break;
-            case 0x997:
-                a = (ArrayList) msg.obj;
-                productId = (String) a.get(0);
-                price = (String) a.get(1);
-                showLog(productId + "的价格：" + price);
-                priceVip90.setText(price);
-                break;
-            case 0x996:
-                a = (ArrayList) msg.obj;
-                productId = (String) a.get(0);
-                price = (String) a.get(1);
-                showLog(productId + "的价格：" + price);
-                priceVip30.setText(price);
+            case 0x995:
+                showLog("map" + msg.obj.toString());
+                Map<String, String> map = (Map<String, String>) msg.obj;
+
+                for (String key : map.keySet()) {
+                    if (key.equals(packageName + product1)) {
+                        priceVip360.setText(map.get(packageName + product1));
+                    }
+                    if (key.equals(packageName + product2)) {
+                        priceVip90.setText(map.get(packageName + product2));
+                    }
+                    if (key.equals(packageName + product3)) {
+                        priceVip30.setText(map.get(packageName + product3));
+                    }
+                    if (key.equals(packageName + item1)) {
+                        showLog(map.keySet() + "的价格：" + map.get(packageName + item1));
+                        textItem1.setText(map.get(packageName + item1));
+                    }
+                    if (key.equals(packageName + item2)) {
+                        textItem2.setText(map.get(packageName + item2));
+                    }
+                    if (key.equals(packageName + item3)) {
+                        textItem3.setText(map.get(packageName + item3));
+                    }
+                }
+
                 break;
         }
     }
@@ -260,10 +270,49 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                 }
                 break;
             case R.id.button_prop1:
+                try {
+                    showLog("开始请求擦子200");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + item3, ITEM_TYPE_INAPP, developerPayload);
+                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    if (pendingIntent == null) {
+                        showLog("错误");
+                    } else {
+                        showLog("成功");
+                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+                    }
+                } catch (RemoteException | IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_prop2:
+                try {
+                    showLog("开始请求购买擦子90");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + item2, ITEM_TYPE_INAPP, developerPayload);
+                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    if (pendingIntent == null) {
+                        showLog("错误");
+                    } else {
+                        showLog("成功");
+                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+                    }
+                } catch (RemoteException | IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.button_prop3:
+                try {
+                    showLog("开始请求购买擦子30");
+                    Bundle buyIntentBundle = mService.getBuyIntent(3, packageName, packageName + item1, ITEM_TYPE_INAPP, developerPayload);
+                    PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+                    if (pendingIntent == null) {
+                        showLog("错误");
+                    } else {
+                        showLog("成功");
+                        getActivity().startIntentSenderForResult(pendingIntent.getIntentSender(), 1001, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+                    }
+                } catch (RemoteException | IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -287,19 +336,19 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                     showLog("关联Google play store不成功");
                 }
                 if (response == 0) {
-                    showLog("正在获取用户已经拥有的商品");
-                    Bundle purchases = mService.getPurchases(3, packageName, ITEM_TYPE_INAPP, null);
-                    int response_code = (int) purchases.get("RESPONSE_CODE");//判断是否请求成功！！！
-                    if (response_code == 0) {
-                        showLog("已成功获取用户已经拥有的商品");
-                        ArrayList<String> ownedSkus = purchases.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
-                        for (String thisResponse : ownedSkus) {
-                            if (thisResponse.equals(product1)) {
-//                                isVip.setText("是");
-                            }
-                            showLog("拥有" + thisResponse);
-                        }
-                    }
+//                    showLog("正在获取用户已经拥有的商品");
+//                    Bundle purchases = mService.getPurchases(3, packageName, ITEM_TYPE_INAPP, null);
+//                    int response_code = (int) purchases.get("RESPONSE_CODE");//判断是否请求成功！！！
+//                    if (response_code == 0) {
+//                        showLog("已成功获取用户已经拥有的商品");
+//                        ArrayList<String> ownedSkus = purchases.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+//                        for (String thisResponse : ownedSkus) {
+//                            if (thisResponse.equals(product1)) {
+////                                isVip.setText("是");
+//                            }
+//                            showLog("拥有" + thisResponse);
+//                        }
+//                    }
                     showLog("开始拉取vip的商品信息。。。");
                     new Thread(new Runnable() {
                         @Override
@@ -308,6 +357,9 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                             skuList.add(packageName + product1);
                             skuList.add(packageName + product2);
                             skuList.add(packageName + product3);
+                            skuList.add(packageName + item1);
+                            skuList.add(packageName + item2);
+                            skuList.add(packageName + item3);
                             Bundle querySkus = new Bundle();
                             querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
                             try {
@@ -320,42 +372,18 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                                 if (response == 0) {
                                     ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
                                     showLog("list:  " + responseList);
+                                    Map<String, String> map = new HashMap<>();
                                     for (String thisResponse : responseList) {
                                         JSONObject object = new JSONObject(thisResponse);
                                         String sku = object.getString("productId");
                                         String price = object.getString("price");
                                         showLog("object######:  " + object.toString());
-                                        if (sku.equals(packageName + product1)) {
-                                            obj = new ArrayList<>();
-                                            showLog("listobj:  " + obj);
-                                            obj.add(0, sku);
-                                            obj.add(1, price);
-                                            Message message1 = new Message();
-                                            message1.what = 0x998;
-                                            message1.obj = obj;
-                                            getHandler().sendMessage(message1);
-                                        }
-                                        if (sku.equals(packageName + product2)) {
-                                            obj = new ArrayList<>();
-                                            showLog("listobj:  " + obj);
-                                            obj.add(0, sku);
-                                            obj.add(1, price);
-                                            Message message1 = new Message();
-                                            message1.what = 0x997;
-                                            message1.obj = obj;
-                                            getHandler().sendMessage(message1);
-                                        }
-                                        if (sku.equals(packageName + product3)) {
-                                            obj = new ArrayList<>();
-                                            showLog("listobj:  " + obj);
-                                            obj.add(0, sku);
-                                            obj.add(1, price);
-                                            Message message1 = new Message();
-                                            message1.what = 0x996;
-                                            message1.obj = obj;
-                                            getHandler().sendMessage(message1);
-                                        }
+                                        map.put(sku, price);
                                     }
+                                    Message message1 = new Message();
+                                    message1.what = 0x995;
+                                    message1.obj = map;
+                                    getHandler().sendMessage(message1);
                                 }
 
                             } catch (RemoteException | JSONException e) {
@@ -502,7 +530,19 @@ public class ShopFragment extends BaseMainFragment implements ViewPager.OnPageCh
                         showLog("付款成功");
 //                        isVip.setText("是");
                         String inapp_purchase_data = data.getStringExtra("INAPP_PURCHASE_DATA");
+                        String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
                         showLog("订单详情：" + inapp_purchase_data);
+                        showLog("订单签名：" + dataSignature);
+                        OkGo.<String>post(Urls.Url_Shoppingg).tag(this)
+                                .params("signtureData", inapp_purchase_data)
+                                .params("signture", dataSignature)
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+
                         break;
                     case 7:
                         showLog("你已经拥有该商品");

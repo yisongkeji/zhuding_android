@@ -70,8 +70,6 @@ public class MyApplication extends Application {
         // 初始化环信SDK
         initEasemob();
 
-
-
     }
 
 
@@ -93,27 +91,25 @@ public class MyApplication extends Application {
 
         //https相关设置，
         //信任所有证书,不安全有风险
-        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
-        //使用预埋证书，校验服务端证书（自签名证书）
-//        HttpsUtils.SSLParams sslParams3 = null;
-//        try {
-////            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
-//            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("tomcat.key"));
-//            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+//        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
 
-        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
+        //使用预埋证书，校验服务端证书（自签名证书）
+        HttpsUtils.SSLParams sslParams3 = null;
+        try {
+            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
+            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //配置https的域名匹配规则
         builder.hostnameVerifier(new SafeHostnameVerifier());
 
         OkGo.getInstance().init(this).setOkHttpClient(builder.build());
 //        让Glide能用HTTPS
         Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
-
-
 
 
     }
@@ -140,7 +136,8 @@ public class MyApplication extends Application {
         @Override
         public boolean verify(String hostname, SSLSession session) {
             //验证主机名是否匹配
-            return hostname.equals("192.168.1.73");
+//            return hostname.equals("192.168.1.73");
+            return true;
         }
     }
 }

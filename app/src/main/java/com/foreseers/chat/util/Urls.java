@@ -2,8 +2,8 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-    public static final String URL = "https://192.168.1.73:8080";
-//    public static final String URL = "https://chat.foreseers.cn:443";
+//    public static final String URL = "https://192.168.1.73:8080";
+    public static final String URL = "https://chat.foreseers.cn:443";
 
 
     public static final String URL_User = URL + "/user/";
@@ -25,7 +25,7 @@ public  class Urls {
 
     public static final String Url_UserImg = URL+"/userimage/upload";//相册
     public static final String Url_UserBlurImg = URL+"/userimage/uploadblurimage";//模糊相册
-    public static final String Url_DeleteImg = URL+"/userimage/deleteimage";//模糊相册
+    public static final String Url_DeleteImg = URL+"/userimage/deleteimage";
 
     public static final String Url_UserLocation = URL + "/match/matching";//主页
     public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";
@@ -37,6 +37,7 @@ public  class Urls {
     //好友
     public static final String Url_Friend = URL + "/userfriend/";
     public static final String Url_GetFriend = Url_Friend + "getname";//获得好友列表
+    public static final String Url_GetFriendNum = Url_Friend + "getFriendnums";//获得好友位数
     public static final String Url_UserFriend = Url_Friend + "isfull";//查询是否可以添加好友
     public static final String Url_ADDFriend = Url_Friend + "addfriend";//添加好友
     public static final String Url_FriendTime = Url_Friend + "friendTime";//校验添加好友时间
@@ -65,6 +66,9 @@ public  class Urls {
     public static final String Url_Canums = URL + "/userCanums/";
     public static final String Url_UserCanums = Url_Canums + "updatenums"; //领擦子
     public static final String Url_UserCanumsNum = Url_Canums + "getUserNums"; //擦子数
+
+    //商店
+    public static final String Url_Shoppingg = URL + "/google/check";
 
 
 

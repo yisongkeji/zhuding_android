@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "114875096628",
+    "firebase_url": "https://dating-554bd.firebaseio.com",
+    "project_id": "dating-554bd",
+    "storage_bucket": "dating-554bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114875096628:android:37e627b67ff2cfca",
+        "android_client_info": {
+          "package_name": "com.foreseers.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114875096628-6kcd0mh3i5t82v094a6rm5ererm967sm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foreseers.chat",
+            "certificate_hash": "8c38b5ff1675eb9bb6b6e2b3451e68d0fe901dd0"
+          }
+        },
+        {
+          "client_id": "114875096628-98uvskkr3ifjr1m1rrq0fjtnp4itf296.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foreseers.chat",
+            "certificate_hash": "dd723867d56cf5570df6945178886c21199308e2"
+          }
+        },
+        {
+          "client_id": "114875096628-rpejoide0a7vc7tkd0ije0im1bja5q26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-DVBgzygGlTeJDFDr5Wlpj86r0orG5Ak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114875096628-rpejoide0a7vc7tkd0ije0im1bja5q26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114875096628:android:e2770c0bd4fd9b20",
+        "android_client_info": {
+          "package_name": "com.foreseers.chat1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114875096628-18alnn5jssaakfcqd5a886dmi2i9ekj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foreseers.chat1",
+            "certificate_hash": "dd723867d56cf5570df6945178886c21199308e2"
+          }
+        },
+        {
+          "client_id": "114875096628-rpejoide0a7vc7tkd0ije0im1bja5q26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-DVBgzygGlTeJDFDr5Wlpj86r0orG5Ak"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114875096628-rpejoide0a7vc7tkd0ije0im1bja5q26.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -162,6 +162,9 @@ public class MyFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
+        //看本地有没有头像 有就加载
+
+
         albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
         recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerImg.setAdapter(albumAdapter);
@@ -229,6 +232,7 @@ public class MyFragment extends BaseMainFragment {
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                     }
 
+                    //先下载dataBean.getHead()，，，本地地址   本地地址保存
                     Glide.with(getActivity()).load(dataBean.getHead()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
 
                     textName.setText(dataBean.getUsername());

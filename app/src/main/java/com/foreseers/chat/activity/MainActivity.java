@@ -44,7 +44,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 
 public class MainActivity extends SupportActivity {
 
-    private  final String TAG="MainActivity@@@@@";
+    private final String TAG = "MainActivity@@@@@";
     @BindView(R.id.fl_content)
     FrameLayout flContent;
     @BindView(R.id.bbl)
@@ -86,8 +86,8 @@ public class MainActivity extends SupportActivity {
                     public void onSuccess(Response<String> response) {
 
                         Gson gson = new Gson();
-                        LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
-                        if (loginBean.getStatus().equals("success")){
+                        LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {
 
                             friendTimeBean = gson.fromJson(response.body(),
                                     FriendTimeBean.class);
@@ -104,8 +104,7 @@ public class MainActivity extends SupportActivity {
                                     intent.putExtra("friendid", dataBean.get(i).getFriend());
                                     intent.putExtra("userid", dataBean.get(i).getUserid());
                                     startService(intent);
-                                } else if (dataBean.get(i).getHour() < 24 * 3600000)
-                                {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
+                                } else if (dataBean.get(i).getHour() < 24 * 3600000) {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
                                     Log.d("TAG@@@", "网络请求成功：" + "   hour4444444444444444");
                                     Intent intent = new Intent(MainActivity.this, MediaService.class);
                                     intent.putExtra("type", 1);
@@ -113,8 +112,7 @@ public class MainActivity extends SupportActivity {
                                     intent.putExtra("friendid", dataBean.get(i).getFriend());
                                     intent.putExtra("userid", dataBean.get(i).getUserid());
                                     startService(intent);
-                                } else if (dataBean.get(i).getHour() < 72 * 3600000)
-                                {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
+                                } else if (dataBean.get(i).getHour() < 72 * 3600000) {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
                                     Log.d("TAG@@@", "网络请求成功：" + "   hour777777777777777777");
                                     Intent intent = new Intent(MainActivity.this, MediaService.class);
                                     intent.putExtra("type", 2);
@@ -144,7 +142,6 @@ public class MainActivity extends SupportActivity {
 
                             }
                         }
-
 
 
                     }

@@ -30,10 +30,6 @@ public class BitmapDispose {
             f = FileUtil.createFile("/sdcard/foreseers/compresshead", System.currentTimeMillis() + ".jpg");
         }
 
-
-
-
-
         if (f.exists()) {
             f.delete();
         }

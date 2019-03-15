@@ -357,4 +357,6 @@ public class HuanXinHelper {
 
         DemoDBManager.getInstance().closeDB();
     }
+
+
 }
