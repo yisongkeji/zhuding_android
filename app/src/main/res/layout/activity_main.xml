@@ -7,100 +7,167 @@
     android:orientation="vertical"
     tools:context="com.foreseers.chat.activity.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/fl_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      android:layout_marginBottom="50dp"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp"
-        android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <View
+        <FrameLayout
+            android:id="@+id/fl_content"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorGray" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-        <com.chaychan.library.BottomBarLayout
-            android:id="@+id/bbl"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@color/colorWhite"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="51dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
 
-            <com.chaychan.library.BottomBarItem
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@mipmap/icon_header_message_1"
-                app:iconSelected="@mipmap/icon_header_message_1"
-                app:itemText="@string/item1"
-                app:itemTextSize="10sp"
-                app:textColorNormal="@color/colorBlack"
-                app:textColorSelected="@color/colorAccent"
-          />
-
-            <com.chaychan.library.BottomBarItem
-                android:id="@+id/buttom_friend"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@mipmap/icon_header_friend_1"
-                app:iconSelected="@mipmap/icon_header_friend_1"
-                app:itemText="@string/item2"
-                app:itemTextSize="10sp"
-                app:textColorNormal="@color/colorBlack"
-                app:textColorSelected="@color/colorAccent" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorGray" />
 
 
-            <com.chaychan.library.BottomBarItem
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@color/colorWhite"
-                app:iconSelected="@color/colorWhite"
-                app:itemTextSize="10sp"
-                app:textColorNormal="@color/colorBlack"
-                app:textColorSelected="@color/colorAccent" />
+            <com.chaychan.library.BottomBarLayout
+                android:id="@+id/bbl"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <com.chaychan.library.BottomBarItem
+                <com.chaychan.library.BottomBarItem
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@mipmap/icon_header_message_1"
+                    app:iconSelected="@mipmap/icon_header_message_1"
+                    app:itemText="@string/item1"
+                    app:itemTextSize="10sp"
+                    app:textColorNormal="@color/colorBlack"
+                    app:textColorSelected="@color/colorAccent" />
 
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@mipmap/icon_header_store_1"
-                app:iconSelected="@mipmap/icon_header_store_1"
+                <com.chaychan.library.BottomBarItem
+                    android:id="@+id/buttom_friend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@mipmap/icon_header_friend_1"
+                    app:iconSelected="@mipmap/icon_header_friend_1"
+                    app:itemText="@string/item2"
+                    app:itemTextSize="10sp"
+                    app:textColorNormal="@color/colorBlack"
+                    app:textColorSelected="@color/colorAccent" />
 
-                app:itemText="@string/item4"
-                app:itemTextSize="10sp"
-                app:textColorNormal="@color/colorBlack"
-                app:textColorSelected="@color/colorAccent" />
 
-            <com.chaychan.library.BottomBarItem
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:iconNormal="@mipmap/icon_header_personal_1"
-                app:iconSelected="@mipmap/icon_header_personal_1"
+                <com.chaychan.library.BottomBarItem
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@color/colorWhite"
+                    app:iconSelected="@color/colorWhite"
+                    app:itemTextSize="10sp"
+                    app:textColorNormal="@color/colorBlack"
+                    app:textColorSelected="@color/colorAccent" />
 
-                app:itemText="@string/item5"
-                app:itemTextSize="10sp"
-                app:textColorNormal="@color/colorBlack"
-                app:textColorSelected="@color/colorAccent" />
-        </com.chaychan.library.BottomBarLayout>
+                <com.chaychan.library.BottomBarItem
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@mipmap/icon_header_store_1"
+                    app:iconSelected="@mipmap/icon_header_store_1"
+
+                    app:itemText="@string/item4"
+                    app:itemTextSize="10sp"
+                    app:textColorNormal="@color/colorBlack"
+                    app:textColorSelected="@color/colorAccent" />
+
+                <com.chaychan.library.BottomBarItem
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:iconNormal="@mipmap/icon_header_personal_1"
+                    app:iconSelected="@mipmap/icon_header_personal_1"
+
+                    app:itemText="@string/item5"
+                    app:itemTextSize="10sp"
+                    app:textColorNormal="@color/colorBlack"
+                    app:textColorSelected="@color/colorAccent" />
+            </com.chaychan.library.BottomBarLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <ImageView
         android:id="@+id/img_main"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
-        android:background="@mipmap/icon_header_match_1"
-        android:layout_gravity="bottom|center"/>
+        android:layout_gravity="bottom|center"
+        android:background="@mipmap/icon_header_match_1" />
+
+    <LinearLayout
+        android:id="@+id/layout_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="43dp"
+        android:background="@mipmap/icon_notice_01"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@mipmap/icon_notice_02" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="3dp">
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_10"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:id="@+id/text_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxEms="8"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/sp_10"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="5dp"
+            android:background="@mipmap/icon_notice_03" />
+
+    </LinearLayout>
+
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

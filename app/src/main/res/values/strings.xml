@@ -277,6 +277,6 @@
     //em_row_invite_msg
     <string name="foreseers_refuse">拒絕</string>
 
-
+    <string name="at_your_in_group">%s @ you in group chat</string>
 
 </resources>

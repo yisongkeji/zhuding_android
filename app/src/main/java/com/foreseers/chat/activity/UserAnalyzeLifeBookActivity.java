@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,7 +17,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.decoviewlib.DecoView;
@@ -32,7 +31,6 @@ import com.ruffian.library.widget.RImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * 我與TA的詳細分析
@@ -116,7 +114,7 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
 
     private void getDataFormHttp() {
         OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
-                .params("uid", GetLoginTokenUtil.getUserId(this))
+                .params("uid", PreferenceManager.getUserId(this))
                 .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override

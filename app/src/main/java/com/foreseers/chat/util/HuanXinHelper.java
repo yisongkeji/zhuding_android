@@ -1,13 +1,16 @@
 package com.foreseers.chat.util;
 
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
+
 import android.util.Log;
 
+import com.foreseers.chat.R;
+import com.foreseers.chat.activity.ChatActivity;
 import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.db.DemoDBManager;
@@ -22,11 +25,14 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseNotifier;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.foreseers.chat.util.PreferenceManager;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -59,7 +65,6 @@ public class HuanXinHelper {
         options.setAcceptInvitationAlways(false);
         options.setAutoLogin(true);
 
-
 //        EMOptions options = initChatOptions();
 //        options.setRestServer("118.193.28.212:31080");
 //        options.setIMServer("118.193.28.212");
@@ -76,7 +81,7 @@ public class HuanXinHelper {
             //to set user's profile and avatar
             setEaseUIProviders();
             //initialize preference manager
-//            PreferenceManager.init(context);
+          PreferenceManager.init(context);
             //initialize profile manager
 
             setGlobalListeners();
@@ -91,9 +96,122 @@ public class HuanXinHelper {
                 return getUserInfo(username);
             }
         });
+        //set options
+        easeUI.setSettingsProvider(new EaseUI.EaseSettingsProvider() {
+
+            @Override
+            public boolean isSpeakerOpened() {
+                return true;
+            }
+
+            @Override
+            public boolean isMsgVibrateAllowed(EMMessage message) {
+                return true;
+            }
+
+            @Override
+            public boolean isMsgSoundAllowed(EMMessage message) {
+                return true;
+            }
+
+            @Override
+            public boolean isMsgNotifyAllowed(EMMessage message) {
+                if (message == null) {
+                    return true;
+                } else {
+                    String chatUsename = null;
+                    List<String> notNotifyIds = null;
+                    // get user or group id which was blocked to show message notifications
+                    if (message.getChatType() == EMMessage.ChatType.Chat) {
+                        chatUsename = message.getFrom();
+//                        notNotifyIds = demoModel.getDisabledIds();
+                        return true;
+                    } else {
+                        chatUsename = message.getTo();
+//                        notNotifyIds = demoModel.getDisabledGroups();
+                        return false;
+                    }
+
+//                    if (notNotifyIds == null || !notNotifyIds.contains(chatUsename)) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+                }
+            }
+        });
+
+        //set notification options, will use default if you don't set it
+        easeUI.getNotifier().setNotificationInfoProvider(new EaseNotifier.EaseNotificationInfoProvider() {
+
+            @Override
+            public String getTitle(EMMessage message) {
+                //you can update title here
+                return null;
+            }
+
+            @Override
+            public int getSmallIcon(EMMessage message) {
+                //you can update icon here
+                return 0;
+            }
+
+            @Override
+            public String getDisplayedText(EMMessage message) {
+                // be used on notification bar, different text according the message type.
+                String ticker = EaseCommonUtils.getMessageDigest(message, appContext);
+                if (message.getType() == EMMessage.Type.TXT) {
+                    ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
+                }
+                EaseUser user = getUserInfo(message.getFrom());
+                if (user != null) {
+                    if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
+                        return String.format(appContext.getString(R.string.at_your_in_group), user.getNickname());
+                    }
+                    return user.getNickname() + ": " + ticker;
+                } else {
+                    if (EaseAtMessageHelper.get().isAtMeMsg(message)) {
+                        return String.format(appContext.getString(R.string.at_your_in_group), message.getFrom());
+                    }
+                    return message.getFrom() + ": " + ticker;
+                }
+            }
+
+            @Override
+            public String getLatestText(EMMessage message, int fromUsersNum, int messageNum) {
+                // here you can customize the text.
+                // return fromUsersNum + "contacts send " + messageNum + "messages to you";
+                return null;
+            }
+
+            @Override
+            public Intent getLaunchIntent(EMMessage message) {
+                // you can set what activity you want display when user click the notification
+                //设置点击通知栏跳转事件
+                Intent intent = new Intent(appContext, ChatActivity.class);
+                // open calling activity if there is call
+
+                EMMessage.ChatType chatType = message.getChatType();
+                if (chatType == EMMessage.ChatType.Chat) { // single chat message// 单聊信息
+                    intent.putExtra("userId", message.getFrom());
+                    intent.putExtra("nickname", message.getStringAttribute(Constant.USER_NAME, ""));
+                    intent.putExtra("avatar", message.getStringAttribute(Constant.HEAD_IMAGE_URL, ""));
+                    intent.putExtra("chatType", Constant.CHATTYPE_SINGLE);
+                } else { // group chat message
+                    // message.getTo() is the group id
+                    intent.putExtra("userId", message.getTo());
+                    if (chatType == EMMessage.ChatType.GroupChat) {
+                        intent.putExtra("chatType", Constant.CHATTYPE_GROUP);
+                    } else {
+                        intent.putExtra("chatType", Constant.CHATTYPE_CHATROOM);
+                    }
+                }
+                return intent;
+            }
+        });
     }
 
-    private EaseUser getUserInfo(String username) {
+    public EaseUser getUserInfo(String username) {
         sharedPreferences = appContext.getSharedPreferences("user", MODE_PRIVATE);
         //获取 EaseUser实例, 这里从内存中读取
         //如果你是从服务器中读读取到的，最好在本地进行缓存
@@ -144,15 +262,12 @@ public class HuanXinHelper {
 
                 for (EMMessage message : messages) {
                     EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
-                    //接收并处理扩展消息
-                    String userName = message.getStringAttribute(Constant.USER_NAME, "");
-                    String userId = message.getStringAttribute(Constant.USER, "");
-                    String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
-                    String hxIdFrom = message.getFrom();
-                    EaseUser easeUser = new EaseUser(hxIdFrom);
-                    easeUser.setAvatar(userPic);
-                    easeUser.setNickname(userName);
-                    sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
+                    if (!easeUI.hasForegroundActivies()) {
+                        getNotifier().notify(message);
+                    } else {
+                        getNotifier().vibrateAndPlayTone(message);
+                    }
+
 
                 }
             }
@@ -284,10 +399,8 @@ public class HuanXinHelper {
     /**
      * logout
      *
-     * @param unbindDeviceToken
-     *            whether you need unbind your device token
-     * @param callback
-     *            callback
+     * @param unbindDeviceToken whether you need unbind your device token
+     * @param callback          callback
      */
     public void logout(boolean unbindDeviceToken, final EMCallBack callback) {
         endCall();
@@ -324,10 +437,11 @@ public class HuanXinHelper {
 
     /**
      * save and notify invitation message
+     *
      * @param msg
      */
-    private void notifyNewInviteMessage(InviteMessage msg){
-        if(inviteMessgeDao == null){
+    private void notifyNewInviteMessage(InviteMessage msg) {
+        if (inviteMessgeDao == null) {
             inviteMessgeDao = new InviteMessgeDao(appContext);
         }
         inviteMessgeDao.saveMessage(msg);
@@ -336,11 +450,13 @@ public class HuanXinHelper {
         // notify there is new message
         getNotifier().vibrateAndPlayTone(null);
     }
+
     /**
      * get instance of EaseNotifier
+     *
      * @return
      */
-    public EaseNotifier getNotifier(){
+    public EaseNotifier getNotifier() {
         return easeUI.getNotifier();
     }
 
@@ -353,10 +469,17 @@ public class HuanXinHelper {
         }
     }
 
-    synchronized void reset(){
+    synchronized void reset() {
 
         DemoDBManager.getInstance().closeDB();
     }
 
 
+    public void pushActivity(Activity activity) {
+        easeUI.pushActivity(activity);
+    }
+
+    public void popActivity(Activity activity) {
+        easeUI.popActivity(activity);
+    }
 }

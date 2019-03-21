@@ -33,7 +33,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -99,7 +99,7 @@ public class ChangeUserDataActivity extends BaseActivity {
 
     private void getdata() {
 
-        userid = GetLoginTokenUtil.getUserId(this);
+        userid = PreferenceManager.getUserId(this);
     }
 
     private void listener() {
@@ -136,7 +136,7 @@ public class ChangeUserDataActivity extends BaseActivity {
 
 
         OkGo.<String>post(Urls.Url_Query).tag(this)
-                .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
+                .params("facebookid", PreferenceManager.getFaceBookId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

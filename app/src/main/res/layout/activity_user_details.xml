@@ -1,399 +1,406 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.foreseers.chat.activity.UserDetailsActivity">
 
-    <!--bar-->
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarRightImage="@mipmap/icon_header_btn_04"
-        app:titleBarTitle="@string/foreseers_user_nickname">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.foreseers.chat.view.widget.MyTitleBar>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--照片-->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="345dp"
-                android:elevation="2dp">
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarRightImage="@mipmap/icon_header_btn_04"
+            app:titleBarTitle="@string/foreseers_user_nickname">
+
+        </com.foreseers.chat.view.widget.MyTitleBar>
 
 
-                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/img_ani"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-                <LinearLayout
-                    android:id="@+id/layout_wipe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:background="@mipmap/icon_me_01" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/foreseers_peep"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-
-
-            </FrameLayout>
-
-            <!--信息-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--照片-->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="345dp"
+                    android:elevation="2dp">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
+
+                    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:id="@+id/img_ani"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/layout_wipe"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/text_user_details_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/name"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_26" />
-
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="12dp"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginBottom="2dp"
-                            android:background="@mipmap/icon_site_vip_01" />
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="17dp"
-                            android:layout_height="14dp"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="11dp"
-                            android:layout_marginBottom="2dp"
+                            android:layout_height="17dp"
                             android:background="@mipmap/icon_me_01" />
 
                         <TextView
-                            android:id="@+id/text_num"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
+                            android:text="@string/foreseers_peep"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_12" />
+                    </LinearLayout>
 
+
+                </FrameLayout>
+
+                <!--信息-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_user_details_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_26" />
+
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="3dp"
+                                android:layout_marginBottom="2dp"
+                                android:background="@mipmap/icon_site_vip_01" />
+
+                            <ImageView
+                                android:layout_width="17dp"
+                                android:layout_height="14dp"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="11dp"
+                                android:layout_marginBottom="2dp"
+                                android:background="@mipmap/icon_me_01" />
+
+                            <TextView
+                                android:id="@+id/text_num"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+
+                                android:textColor="@color/colorAccent"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_nickname"
+
+                                android:textSize="@dimen/sp_11" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_desc"
+                                android:layout_width="75dp"
+                                android:layout_height="20dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/rounded_layout_blue"
+                                android:gravity="center"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/sp_12" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="5dp"
+                                android:text="@string/foreseers_match_degree"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_11" />
+
+                            <TextView
+                                android:id="@+id/progress_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:textColor="@color/colorMain"
+                                android:textSize="@dimen/sp_15" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="%"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_11" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/sp_11" />
+
+                            <TextView
+                                android:id="@+id/text_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:textSize="@dimen/sp_11" />
+
+                            <TextView
+                                android:id="@+id/text_ziwei"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="6dp"
+                                android:textSize="@dimen/sp_11" />
+
+                            <TextView
+                                android:id="@+id/text_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="7dp"
+                                android:textSize="@dimen/sp_11" />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/text_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="5dp"
                             android:textColor="@color/colorAccent"
                             android:textSize="13sp" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_nickname"
-
-                            android:textSize="@dimen/sp_11" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/sp_11" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/text_desc"
-                            android:layout_width="75dp"
-                            android:layout_height="20dp"
-                            android:layout_marginTop="6dp"
-                            android:background="@drawable/rounded_layout_blue"
-                            android:gravity="center"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/sp_12" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginLeft="5dp"
-                            android:text="@string/foreseers_match_degree"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_11" />
-
-                        <TextView
-                            android:id="@+id/progress_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:textColor="@color/colorMain"
-                            android:textSize="@dimen/sp_15" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="%"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_11" />
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/text_sex"
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="19dp"
+                        android:layout_weight="1">
+
+
+                        <ImageView
+                            android:id="@+id/chat_user_details"
+                            android:layout_width="41dp"
+                            android:layout_height="41dp"
+                            android:background="@mipmap/icon_data_02" />
+
+                        <ImageView
+                            android:id="@+id/img_add_friend"
+                            android:layout_width="41dp"
+                            android:layout_height="41dp"
+
+                            android:layout_alignParentRight="true"
+                            android:background="@mipmap/icon_data_01" />
+
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sp_11" />
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/text_age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:textSize="@dimen/sp_11" />
+                            <ImageView
+                                android:layout_width="12dp"
+                                android:layout_height="18dp"
+                                android:background="@mipmap/icon_top_01" />
 
-                        <TextView
-                            android:id="@+id/text_ziwei"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:textSize="@dimen/sp_11" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/foreseers_users"
+                                android:textColor="@color/colorGreen" />
 
-                        <TextView
-                            android:id="@+id/text_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="7dp"
-                            android:textSize="@dimen/sp_11" />
-                    </LinearLayout>
+                        </LinearLayout>
 
-
-                    <TextView
-                        android:id="@+id/text_sign"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="5dp"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="13sp" />
+                    </RelativeLayout>
 
 
                 </LinearLayout>
 
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="19dp"
-                    android:layout_weight="1">
+                <!--設置備註-->
+                <!--<LinearLayout-->
+                <!--android:id="@+id/layout_remark"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal">-->
 
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="@string/remark"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textSize="13sp" />-->
 
-                    <ImageView
-                        android:id="@+id/chat_user_details"
-                        android:layout_width="41dp"
-                        android:layout_height="41dp"
-                        android:background="@mipmap/icon_data_02" />
+                <!--<ImageView-->
+                <!--android:layout_width="9dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:background="@mipmap/icon_filter_area_04" />-->
+                <!--</LinearLayout>-->
 
-                    <ImageView
-                        android:id="@+id/img_add_friend"
-                        android:layout_width="41dp"
-                        android:layout_height="41dp"
+                <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="2dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginRight="13dp"-->
+                <!--android:background="@color/colorGray2" />-->
 
-                        android:layout_alignParentRight="true"
-                        android:background="@mipmap/icon_data_01" />
+                <!--我與TA-->
+                <LinearLayout
+                    android:id="@+id/layout_analyze_life_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/text_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:text="@string/life_book"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="13sp" />
 
-                        <ImageView
-                            android:layout_width="12dp"
-                            android:layout_height="18dp"
-                            android:background="@mipmap/icon_top_01" />
+                    <TextView
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/foreseers_users"
-                            android:textColor="@color/colorGreen" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:text="@string/foreseers_seven_day"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
 
-                    </LinearLayout>
 
-                </RelativeLayout>
+                <!--TA的命書-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:text="@string/ta_life_book"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="13sp" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:text="@string/foreseers_thirty_day"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
-            <!--設置備註-->
-            <!--<LinearLayout-->
-            <!--android:id="@+id/layout_remark"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal">-->
+        </ScrollView>
+    </LinearLayout>
 
-            <!--<TextView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="@string/remark"-->
-            <!--android:textColor="@color/colorBlack"-->
-            <!--android:textSize="13sp" />-->
-
-            <!--<ImageView-->
-            <!--android:layout_width="9dp"-->
-            <!--android:layout_height="15dp"-->
-            <!--android:layout_marginRight="15dp"-->
-            <!--android:background="@mipmap/icon_filter_area_04" />-->
-            <!--</LinearLayout>-->
-
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="2dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="13dp"-->
-            <!--android:background="@color/colorGray2" />-->
-
-            <!--我與TA-->
-            <LinearLayout
-                android:id="@+id/layout_analyze_life_book"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="5dp"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:text="@string/life_book"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="13sp" />
-
-                <TextView
-
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="14dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="@string/foreseers_seven_day"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/sp_13" />
-            </LinearLayout>
-
-
-            <!--TA的命書-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/colorWhite"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:text="@string/ta_life_book"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="13sp" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="14dp"
-                    android:text="@string/foreseers_thirty_day"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/sp_13" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-
-</LinearLayout>
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

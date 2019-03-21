@@ -109,632 +109,635 @@
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
+        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/colorWhite"
-                    android:orientation="horizontal">
-
-                <View
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorAccent"/>
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/foreseers_personal_info"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/sp_14"/>
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:text="@string/foreseers_choose_open_time"
-                        android:textColor="@color/colorGray"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                 <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
                         android:orientation="horizontal">
 
+                    <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorAccent"/>
+
                     <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_three_six_day"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/foreseers_personal_info"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/sp_14"/>
+
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_red"
+                            android:layout_marginRight="20dp"
+                            android:text="@string/foreseers_choose_open_time"
+                            android:textColor="@color/colorGray"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/foreseers_three_six_day"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_red"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"/>
+                    </LinearLayout>
+
+
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:id="@+id/price_vip360"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                        />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_1"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                    <TextView
-                            android:id="@+id/price_vip360"
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                    />
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/foreseers_ninety_day"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_vip"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"
+                                android:visibility="invisible"/>
+                    </LinearLayout>
 
 
-                </LinearLayout>
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        <TextView
 
-                    <Button
-                            android:id="@+id/button_1"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
+                                android:id="@+id/price_vip90"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                        />
 
-            </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    </LinearLayout>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_ninety_day"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
-
-                    <TextView
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_vip"
+                            android:layout_height="match_parent"
+
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"
-                            android:visibility="invisible"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_2"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                    <TextView
-
-                            android:id="@+id/price_vip90"
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                    />
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/foreseers_thirty"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_vip"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"
+                                android:visibility="invisible"/>
+                    </LinearLayout>
 
 
-                </LinearLayout>
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        <TextView
+                                android:id="@+id/price_vip30"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"/>
 
-                    <Button
-                            android:id="@+id/button_2"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_thirty"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
-
-                    <TextView
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_vip"
+                            android:layout_height="match_parent"
+
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"
-                            android:visibility="invisible"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_3"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorWhite"
                         android:orientation="horizontal">
+
+                    <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorYellow"/>
 
                     <TextView
-                            android:id="@+id/price_vip30"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"/>
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/foreseers_prop_wipe"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/sp_14"/>
 
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                    <Button
-                            android:id="@+id/button_3"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/colorWhite"
-                    android:orientation="horizontal">
-
-                <View
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorYellow"/>
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/foreseers_prop_wipe"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/sp_14"/>
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:text="@string/foreseers_advance_see_photo"
-                        android:textColor="@color/colorGray"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_two_hundred_num"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_red"
+                            android:layout_marginRight="20dp"
+                            android:text="@string/foreseers_advance_see_photo"
+                            android:textColor="@color/colorGray"/>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/foreseers_two_hundred_num"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_red"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"/>
+                    </LinearLayout>
+
+
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:id="@+id/text_item3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                        />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_prop1"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                    <TextView
-                            android:id="@+id/text_item3"
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                    />
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="@string/foreseers_ninety_num"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_vip"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"
+                                android:visibility="invisible"/>
+                    </LinearLayout>
 
 
-                </LinearLayout>
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        <TextView
+                                android:id="@+id/text_item2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                        />
 
-                    <Button
-                            android:id="@+id/button_prop1"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="@string/foreseers_ninety_num"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
-
-                    <TextView
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_vip"
+                            android:layout_height="match_parent"
+
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"
-                            android:visibility="invisible"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_prop2"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginRight="14dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                    <TextView
-                            android:id="@+id/text_item2"
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                    />
+                            android:layout_height="match_parent"
+
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="21dp"
+                                android:text="30个"
+                                android:textColor="@color/colorGray"
+                                android:textSize="@dimen/sp_13"/>
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:background="@drawable/button_vip"
+                                android:gravity="center"
+                                android:paddingLeft="3dp"
+                                android:paddingTop="1dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="1dp"
+                                android:text="@string/foreseers_overbalance"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="7sp"
+                                android:visibility="invisible"/>
+                    </LinearLayout>
 
 
-                </LinearLayout>
+                    <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorGray3"/>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        <TextView
+                                android:id="@+id/text_item1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                        />
 
-                    <Button
-                            android:id="@+id/button_prop2"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginRight="14dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                    <TextView
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="21dp"
-                            android:text="30个"
-                            android:textColor="@color/colorGray"
-                            android:textSize="@dimen/sp_13"/>
-
-                    <TextView
+                    <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:background="@drawable/button_vip"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:paddingLeft="3dp"
-                            android:paddingTop="1dp"
-                            android:paddingRight="3dp"
-                            android:paddingBottom="1dp"
-                            android:text="@string/foreseers_overbalance"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="7sp"
-                            android:visibility="invisible"/>
+                            android:orientation="horizontal">
+
+                        <Button
+                                android:id="@+id/button_prop3"
+                                android:layout_width="39dp"
+                                android:layout_height="20dp"
+                                android:layout_marginRight="15dp"
+                                android:background="@color/colorAccent"
+                                android:text="@string/foreseers_open"
+                                android:textColor="@color/colorWhite"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-                <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/colorGray3"/>
-
                 <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
+                    <View
+                            android:layout_width="5dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorRed"/>
 
                     <TextView
-                            android:id="@+id/text_item1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/foreseers_measure"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/sp_14"/>
+
+
+                    <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                    />
-
-
+                            android:layout_marginRight="20dp"
+                            android:background="@mipmap/icon_site_04"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/foreseers_developing"/>
                 </LinearLayout>
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                    <Button
-                            android:id="@+id/button_prop3"
-                            android:layout_width="39dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:background="@color/colorAccent"
-                            android:text="@string/foreseers_open"
-                            android:textColor="@color/colorWhite"/>
-                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@color/colorWhite"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                </FrameLayout>
 
-                <View
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorRed"/>
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/foreseers_measure"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/sp_14"/>
-
-
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:background="@mipmap/icon_site_04"/>
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/foreseers_developing"/>
-            </LinearLayout>
-
-
-        </LinearLayout>
 
     </ScrollView>
 

@@ -1,455 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.foreseers.chat.activity.MyVipActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.foreseers.chat.activity.MyVipActivity">
+        android:orientation="vertical">
 
-    <com.foreseers.chat.view.widget.MyTitleBar
+        <com.foreseers.chat.view.widget.MyTitleBar
             android:id="@+id/my_titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:titleBarTitle="@string/foreseers_my_vip"
             app:titleBarLeftImage="@mipmap/icon_me_06"
-            >
+            app:titleBarTitle="@string/foreseers_my_vip">
 
-    </com.foreseers.chat.view.widget.MyTitleBar>
+        </com.foreseers.chat.view.widget.MyTitleBar>
 
-
-    <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="71dp"
-                android:orientation="horizontal"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorWhite">
+                android:layout_marginRight="15dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
 
-            <FrameLayout
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="15dp">
 
-                <com.ruffian.library.widget.RImageView
-                    android:id="@+id/rimg_head"
+                    <com.ruffian.library.widget.RImageView
+                        android:id="@+id/rimg_head"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
                         android:scaleType="fitCenter"
-                        app:corner_radius="40dp"
-                        app:icon_src_normal="@mipmap/icon_me_loading_03"
+                        app:border_color="@color/colorAccent"
                         app:border_width="2dp"
-                        app:border_color="@color/colorAccent"/>
+                        app:corner_radius="40dp"
+                        app:icon_src_normal="@mipmap/icon_me_loading_03" />
 
-                <ImageView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/icon_site_vip_01"
-                        android:layout_gravity="bottom|right"/>
-            </FrameLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="15dp">
-
-                <TextView
-                    android:id="@+id/text_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/sp_16"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_gravity="bottom|right"
+                        android:background="@mipmap/icon_site_vip_01" />
+                </FrameLayout>
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp_16" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/foreseers_destined_vip"
-                            android:textSize="@dimen/sp_11"/>
+                            android:textSize="@dimen/sp_11" />
 
-                    <TextView
-                        android:id="@+id/text_day"
+                        <TextView
+                            android:id="@+id/text_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/sp_11"/>
+                            android:textSize="@dimen/sp_11" />
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/foreseers_expire_vip"
-                            android:textSize="@dimen/sp_11"/>
+                            android:textSize="@dimen/sp_11" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/colorWhite">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/foreseers_destined"
-                    android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/foreseers_destined"
+                    android:textColor="@color/colorAccent" />
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/foreseers_renew"
-                    android:textColor="@color/colorGray2"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="11dp"/>
+                    android:layout_marginRight="11dp"
+                    android:text="@string/foreseers_renew"
+                    android:textColor="@color/colorGray2" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
-                android:orientation="horizontal"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/colorWhite"
+                android:orientation="horizontal"
                 android:padding="10dp">
 
 
-            <FrameLayout
+                <FrameLayout
                     android:id="@+id/layout_vip1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/background_vip_postpone2">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="29dp"
                         android:layout_height="29dp"
-                        android:background="@mipmap/icon_site_03"/>
+                        android:background="@mipmap/icon_site_03" />
 
-                <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                        <TextView
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="360"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp_26"/>
+                                android:textSize="@dimen/sp_26" />
 
-                        <TextView
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/foreseers_day"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp_10"/>
-                    </LinearLayout>
+                                android:textSize="@dimen/sp_10" />
+                        </LinearLayout>
 
-                    <TextView
+                        <TextView
                             android:id="@+id/text1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="¥180"
                             android:layout_marginLeft="15dp"
                             android:gravity="right"
-                            android:textSize="@dimen/sp_10"/>
+                            android:text="¥180"
+                            android:textSize="@dimen/sp_10" />
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="¥108"
                             android:textColor="@color/colorRed"
-                            android:textSize="@dimen/sp_16"/>
-                </LinearLayout>
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
 
 
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:text="超值"-->
+                    <!--android:gravity="center"-->
+                    <!--android:textSize="@dimen/sp_15"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:background="@drawable/button_vip2"-->
+                    <!--/>-->
+                </FrameLayout>
 
-                <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:text="超值"-->
-                        <!--android:gravity="center"-->
-                        <!--android:textSize="@dimen/sp_15"-->
-                        <!--android:textColor="@color/colorWhite"-->
-                        <!--android:background="@drawable/button_vip2"-->
-                        <!--/>-->
-            </FrameLayout>
 
-
-            <LinearLayout
+                <LinearLayout
                     android:id="@+id/layout_vip2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/background_vip_postpone2">
+                    android:layout_weight="1"
+                    android:background="@drawable/background_vip_postpone2"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <LinearLayout
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="90"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_26"/>
+                            android:textSize="@dimen/sp_26" />
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/foreseers_day"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_10"/>
-                </LinearLayout>
+                            android:textSize="@dimen/sp_10" />
+                    </LinearLayout>
 
-                <TextView
+                    <TextView
                         android:id="@+id/text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="¥45"
                         android:layout_marginLeft="15dp"
                         android:gravity="right"
-                        android:textSize="@dimen/sp_10"/>
+                        android:text="¥45"
+                        android:textSize="@dimen/sp_10" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥36"
                         android:textColor="@color/colorRed"
-                        android:textSize="@dimen/sp_16"/>
-            </LinearLayout>
+                        android:textSize="@dimen/sp_16" />
+                </LinearLayout>
 
 
-            <LinearLayout
+                <LinearLayout
                     android:id="@+id/layout_vip3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:background="@drawable/background_vip_postpone2"
                     android:gravity="center"
-                    android:background="@drawable/background_vip_postpone2">
+                    android:orientation="vertical">
 
-                <LinearLayout
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_26"/>
+                            android:textSize="@dimen/sp_26" />
 
-                    <TextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/foreseers_day"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_10"/>
-                </LinearLayout>
+                            android:textSize="@dimen/sp_10" />
+                    </LinearLayout>
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:layout_marginLeft="15dp"
                         android:gravity="right"
-                        android:textSize="@dimen/sp_10"/>
+                        android:textSize="@dimen/sp_10" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥15"
                         android:textColor="@color/colorRed"
-                        android:textSize="@dimen/sp_16"/>
+                        android:textSize="@dimen/sp_16" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
-
-        </LinearLayout>
-
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="23dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/colorWhite">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/foreseers_destined_vip_pre"
-                    android:textColor="@color/colorAccent"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/foreseers_destined_vip_pre"
+                    android:textColor="@color/colorAccent" />
 
-        </RelativeLayout>
+            </RelativeLayout>
 
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="111dp"
-                android:orientation="horizontal"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginBottom="20dp"
-                android:background="@color/colorWhite">
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="32dp"
                         android:layout_height="@dimen/sp_26"
-                        android:src="@mipmap/icon_vip_me_01"
                         android:layout_gravity="center"
-                        android:layout_marginTop="23dp"/>
+                        android:layout_marginTop="23dp"
+                        android:src="@mipmap/icon_vip_me_01" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:text="@string/foreseers_vip_id"
-                        android:textSize="@dimen/sp_12"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"/>
-            </LinearLayout>
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="32dp"
                         android:layout_height="@dimen/sp_26"
-                        android:src="@mipmap/icon_vip_me_02"
                         android:layout_gravity="center"
-                        android:layout_marginTop="23dp"/>
+                        android:layout_marginTop="23dp"
+                        android:src="@mipmap/icon_vip_me_02" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:text="@string/foreseers_who_see_me"
-                        android:textSize="@dimen/sp_12"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"/>
-            </LinearLayout>
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="32dp"
                         android:layout_height="@dimen/sp_26"
-                        android:src="@mipmap/icon_vip_me_03"
                         android:layout_gravity="center"
-                        android:layout_marginTop="23dp"/>
+                        android:layout_marginTop="23dp"
+                        android:src="@mipmap/icon_vip_me_03" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:text="@string/foreseers_who_catch_me"
-                        android:textSize="@dimen/sp_12"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"/>
-            </LinearLayout>
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="32dp"
                         android:layout_height="@dimen/sp_26"
-                        android:src="@mipmap/icon_vip_me_04"
                         android:layout_gravity="center"
-                        android:layout_marginTop="23dp"/>
+                        android:layout_marginTop="23dp"
+                        android:src="@mipmap/icon_vip_me_04" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
                         android:text="@string/foreseers_everyday"
-                        android:textSize="@dimen/sp_12"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"/>
-            </LinearLayout>
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                <ImageView
+                    <ImageView
                         android:layout_width="32dp"
                         android:layout_height="@dimen/sp_26"
-                        android:src="@mipmap/icon_vip_me_05"
                         android:layout_gravity="center"
-                        android:layout_marginTop="23dp"/>
+                        android:layout_marginTop="23dp"
+                        android:src="@mipmap/icon_vip_me_05" />
 
-                <TextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/foreseers_infinite"
-                        android:textSize="@dimen/sp_12"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"/>
+                        android:layout_marginTop="20dp"
+                        android:text="@string/foreseers_infinite"
+                        android:textSize="@dimen/sp_12" />
+                </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <ScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    </ScrollView>
+        </ScrollView>
 
+    </LinearLayout>
 
-</LinearLayout>
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

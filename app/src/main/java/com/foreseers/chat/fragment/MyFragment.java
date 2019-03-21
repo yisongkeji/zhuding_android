@@ -5,12 +5,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,14 +41,16 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.AddVIPDialog;
 import com.foreseers.chat.R;
-import com.foreseers.chat.global.BaseMainFragment;
+import com.foreseers.chat.global.BaseFragment;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.BitmapCallback;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.ruffian.library.widget.RImageView;
@@ -63,6 +68,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +80,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import okhttp3.OkHttpClient;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -80,9 +87,9 @@ import static android.content.Context.MODE_PRIVATE;
  * 个人
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends BaseMainFragment {
+public class MyFragment extends BaseFragment {
 
-
+    private final String TAG = "MyFragment@@@@@@";
     @BindView(R.id.recycler_img)
     RecyclerView recyclerImg;
     Unbinder unbinder;
@@ -122,6 +129,10 @@ public class MyFragment extends BaseMainFragment {
     private static final int REQUEST_CODE_CHOOSE_IMG = 24;
     private static final int REQUEST_CODE_USER_DATA = 200;
     private static final int REQUEST_CODE_DELETEIMG = 201;
+    public final int DATASUCCESS = 1;
+    public final int DATAFELLED = 0;
+    public final int USERHEADSUCCESS = 2;
+    public final int USERIMGSUCCESS = 3;
     @BindView(R.id.text_sign)
     TextView textSign;
     @BindView(R.id.layout_sign)
@@ -162,8 +173,12 @@ public class MyFragment extends BaseMainFragment {
 
     @Override
     public void initViews() {
+        initauthority();
         //看本地有没有头像 有就加载
-
+        if (PreferenceManager.getInstance().getHeadImgUrl() != null) {
+            File file = new File(Urls.ImgHead + "/" + PreferenceManager.getInstance().getHeadImgUrl().split("/")[4]);
+            Glide.with(MyApplication.getContext()).load(file).error(R.mipmap.icon_me_loading_03).placeholder(R.mipmap.icon_me_loading_03).into(imageHead);
+        }
 
         albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
         recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -174,7 +189,7 @@ public class MyFragment extends BaseMainFragment {
 
     @Override
     public void initDatas() {
-        userid = GetLoginTokenUtil.getUserId(getActivity());
+        userid = PreferenceManager.getUserId(getActivity());
         getDataFromHttp();
     }
 
@@ -232,8 +247,40 @@ public class MyFragment extends BaseMainFragment {
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                     }
 
-                    //先下载dataBean.getHead()，，，本地地址   本地地址保存
-                    Glide.with(getActivity()).load(dataBean.getHead()).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
+                    if (dataBean.getHead() != null) {
+                        if (PreferenceManager.getInstance().getHeadImgUrl() == null) {
+                            Log.i(TAG, "initViews: 加载网络图片");
+
+                            Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
+                            OkGo.<Bitmap>get(dataBean.getHead()).tag(this)
+                                    .execute(new BitmapCallback() {
+                                        @Override
+                                        public void onSuccess(Response<Bitmap> response) {
+                                            FileUtil.saveFile(response.body(), dataBean.getHead().split("/")[4]);
+                                            PreferenceManager.getInstance().setHeadImgUrl(dataBean.getHead());
+                                        }
+                                    });
+
+
+                        } else if (PreferenceManager.getInstance().getHeadImgUrl() != null) {
+                            if (!PreferenceManager.getInstance().getHeadImgUrl().equals(dataBean.getHead())) {
+                                Log.i(TAG, "initViews: 加载更新网络图片");
+                                Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
+                                OkGo.<Bitmap>get(dataBean.getHead()).tag(this)
+                                        .execute(new BitmapCallback() {
+                                            @Override
+                                            public void onSuccess(Response<Bitmap> response) {
+                                                FileUtil.saveFile(response.body(), dataBean.getHead().split("/")[4]);
+                                                PreferenceManager.getInstance().setHeadImgUrl(dataBean.getHead());
+                                            }
+                                        });
+                            }
+                        }
+
+                    } else {
+                        Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy
+                                (DiskCacheStrategy.SOURCE).into(imageHead);
+                    }
 
                     textName.setText(dataBean.getUsername());
                     textMyNum.setText(dataBean.getNum() + "");
@@ -473,7 +520,7 @@ public class MyFragment extends BaseMainFragment {
                 break;
             case R.id.lifebook://命书
                 intent = new Intent(getActivity(), LifeBookActivity.class);
-                intent.putExtra("type",0);
+                intent.putExtra("type", 0);
                 getActivity().startActivity(intent);
                 break;
             case R.id.layout_change_user_data://修改個人信息
@@ -523,7 +570,7 @@ public class MyFragment extends BaseMainFragment {
 
             case R.id.layout_wipe://谁擦过我
                 intent = new Intent(getActivity(), WipeHistoryActivity.class);
-                intent.putExtra("vip",vip);
+                intent.putExtra("vip", vip);
                 getActivity().startActivity(intent);
                 break;
             case R.id.layout_sign://签名
@@ -541,8 +588,7 @@ public class MyFragment extends BaseMainFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i("onActivityResult", "onActivityResult:requestCode " + requestCode + "   resultCode"
-                + resultCode);
+        Log.i("onActivityResult", "onActivityResult:requestCode " + requestCode + "   resultCode" + resultCode);
         switch (requestCode) {
             case REQUEST_CODE_CHOOSE: //头像
 
@@ -553,11 +599,10 @@ public class MyFragment extends BaseMainFragment {
 
                         FileInputStream fis = new FileInputStream(path);
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
-                        Bitmap compressbitmap = compressImage(bitmap);
-                        newpath = BitmapDispose.saveBitmap(compressbitmap, 1);
+//                        Bitmap compressbitmap = compressImage(bitmap);
+                        newpath = BitmapDispose.saveBitmap(bitmap, 1);
 
-                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(),
-                                compressbitmap, 25);
+                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
                         blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                         Log.i("blurPath", "blurPath: " + blurPath);
@@ -574,16 +619,10 @@ public class MyFragment extends BaseMainFragment {
                                 @Override
                                 public void onSuccess(Response<String> response) {
 
-
                                     Gson gson = new Gson();
-                                    UserDataBean userDataBean = gson.fromJson(response.body(),
-                                            UserDataBean.class);
-                                    SharedPreferences sharedPreferences = getActivity()
-                                            .getSharedPreferences("user",
-                                                    MODE_PRIVATE);
-                                    sharedPreferences.edit().putString("url", userDataBean
-                                            .getData().getHead())
-                                            .commit();
+                                    UserDataBean userDataBean = gson.fromJson(response.body(), UserDataBean.class);
+                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+                                    sharedPreferences.edit().putString("url", userDataBean.getData().getHead()).commit();
 
                                     getHandler().obtainMessage(USERHEADSUCCESS).sendToTarget();
 
@@ -728,5 +767,17 @@ public class MyFragment extends BaseMainFragment {
         super.onDestroy();
         Log.i("shengming", "onDestroy: MyFragment ");
         OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
+    }
+
+    /**
+     * 申请权限
+     */
+    private void initauthority() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
+            ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+        }
     }
 }

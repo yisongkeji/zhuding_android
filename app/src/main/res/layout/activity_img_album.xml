@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#000000"
-    android:id="@+id/vp_ll">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
+    <LinearLayout
+        android:id="@+id/vp_ll"
+        android:background="#000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarRightImage="@mipmap/icon_delete_02"
-        app:titleBarTitle="@string/foreseers_ablum">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.foreseers.chat.view.widget.MyTitleBar>
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarRightImage="@mipmap/icon_delete_02"
+            app:titleBarTitle="@string/foreseers_ablum">
 
-    <android.support.v4.view.ViewPager
+        </com.foreseers.chat.view.widget.MyTitleBar>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/vp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="10dp"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <com.foreseers.chat.view.MyView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/vp"
+        android:layout_height="match_parent"/>
 
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/vp_text"
-        android:textColor="#FFFFFF"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="10dp"
-        android:textSize="14sp"
-        />
-</LinearLayout>
+</FrameLayout>

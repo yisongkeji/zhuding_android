@@ -22,7 +22,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MySection;
 import com.foreseers.chat.bean.Video;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -109,7 +109,7 @@ public class LookHistoryFragment extends Fragment {
     }
     public void initDatas() {
         OkGo.<String>post(Urls.Url_ShowLook).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(getActivity()))
+                .params("userid", PreferenceManager.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

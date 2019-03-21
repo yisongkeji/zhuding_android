@@ -1,8 +1,6 @@
 package com.foreseers.chat.activity;
 
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +13,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.WipeDayHistoryBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -77,7 +75,7 @@ public class WipeDayHistoryActivity extends BaseActivity {
         switch (type){
             case 1:
                 OkGo.<String>post(Urls.Url_HistoryDay).tag(this)
-                        .params("userid", GetLoginTokenUtil.getUserId(this))
+                        .params("userid", PreferenceManager.getUserId(this))
                         .params("datetime", datetime)
                         .execute(new StringCallback() {
                             @Override
@@ -95,7 +93,7 @@ public class WipeDayHistoryActivity extends BaseActivity {
                 break;
             case 2:
                 OkGo.<String>post(Urls.Url_ShowLookDay).tag(this)
-                        .params("userid", GetLoginTokenUtil.getUserId(this))
+                        .params("userid", PreferenceManager.getUserId(this))
                         .params("datetime", datetime)
                         .execute(new StringCallback() {
                             @Override

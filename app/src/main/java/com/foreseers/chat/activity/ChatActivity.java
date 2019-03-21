@@ -13,6 +13,7 @@ import com.cy.translucentparent.StatusNavUtils;
 import com.foreseers.chat.fragment.MyChatFragment;
 import com.foreseers.chat.global.BaseActivity;
 import com.hyphenate.easeui.EaseConstant;
+import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 
 import butterknife.ButterKnife;
@@ -57,7 +58,17 @@ public class ChatActivity extends AppCompatActivity {
         avatar = bundle.getString(EaseConstant.EXTRA_USER_AVATAR);
 
 
-        Log.i("chatActivity", "userid" + userid + "````username" + username);
+        String t_userid =getIntent().getStringExtra("userId");
+        String t_nickname =getIntent().getStringExtra("nickname");
+        String t_avatar =getIntent().getStringExtra("avatar");
+
+        if (t_nickname!=null){
+            userid=t_userid;
+            username=t_nickname;
+            avatar=t_avatar;
+        }
+
+        Log.i("chatActivity", "userid" + userid + "````username" + username+"      nickname:"+t_userid);
         initView();
     }
 
@@ -72,5 +83,9 @@ public class ChatActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.layout, chatFragment).commit();
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EaseUI.getInstance().getNotifier().reset();
+    }
 }

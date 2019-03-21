@@ -1,34 +1,45 @@
 package com.foreseers.chat.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.cy.translucentparent.StatusNavUtils;
-import com.foreseers.chat.bean.FriendTimeBean;
 import com.foreseers.chat.R;
+import com.foreseers.chat.bean.Constant;
+import com.foreseers.chat.bean.FriendTimeBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.fragment.ChatFragment;
 import com.foreseers.chat.fragment.FriendFragment;
 import com.foreseers.chat.fragment.MatchFragment;
 import com.foreseers.chat.fragment.MyFragment;
 import com.foreseers.chat.fragment.ShopFragment;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.service.MediaService;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.HuanXinHelper;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.EaseUI;
+import com.hyphenate.easeui.domain.EaseUser;
+import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -53,6 +64,12 @@ public class MainActivity extends SupportActivity {
     BottomBarItem buttomFriend;
     @BindView(R.id.img_main)
     ImageView imgMain;
+    @BindView(R.id.text_name)
+    TextView textName;
+    @BindView(R.id.text_message)
+    TextView textMessage;
+    @BindView(R.id.layout_message)
+    LinearLayout layoutMessage;
 
     private List<Fragment> mFragmentList = new ArrayList<>();
     private FragmentTransaction transaction;
@@ -64,10 +81,10 @@ public class MainActivity extends SupportActivity {
     private FriendTimeBean friendTimeBean;
     private List<FriendTimeBean.DataBean> dataBean = new ArrayList<>();
     private String userid;
-    private MessageListener messageListener;
+
     private ContactListener contactListener;
     private int messNum;
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +92,33 @@ public class MainActivity extends SupportActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         StatusNavUtils.setStatusBarColor(this, 0x00000000);
+        Log.i(TAG, "onCreate: " + HuanXinHelper.getInstance().isLoggedIn());
+        if (!HuanXinHelper.getInstance().isLoggedIn()) {
+            EMClient.getInstance().login(PreferenceManager.getUserId(this) + "", "123", new EMCallBack() {//回调
+                @Override
+                public void onSuccess() {
+                    EMClient.getInstance().groupManager().loadAllGroups();
+                    EMClient.getInstance().chatManager().loadAllConversations();
+                    Log.d("EMClient", "登录聊天服务器成功！");
+
+                }
+
+                @Override
+                public void onProgress(int progress, String status) {
+
+                }
+
+                @Override
+                public void onError(int code, String message) {
+                    Log.d("EMClient", "登录聊天服务器失败！");
+                }
+            });
+        }
+
         initView();
         initData();
         initListener();
-        userid = GetLoginTokenUtil.getUserId(this);
+        userid = PreferenceManager.getUserId(this);
         OkGo.<String>post(Urls.Url_Countage).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
@@ -215,10 +255,9 @@ public class MainActivity extends SupportActivity {
             }
         });
 
-        messageListener = new MessageListener();
+
         contactListener = new ContactListener();
-        EMClient.getInstance().chatManager().addMessageListener(messageListener);
-        EMClient.getInstance().contactManager().setContactListener(contactListener);
+
 
     }
 
@@ -237,10 +276,38 @@ public class MainActivity extends SupportActivity {
             switch (msg.what) {
                 case DATASUCCESS:
                     mBottomBarLayout.showNotify(1);
+
                     break;
 
                 case GETmessNum:
                     mBottomBarLayout.showNotify(0);
+                    layoutMessage.setVisibility(View.VISIBLE);
+                    EMMessage message= (EMMessage) msg.obj;
+                    Log.i(TAG, "handleMessage: "+message.getUserName()+"    message.getBody():"+message.getBody());
+                    String ticker = EaseCommonUtils.getMessageDigest(message, MyApplication.getContext());
+                    if (message.getType() == EMMessage.Type.TXT) {
+                        ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
+                    }
+                    EaseUser user = HuanXinHelper.getInstance().getUserInfo(message.getFrom());
+                    textName.setText(user.getNickname());
+                    textMessage.setText(ticker);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(1500);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        layoutMessage.setVisibility(View.GONE);
+                                    }
+                                });
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+
                     break;
 
                 default:
@@ -250,6 +317,23 @@ public class MainActivity extends SupportActivity {
 
 
     };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        HuanXinHelper huanXinHelper = HuanXinHelper.getInstance();
+        huanXinHelper.pushActivity(this);
+        EMClient.getInstance().chatManager().addMessageListener(messageListener);
+        EMClient.getInstance().contactManager().setContactListener(contactListener);
+        EaseUI.getInstance().getNotifier().reset();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        HuanXinHelper sdkHelper = HuanXinHelper.getInstance();
+        sdkHelper.popActivity(this);
+    }
 
     @Override
     protected void onDestroy() {
@@ -264,12 +348,28 @@ public class MainActivity extends SupportActivity {
         mBottomBarLayout.setCurrentItem(2);
     }
 
-
-    public class MessageListener implements EMMessageListener {
+    private EMMessageListener messageListener = new EMMessageListener() {
         @Override
-        public void onMessageReceived(List<EMMessage> list) {//收到消息
-            for (EMMessage message : list) {
-                mHandler.obtainMessage(GETmessNum).sendToTarget();
+        public void onMessageReceived(List<EMMessage> messages) {//收到消息
+            sharedPreferences = MainActivity.this.getSharedPreferences("user", MODE_PRIVATE);
+            for (EMMessage message : messages) {
+                //接收并处理扩展消息
+                String userName = message.getStringAttribute(Constant.USER_NAME, "");
+                String userId = message.getStringAttribute(Constant.USER, "");
+                String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
+                String hxIdFrom = message.getFrom();
+                EaseUser easeUser = new EaseUser(hxIdFrom);
+                easeUser.setAvatar(userPic);
+                easeUser.setNickname(userName);
+
+                sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
+                if (chatFragment.isVisible()) {
+                    Log.i(TAG, "chatFragment.isVisible(): ");
+                }
+                Message message1 = new Message();
+                message1.what = GETmessNum;
+                message1.obj = message;
+                mHandler.sendMessage(message1);
             }
         }
 
@@ -298,7 +398,7 @@ public class MainActivity extends SupportActivity {
 
         }
 
-    }
+    };
 
     public class ContactListener implements EMContactListener {
 

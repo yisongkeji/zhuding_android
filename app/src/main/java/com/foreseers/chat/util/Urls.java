@@ -2,7 +2,7 @@ package com.foreseers.chat.util;
 
 public  class Urls {
 
-//    public static final String URL = "https://192.168.1.73:8080";
+//    public static final String URL = "http://192.168.1.73:8080";
     public static final String URL = "https://chat.foreseers.cn:443";
 
 
@@ -16,8 +16,6 @@ public  class Urls {
 
 
     public static final String Url_Userquery = URL_User + "queryName";//用户名字和头像
-
-
 
 
     public static final String Url_UpdateUser = URL_User+"updateuser";//修改個人信息
@@ -68,9 +66,15 @@ public  class Urls {
     public static final String Url_UserCanumsNum = Url_Canums + "getUserNums"; //擦子数
 
     //商店
-    public static final String Url_Shoppingg = URL + "/google/check";
+    public static final String Url_Shopping = URL + "/google/check";
+    public static final String Url_ShoppingID = URL + "/product/getProduct";
 
 
+
+
+    //本地
+    public static final String ImgHead = "/sdcard/foreseers/head";
+    public static final String CompressHead = "/sdcard/foreseers/compresshead";
 
 
 

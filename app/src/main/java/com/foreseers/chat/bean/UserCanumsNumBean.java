@@ -4,8 +4,8 @@ public class UserCanumsNumBean {
 
     /**
      * status : success
-     * data : {"id":7,"userid":99,"everyday":0,"vipeveryday":0,"nums":0,
-     * "updated":"2019-02-25T08:59:00.000+0000","spare":null,"spare1":null,"spareint":null}
+     * data : {"id":7,"userid":99,"everyday":1,"vipeveryday":0,"nums":3,"updated":"2019-03-19T09:04:36.000+0000","buynums":20,"countnums":23,
+     * "spare":null,"spare1":null,"spareint":null}
      */
 
     private String status;
@@ -31,10 +31,12 @@ public class UserCanumsNumBean {
         /**
          * id : 7
          * userid : 99
-         * everyday : 0
+         * everyday : 1
          * vipeveryday : 0
-         * nums : 0
-         * updated : 2019-02-25T08:59:00.000+0000
+         * nums : 3
+         * updated : 2019-03-19T09:04:36.000+0000
+         * buynums : 20
+         * countnums : 23
          * spare : null
          * spare1 : null
          * spareint : null
@@ -46,6 +48,8 @@ public class UserCanumsNumBean {
         private int vipeveryday;
         private int nums;
         private String updated;
+        private int buynums;
+        private int countnums;
         private Object spare;
         private Object spare1;
         private Object spareint;
@@ -96,6 +100,22 @@ public class UserCanumsNumBean {
 
         public void setUpdated(String updated) {
             this.updated = updated;
+        }
+
+        public int getBuynums() {
+            return buynums;
+        }
+
+        public void setBuynums(int buynums) {
+            this.buynums = buynums;
+        }
+
+        public int getCountnums() {
+            return countnums;
+        }
+
+        public void setCountnums(int countnums) {
+            this.countnums = countnums;
         }
 
         public Object getSpare() {

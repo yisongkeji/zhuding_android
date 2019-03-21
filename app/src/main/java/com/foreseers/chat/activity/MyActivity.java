@@ -1,11 +1,9 @@
 package com.foreseers.chat.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,7 +13,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MyBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -164,7 +162,7 @@ public class MyActivity extends BaseActivity {
 
     private void getDataFromHttp() {
         OkGo.<String>post(Urls.Url_UserShow).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(this))
+                .params("userid", PreferenceManager.getUserId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

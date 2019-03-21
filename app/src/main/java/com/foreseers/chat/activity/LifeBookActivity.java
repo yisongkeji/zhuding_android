@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import butterknife.OnClick;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -79,7 +78,7 @@ public class LifeBookActivity extends AppCompatActivity {
 
 
         OkGo.<String>post(Urls.Url_Query).tag(this)
-                .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
+                .params("facebookid", PreferenceManager.getFaceBookId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,19 +7,28 @@
     android:orientation="vertical"
     tools:context=".activity.ClauseActivity">
 
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="@string/foreseers_terms">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.foreseers.chat.view.widget.MyTitleBar>
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarTitle="@string/foreseers_terms">
 
+        </com.foreseers.chat.view.widget.MyTitleBar>
 
-    <WebView
-        android:id="@+id/webView"
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></WebView>
+
+    </LinearLayout>
+
+    <com.foreseers.chat.view.MyView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </WebView>
-</LinearLayout>
+        android:layout_height="match_parent" />
+</FrameLayout>

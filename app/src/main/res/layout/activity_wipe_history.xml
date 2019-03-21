@@ -1,84 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.foreseers.chat.activity.WipeHistoryActivity">
 
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="73dp">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:background="@mipmap/icon_header_case_01" />
-
-        <RadioGroup
-            android:id="@+id/radiogroup"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:gravity="bottom"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radiobutton1"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/radio_look_me"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/foreseers_who_catch_me"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_16" />
-
-            <RadioButton
-                android:id="@+id/radiobutton2"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@drawable/radio_look_me"
-                android:button="@null"
-                android:gravity="center"
-                android:text="@string/foreseers_who_see_me"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_16" />
-        </RadioGroup>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/layout_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="73dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:background="@mipmap/icon_header_case_01" />
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radiobutton1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_look_me"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/foreseers_who_catch_me"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_16" />
+
+                <RadioButton
+                    android:id="@+id/radiobutton2"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_look_me"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="@string/foreseers_who_see_me"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_16" />
+            </RadioGroup>
+
         </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/img"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.9"
-            android:background="@mipmap/icon_header_case_08"
-            android:elevation="1dp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/foreseers_became_vip_see"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:textSize="20sp"
-            android:textColor="@color/colorAccent"
-            android:elevation="1dp" />
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/layout_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
 
-</LinearLayout>
+            <ImageButton
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.9"
+                android:background="@mipmap/icon_header_case_08"
+                android:elevation="1dp" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:elevation="1dp"
+                android:text="@string/foreseers_became_vip_see"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

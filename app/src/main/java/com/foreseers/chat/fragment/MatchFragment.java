@@ -2,17 +2,14 @@ package com.foreseers.chat.fragment;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -32,9 +29,9 @@ import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.R;
-import com.foreseers.chat.global.BaseMainFragment;
+import com.foreseers.chat.global.BaseFragment;
 import com.foreseers.chat.util.GetLocation;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.DoubleSlideSeekBar;
 import com.google.gson.Gson;
@@ -53,14 +50,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.foreseers.chat.util.JudgeNetAndGPS.isGpsEnabled;
 
 
 /**
  * 主页
  * 匹配
  */
-public class MatchFragment extends BaseMainFragment {
+public class MatchFragment extends BaseFragment {
 
     private final String TAG = "MatchFragment####";
 
@@ -104,7 +100,7 @@ public class MatchFragment extends BaseMainFragment {
 
     private RadioGroup radioGroup;
     private View view;
-    private DoubleSlideSeekBar doubleslideAge,doubleslideDistance;
+    private DoubleSlideSeekBar doubleslideAge, doubleslideDistance;
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private int num;
@@ -135,7 +131,7 @@ public class MatchFragment extends BaseMainFragment {
     @Override
     public void initViews() {
         Log.d(TAG, "initViews: ");
-        textCanumsNum.setText("0");
+
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
@@ -147,14 +143,14 @@ public class MatchFragment extends BaseMainFragment {
 
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
 
-        textCanumsNum.setText("0");
+
     }
 
     @Override
     public void initDatas() {
         Log.d(TAG, "initDatas: ");
-        facebookid = GetLoginTokenUtil.getFaceBookId(getActivity());
-        huanXinId = GetLoginTokenUtil.getUserId(getActivity());
+        facebookid = PreferenceManager.getFaceBookId(getActivity());
+        huanXinId = PreferenceManager.getUserId(getActivity());
         userInfo = getActivity().getSharedPreferences("condition", MODE_PRIVATE);
 
         getDataForHttp();
@@ -179,65 +175,48 @@ public class MatchFragment extends BaseMainFragment {
         Log.d(TAG, "getDataFromHttp: ");
 
 //        if (isGpsEnabled(getContext())) {
-            GetLocation location = new GetLocation();
+        GetLocation location = new GetLocation();
 
-            while(locationBean == null){
-                locationBean = location.getLocation(getActivity());
-            }
-            if (locationBean != null) {
-                OkGo.<String>post(Urls.Url_UserLocation).tag(this)
-                        .params("facebookid", facebookid)
-                        .params("country", locationBean.getCountry())
-                        .params("city", locationBean.getCity())
-                        .params("area", locationBean.getArea())
-                        .params("addr", locationBean.getAddr())
-                        .params("addrs", locationBean.getAddrs())
-                        .params("lat", locationBean.getLat())
-                        .params("lng", locationBean.getLng())
-                        .params("sex", sex)
-                        .params("ageLittle", ageLittle)
-                        .params("agebig", agebig)
-                        .params("distance", distance)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                Gson gson = new Gson();
-                                loginBean = gson.fromJson(response.body(), LoginBean.class);
+        while (locationBean == null) {
+            locationBean = location.getLocation(getActivity());
+        }
+        if (locationBean != null) {
+            OkGo.<String>post(Urls.Url_UserLocation).tag(this)
+                    .params("facebookid", facebookid)
+                    .params("country", locationBean.getCountry())
+                    .params("city", locationBean.getCity())
+                    .params("area", locationBean.getArea())
+                    .params("addr", locationBean.getAddr())
+                    .params("addrs", locationBean.getAddrs())
+                    .params("lat", locationBean.getLat())
+                    .params("lng", locationBean.getLng())
+                    .params("sex", sex)
+                    .params("ageLittle", ageLittle)
+                    .params("agebig", agebig)
+                    .params("distance", distance)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Gson gson = new Gson();
+                            loginBean = gson.fromJson(response.body(), LoginBean.class);
 
-                                if (loginBean.getStatus().equals("success")) {
-                                    recommendBean = gson.fromJson(response.body(), RecommendBean.class);
-                                    recommendBeans = recommendBean.getData();
+                            if (loginBean.getStatus().equals("success")) {
+                                recommendBean = gson.fromJson(response.body(), RecommendBean.class);
+                                recommendBeans = recommendBean.getData();
 
-                                    getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                                getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
-                                } else if (loginBean.getStatus().equals("fail")) {
-                                    Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
-                                }
-
-
+                            } else if (loginBean.getStatus().equals("fail")) {
+                                Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
                             }
-                        });
-            }
 
-
-        OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
-                .params("userid", huanXinId)
-                .execute(new StringCallback() {
-
-                    @Override
-                    public void onSuccess(Response<String> response) {
-
-                        Gson gson = new Gson();
-                        loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
-                            userCanumsNumBean = gson.fromJson(response.body(),
-                                    UserCanumsNumBean.class);
-                            num = userCanumsNumBean.getData().getNums();
-                            getHandler().obtainMessage(DATASUCCESS2).sendToTarget();
 
                         }
-                    }
-                });
+                    });
+        }
+
+        getCanumsNum();
+
 
     }
 
@@ -251,6 +230,12 @@ public class MatchFragment extends BaseMainFragment {
                 refresh();
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCanumsNum();
     }
 
     @Override
@@ -287,23 +272,21 @@ public class MatchFragment extends BaseMainFragment {
     @OnClick(R.id.img_match_filter)
     public void onViewClicked() {
 
-        String  s=userInfo.getString("sex",null);
-        ageLowContent=userInfo.getFloat("ageLowContent",0);
-        ageLow = userInfo.getInt("ageLow",0);
-        ageBig = userInfo.getInt("ageBig",0);
-        distanceLowContent=userInfo.getFloat("distanceLowContent",0);
-        distanceLow = userInfo.getInt("distanceLow",0);
-        distanceBig = userInfo.getInt("distanceBig",0);
+        String s = userInfo.getString("sex", null);
+        ageLowContent = userInfo.getFloat("ageLowContent", 0);
+        ageLow = userInfo.getInt("ageLow", 0);
+        ageBig = userInfo.getInt("ageBig", 0);
+        distanceLowContent = userInfo.getFloat("distanceLowContent", 0);
+        distanceLow = userInfo.getInt("distanceLow", 0);
+        distanceBig = userInfo.getInt("distanceBig", 0);
         /**
          * 用户保存信息
          */
-        if (ageLow!=0){
-            showUserInfo(ageLowContent,ageLow,ageBig,distanceLowContent,distanceLow,distanceBig,s);
-        }else {
+        if (ageLow != 0) {
+            showUserInfo(ageLowContent, ageLow, ageBig, distanceLowContent, distanceLow, distanceBig, s);
+        } else {
             initPopupWind();
         }
-
-
 
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup
@@ -339,20 +322,19 @@ public class MatchFragment extends BaseMainFragment {
 
                 ageLow = doubleslideAge.getSmallX();
                 ageBig = doubleslideAge.getBigX();
-                ageLowContent=doubleslideAge.getSmallContent();
+                ageLowContent = doubleslideAge.getSmallContent();
             }
         });
         doubleslideDistance.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
             @Override
             public void onRange(float low, float big) {
-                distance =  doubleslideDistance.getBigRange();
+                distance = doubleslideDistance.getBigRange();
 
                 distanceLowContent = doubleslideDistance.getSmallContent();
                 distanceLow = doubleslideDistance.getSmallX();
                 distanceBig = doubleslideDistance.getBigX();
             }
         });
-
 
 
         new PopWindow.Builder(getActivity())
@@ -370,13 +352,13 @@ public class MatchFragment extends BaseMainFragment {
                                 editor.putString("sex", sex);
                                 editor.putInt("ageLow", ageLow);
                                 editor.putInt("ageBig", ageBig);
-                                editor.putFloat("ageLowContent",ageLowContent);
+                                editor.putFloat("ageLowContent", ageLowContent);
                                 editor.putInt("distanceLow", distanceLow);
-                                editor.putInt("distanceBig",distanceBig);
-                                editor.putFloat("distanceLowContent",distanceLowContent);
+                                editor.putInt("distanceBig", distanceBig);
+                                editor.putFloat("distanceLowContent", distanceLowContent);
                                 editor.commit();//提交修改
 
-                                Log.i(TAG, "onClickPopWindow: "+ageLittle);
+                                Log.i(TAG, "onClickPopWindow: " + ageLittle);
                                 getDataFromHttp();
                                 getDataForHttp();
                             }
@@ -413,7 +395,7 @@ public class MatchFragment extends BaseMainFragment {
 
 
         doubleslideAge = view.findViewById(R.id.doubleslide_age);
-        doubleslideDistance=view.findViewById(R.id.doubleslide_distance);
+        doubleslideDistance = view.findViewById(R.id.doubleslide_distance);
 //        distance = userInfo.getInt("distance", 0);
 
     }
@@ -443,11 +425,36 @@ public class MatchFragment extends BaseMainFragment {
         peopleAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
         getDataFromHttp();
     }
-    private void showUserInfo(float ageLowContent,int ageLow,int ageBig,float distanceLowContent,int distanceLow,int distanceBig,String s){
+
+    private void showUserInfo(float ageLowContent, int ageLow, int ageBig, float distanceLowContent, int distanceLow, int distanceBig, String s) {
         sex = s;
         initPopupWind();
-        doubleslideAge.setRange(ageLowContent,ageLow,ageBig);
-        doubleslideDistance.setRange(distanceLowContent,distanceLow,distanceBig);
+        doubleslideAge.setRange(ageLowContent, ageLow, ageBig);
+        doubleslideDistance.setRange(distanceLowContent, distanceLow, distanceBig);
     }
 
+
+    /**
+     * 用户擦子数
+     */
+    private void getCanumsNum() {
+        OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
+                .params("userid", huanXinId)
+                .execute(new StringCallback() {
+
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                        Gson gson = new Gson();
+                        loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus().equals("success")) {
+                            userCanumsNumBean = gson.fromJson(response.body(),
+                                    UserCanumsNumBean.class);
+                            num = userCanumsNumBean.getData().getCountnums();
+                            getHandler().obtainMessage(DATASUCCESS2).sendToTarget();
+
+                        }
+                    }
+                });
+    }
 }

@@ -1,278 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context="com.foreseers.chat.activity.SettingActivity">
 
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="@string/foreseers_system_setting">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.foreseers.chat.view.widget.MyTitleBar>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarTitle="@string/foreseers_system_setting">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="13dp"
-                android:text="@string/foreseers_cache_manage"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/sp_14" />
+        </com.foreseers.chat.view.widget.MyTitleBar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:background="@color/colorWhite"
-                android:elevation="1dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/layout_cache"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:text="@string/foreseers_cache_clean"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/text_num"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="121M" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray2"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="40dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/foreseers_cache_manage"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/sp_14" />
 
                 <LinearLayout
-                    android:id="@+id/layout_temporarychat"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorWhite"
+                    android:elevation="1dp"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:text="@string/foreseers_clean_temp_record"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
+                    <LinearLayout
+                        android:id="@+id/layout_cache"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:text="@string/foreseers_cache_clean"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/text_num"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="121M" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@color/colorGray2" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_temporarychat"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/foreseers_clean_temp_record"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
 
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@color/colorGray2" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_friendchat"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/foreseers_clean_friend_record"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray2"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="40dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/foreseers_id_secure"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/sp_14" />
+
 
                 <LinearLayout
-                    android:id="@+id/layout_friendchat"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorWhite"
+                    android:elevation="1dp"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:text="@string/foreseers_clean_friend_record"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
+                    <LinearLayout
+                        android:id="@+id/layout_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/foreseers_blacklist"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/foreseers_id_secure"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@color/colorWhite"
+                    android:elevation="1dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/layout_opinion"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/foreseers_idea_feedback"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
+
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@color/colorGray2" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:text="@string/foreseers_about_us"
+                            android:textColor="@color/colorMain"
+                            android:textSize="@dimen/sp_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="17dp"
+                            android:background="@mipmap/icon_site_04" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/button_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:layout_marginTop="33dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@color/colorWhite"
+                    android:text="@string/foreseers_log_out"
+                    android:textColor="@color/colorGray2" />
+
 
             </LinearLayout>
+        </ScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="13dp"
-                android:text="@string/foreseers_id_secure"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/sp_14" />
+    </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:background="@color/colorWhite"
-                android:elevation="1dp"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:id="@+id/layout_black"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:text="@string/foreseers_blacklist"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="13dp"
-                android:text="@string/foreseers_id_secure"
-                android:textColor="@color/colorGray"
-                android:textSize="@dimen/sp_14" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:background="@color/colorWhite"
-                android:elevation="1dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/layout_opinion"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:text="@string/foreseers_idea_feedback"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
-
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorGray2"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="40dp"/>
-
-                <LinearLayout
-                    android:id="@+id/layout_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="14dp"
-                        android:layout_weight="1"
-                        android:text="@string/foreseers_about_us"
-                        android:textColor="@color/colorMain"
-                        android:textSize="@dimen/sp_14" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="17dp"
-                        android:background="@mipmap/icon_site_04" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <Button
-                android:id="@+id/button_out"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginTop="33dp"
-                android:layout_marginBottom="20dp"
-                android:background="@color/colorWhite"
-                android:text="@string/foreseers_log_out"
-                android:textColor="@color/colorGray2"/>
-
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

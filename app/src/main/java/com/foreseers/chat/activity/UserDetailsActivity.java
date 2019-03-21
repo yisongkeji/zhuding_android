@@ -1,16 +1,13 @@
 package com.foreseers.chat.activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.ErrBean;
 import com.foreseers.chat.bean.InquireFriendBean;
@@ -32,7 +28,7 @@ import com.foreseers.chat.dialog.NoFriendNumberDialog;
 import com.foreseers.chat.R;
 import com.foreseers.chat.dialog.WipeDialog;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.HuanXinHelper;
 import com.foreseers.chat.util.Urls;
@@ -47,7 +43,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.youth.banner.Banner;
-import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,7 +216,7 @@ public class UserDetailsActivity extends BaseActivity {
                 if (friend == 1) {
                     HuanXinHelper.getInstance().isLoggedIn();
                     OkGo.<String>post(Urls.Url_UserFriend).tag(this)
-                            .params("facebookid", GetLoginTokenUtil.getFaceBookId(this))
+                            .params("facebookid", PreferenceManager.getFaceBookId(this))
                             .params("friendid", userid)
                             .execute(new StringCallback() {
                                 @Override
@@ -314,7 +309,7 @@ public class UserDetailsActivity extends BaseActivity {
                                         case R.id.button_ok:
                                             delFriendDialog.dismiss();
                                             OkGo.<String>post(Urls.Url_DelFriend).tag(this)
-                                                    .params("userid", GetLoginTokenUtil.getUserId
+                                                    .params("userid", PreferenceManager.getUserId
                                                             (UserDetailsActivity.this))
                                                     .params("friendid", userid)
                                                     .params("reation", 2)
@@ -386,7 +381,7 @@ public class UserDetailsActivity extends BaseActivity {
                                     case R.id.button_ok:
                                         wiped.dismiss();
                                         OkGo.<String>post(Urls.Url_Wipe).tag(this)
-                                                .params("userid", GetLoginTokenUtil.getUserId
+                                                .params("userid", PreferenceManager.getUserId
                                                         (UserDetailsActivity.this))
                                                 .params("caid", userid)
                                                 .execute(new StringCallback() {
@@ -565,7 +560,7 @@ public class UserDetailsActivity extends BaseActivity {
                     }
 
                     OkGo.<String>post(Urls.Url_UserLook).tag(this)
-                            .params("userid", GetLoginTokenUtil.getUserId(this))
+                            .params("userid", PreferenceManager.getUserId(this))
                             .params("lookid", userid)
                             .execute(new StringCallback() {
                                 @Override
@@ -598,7 +593,7 @@ public class UserDetailsActivity extends BaseActivity {
 
     public void refresh() {
         OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
-                .params("uid", GetLoginTokenUtil.getUserId(this))
+                .params("uid", PreferenceManager.getUserId(this))
                 .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override

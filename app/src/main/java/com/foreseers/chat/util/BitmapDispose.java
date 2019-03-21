@@ -25,9 +25,9 @@ public class BitmapDispose {
     public static String  saveBitmap(Bitmap bitmap,int type) {
         Log.e(TAG, "保存图片");
         if (type==0) {
-            f = FileUtil.createFile("/sdcard/foreseers/head", System.currentTimeMillis() + ".jpg");
+            f = FileUtil.createFile(Urls.CompressHead, System.currentTimeMillis() + ".jpg");
         }else {
-            f = FileUtil.createFile("/sdcard/foreseers/compresshead", System.currentTimeMillis() + ".jpg");
+            f = FileUtil.createFile(Urls.ImgHead, System.currentTimeMillis() + ".jpg");
         }
 
         if (f.exists()) {

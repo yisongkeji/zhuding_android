@@ -1,419 +1,426 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.foreseers.chat.activity.UserAnalyzeLifeBookActivity">
 
-    <!--bar-->
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="@string/foreseers_detailed_analysis">
-
-    </com.foreseers.chat.view.widget.MyTitleBar>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--bar-->
+        <com.foreseers.chat.view.widget.MyTitleBar
+            android:id="@+id/my_titlebar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:titleBarLeftImage="@mipmap/icon_me_06"
+            app:titleBarTitle="@string/foreseers_detailed_analysis">
+
+        </com.foreseers.chat.view.widget.MyTitleBar>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
-
-                <com.ruffian.library.widget.RImageView
-                    android:id="@+id/item_popular"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="23dp"
-                    android:scaleType="fitXY"
-                    app:corner_radius="5dp"
-                    app:icon_src_normal="@mipmap/icon_avatar_02" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <com.ruffian.library.widget.RImageView
+                        android:id="@+id/item_popular"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="23dp"
+                        android:scaleType="fitXY"
+                        app:corner_radius="5dp"
+                        app:icon_src_normal="@mipmap/icon_avatar_02" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/text_name"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/text_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/text_sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+
+                                android:layout_marginLeft="8dp"
+                                android:background="@drawable/rounded_layout_blue"
+                                android:gravity="center"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/name"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="16sp" />
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/text_sex"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_location"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/text_distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
 
-                            android:layout_marginLeft="8dp"
-                            android:background="@drawable/rounded_layout_blue"
-                            android:gravity="center"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="10sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_signature"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/text_sign"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="10sp" />
+                        </LinearLayout>
 
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_location"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/text_distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/user_signature"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:id="@+id/text_sign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
                 </LinearLayout>
-            </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="14dp"
-                android:background="@color/colorGray2" />
-
-            <LinearLayout
-                android:id="@+id/container_score"
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/colorGray2" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25">
+                    android:id="@+id/container_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="86dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25">
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center">
+
+                            <com.foreseers.chat.view.decoviewlib.DecoView
+                                android:id="@+id/characterScore"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/character"
+                                    android:textColor="@color/colorBlue"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/characterScoreTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center">
+
+                            <com.foreseers.chat.view.decoviewlib.DecoView
+                                android:id="@+id/mindScore"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content" />
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/spirit"
+                                    android:textColor="@color/colorPink"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/mindScoreTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center">
+
+                            <com.foreseers.chat.view.decoviewlib.DecoView
+                                android:id="@+id/bodyScore"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content" />
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/body"
+                                    android:textColor="@color/colorGreen"
+                                    android:textSize="15sp" />
+
+                                <TextView
+                                    android:id="@+id/bodyScoreTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="0"
+                                    android:textSize="13sp" />
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/colorGray2" />
 
                     <RelativeLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center">
-
-                        <com.foreseers.chat.view.decoviewlib.DecoView
-                            android:id="@+id/characterScore"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="@string/character"
-                                android:textColor="@color/colorBlue"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:id="@+id/characterScoreTxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center">
-
-                        <com.foreseers.chat.view.decoviewlib.DecoView
-                            android:id="@+id/mindScore"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                        android:layout_weight="0.5">
 
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="center|top"
                             android:orientation="vertical">
 
+                            <!-- 登對指數 -->
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="@string/spirit"
-                                android:textColor="@color/colorPink"
-                                android:textSize="15sp" />
+                                android:text="@string/foreseers_index"
+                                android:textSize="12dp"
+                                android:visibility="gone" />
 
                             <TextView
-                                android:id="@+id/mindScoreTxt"
+                                android:id="@+id/score"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="0"
-                                android:textSize="13sp" />
+                                android:text="90"
+                                android:textColor="#32B4E6"
+                                android:textSize="22dp"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
+                            <TextView
+                                android:id="@+id/text_desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+
+                                android:gravity="center"
+
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18dp" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="10dp">
+
+                                <ProgressBar
+                                    android:id="@+id/progress_matching_rate"
+                                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progress="0"
+                                    android:progressDrawable="@drawable/bar_color" />
+
+                                <TextView
+                                    android:id="@+id/progress_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:text="@string/foreseers_match_degree_percent"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp" />
+                            </RelativeLayout>
                         </LinearLayout>
-
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:gravity="center">
-
-                        <com.foreseers.chat.view.decoviewlib.DecoView
-                            android:id="@+id/bodyScore"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="@string/body"
-                                android:textColor="@color/colorGreen"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:id="@+id/bodyScoreTxt"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="0"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
 
                     </RelativeLayout>
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="8dp"
                     android:background="@color/colorGray2" />
 
-                <RelativeLayout
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/comment"
+                    android:textColor="@color/colorBlue" />
 
+                <TextView
+                    android:id="@+id/text_commentdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:gravity="center|top"
-                        android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorGray2" />
 
-                        <!-- 登對指數 -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/character"
+                    android:textColor="@color/colorAccent" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/foreseers_index"
-                            android:textSize="12dp"
-                            android:visibility="gone" />
+                <TextView
+                    android:id="@+id/text_characteristicdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp" />
 
-                        <TextView
-                            android:id="@+id/score"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="90"
-                            android:textColor="#32B4E6"
-                            android:textSize="22dp"
-                            android:textStyle="bold"
-                            android:visibility="gone" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorGray2" />
 
-                        <TextView
-                            android:id="@+id/text_desc"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/courting"
+                    android:textColor="@color/colorAccent" />
 
-                            android:gravity="center"
-
-                            android:textColor="@color/colorBlack"
-                            android:textSize="18dp" />
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="10dp">
-
-                            <ProgressBar
-                                android:id="@+id/progress_matching_rate"
-                                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:indeterminate="false"
-                                android:max="100"
-                                android:progress="0"
-                                android:progressDrawable="@drawable/bar_color" />
-
-                            <TextView
-                                android:id="@+id/progress_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="@string/foreseers_match_degree_percent"
-                                android:textColor="@color/white"
-                                android:textSize="13sp" />
-                        </RelativeLayout>
-                    </LinearLayout>
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/text_courtingdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/colorGray2" />
+        </ScrollView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="19dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/comment"
-                android:textColor="@color/colorBlue" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/text_commentdesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="20dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorGray2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="19dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/character"
-                android:textColor="@color/colorAccent" />
-
-            <TextView
-                android:id="@+id/text_characteristicdesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="20dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorGray2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="19dp"
-                android:layout_marginTop="14dp"
-                android:text="@string/courting"
-                android:textColor="@color/colorAccent" />
-
-            <TextView
-                android:id="@+id/text_courtingdesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginRight="20dp" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-
-</LinearLayout>
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

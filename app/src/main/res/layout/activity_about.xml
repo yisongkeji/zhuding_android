@@ -1,100 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorWhite"
-    tools:context=".activity.AboutActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:background="@color/colorWhite"
+             tools:context=".activity.AboutActivity">
 
-
-    <com.foreseers.chat.view.widget.MyTitleBar
-        android:id="@+id/my_titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleBarLeftImage="@mipmap/icon_me_06"
-        app:titleBarTitle="@string/foreseers_about_app_name">
-
-    </com.foreseers.chat.view.widget.MyTitleBar>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="97dp"
-                android:layout_height="92dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp"
-                android:background="@mipmap/icon_logo_01" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/text_versions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/foreseers_version"
-                android:textColor="@color/colorGray"
-                android:textSize="6sp" />
-
-
-            <WebView
-                android:id="@+id/webView"
+        <com.foreseers.chat.view.widget.MyTitleBar
+                android:id="@+id/my_titlebar"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"></WebView>
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="15dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                app:titleBarLeftImage="@mipmap/icon_me_06"
+                app:titleBarTitle="@string/foreseers_about_app_name">
+
+        </com.foreseers.chat.view.widget.MyTitleBar>
+
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <ImageView
+                        android:layout_width="97dp"
+                        android:layout_height="92dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="35dp"
+                        android:background="@mipmap/icon_logo_01"/>
 
                 <TextView
-                    android:id="@+id/text_clause"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/foreseers_terms_conditions"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_13" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_name"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="17sp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/foreseers_and"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/sp_13" />
+                        android:id="@+id/text_versions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/foreseers_version"
+                        android:textColor="@color/colorGray"
+                        android:textSize="6sp"/>
 
-                <TextView
-                    android:id="@+id/text_privacy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/foreseers_privacy_policy"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_13" />
 
+                <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"></WebView>
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+
+                    <TextView
+                            android:id="@+id/text_clause"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/foreseers_terms_conditions"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_13"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/foreseers_and"
+                            android:textColor="@color/colorGray"
+                            android:textSize="@dimen/sp_13"/>
+
+                    <TextView
+                            android:id="@+id/text_privacy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/foreseers_privacy_policy"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_13"/>
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
+        </FrameLayout>
+    </LinearLayout>
 
-    </FrameLayout>
+    <com.foreseers.chat.view.MyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-
-</LinearLayout>
+</FrameLayout>

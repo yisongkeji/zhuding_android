@@ -51,22 +51,15 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
         image = baseViewHolder.getView(R.id.image_people).findViewById(R.id.image_people);
 
-//        switch (item.getLookhead()) {
-//            case 0:
-//                GlideUtil.glideMatch(context,item.getPicture(),image);
-//                break;
-//            case 1:
-                GlideUtil.glideMatch(context,item.getHead(),image);
-//                break;
-//        }
+        GlideUtil.glideMatch(context, item.getHead(), image);
 
 
-        switch (item.getNumuser()){
+        switch (item.getNumuser()) {
             case 0:
-                baseViewHolder.setVisible(R.id.layout_renqi,false);
+                baseViewHolder.setVisible(R.id.layout_renqi, false);
                 break;
             case 1:
-                baseViewHolder.setVisible(R.id.layout_renqi,true);
+                baseViewHolder.setVisible(R.id.layout_renqi, true);
                 break;
         }
 
@@ -102,10 +95,11 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         Intent intent = new Intent(context, UserDetailsActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("userid", item.getId() + "");
-                        bundle.putInt("lookhead", item.getLookhead() );
+                        bundle.putInt("lookhead", item.getLookhead());
 
                         intent.putExtras(bundle);
                         context.startActivity(intent);

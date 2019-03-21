@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (object != null) {
                     facebookName = object.optString("name");
                     facebookid = object.optString("id");
-                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo11111111111111111111" );
+                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo11111111111111111111:" +facebookid);
                     isFirst();
                     Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo" );
                 }
@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.login_wechat:
 //                facebookid= "467979503606542";
+//                facebookid= "567979503606543";//刘海强
 
 //                facebookid= "46797950360653";
                 facebookid= "46797950360652333";
@@ -234,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 //                    loginHuanXin();
-                    getHuanXinLogin();
+//                    getHuanXinLogin();
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
                     startActivity(intent);

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.foreseers.chat.activity.WipeDayHistoryActivity;
@@ -23,17 +22,14 @@ import com.foreseers.chat.bean.MySection;
 import com.foreseers.chat.bean.Video;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.R;
-import com.foreseers.chat.global.BaseFragment;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -111,7 +107,7 @@ public class WipeHistoryFragment extends Fragment {
 
     public void initDatas() {
         OkGo.<String>post(Urls.Url_History).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(getActivity()))
+                .params("userid", PreferenceManager.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

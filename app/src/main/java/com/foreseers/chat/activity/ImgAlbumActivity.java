@@ -22,7 +22,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.DelImgDialog;
 import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -128,7 +128,7 @@ public class ImgAlbumActivity extends BaseActivity {
                                     case R.id.button_ok:
                                         delImgDialog.dismiss();
                                         OkGo.<String>post(Urls.Url_DeleteImg).tag(this)
-                                                .params("userid", GetLoginTokenUtil.getUserId
+                                                .params("userid", PreferenceManager.getUserId
                                                         (ImgAlbumActivity.this))
                                                 .params("nameurl", urls.get(position))
                                                 .execute(new StringCallback() {

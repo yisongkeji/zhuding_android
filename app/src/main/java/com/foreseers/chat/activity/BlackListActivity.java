@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.foreseers.chat.R;
@@ -15,7 +14,7 @@ import com.foreseers.chat.bean.BlackBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.InformDialog;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -97,7 +96,7 @@ public class BlackListActivity extends BaseActivity {
 
 
                                                         OkGo.<String>post(Urls.Url_RemoveBlack).tag(this)
-                                                                .params("userid", GetLoginTokenUtil.getUserId(BlackListActivity.this))
+                                                                .params("userid", PreferenceManager.getUserId(BlackListActivity.this))
                                                                 .params("blackid", item.getUserid() + "")
                                                                 .execute(new StringCallback() {
                                                                     @Override
@@ -137,7 +136,7 @@ public class BlackListActivity extends BaseActivity {
 
     private void getDataFromHttp() {
         OkGo.<String>post(Urls.Url_BlackList).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(this))
+                .params("userid", PreferenceManager.getUserId(this))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

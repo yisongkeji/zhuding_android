@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
+
     tools:context="com.foreseers.chat.activity.LoginActivity">
 
     <!--<com.facebook.login.widget.LoginButton-->
@@ -15,19 +14,28 @@
     <!--android:textSize="15sp"-->
     <!--android:layout_marginBottom="30dp"/>-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/login_facebook"
-        android:layout_width="248dp"
-        android:layout_height="45dp"
-        android:background="@mipmap/icon_login_facebook" />
+        <ImageButton
+            android:id="@+id/login_facebook"
+            android:layout_width="248dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/icon_login_facebook" />
 
 
-    <ImageButton
-        android:id="@+id/login_wechat"
-        android:layout_width="248dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:background="@mipmap/icon_login_wechat" />
+        <ImageButton
+            android:id="@+id/login_wechat"
+            android:layout_width="248dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@mipmap/icon_login_wechat" />
+    </LinearLayout>
 
-</LinearLayout>
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

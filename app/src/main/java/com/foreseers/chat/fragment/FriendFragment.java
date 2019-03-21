@@ -22,7 +22,7 @@ import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.FriendBean;
 import com.foreseers.chat.bean.FriendNumBean;
 import com.foreseers.chat.db.InviteMessgeDao;
-import com.foreseers.chat.util.GetLoginTokenUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -132,7 +132,7 @@ public class FriendFragment extends EaseBaseFragment {
     protected void setUpView() {
 
         OkGo.<String> post(Urls.Url_GetFriendNum).tag(this)
-                .params("userid",GetLoginTokenUtil.getUserId(getActivity()))
+                .params("userid",PreferenceManager.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -146,7 +146,7 @@ public class FriendFragment extends EaseBaseFragment {
 
 
         OkGo.<String>post(Urls.Url_GetFriend).tag(this)
-                .params("userid", GetLoginTokenUtil.getUserId(getActivity()))
+                .params("userid", PreferenceManager.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
