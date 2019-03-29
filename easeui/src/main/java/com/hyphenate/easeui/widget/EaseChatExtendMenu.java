@@ -21,7 +21,7 @@ import com.hyphenate.util.DensityUtil;
 
 /**
  * Extend menu when user want send image, voice clip, etc
- *
+ *当用户需要发送图像，声音剪辑等时，扩展菜单
  */
 public class EaseChatExtendMenu extends GridView{
 

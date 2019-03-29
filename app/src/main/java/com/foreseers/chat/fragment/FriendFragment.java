@@ -1,6 +1,5 @@
 package com.foreseers.chat.fragment;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,11 +10,21 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.*;
-import android.widget.*;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.NewFriendsMsgActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
@@ -39,7 +48,17 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -60,20 +79,15 @@ public class FriendFragment extends EaseBaseFragment {
     protected EaseContactList contactListLayout;
     protected boolean isConflict;
     protected FrameLayout contentContainer;
-    @BindView(R.id.my_titlebar)
-    MyTitleBar myTitlebar;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
 
     Unbinder unbinder;
-    @BindView(R.id.text_num1)
-    TextView textNum1;
-    @BindView(R.id.text_num2)
-    TextView textNum2;
+    @BindView(R.id.text_num1) TextView textNum1;
+    @BindView(R.id.text_num2) TextView textNum2;
 
-    @BindView(R.id.search_clear)
-    ImageButton searchClear;
+    @BindView(R.id.search_clear) ImageButton searchClear;
 
-    @BindView(R.id.layout_FriendFragment)
-    LinearLayout layoutFriendFragment;
+    @BindView(R.id.layout_FriendFragment) LinearLayout layoutFriendFragment;
 
     private Map<String, EaseUser> contactsMap;
     private LinearLayout addFriend;
@@ -83,10 +97,8 @@ public class FriendFragment extends EaseBaseFragment {
     private SharedPreferences sharedPreferences;
     private InviteMessgeDao inviteMessgeDao;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -96,24 +108,25 @@ public class FriendFragment extends EaseBaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         //to avoid crash when open app after long time stay in background after user logged into
         // another device
-        if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false))
+        if (savedInstanceState != null && savedInstanceState.getBoolean("isConflict", false)) {
             return;
+        }
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     protected void initView() {
 
-//        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat, null);
-//        HeaderItemClickListener clickListener = new HeaderItemClickListener();
+        //        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.item_chat, null);
+        //        HeaderItemClickListener clickListener = new HeaderItemClickListener();
 
-//        addFriend = headerView.findViewById(R.id.item_layout_friend);
-//        addFriend.setOnClickListener(clickListener);
+        //        addFriend = headerView.findViewById(R.id.item_layout_friend);
+        //        addFriend.setOnClickListener(clickListener);
         contentContainer = (FrameLayout) getView().findViewById(R.id.content_container);
 
         contactListLayout = (EaseContactList) getView().findViewById(R.id.contact_list);
         listView = contactListLayout.getListView();
-//        listView.addHeaderView(headerView);
+        //        listView.addHeaderView(headerView);
         //search
         query = (EditText) getView().findViewById(com.hyphenate.easeui.R.id.query);
         clearSearch = (ImageButton) getView().findViewById(com.hyphenate.easeui.R.id.search_clear);
@@ -123,7 +136,6 @@ public class FriendFragment extends EaseBaseFragment {
             public void onClick(View view) {
                 // 进入申请与通知页面
                 startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
-
             }
         });
     }
@@ -131,19 +143,20 @@ public class FriendFragment extends EaseBaseFragment {
     @Override
     protected void setUpView() {
 
-        OkGo.<String> post(Urls.Url_GetFriendNum).tag(this)
-                .params("userid",PreferenceManager.getUserId(getActivity()))
+        OkGo.<String>post(Urls.Url_GetFriendNum).tag(this)
+                .params("userid", PreferenceManager.getUserId(getActivity()))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
-                        Gson gson= new Gson();
-                        FriendNumBean friendNumBean=gson.fromJson(response.body(),FriendNumBean.class);
-                        textNum2.setText(friendNumBean.getData().getFriendNums()+"");
-                        textNum1.setText(friendNumBean.getData().getUsenums()+"/");
-                }
+                        Gson gson = new Gson();
+                        FriendNumBean friendNumBean = gson.fromJson(response.body(), FriendNumBean.class);
+                        textNum2.setText(friendNumBean.getData()
+                                                 .getFriendNums() + "");
+                        textNum1.setText(friendNumBean.getData()
+                                                 .getUsenums() + "/");
+                    }
                 });
-
 
         OkGo.<String>post(Urls.Url_GetFriend).tag(this)
                 .params("userid", PreferenceManager.getUserId(getActivity()))
@@ -152,42 +165,46 @@ public class FriendFragment extends EaseBaseFragment {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
-                        if (friendBean.getStatus().equals("success")) {
+                        if (friendBean.getStatus()
+                                .equals("success")) {
                             map.clear();
-                            sharedPreferences = getActivity().getSharedPreferences("user",
-                                    MODE_PRIVATE);
-//                            sharedPreferences.edit().clear().commit();
+                            sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+                            //                            sharedPreferences.edit().clear().commit();
                             dataBeans = friendBean.getData();
                             for (int i = 0; i < dataBeans.size(); i++) {
-                                easeUser = new EaseUser(dataBeans.get(i).getUserid() + "");
-                                easeUser.setAvatar(dataBeans.get(i).getUserhead());
-                                easeUser.setNickname(dataBeans.get(i).getUsername());
+                                easeUser = new EaseUser(dataBeans.get(i)
+                                                                .getUserid() + "");
+                                easeUser.setAvatar(dataBeans.get(i)
+                                                           .getUserhead());
+                                easeUser.setNickname(dataBeans.get(i)
+                                                             .getUsername());
 
+                                sharedPreferences.edit()
+                                        .putString(dataBeans.get(i)
+                                                           .getUserid() + "", dataBeans.get(i)
+                                                           .getUsername() + "&" + dataBeans.get(i)
+                                                .getUserhead())
+                                        .commit();
 
-                                sharedPreferences.edit().putString(dataBeans.get(i).getUserid() +
-                                                "",
-                                        dataBeans.get(i).getUsername() + "&" + dataBeans.get(i)
-                                                .getUserhead()).commit();
-
-
-                                map.put(dataBeans.get(i).getUserid() + "", easeUser);
+                                map.put(dataBeans.get(i)
+                                                .getUserid() + "", easeUser);
                                 Log.i(TAG, "onSuccessmap: " + map);
                             }
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+                            mHandler.obtainMessage(DATASUCCESS)
+                                    .sendToTarget();
 
                             Log.i(TAG, "onSuccess: " + map);
                         }
-
                     }
                 });
 
-        EMClient.getInstance().addConnectionListener(connectionListener);
+        EMClient.getInstance()
+                .addConnectionListener(connectionListener);
 
         contactList = new ArrayList<EaseUser>();
         getContactList();
 
         contactListLayout.init(contactList);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -199,7 +216,7 @@ public class FriendFragment extends EaseBaseFragment {
                     String userid = user.getUsername();
                     String username = user.getNickname();
 
-//                    // 进入用户详情页
+                    //                    // 进入用户详情页
                     Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("userid", userid);
@@ -208,7 +225,6 @@ public class FriendFragment extends EaseBaseFragment {
                 }
             }
         });
-
 
         if (listItemClickListener != null) {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -228,7 +244,6 @@ public class FriendFragment extends EaseBaseFragment {
                     clearSearch.setVisibility(View.VISIBLE);
                 } else {
                     clearSearch.setVisibility(View.INVISIBLE);
-
                 }
             }
 
@@ -241,7 +256,8 @@ public class FriendFragment extends EaseBaseFragment {
         clearSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                query.getText().clear();
+                query.getText()
+                        .clear();
                 hideSoftKeyboard();
             }
         });
@@ -254,9 +270,7 @@ public class FriendFragment extends EaseBaseFragment {
                 return false;
             }
         });
-
     }
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -275,18 +289,14 @@ public class FriendFragment extends EaseBaseFragment {
         }
     }
 
-
     /**
      * move user to blacklist
      */
     protected void moveToBlacklist(final String username) {
         final ProgressDialog pd = new ProgressDialog(getActivity());
-        String st1 = getResources().getString(com.hyphenate.easeui.R.string
-                .Is_moved_into_blacklist);
-        final String st2 = getResources().getString(com.hyphenate.easeui.R.string
-                .Move_into_blacklist_success);
-        final String st3 = getResources().getString(com.hyphenate.easeui.R.string
-                .Move_into_blacklist_failure);
+        String st1 = getResources().getString(com.hyphenate.easeui.R.string.Is_moved_into_blacklist);
+        final String st2 = getResources().getString(com.hyphenate.easeui.R.string.Move_into_blacklist_success);
+        final String st3 = getResources().getString(com.hyphenate.easeui.R.string.Move_into_blacklist_failure);
         pd.setMessage(st1);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
@@ -294,11 +304,14 @@ public class FriendFragment extends EaseBaseFragment {
             public void run() {
                 try {
                     //move to blacklist
-                    EMClient.getInstance().contactManager().addUserToBlackList(username, false);
+                    EMClient.getInstance()
+                            .contactManager()
+                            .addUserToBlackList(username, false);
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
-                            Toast.makeText(getActivity(), st2, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), st2, Toast.LENGTH_SHORT)
+                                    .show();
                             refresh();
                         }
                     });
@@ -307,13 +320,13 @@ public class FriendFragment extends EaseBaseFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
-                            Toast.makeText(getActivity(), st3, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), st3, Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     });
                 }
             }
         }).start();
-
     }
 
     // refresh ui
@@ -330,15 +343,14 @@ public class FriendFragment extends EaseBaseFragment {
         }
     }
 
-
     @Override
     public void onDestroy() {
 
-        EMClient.getInstance().removeConnectionListener(connectionListener);
+        EMClient.getInstance()
+                .removeConnectionListener(connectionListener);
 
         super.onDestroy();
     }
-
 
     /**
      * get contact list and sort, will filter out users in blacklist
@@ -349,17 +361,20 @@ public class FriendFragment extends EaseBaseFragment {
             return;
         }
         synchronized (this.contactsMap) {
-            Iterator<Map.Entry<String, EaseUser>> iterator = contactsMap.entrySet().iterator();
-            List<String> blackList = EMClient.getInstance().contactManager()
+            Iterator<Map.Entry<String, EaseUser>> iterator = contactsMap.entrySet()
+                    .iterator();
+            List<String> blackList = EMClient.getInstance()
+                    .contactManager()
                     .getBlackListUsernames();
             while (iterator.hasNext()) {
                 Map.Entry<String, EaseUser> entry = iterator.next();
                 // to make it compatible with data in previous version, you can remove this check
                 // if this is new app
-                if (!entry.getKey().equals("item_new_friends")
-                        && !entry.getKey().equals("item_groups")
-                        && !entry.getKey().equals("item_chatroom")
-                        && !entry.getKey().equals("item_robots")) {
+                if (!entry.getKey()
+                        .equals("item_new_friends") && !entry.getKey()
+                        .equals("item_groups") && !entry.getKey()
+                        .equals("item_chatroom") && !entry.getKey()
+                        .equals("item_robots")) {
                     if (!blackList.contains(entry.getKey())) {
                         //filter out users in blacklist
                         EaseUser user = entry.getValue();
@@ -376,36 +391,34 @@ public class FriendFragment extends EaseBaseFragment {
 
             @Override
             public int compare(EaseUser lhs, EaseUser rhs) {
-                if (lhs.getInitialLetter().equals(rhs.getInitialLetter())) {
-                    return lhs.getNickname().compareTo(rhs.getNickname());
+                if (lhs.getInitialLetter()
+                        .equals(rhs.getInitialLetter())) {
+                    return lhs.getNickname()
+                            .compareTo(rhs.getNickname());
                 } else {
                     if ("#".equals(lhs.getInitialLetter())) {
                         return 1;
                     } else if ("#".equals(rhs.getInitialLetter())) {
                         return -1;
                     }
-                    return lhs.getInitialLetter().compareTo(rhs.getInitialLetter());
+                    return lhs.getInitialLetter()
+                            .compareTo(rhs.getInitialLetter());
                 }
-
             }
         });
-
     }
-
 
     protected EMConnectionListener connectionListener = new EMConnectionListener() {
 
         @Override
         public void onDisconnected(int error) {
-            if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE ||
-                    error == EMError.SERVER_SERVICE_RESTRICTED) {
+            if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE || error == EMError.SERVER_SERVICE_RESTRICTED) {
                 isConflict = true;
             } else {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         onConnectionDisconnected();
                     }
-
                 });
             }
         }
@@ -416,12 +429,10 @@ public class FriendFragment extends EaseBaseFragment {
                 public void run() {
                     onConnectionConnected();
                 }
-
             });
         }
     };
     private EaseContactListFragment.EaseContactListItemClickListener listItemClickListener;
-
 
     protected void onConnectionDisconnected() {
 
@@ -436,7 +447,8 @@ public class FriendFragment extends EaseBaseFragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         toBeProcessUser = (EaseUser) listView.getItemAtPosition(((AdapterView.AdapterContextMenuInfo) menuInfo).position);
         toBeProcessUsername = toBeProcessUser.getUsername();
-        getActivity().getMenuInflater().inflate(R.menu.em_context_contact_list, menu);
+        getActivity().getMenuInflater()
+                .inflate(R.menu.em_context_contact_list, menu);
     }
 
     @Override
@@ -474,32 +486,31 @@ public class FriendFragment extends EaseBaseFragment {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    EMClient.getInstance().contactManager().deleteContact(tobeDeleteUser.getUsername());
+                    EMClient.getInstance()
+                            .contactManager()
+                            .deleteContact(tobeDeleteUser.getUsername());
                     // remove user from memory and database
-//                    UserDao dao = new UserDao(getActivity());
-//                    dao.deleteContact(tobeDeleteUser.getUsername());
-//                    DemoHelper.getInstance().getContactList().remove(tobeDeleteUser.getUsername());
+                    //                    UserDao dao = new UserDao(getActivity());
+                    //                    dao.deleteContact(tobeDeleteUser.getUsername());
+                    //                    DemoHelper.getInstance().getContactList().remove(tobeDeleteUser.getUsername());
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
                             contactList.remove(tobeDeleteUser);
                             contactListLayout.refresh();
-
                         }
                     });
                 } catch (final Exception e) {
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
-                            Toast.makeText(getActivity(), st2 + e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), st2 + e.getMessage(), Toast.LENGTH_LONG)
+                                    .show();
                         }
                     });
-
                 }
-
             }
         }).start();
-
     }
 
     /**
@@ -531,12 +542,9 @@ public class FriendFragment extends EaseBaseFragment {
      *
      * @param listItemClickListener
      */
-    public void setContactListItemClickListener(EaseContactListFragment
-                                                        .EaseContactListItemClickListener
-                                                        listItemClickListener) {
+    public void setContactListItemClickListener(EaseContactListFragment.EaseContactListItemClickListener listItemClickListener) {
         this.listItemClickListener = listItemClickListener;
     }
-
 
     private final int DATASUCCESS = 1;
     private final int DATAFELLED = 2;
@@ -559,6 +567,7 @@ public class FriendFragment extends EaseBaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
+        OkGo.cancelTag(OkGo.getInstance()
+                               .getOkHttpClient(), this);
     }
 }

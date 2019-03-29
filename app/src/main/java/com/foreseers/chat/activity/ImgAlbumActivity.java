@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -18,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.dialog.DelImgDialog;
-import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
@@ -59,10 +58,9 @@ public class ImgAlbumActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_img_album);
-        ButterKnife.bind(this);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         mContext = this;
         initView();
         xyMap = (HashMap<Integer, float[]>) getIntent().getExtras().get("xyMap");
@@ -108,6 +106,62 @@ public class ImgAlbumActivity extends BaseActivity {
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+    }
+
+    private void initView() {
+        vp = (ViewPager) findViewById(R.id.vp);
+        vp_ll = (LinearLayout) findViewById(R.id.vp_ll);
+        vp_text = (TextView) findViewById(R.id.vp_text);
+    }
+
+    private void initData() {
+
+        urls = getIntent().getStringArrayListExtra("urls");
+        Log.i("TAG", "urls.size: " + urls.size());
+
+        refresh();
+
+    }
+
+    private void refresh() {
+        for (int i = 0; i < urls.size(); i++)//获取图片，设置PhotoView，加到ViewPager当中
+        {
+            PhotoView photoView = new PhotoView(mContext);
+            photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {//单击图片退出大图
+                @Override
+                public void onPhotoTap(View view, float v, float v1) {
+                    ImgAlbumActivity.this.finish();
+                }
+            });
+            Glide.with(this).load(urls.get(i)).into(photoView);
+            imageViews.add(photoView);
+        }
+        vp.setAdapter(adapter);
+        vp.setCurrentItem(position, true);
+        vp_text.setText((position + 1) + "/" + urls.size());
+
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+        setContentView(R.layout.activity_img_album);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,68 +224,13 @@ public class ImgAlbumActivity extends BaseActivity {
                 delImgDialog.setCancelable(true);
 
                 //修改弹窗位置
-//                changeDialogLocation(addFriendDialog);
+                //                changeDialogLocation(addFriendDialog);
 
                 delImgDialog.show();
 
 
             }
         });
-
-    }
-
-    private void initView() {
-        vp = (ViewPager) findViewById(R.id.vp);
-        vp_ll = (LinearLayout) findViewById(R.id.vp_ll);
-        vp_text = (TextView) findViewById(R.id.vp_text);
-    }
-
-    private void initData() {
-
-        urls = getIntent().getStringArrayListExtra("urls");
-        Log.i("TAG", "urls.size: " + urls.size());
-
-        refresh();
-
-    }
-
-    private void refresh() {
-        for (int i = 0; i < urls.size(); i++)//获取图片，设置PhotoView，加到ViewPager当中
-        {
-            PhotoView photoView = new PhotoView(mContext);
-            photoView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {//单击图片退出大图
-                @Override
-                public void onPhotoTap(View view, float v, float v1) {
-                    ImgAlbumActivity.this.finish();
-                }
-            });
-            Glide.with(this).load(urls.get(i)).into(photoView);
-            imageViews.add(photoView);
-        }
-        vp.setAdapter(adapter);
-        vp.setCurrentItem(position, true);
-        vp_text.setText((position + 1) + "/" + urls.size());
-
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
 
     }
 

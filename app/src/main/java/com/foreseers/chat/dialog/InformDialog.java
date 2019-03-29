@@ -52,7 +52,7 @@ public class InformDialog  extends Dialog implements View.OnClickListener {
         switch (type){
             case 1:
                 textTitle.setText("是否移出黑名单");
-                text.setText("移出黑名单也不会回复好友关系");
+                text.setText("移出黑名单也不会恢复好友关系");
                 break;
             case 2:
                 textTitle.setText("是否清空临时会话记录");

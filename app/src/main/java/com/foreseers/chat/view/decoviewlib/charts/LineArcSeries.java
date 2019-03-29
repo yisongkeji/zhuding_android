@@ -22,11 +22,9 @@ import android.graphics.Region;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-
+import com.foreseers.chat.view.decoviewlib.DecoView;
 
 import java.util.ArrayList;
-
-import com.foreseers.chat.view.decoviewlib.DecoView;
 
 /**
  * Concrete class to use for Arc based line chart type drawing

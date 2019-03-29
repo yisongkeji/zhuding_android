@@ -1,6 +1,5 @@
 package com.foreseers.chat.fragment;
 
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,13 +21,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.PeopleAdapter;
 import com.foreseers.chat.bean.LocationBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
-import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseFragment;
 import com.foreseers.chat.util.GetLocation;
 import com.foreseers.chat.util.PreferenceManager;

@@ -1,17 +1,10 @@
 package com.foreseers.chat.util;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
-import android.widget.Toast;
-
-import java.util.List;
 
 public class JudgeNetAndGPS {
 

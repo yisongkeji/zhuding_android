@@ -1,6 +1,5 @@
 package com.foreseers.chat.activity;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 
+import com.foreseers.chat.R;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.R;
 
 public class SplashActivity extends AppCompatActivity {
     private final String TAG ="SplashActivity";

@@ -55,10 +55,10 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout{
     public abstract void onEmojiconDeleteEvent();
     
     /**
-     * hide extend menu
+     * hide extend menu*隐藏扩展菜单
      */
     public abstract void onExtendMenuContainerHide();
-    
+
     
     /**
      * insert text
@@ -69,7 +69,7 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout{
     public abstract EditText getEditText();
     
     /**
-     * hide keyboard
+     * hide keyboard隐藏键盘
      */
     public void hideKeyboard() {
         if (activity.getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
@@ -87,33 +87,33 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout{
         void onSendBtnClicked(String content);
 
         /**
-         * when typing on the edit-text layout.
+         * when typing on the edit-text layout.在编辑文本布局上键入时。
          */
         void onTyping(CharSequence s, int start, int before, int count);
 
-        /**
+        /**当说话按钮被触摸
          * when speak button is touched
          * @return
          */
         boolean onPressToSpeakBtnTouch(View v, MotionEvent event);
         
         /**
-         * toggle on/off voice button
+         * toggle on/off voice button*开启/关闭语音按钮
          */
         void onToggleVoiceBtnClicked();
         
         /**
-         * toggle on/off extend menu
+         * toggle on/off extend menu*打开/关闭扩展菜单
          */
         void onToggleExtendClicked();
         
         /**
-         * toggle on/off emoji icon
+         * toggle on/off emoji icon*打开/关闭表情符号图标
          */
         void onToggleEmojiconClicked();
         
         /**
-         * on text input is clicked
+         * on text input is clicked*点击文本输入
          */
         void onEditTextClicked();
         

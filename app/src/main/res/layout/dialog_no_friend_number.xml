@@ -13,7 +13,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
        app:is_circle="true"
-        app:icon_src_normal="@mipmap/icon_avatar_01"
+        app:icon_src_normal="@mipmap/icon_me_loading_03"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"/>
 

@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
+import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.NewFriendsMsgAdapter;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
-import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.view.widget.MyTitleBar;
 
@@ -31,8 +31,6 @@ public class NewFriendsMsgActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friends_msg);
         ButterKnife.bind(this);
-
-
 
 
         InviteMessgeDao dao = new InviteMessgeDao(this);

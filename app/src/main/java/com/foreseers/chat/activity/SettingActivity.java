@@ -1,6 +1,5 @@
 package com.foreseers.chat.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -63,19 +62,6 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
-        ButterKnife.bind(this);
-        try {
-            textNum.setText(getTotalCacheSize(this));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     @Override
@@ -85,7 +71,13 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void initViews() {
-
+        setContentView(R.layout.activity_setting);
+        ButterKnife.bind(this);
+        try {
+            textNum.setText(getTotalCacheSize(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -96,6 +88,12 @@ public class SettingActivity extends BaseActivity {
     @Override
     public void installListeners() {
 
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

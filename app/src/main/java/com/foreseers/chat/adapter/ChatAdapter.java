@@ -5,11 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-
-import java.util.List;
-
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.ChatBean;
+
+import java.util.List;
 
 public class ChatAdapter extends BaseQuickAdapter <ChatBean,BaseViewHolder>{
 

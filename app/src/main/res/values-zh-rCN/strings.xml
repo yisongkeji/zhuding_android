@@ -280,10 +280,25 @@
     <string name="at_your_in_group">%s在群聊中@了你</string>
 
 
+    <string name="text_hint">提示</string>
+
+    <!--举报-->
+    <string name="foreseers_inform">举报</string>
+    <string name="foreseers_report_easons">创建举报理由</string>
+    <string name="foreseers_report_easons_hint">请详细描述你要举报该用户的理由</string>
 
 
 
+    <!--开通会员-->
+    <string name="open_vip">开通会员</string>
 
+    <string name="text_sign">这个人很懒，什么都没写</string>
+
+    <!--商店-->
+    <string name="text_vip">vip</string>
+    <string name="free_charge">免费</string>
+    <string name="free_buy">购买</string>
+    <string name="free_unlock">已解锁</string>
 
 
 </resources>

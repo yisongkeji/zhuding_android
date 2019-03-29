@@ -1,23 +1,21 @@
 package com.foreseers.chat.util;
 
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import android.util.Log;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChatActivity;
-import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.bean.Constant;
+import com.foreseers.chat.bean.UserBean;
 import com.foreseers.chat.db.DemoDBManager;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
+import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
-import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -32,7 +30,6 @@ import com.hyphenate.util.EMLog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.foreseers.chat.util.PreferenceManager;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -267,6 +264,30 @@ public class HuanXinHelper {
                     } else {
                         getNotifier().vibrateAndPlayTone(message);
                     }
+
+                    OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                            .params("uid",PreferenceManager.getUserId(appContext))
+                            .params("userid",message.getFrom())
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson=new Gson();
+                                    UserBean userBean =gson.fromJson(response.body(), UserBean.class);
+                                    int userid=userBean.getData().getUserid();
+                                    int vip=userBean.getData().getVip();
+                                    String  head = userBean.getData().getHead();
+                                    String name=userBean.getData().getUsername();
+
+                                    EaseUser easeUser = new EaseUser(userid+"");
+                                    easeUser.setAvatar(head);
+                                    easeUser.setNickname(name);
+
+                                    sharedPreferences.edit().putString(userid+"", name + "&" + head+"&"+vip).commit();
+                                }
+                            });
+
+
+
 
 
                 }

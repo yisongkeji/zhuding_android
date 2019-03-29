@@ -319,4 +319,7 @@
     
     <string name="alert_during_typing">正在输入 &#8230;</string>
     <string name="title_msg_typing">单聊消息显示\"正在输入\"</string>
+
+
+    <string name="add_friend_msg">我通过了你的好友验证请求，现在我们可以开始聊天了</string>
 </resources>

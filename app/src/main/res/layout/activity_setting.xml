@@ -33,7 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="14dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginTop="13dp"
                     android:text="@string/foreseers_cache_manage"
                     android:textColor="@color/colorGray"
@@ -43,14 +43,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:background="@color/colorWhite"
                     android:elevation="1dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="13dp">
 
                     <LinearLayout
                         android:id="@+id/layout_cache"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="@color/colorWhite"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -78,19 +80,17 @@
                             android:background="@mipmap/icon_site_04" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@color/colorGray2" />
+
 
                     <LinearLayout
                         android:id="@+id/layout_temporarychat"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+
+                        android:background="@color/colorWhite"
+                        android:layout_marginTop="8dp" >
 
                         <TextView
                             android:layout_width="0dp"
@@ -110,17 +110,14 @@
                             android:background="@mipmap/icon_site_04" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@color/colorGray2" />
+
 
                     <LinearLayout
                         android:id="@+id/layout_friendchat"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="@color/colorWhite"
+                        android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -158,8 +155,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
                     android:background="@color/colorWhite"
-                    android:elevation="1dp"
-                    android:orientation="vertical">
+
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="13dp">
 
 
                     <LinearLayout
@@ -201,16 +200,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:background="@color/colorWhite"
                     android:elevation="1dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="13dp">
 
                     <LinearLayout
                         android:id="@+id/layout_opinion"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@color/colorWhite"
+                        android:layout_marginTop="8dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -230,17 +232,14 @@
                             android:background="@mipmap/icon_site_04" />
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginRight="40dp"
-                        android:background="@color/colorGray2" />
+
 
                     <LinearLayout
                         android:id="@+id/layout_about"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:background="@color/colorWhite"
+                        android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -270,6 +269,9 @@
                     android:layout_height="43dp"
                     android:layout_marginTop="33dp"
                     android:layout_marginBottom="20dp"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:background="@color/colorWhite"
                     android:text="@string/foreseers_log_out"
                     android:textColor="@color/colorGray2" />

@@ -30,30 +30,27 @@ import butterknife.OnClick;
 
 public class AboutActivity extends BaseActivity {
 
-    @BindView(R.id.my_titlebar)
-    MyTitleBar myTitlebar;
-    @BindView(R.id.text_clause)
-    TextView textClause;
-    @BindView(R.id.text_privacy)
-    TextView textPrivacy;
-    @BindView(R.id.webView)
-    WebView webView;
-    @BindView(R.id.text_versions)
-    TextView textVersions;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
+    @BindView(R.id.text_clause) TextView textClause;
+    @BindView(R.id.text_privacy) TextView textPrivacy;
+    @BindView(R.id.webView) WebView webView;
+    @BindView(R.id.text_versions) TextView textVersions;
     private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        textVersions.setText(getResources().getString(R.string.foreseers_version)+APKVersionCodeUtils.getVerName(this));
 
         webView.loadUrl(Urls.URL + "/about_tc.html");
         webView.setWebChromeClient(webChromeClient);
@@ -61,6 +58,26 @@ public class AboutActivity extends BaseActivity {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);//允许使用js
+    }
+
+    @Override
+    public void initDatas() {
+        textVersions.setText(getResources().getString(R.string.foreseers_version) + APKVersionCodeUtils.getVerName(this));
+    }
+
+    @Override
+    public void installListeners() {
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 
     @OnClick({R.id.text_clause, R.id.text_privacy})
@@ -93,11 +110,11 @@ public class AboutActivity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            Log.i("ansen","拦截url:"+url);
-//            if(url.equals("http://www.google.com/")){
-//                Toast.makeText(MainActivity.this,"国内不能访问google,拦截该url",Toast.LENGTH_LONG).show();
-//                return true;//表示我已经处理过了
-//            }
+            //            Log.i("ansen","拦截url:"+url);
+            //            if(url.equals("http://www.google.com/")){
+            //                Toast.makeText(MainActivity.this,"国内不能访问google,拦截该url",Toast.LENGTH_LONG).show();
+            //                return true;//表示我已经处理过了
+            //            }
             return super.shouldOverrideUrlLoading(view, url);
         }
 
@@ -112,9 +129,11 @@ public class AboutActivity extends BaseActivity {
         @Override
         public boolean onJsAlert(WebView webView, String url, String message, JsResult result) {
             AlertDialog.Builder localBuilder = new AlertDialog.Builder(webView.getContext());
-            localBuilder.setMessage(message).setPositiveButton("确定", null);
+            localBuilder.setMessage(message)
+                    .setPositiveButton("确定", null);
             localBuilder.setCancelable(false);
-            localBuilder.create().show();
+            localBuilder.create()
+                    .show();
 
             //注意:
             //必须要这一句代码:result.confirm()表示:
@@ -133,43 +152,16 @@ public class AboutActivity extends BaseActivity {
 
         //加载进度回调
         @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-
-        }
+        public void onProgressChanged(WebView view, int newProgress) {}
     };
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         Log.i("ansen", "是否有上一个页面:" + webView.canGoBack());
-//        if (webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
-//            webView.goBack(); // goBack()表示返回webView的上一页面
-//            return true;
-//        }
+        //        if (webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
+        //            webView.goBack(); // goBack()表示返回webView的上一页面
+        //            return true;
+        //        }
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
-
-    }
-
-    @Override
-    public void processHandlerMessage(Message msg) {
-
     }
 }

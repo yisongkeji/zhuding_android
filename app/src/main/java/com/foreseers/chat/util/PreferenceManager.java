@@ -45,13 +45,13 @@ public class PreferenceManager {
         return mSharedPreferences.getString("HeadImgUrl",null);
     }
 
-    public static SharedPreferences getSP(Activity activity) {
+    public static SharedPreferences getSP(Context activity) {
         SharedPreferences userInfo = activity.getSharedPreferences("loginToken", MODE_PRIVATE);
 
         return userInfo;
     }
 
-    public static String getUserId(Activity activity) {
+    public static String getUserId(Context activity) {
 
         String userid = getSP(activity).getString("huanXinId", "");
 

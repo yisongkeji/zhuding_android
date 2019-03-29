@@ -24,6 +24,10 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.foreseers.chat.R;
+import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.UserDataBean;
+import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -38,10 +42,6 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.foreseers.chat.R;
-import com.foreseers.chat.bean.LoginBean;
-import com.foreseers.chat.bean.UserDataBean;
-import com.foreseers.chat.util.Urls;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -148,11 +148,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 break;
             case R.id.login_wechat:
-//                facebookid= "467979503606542";
+                facebookid= "467979503606542";
 //                facebookid= "567979503606543";//刘海强
 
 //                facebookid= "46797950360653";
-                facebookid= "46797950360652333";
+//                facebookid= "46797950360652333";
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);

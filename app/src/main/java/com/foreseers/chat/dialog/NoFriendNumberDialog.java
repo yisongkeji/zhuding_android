@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.foreseers.chat.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.R;
 
 
 public class NoFriendNumberDialog extends Dialog implements View.OnClickListener {

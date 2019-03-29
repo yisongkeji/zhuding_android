@@ -1,33 +1,32 @@
 package com.foreseers.chat.fragment;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.foreseers.chat.activity.MainActivity;
 import com.foreseers.chat.activity.MyActivity;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.Constant;
+import com.foreseers.chat.bean.UserBean;
 import com.foreseers.chat.util.HuanXinHelper;
-import com.hyphenate.EMMessageListener;
+import com.foreseers.chat.util.PreferenceManager;
+import com.foreseers.chat.util.Urls;
+import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.easeui.widget.chatrow.EaseCustomChatRowProvider;
-
-import java.util.List;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 /**
  * 聊天
@@ -69,12 +68,33 @@ public class MyChatFragment extends EaseChatFragment implements EaseChatFragment
         Log.e("rrrrrrrrr", message.toString());
 
         String hxIdTo = fragmentArgs.getString(EaseConstant.EXTRA_USER_ID);
-        String userName = fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME);
-        String avatar = fragmentArgs.getString(EaseConstant.EXTRA_USER_AVATAR);
-        EaseUser easeUser = new EaseUser(hxIdTo);
-        easeUser.setAvatar(avatar);
-        easeUser.setNickname(userName);
-        sharedPreferences.edit().putString(hxIdTo, userName + "&" + avatar).commit();
+//        String userName = fragmentArgs.getString(EaseConstant.EXTRA_USER_NAME);
+//        String avatar = fragmentArgs.getString(EaseConstant.EXTRA_USER_AVATAR);
+//        EaseUser easeUser = new EaseUser(hxIdTo);
+//        easeUser.setAvatar(avatar);
+//        easeUser.setNickname(userName);
+        OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                .params("uid", PreferenceManager.getUserId(getActivity()))
+                .params("userid",hxIdTo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson=new Gson();
+                        UserBean userBean =gson.fromJson(response.body(), UserBean.class);
+                        int userid=userBean.getData().getUserid();
+                        int vip=userBean.getData().getVip();
+                        String  head = userBean.getData().getHead();
+                        String name=userBean.getData().getUsername();
+
+                        EaseUser easeUser = new EaseUser(userid+"");
+                        easeUser.setAvatar(head);
+                        easeUser.setNickname(name);
+
+                        sharedPreferences.edit().putString(userid+"", name + "&" + head+"&"+vip).commit();
+                    }
+                });
+
+//        sharedPreferences.edit().putString(hxIdTo, userName + "&" + avatar).commit();
 
     }
 

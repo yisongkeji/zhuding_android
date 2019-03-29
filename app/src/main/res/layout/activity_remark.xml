@@ -15,29 +15,17 @@
         <!--bar-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:background="@mipmap/icon_header_case_01"
             android:elevation="1dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:paddingLeft="7dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="6dp"
-                android:text="@string/cancel"
-                android:textColor="@color/colorBlack" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
+            <com.foreseers.chat.view.widget.MyTitleBar
+                android:id="@+id/my_titlebar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/remark"
-                android:textColor="@color/colorWhite"
-                android:textSize="22sp" />
-
+                app:titleBarLeftImage="@mipmap/icon_me_06"
+                app:titleBarTitle="@string/remark">
+            </com.foreseers.chat.view.widget.MyTitleBar>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -46,12 +34,11 @@
                 android:gravity="bottom"
                 android:paddingLeft="15dp"
                 android:paddingRight="8dp"
-                android:paddingBottom="6dp"
+                android:paddingBottom="15dp"
                 android:text="@string/accomplish"
                 android:textColor="@color/colorWhite" />
 
         </FrameLayout>
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +47,6 @@
             android:layout_marginTop="20dp"
             android:text="@string/remark_name"
             android:textColor="@color/colorBlack" />
-
 
         <EditText
             android:layout_width="match_parent"

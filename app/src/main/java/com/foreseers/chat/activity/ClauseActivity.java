@@ -34,36 +34,6 @@ public class ClauseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clause);
-        ButterKnife.bind(this);
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        switch (getIntent().getIntExtra("type",0)){
-            case 0:
-                webView.loadUrl(Urls.URL+"/tnc_tc.html");
-                break;
-
-            case 1:
-                webView.loadUrl(Urls.URL+"/privacy.html");
-                break;
-
-        }
-
-
-
-
-        webView.setWebChromeClient(webChromeClient);
-        webView.setWebViewClient(webViewClient);
-
-        WebSettings webSettings=webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);//允许使用js
-
-
     }
     //WebViewClient主要帮助WebView处理各种通知、请求事件
     private WebViewClient webViewClient=new WebViewClient(){
@@ -141,6 +111,24 @@ public class ClauseActivity extends BaseActivity {
 
     @Override
     public void initViews() {
+        setContentView(R.layout.activity_clause);
+        ButterKnife.bind(this);
+        switch (getIntent().getIntExtra("type",0)){
+            case 0:
+                webView.loadUrl(Urls.URL+"/tnc_tc.html");
+                break;
+
+            case 1:
+                webView.loadUrl(Urls.URL+"/privacy.html");
+                break;
+
+        }
+
+        webView.setWebChromeClient(webChromeClient);
+        webView.setWebViewClient(webViewClient);
+
+        WebSettings webSettings=webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);//允许使用js
 
     }
 
@@ -151,7 +139,12 @@ public class ClauseActivity extends BaseActivity {
 
     @Override
     public void installListeners() {
-
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override

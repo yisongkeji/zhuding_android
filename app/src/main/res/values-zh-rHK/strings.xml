@@ -276,6 +276,14 @@
 
     //em_row_invite_msg
 
-
-
+    <string name="text_hint">提示</string>
+    <!--舉報-->
+    <string name="foreseers_inform">舉報</string>
+    <string name="foreseers_report_easons">創建舉報理由</string>
+    <string name="foreseers_report_easons_hint">請詳細描述妳要舉報該用戶的理由</string>
+    <!--开通会员-->
+    <string name="open_vip">開通會員</string>
+    <string name="text_sign">這個人很懶，什麽都沒寫</string>
+    <!--商店-->
+    <string name="text_vip">vip</string>
 </resources>

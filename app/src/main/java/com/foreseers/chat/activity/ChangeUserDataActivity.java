@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,18 +22,17 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.foreseers.chat.R;
-
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
+import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -51,28 +49,19 @@ import butterknife.OnClick;
 
 public class ChangeUserDataActivity extends BaseActivity {
 
-
-    @BindView(R.id.text_name)
-    EditText textName;
-    @BindView(R.id.text_sex)
-    TextView textSex;
-    @BindView(R.id.text_data)
-    TextView textData;
-    @BindView(R.id.text_age)
-    TextView textAge;
-    @BindView(R.id.text_ziwei)
-    TextView textZiwei;
-    @BindView(R.id.layout_back)
-    FrameLayout layoutBack;
-    @BindView(R.id.layout_change_sex)
-    LinearLayout layoutChangeSex;
+    @BindView(R.id.text_name) EditText textName;
+    @BindView(R.id.text_sex) TextView textSex;
+    @BindView(R.id.text_data) TextView textData;
+    @BindView(R.id.text_age) TextView textAge;
+    @BindView(R.id.text_ziwei) TextView textZiwei;
+    @BindView(R.id.layout_change_sex) LinearLayout layoutChangeSex;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
+    @BindView(R.id.layout_birth) LinearLayout layoutBirth;
     private LoginBean loginBean;
     private UserDataBean userDataBean;
     private UserDataBean.DataBean dataBean;
     private String userid;
     private ArrayList<String> sexList = new ArrayList<>();
-    private ArrayList<String> one = new ArrayList<>();
-    private ArrayList<String> three = new ArrayList<>();
     private OptionsPickerView pvSexOptions;
     private int REQUEST_CODE_USER_DATA;
     private TimePickerView pvCustomLunar;
@@ -83,26 +72,49 @@ public class ChangeUserDataActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_change_user_data);
         ButterKnife.bind(this);
-
-        getdata();
-        getDataFromHttp();
-
         getSexData();
         initSexOptionsPicker();
-
         initLunarPicker();
-        listener();
-
     }
 
-    private void getdata() {
+    @Override
+    public void initDatas() {
 
         userid = PreferenceManager.getUserId(this);
+        OkGo.<String>post(Urls.Url_Query).tag(this)
+                .params("facebookid", PreferenceManager.getFaceBookId(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson = new Gson();
+                        loginBean = gson.fromJson(response.body(), LoginBean.class);
+                        if (loginBean.getStatus()
+                                .equals("success")) {//老用户
+                            userDataBean = gson.fromJson(response.body(), UserDataBean.class);
+                            dataBean = userDataBean.getData();
+                            mHandler.obtainMessage(DATASUCCESS)
+                                    .sendToTarget();
+                        } else if (loginBean.getStatus()
+                                .equals("fail")) {
+
+                        }
+                    }
+                });
     }
 
-    private void listener() {
+    @Override
+    public void installListeners() {
         textName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -117,8 +129,6 @@ public class ChangeUserDataActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
-                Log.i("okgo", "afterTextChanged: " + editable.toString());
-                Log.i("okgo", "userid: " + userid);
                 OkGo.<String>post(Urls.Url_UpdateUser).tag(this)
                         .params("userid", userid)
                         .params("name", editable.toString())
@@ -130,38 +140,23 @@ public class ChangeUserDataActivity extends BaseActivity {
                         });
             }
         });
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent();
+                setResult(REQUEST_CODE_USER_DATA, intent);
+                finish();
+            }
+        });
     }
 
-    private void getDataFromHttp() {
+    @Override
+    public void processHandlerMessage(Message msg) {
 
-
-        OkGo.<String>post(Urls.Url_Query).tag(this)
-                .params("facebookid", PreferenceManager.getFaceBookId(this))
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        Gson gson = new Gson();
-                        loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {//老用户
-
-                            userDataBean = gson.fromJson(response.body(), UserDataBean.class);
-
-                            dataBean = userDataBean.getData();
-
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-
-
-                        } else if (loginBean.getStatus().equals("fail")) {
-
-                        }
-                    }
-                });
     }
 
-    private final int DATASUCCESS = 1;
     private final int DATASEXSUCCESS = 3;
     private final int DATATIMESUCCESS = 4;
-    private final int DATAFELLED = 2;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -169,7 +164,8 @@ public class ChangeUserDataActivity extends BaseActivity {
             switch (msg.what) {
                 case DATASUCCESS:
                     textName.setText(dataBean.getUsername());
-                    textSex.setText(dataBean.getSex().equals("M") ? R.string.man : R.string.woman);
+                    textSex.setText(dataBean.getSex()
+                                            .equals("M") ? R.string.man : R.string.woman);
                     textAge.setText(dataBean.getReservedint() + "");
                     textZiwei.setText(dataBean.getZiwei());
                     Log.e("okgo", "textZiwei: " + dataBean.getZiwei());
@@ -190,18 +186,12 @@ public class ChangeUserDataActivity extends BaseActivity {
         }
     };
 
-    @OnClick({R.id.layout_back, R.id.layout_change_sex, R.id.layout_birth})
+    @OnClick({R.id.layout_change_sex, R.id.layout_birth})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.layout_back:
-                intent = new Intent();
-                setResult(REQUEST_CODE_USER_DATA, intent);
-                finish();
-                break;
             case R.id.layout_change_sex:
                 pvSexOptions.show();
                 break;
-
             case R.id.layout_birth:
                 pvCustomLunar.show();
                 break;
@@ -244,8 +234,7 @@ public class ChangeUserDataActivity extends BaseActivity {
         Calendar startDate = Calendar.getInstance();
         startDate.set(1940, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH),
-                selectedDate.get(Calendar.DAY_OF_MONTH));
+        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH), selectedDate.get(Calendar.DAY_OF_MONTH));
         //时间选择器 ，自定义布局
         pvCustomLunar = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -253,13 +242,13 @@ public class ChangeUserDataActivity extends BaseActivity {
 
                 textData.setText(getTime(date));
 
-                String birth = textData.getText().toString();
+                String birth = textData.getText()
+                        .toString();
                 //出生日期
                 int indexYear = birth.indexOf("日");
                 String date1 = birth.substring(0, indexYear);
                 String date2 = date1.replace("年", "-");
                 String date3 = date2.replace("月", "-");
-
 
                 //出生时间
                 int index = birth.indexOf(" ");
@@ -276,11 +265,13 @@ public class ChangeUserDataActivity extends BaseActivity {
                             public void onSuccess(Response<String> response) {
                                 Gson gson = new Gson();
                                 loginBean = gson.fromJson(response.body(), LoginBean.class);
-                                if (loginBean.getStatus().equals("success")) {//老用户
+                                if (loginBean.getStatus()
+                                        .equals("success")) {//老用户
                                     userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     dataBean = userDataBean.getData();
                                     REQUEST_CODE_USER_DATA = 200;
-                                    mHandler.obtainMessage(DATATIMESUCCESS).sendToTarget();
+                                    mHandler.obtainMessage(DATATIMESUCCESS)
+                                            .sendToTarget();
                                 }
                             }
                         });
@@ -300,7 +291,6 @@ public class ChangeUserDataActivity extends BaseActivity {
                             public void onClick(View v) {
                                 pvCustomLunar.returnData();
                                 pvCustomLunar.dismiss();
-
                             }
                         });
                         ivCancel.setOnClickListener(new View.OnClickListener() {
@@ -311,17 +301,14 @@ public class ChangeUserDataActivity extends BaseActivity {
                         });
                         //公农历切换
                         CheckBox cb_lunar = (CheckBox) v.findViewById(R.id.cb_lunar);
-                        cb_lunar.setOnCheckedChangeListener(new CompoundButton
-                                .OnCheckedChangeListener() {
+                        cb_lunar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean
-                                    isChecked) {
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 pvCustomLunar.setLunarCalendar(!pvCustomLunar.isLunarCalendar());
                                 //自适应宽
                                 setTimePickerChildWeight(v, isChecked ? 0.8f : 1f, isChecked ? 1f : 1.1f);
                             }
                         });
-
                     }
 
                     /**
@@ -350,7 +337,6 @@ public class ChangeUserDataActivity extends BaseActivity {
                 .build();
     }
 
-
     //    getTime
     private String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH時");
@@ -363,9 +349,10 @@ public class ChangeUserDataActivity extends BaseActivity {
 
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                textSex.setText(sexList.get(options2));
+                textSex.setText(sexList.get(options1));
                 String newSex;
-                if (sexList.get(options2).equals("男")) {
+                if (sexList.get(options2)
+                        .equals(getString(R.string.man))) {
                     newSex = "M";
                 } else {
                     newSex = "F";
@@ -378,69 +365,37 @@ public class ChangeUserDataActivity extends BaseActivity {
                             public void onSuccess(Response<String> response) {
                                 Gson gson = new Gson();
                                 loginBean = gson.fromJson(response.body(), LoginBean.class);
-                                if (loginBean.getStatus().equals("success")) {//老用户
+                                if (loginBean.getStatus()
+                                        .equals("success")) {//老用户
                                     userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     dataBean = userDataBean.getData();
 
                                     REQUEST_CODE_USER_DATA = 200;
-                                    mHandler.obtainMessage(DATASEXSUCCESS).sendToTarget();
+                                    mHandler.obtainMessage(DATASEXSUCCESS)
+                                            .sendToTarget();
                                 }
-
-
                             }
                         });
             }
         })
-                .setSubmitColor(R.color.colorAccent)
-                .setCancelColor(R.color.colorAccent)
-                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
-                    @Override
-                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
-//                         textUserTimezone.setText(timezone.get(options2));
-//                        String str = "options1: " + options1 + "\noptions2: " + options2 +
-// "\noptions3: " + options3;
-//                        Toast.makeText(UserDataActivity.this, str, Toast.LENGTH_SHORT).show();
-                        Log.i("@@@@@@", "sex :" + sexList.get(options2));
-                    }
-                })
-                // .setSelectOptions(0, 1, 1)
+                .setContentTextSize(20)//设置滚轮文字大小
+                .setSubmitColor(getResources().getColor(R.color.colorAccent))
+                .setCancelColor(getResources().getColor(R.color.colorAccent))
+//                .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
+//                    @Override
+//                    public void onOptionsSelectChanged(int options1, int options2, int options3) {
+//
+//                    }
+//                })
                 .build();
-        pvSexOptions.setNPicker(one, sexList, three);
-        pvSexOptions.setSelectOptions(0, 27, 0);
+
+        pvSexOptions.setPicker(sexList);
     }
 
     //性別
     private void getSexData() {
         sexList.add(getString(R.string.man));
         sexList.add(getString(R.string.woman));
-
-        one.add("");
-        three.add("");
-    }
-
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
-
-    }
-
-    @Override
-    public void processHandlerMessage(Message msg) {
 
     }
 }

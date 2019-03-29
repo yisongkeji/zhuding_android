@@ -1,6 +1,7 @@
 package com.hyphenate.easeui.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ import com.hyphenate.util.DateUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * conversation list adapter
@@ -92,6 +95,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.vip = (ImageView) convertView.findViewById(R.id.ease_default_vip);
             holder.msgState = convertView.findViewById(R.id.msg_state);
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
             holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
@@ -101,7 +105,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
         // get conversation
         EMConversation conversation = getItem(position);
-        // get username or group id
+        // get username or group id//获取用户名或组id
         String username = conversation.conversationId();
 
 
@@ -126,7 +130,20 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             EaseUserUtils.setUserAvatar(getContext(), username, holder.avatar);
             EaseUserUtils.setUserNick(username, holder.name);
             holder.motioned.setVisibility(View.GONE);
+
         }
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", MODE_PRIVATE);
+        String info = sharedPreferences.getString(username, "");
+        String  vip = null;
+        if (info.split("&").length > 2) {
+            vip=info.split("&")[2];
+            if (vip.equals("0")){
+                holder.vip.setVisibility(View.GONE);
+            }else if (vip.equals("1")){
+                holder.vip.setVisibility(View.VISIBLE);
+            }
+        }
+
 
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if(avatarOptions != null && holder.avatar instanceof EaseImageView) {
@@ -141,7 +158,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 avatarView.setRadius(avatarOptions.getAvatarRadius());
         }
         if (conversation.getUnreadMsgCount() > 0) {
-            // show unread message count
+            // show unread message count显示未读消息计数
             holder.unreadLabel.setText(String.valueOf(conversation.getUnreadMsgCount()));
             holder.unreadLabel.setVisibility(View.VISIBLE);
         } else {
@@ -149,7 +166,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         }
 
         if (conversation.getAllMsgCount() != 0) {
-        	// show the content of latest message
+        	// show the content of latest message显示最新消息的内容
             EMMessage lastMessage = conversation.getLastMessage();
             String content = null;
             if(cvsListHelper != null){
@@ -168,7 +185,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
         }
         
-        //set property
+        //set property/设置属性
         holder.name.setTextColor(primaryColor);
         holder.message.setTextColor(secondaryColor);
         holder.time.setTextColor(timeColor);
@@ -320,6 +337,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         TextView time;
         /** avatar */
         ImageView avatar;
+        /** vip */
+        ImageView vip;
         /** status of last message */
         View msgState;
         /** layout */

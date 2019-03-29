@@ -1,6 +1,7 @@
 package com.foreseers.chat.fcm;
 
 import android.util.Log;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.hyphenate.chat.EMClient;

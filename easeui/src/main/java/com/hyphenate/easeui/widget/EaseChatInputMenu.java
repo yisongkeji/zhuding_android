@@ -27,11 +27,11 @@ import com.hyphenate.easeui.widget.emojicon.EaseEmojiconMenuBase.EaseEmojiconMen
 
 /**
  * input menu
- * 
+ * <p>
  * including below component:
- *    EaseChatPrimaryMenu: main menu bar, text input, send button
- *    EaseChatExtendMenu: grid menu with image, file, location, etc
- *    EaseEmojiconMenu: emoji icons
+ * EaseChatPrimaryMenu: main menu bar, text input, send button
+ * EaseChatExtendMenu: grid menu with image, file, location, etc
+ * EaseEmojiconMenu: emoji icons
  */
 public class EaseChatInputMenu extends LinearLayout {
     FrameLayout primaryMenuContainer, emojiconMenuContainer;
@@ -68,113 +68,108 @@ public class EaseChatInputMenu extends LinearLayout {
         emojiconMenuContainer = (FrameLayout) findViewById(R.id.emojicon_menu_container);
         chatExtendMenuContainer = (FrameLayout) findViewById(R.id.extend_menu_container);
 
-         // extend menu
-         chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu);
-        
-
+        // extend menu
+        chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu);
     }
 
     /**
-     * init view 
-     * 
+     * init view
+     * <p>
      * This method should be called after registerExtendMenuItem(), setCustomEmojiconMenu() and setCustomPrimaryMenu().
+     * *这个方法应该在registerExtendMenuItem()、setCustomEmojiconMenu()和setCustomPrimaryMenu()之后调用。
+     *
      * @param emojiconGroupList --will use default if null
      */
     @SuppressLint("InflateParams")
     public void init(List<EaseEmojiconGroupEntity> emojiconGroupList) {
-        if(inited){
+        if (inited) {
             return;
         }
-        // primary menu, use default if no customized one
-        if(chatPrimaryMenu == null){
+        // primary menu, use default if no customized one主菜单，如果没有自定义菜单，使用默认菜单
+        if (chatPrimaryMenu == null) {
             chatPrimaryMenu = (EaseChatPrimaryMenu) layoutInflater.inflate(R.layout.ease_layout_chat_primary_menu, null);
         }
+        chatPrimaryMenu.getEditText().clearFocus();
+        chatPrimaryMenu.getEditText().setCursorVisible(false);
+
+
         primaryMenuContainer.addView(chatPrimaryMenu);
 
         // emojicon menu, use default if no customized one
-        if(emojiconMenu == null){
+        if (emojiconMenu == null) {
             emojiconMenu = (EaseEmojiconMenu) layoutInflater.inflate(R.layout.ease_layout_emojicon_menu, null);
-            if(emojiconGroupList == null){
+            if (emojiconGroupList == null) {
                 emojiconGroupList = new ArrayList<EaseEmojiconGroupEntity>();
-                emojiconGroupList.add(new EaseEmojiconGroupEntity(R.drawable.ee_1,  Arrays.asList(EaseDefaultEmojiconDatas.getData())));
+                emojiconGroupList.add(new EaseEmojiconGroupEntity(R.drawable.ee_1, Arrays.asList(EaseDefaultEmojiconDatas.getData())));
             }
-            ((EaseEmojiconMenu)emojiconMenu).init(emojiconGroupList);
+            ((EaseEmojiconMenu) emojiconMenu).init(emojiconGroupList);
         }
         emojiconMenuContainer.addView(emojiconMenu);
 
         processChatMenu();
         chatExtendMenu.init();
-        
+
         inited = true;
+
     }
-    
-    public void init(){
+
+    public void init() {
         init(null);
     }
-    
+
     /**
      * set custom emojicon menu
+     *
      * @param customEmojiconMenu
      */
-    public void setCustomEmojiconMenu(EaseEmojiconMenuBase customEmojiconMenu){
+    public void setCustomEmojiconMenu(EaseEmojiconMenuBase customEmojiconMenu) {
         this.emojiconMenu = customEmojiconMenu;
     }
-    
+
     /**
-     * set custom primary menu
+     * set custom primary menu设置自定义主菜单
+     *
      * @param customPrimaryMenu
      */
-    public void setCustomPrimaryMenu(EaseChatPrimaryMenuBase customPrimaryMenu){
+    public void setCustomPrimaryMenu(EaseChatPrimaryMenuBase customPrimaryMenu) {
         this.chatPrimaryMenu = customPrimaryMenu;
     }
-    
-    public EaseChatPrimaryMenuBase getPrimaryMenu(){
+
+    public EaseChatPrimaryMenuBase getPrimaryMenu() {
         return chatPrimaryMenu;
     }
-    
-    public EaseChatExtendMenu getExtendMenu(){
+
+    public EaseChatExtendMenu getExtendMenu() {
         return chatExtendMenu;
     }
-    
-    public EaseEmojiconMenuBase getEmojiconMenu(){
+
+    public EaseEmojiconMenuBase getEmojiconMenu() {
         return emojiconMenu;
     }
-    
 
     /**
      * register menu item
-     * 
-     * @param name
-     *            item name
-     * @param drawableRes
-     *            background of item
-     * @param itemId
-     *             id
-     * @param listener
-     *            on click event of item
+     *
+     * @param name        item name
+     * @param drawableRes background of item
+     * @param itemId      id
+     * @param listener    on click event of item
      */
-    public void registerExtendMenuItem(String name, int drawableRes, int itemId,
-            EaseChatExtendMenuItemClickListener listener) {
+    public void registerExtendMenuItem(String name, int drawableRes, int itemId, EaseChatExtendMenuItemClickListener listener) {
         chatExtendMenu.registerMenuItem(name, drawableRes, itemId, listener);
     }
 
     /**
      * register menu item
-     * 
-     * @param name
-     *            resource id of item name
-     * @param drawableRes
-     *            background of item
-     * @param itemId
-     *             id
-     * @param listener
-     *            on click event of item
+     *
+     * @param name        resource id of item name
+     * @param drawableRes background of item
+     * @param itemId      id
+     * @param listener    on click event of item
      */
-    public void registerExtendMenuItem(int nameRes, int drawableRes, int itemId,
-            EaseChatExtendMenuItemClickListener listener) {
+    public void registerExtendMenuItem(int nameRes, int drawableRes, int itemId, EaseChatExtendMenuItemClickListener listener) {
         chatExtendMenu.registerMenuItem(nameRes, drawableRes, itemId, listener);
     }
-
 
     protected void processChatMenu() {
         // send message button
@@ -189,8 +184,9 @@ public class EaseChatInputMenu extends LinearLayout {
 
             @Override
             public void onSendBtnClicked(String content) {
-                if (listener != null)
+                if (listener != null) {
                     listener.onSendMessage(content);
+                }
             }
 
             @Override
@@ -213,10 +209,9 @@ public class EaseChatInputMenu extends LinearLayout {
                 hideExtendMenuContainer();
             }
 
-
             @Override
             public boolean onPressToSpeakBtnTouch(View v, MotionEvent event) {
-                if(listener != null){
+                if (listener != null) {
                     return listener.onPressToSpeakBtnTouch(v, event);
                 }
                 return false;
@@ -228,12 +223,12 @@ public class EaseChatInputMenu extends LinearLayout {
 
             @Override
             public void onExpressionClicked(EaseEmojicon emojicon) {
-                if(emojicon.getType() != EaseEmojicon.Type.BIG_EXPRESSION){
-                    if(emojicon.getEmojiText() != null){
-                        chatPrimaryMenu.onEmojiconInputEvent(EaseSmileUtils.getSmiledText(context,emojicon.getEmojiText()));
+                if (emojicon.getType() != EaseEmojicon.Type.BIG_EXPRESSION) {
+                    if (emojicon.getEmojiText() != null) {
+                        chatPrimaryMenu.onEmojiconInputEvent(EaseSmileUtils.getSmiledText(context, emojicon.getEmojiText()));
                     }
-                }else{
-                    if(listener != null){
+                } else {
+                    if (listener != null) {
                         listener.onBigExpressionClicked(emojicon);
                     }
                 }
@@ -244,21 +239,20 @@ public class EaseChatInputMenu extends LinearLayout {
                 chatPrimaryMenu.onEmojiconDeleteEvent();
             }
         });
-
     }
-    
-   
+
     /**
      * insert text
+     *
      * @param text
      */
-    public void insertText(String text){
+    public void insertText(String text) {
         getPrimaryMenu().onTextInsert(text);
     }
 
     /**
      * show or hide extend menu
-     * 
+     * 显示或隐藏扩展菜单
      */
     protected void toggleMore() {
         if (chatExtendMenuContainer.getVisibility() == View.GONE) {
@@ -282,6 +276,7 @@ public class EaseChatInputMenu extends LinearLayout {
 
     /**
      * show or hide emojicon
+     * 显示或隐藏表情符号
      */
     protected void toggleEmojicon() {
         if (chatExtendMenuContainer.getVisibility() == View.GONE) {
@@ -301,7 +296,6 @@ public class EaseChatInputMenu extends LinearLayout {
                 chatExtendMenu.setVisibility(View.GONE);
                 emojiconMenu.setVisibility(View.VISIBLE);
             }
-
         }
     }
 
@@ -310,10 +304,19 @@ public class EaseChatInputMenu extends LinearLayout {
      */
     private void hideKeyboard() {
         chatPrimaryMenu.hideKeyboard();
+        chatPrimaryMenu.getEditText().clearFocus();
     }
 
     /**
-     * hide extend menu
+     * 清除EditText焦点
+     */
+    public void clearFocus() {
+        chatPrimaryMenu.getEditText().clearFocus();
+    }
+
+
+    /**
+     * hide extend menu*隐藏扩展菜单
      */
     public void hideExtendMenuContainer() {
         chatExtendMenu.setVisibility(View.GONE);
@@ -324,9 +327,9 @@ public class EaseChatInputMenu extends LinearLayout {
 
     /**
      * when back key pressed
-     * 
+     *
      * @return false--extend menu is on, will hide it first
-     *         true --extend menu is off 
+     * true --extend menu is off
      */
     public boolean onBackPressed() {
         if (chatExtendMenuContainer.getVisibility() == View.VISIBLE) {
@@ -335,9 +338,7 @@ public class EaseChatInputMenu extends LinearLayout {
         } else {
             return true;
         }
-
     }
-    
 
     public void setChatInputMenuListener(ChatInputMenuListener listener) {
         this.listener = listener;
@@ -346,31 +347,32 @@ public class EaseChatInputMenu extends LinearLayout {
     public interface ChatInputMenuListener {
 
         /**
-         * when typing on the edit-text layout.
+         * when typing on the edit-text layout.在编辑文本布局上键入时。
          */
         void onTyping(CharSequence s, int start, int before, int count);
 
         /**
          * when send message button pressed
-         * 
-         * @param content
-         *            message content
+         * 当发送消息按钮按下
+         *
+         * @param content message content
          */
         void onSendMessage(String content);
-        
+
         /**
          * when big icon pressed
+         *
          * @param emojicon
          */
         void onBigExpressionClicked(EaseEmojicon emojicon);
 
         /**
          * when speak button is touched
+         *
          * @param v
          * @param event
          * @return
          */
         boolean onPressToSpeakBtnTouch(View v, MotionEvent event);
     }
-    
 }

@@ -6,10 +6,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseSectionQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.foreseers.chat.bean.HistoryBean;
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.MySection;
 import com.foreseers.chat.bean.Video;
-import com.foreseers.chat.R;
 
 import java.util.List;
 

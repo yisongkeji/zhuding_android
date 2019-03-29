@@ -4,8 +4,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.foreseers.chat.R;
-
 public class LimitInputTextWatcher implements TextWatcher {
     /**
      * et

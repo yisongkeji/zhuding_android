@@ -1,21 +1,17 @@
 package com.foreseers.chat.global;
 
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.cy.translucentparent.StatusNavUtils;
 import com.foreseers.chat.interf.IBaseActivity;
-import com.foreseers.chat.interf.IBaseFragment;
 
 public abstract class BaseActivity extends AppCompatActivity implements IBaseActivity {
 
-
+    public final int DATASUCCESS = 1;
+    public final int DATAFELLED = 0;
     private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState){

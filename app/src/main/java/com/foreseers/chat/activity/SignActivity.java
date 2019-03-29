@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.R;
+import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;

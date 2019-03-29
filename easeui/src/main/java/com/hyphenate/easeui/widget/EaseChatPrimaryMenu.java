@@ -71,8 +71,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         buttonMore.setOnClickListener(this);
         faceLayout.setOnClickListener(this);
         editText.setOnClickListener(this);
-        editText.requestFocus();
-        
+//        editText.requestFocus();
+        editText.clearFocus();
         editText.setOnFocusChangeListener(new OnFocusChangeListener() {
 
             @Override
@@ -237,10 +237,11 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     
     /**
      * show voice icon when speak bar is touched
-     * 
+     * 当通话栏被触摸时显示语音图标
      */
     protected void setModeVoice() {
         hideKeyboard();
+        editText.clearFocus();
         edittext_layout.setVisibility(View.GONE);
         buttonSetModeVoice.setVisibility(View.GONE);
         buttonSetModeKeyboard.setVisibility(View.VISIBLE);
@@ -253,7 +254,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     }
 
     /**
-     * show keyboard
+     * show keyboard*显示键盘
      */
     protected void setModeKeyboard() {
         edittext_layout.setVisibility(View.VISIBLE);

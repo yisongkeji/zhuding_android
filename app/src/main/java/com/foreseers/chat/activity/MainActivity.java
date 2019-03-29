@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -18,7 +19,6 @@ import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
 import com.cy.translucentparent.StatusNavUtils;
 import com.foreseers.chat.R;
-import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.bean.FriendTimeBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.fragment.ChatFragment;
@@ -281,32 +281,36 @@ public class MainActivity extends SupportActivity {
 
                 case GETmessNum:
                     mBottomBarLayout.showNotify(0);
-                    layoutMessage.setVisibility(View.VISIBLE);
-                    EMMessage message= (EMMessage) msg.obj;
-                    Log.i(TAG, "handleMessage: "+message.getUserName()+"    message.getBody():"+message.getBody());
-                    String ticker = EaseCommonUtils.getMessageDigest(message, MyApplication.getContext());
-                    if (message.getType() == EMMessage.Type.TXT) {
-                        ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
-                    }
-                    EaseUser user = HuanXinHelper.getInstance().getUserInfo(message.getFrom());
-                    textName.setText(user.getNickname());
-                    textMessage.setText(ticker);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(1500);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        layoutMessage.setVisibility(View.GONE);
-                                    }
-                                });
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                    if (!chatFragment.isVisible()) {
+                        Log.i(TAG, "chatFragment.isVisible(): ");
+                        layoutMessage.setVisibility(View.VISIBLE);
+                        EMMessage message= (EMMessage) msg.obj;
+                        Log.i(TAG, "handleMessage: "+message.getUserName()+"    message.getBody():"+message.getBody());
+                        String ticker = EaseCommonUtils.getMessageDigest(message, MyApplication.getContext());
+                        if (message.getType() == EMMessage.Type.TXT) {
+                            ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
                         }
-                    }).start();
+                        EaseUser user = HuanXinHelper.getInstance().getUserInfo(message.getFrom());
+                        textName.setText(user.getNickname());
+                        textMessage.setText(ticker);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(1500);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            layoutMessage.setVisibility(View.GONE);
+                                        }
+                                    });
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
+
+                    }
 
                     break;
 
@@ -354,18 +358,16 @@ public class MainActivity extends SupportActivity {
             sharedPreferences = MainActivity.this.getSharedPreferences("user", MODE_PRIVATE);
             for (EMMessage message : messages) {
                 //接收并处理扩展消息
-                String userName = message.getStringAttribute(Constant.USER_NAME, "");
-                String userId = message.getStringAttribute(Constant.USER, "");
-                String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
-                String hxIdFrom = message.getFrom();
-                EaseUser easeUser = new EaseUser(hxIdFrom);
-                easeUser.setAvatar(userPic);
-                easeUser.setNickname(userName);
+//                String userName = message.getStringAttribute(Constant.USER_NAME, "");
+//                String userId = message.getStringAttribute(Constant.USER, "");
+//                String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
+//                String hxIdFrom = message.getFrom();
+//                EaseUser easeUser = new EaseUser(hxIdFrom);
+//                easeUser.setAvatar(userPic);
+//                easeUser.setNickname(userName);
 
-                sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
-                if (chatFragment.isVisible()) {
-                    Log.i(TAG, "chatFragment.isVisible(): ");
-                }
+//                sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
+
                 Message message1 = new Message();
                 message1.what = GETmessNum;
                 message1.obj = message;
@@ -434,5 +436,11 @@ public class MainActivity extends SupportActivity {
     public void changeBottombar() {
         mBottomBarLayout.hideNotify(0);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==10001) {
+            shopFragment.afterPurchase(requestCode, resultCode, data);
+        }
+    }
 }

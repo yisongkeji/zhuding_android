@@ -18,6 +18,7 @@ package com.foreseers.chat.util;
 import android.content.Context;
 import android.graphics.Point;
 
+import com.foreseers.chat.R;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 import com.zhihu.matisse.internal.entity.IncapableCause;
@@ -26,8 +27,6 @@ import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.foreseers.chat.R;
 
 public class GifSizeFilter extends Filter {
 

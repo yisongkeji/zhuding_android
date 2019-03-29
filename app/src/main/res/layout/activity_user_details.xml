@@ -36,8 +36,7 @@
                     android:layout_height="345dp"
                     android:elevation="2dp">
 
-
-                    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <com.ms.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
@@ -141,13 +140,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/user_nickname"
-
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -163,7 +161,7 @@
                                 android:background="@drawable/rounded_layout_blue"
                                 android:gravity="center"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_13" />
 
 
                             <TextView
@@ -173,7 +171,7 @@
                                 android:layout_marginLeft="5dp"
                                 android:text="@string/foreseers_match_degree"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/progress_text"
@@ -189,7 +187,7 @@
                                 android:layout_gravity="bottom"
                                 android:text="%"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                         </LinearLayout>
 
@@ -204,28 +202,28 @@
                                 android:id="@+id/text_sex"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/text_age"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/text_ziwei"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="6dp"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/text_location"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="7dp"
-                                android:textSize="@dimen/sp_11" />
+                                android:textSize="@dimen/sp_13" />
                         </LinearLayout>
 
 
@@ -236,7 +234,8 @@
                             android:layout_marginTop="4dp"
                             android:layout_marginBottom="5dp"
                             android:textColor="@color/colorAccent"
-                            android:textSize="13sp" />
+                            android:textSize="@dimen/sp_15"
+                            android:text="@string/text_sign"/>
 
 
                     </LinearLayout>
@@ -254,26 +253,30 @@
                             android:id="@+id/chat_user_details"
                             android:layout_width="41dp"
                             android:layout_height="41dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_toLeftOf="@id/img_add_friend"
                             android:background="@mipmap/icon_data_02" />
 
                         <ImageView
                             android:id="@+id/img_add_friend"
                             android:layout_width="41dp"
                             android:layout_height="41dp"
-
                             android:layout_alignParentRight="true"
                             android:background="@mipmap/icon_data_01" />
 
 
                         <LinearLayout
+                            android:id="@+id/layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="5dp"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
+
                                 android:layout_width="12dp"
                                 android:layout_height="18dp"
                                 android:background="@mipmap/icon_top_01" />

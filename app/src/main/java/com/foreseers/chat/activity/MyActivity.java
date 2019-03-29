@@ -13,8 +13,8 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MyBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GlideUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
@@ -29,39 +29,25 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class MyActivity extends BaseActivity {
 
-    @BindView(R.id.my_titlebar)
-    MyTitleBar myTitlebar;
-    @BindView(R.id.banner)
-    Banner banner;
-    @BindView(R.id.img_ani)
-    ImageView imgAni;
-    @BindView(R.id.layout_wipe)
-    LinearLayout layoutWipe;
-    @BindView(R.id.text_user_details_name)
-    TextView textUserDetailsName;
-    @BindView(R.id.img_vip)
-    ImageView imgVip;
-    @BindView(R.id.text_num)
-    TextView textNum;
-    @BindView(R.id.text_sex)
-    TextView textSex;
-    @BindView(R.id.text_age)
-    TextView textAge;
-    @BindView(R.id.text_ziwei)
-    TextView textZiwei;
-    @BindView(R.id.text_sign)
-    TextView textSign;
-    @BindView(R.id.mylayout)
-    LinearLayout mylayout;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
+    @BindView(R.id.banner) Banner banner;
+    @BindView(R.id.img_ani) ImageView imgAni;
+    @BindView(R.id.layout_wipe) LinearLayout layoutWipe;
+    @BindView(R.id.text_user_details_name) TextView textUserDetailsName;
+    @BindView(R.id.img_vip) ImageView imgVip;
+    @BindView(R.id.text_num) TextView textNum;
+    @BindView(R.id.text_sex) TextView textSex;
+    @BindView(R.id.text_age) TextView textAge;
+    @BindView(R.id.text_ziwei) TextView textZiwei;
+    @BindView(R.id.text_sign) TextView textSign;
+    @BindView(R.id.mylayout) LinearLayout mylayout;
     private final int DATASUCCESS = 1;
     private final int DATASUCCESS2 = 2;
     private List<String> imgList = new ArrayList<>();
     private MyBean myBean;
     private MyBean.DataBean dataBean;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +72,6 @@ public class MyActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int i) {
-
 
             }
 
@@ -156,7 +141,6 @@ public class MyActivity extends BaseActivity {
             case DATASUCCESS2:
 
                 break;
-
         }
     }
 
@@ -168,17 +152,19 @@ public class MyActivity extends BaseActivity {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
+                        if (loginBean.getStatus()
+                                .equals("success")) {
                             myBean = gson.fromJson(response.body(), MyBean.class);
                             dataBean = myBean.getData();
                             imgList.add(dataBean.getHead());
-                            for (int i = 0; i < dataBean.getImages().size(); i++) {
-                                imgList.add( dataBean.getImages().get(i));
+                            for (int i = 0; i < dataBean.getImages()
+                                    .size(); i++) {
+                                imgList.add(dataBean.getImages()
+                                                    .get(i));
                             }
 
-
-
-                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                            getHandler().obtainMessage(DATASUCCESS)
+                                    .sendToTarget();
                         }
                     }
                 });

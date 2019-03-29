@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,27 +20,19 @@ import com.foreseers.chat.global.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WipeHistoryActivity extends BaseActivity implements RadioGroup
-        .OnCheckedChangeListener {
+public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
-    @BindView(R.id.radiobutton1)
-    RadioButton radiobutton1;
-    @BindView(R.id.radiobutton2)
-    RadioButton radiobutton2;
-    @BindView(R.id.radiogroup)
-    RadioGroup radiogroup;
-    @BindView(R.id.layout_frame)
-    FrameLayout layoutFrame;
-    @BindView(R.id.img)
-    ImageButton img;
-    @BindView(R.id.text)
-    TextView text;
+    @BindView(R.id.radiobutton1) RadioButton radiobutton1;
+    @BindView(R.id.radiobutton2) RadioButton radiobutton2;
+    @BindView(R.id.radiogroup) RadioGroup radiogroup;
+    @BindView(R.id.layout_frame) FrameLayout layoutFrame;
+    @BindView(R.id.text) TextView text;
+    @BindView(R.id.layout) FrameLayout layout;
     private WipeHistoryFragment wipeHistoryFragment;
     private FragmentManager fragmentManager;
 
     private LookHistoryFragment lookHistoryFragment;
     private FragmentTransaction transaction;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +46,15 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
         int vip = getIntent().getIntExtra("vip", 0);
         switch (vip) {
             case 0:
-                img.setVisibility(View.VISIBLE);
+                layout.setVisibility(View.VISIBLE);
                 text.setVisibility(View.VISIBLE);
                 break;
             case 1:
-                img.setVisibility(View.GONE);
+                layout.setVisibility(View.GONE);
                 text.setVisibility(View.GONE);
                 break;
         }
-
-
     }
-
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -114,14 +102,13 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
 
         lookHistoryFragment = new LookHistoryFragment();
 
-
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.layout_frame, wipeHistoryFragment);
         transaction.add(R.id.layout_frame, lookHistoryFragment);
-        transaction.hide(lookHistoryFragment).show(wipeHistoryFragment);
+        transaction.hide(lookHistoryFragment)
+                .show(wipeHistoryFragment);
         transaction.commit();
-
     }
 
     @Override
@@ -132,7 +119,6 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
     @Override
     public void installListeners() {
         Log.i("@#@#@#@#@#", "installListeners: ");
-
     }
 
     @Override
@@ -140,11 +126,9 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup
 
     }
 
-
-//    private void changeFragment(int currentPosition) {
-//        transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
-//        transaction.commit();
-//    }
-
+    //    private void changeFragment(int currentPosition) {
+    //        transaction = getSupportFragmentManager().beginTransaction();
+    //        transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
+    //        transaction.commit();
+    //    }
 }

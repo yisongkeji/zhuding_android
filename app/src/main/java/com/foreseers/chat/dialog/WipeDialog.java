@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.foreseers.chat.R;
 
@@ -12,13 +13,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WipeDialog extends Dialog implements View.OnClickListener {
-    @BindView(R.id.button_ok)
-    Button buttonOk;
-    @BindView(R.id.button_cancel)
-    Button buttonCancel;
+    @BindView(R.id.button_ok) Button buttonOk;
+    @BindView(R.id.button_cancel) Button buttonCancel;
+    @BindView(R.id.text_title) TextView textTitle;
+    @BindView(R.id.text_content) TextView textContent;
     private Context context;
     private LeaveMyDialogListener listener;
-
 
     public interface LeaveMyDialogListener {
         public void onClick(View view);
@@ -42,6 +42,8 @@ public class WipeDialog extends Dialog implements View.OnClickListener {
         ButterKnife.bind(this);
         buttonOk.setOnClickListener(this);
         buttonCancel.setOnClickListener(this);
+        textTitle.setText(context.getResources().getString(R.string.foreseers_clean_photo));
+        textContent.setText(context.getResources().getString(R.string.foreseers_ensure_clean_photo));
     }
 
     @Override
@@ -60,5 +62,4 @@ public class WipeDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
-
 }

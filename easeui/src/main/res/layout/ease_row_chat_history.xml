@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_itease_layout"
     android:layout_width="match_parent"
-    android:layout_height="59dp"
+    android:layout_height="60dp"
     android:background="#ffffff"
     android:gravity="center_vertical">
 
@@ -18,9 +18,19 @@
             android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/ease_default_avatar" />
 
+        <ImageView
+            android:id="@+id/ease_default_vip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_site_vip_01"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="3dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -103,4 +113,7 @@
         android:gravity="center"
         android:textColor="@android:color/white"
         android:textSize="12sp" />
+
+
+
 </RelativeLayout>

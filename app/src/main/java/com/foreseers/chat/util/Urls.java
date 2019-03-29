@@ -1,10 +1,9 @@
 package com.foreseers.chat.util;
 
-public  class Urls {
+public class Urls {
 
 //    public static final String URL = "http://192.168.1.73:8080";
-    public static final String URL = "https://chat.foreseers.cn:443";
-
+        public static final String URL = "https://chat.foreseers.cn:443";
 
     public static final String URL_User = URL + "/user/";
     public static final String Url_Query = URL_User + "queryUser";//判断是不是新用户
@@ -13,20 +12,17 @@ public  class Urls {
     public static final String Url_UserBlurHead = URL_User + "uploadblurhead";//模糊头像
     public static final String Url_UserShow = URL_User + "show";//个人信息
 
-
-
     public static final String Url_Userquery = URL_User + "queryName";//用户名字和头像
 
-
-    public static final String Url_UpdateUser = URL_User+"updateuser";//修改個人信息
+    public static final String Url_UpdateUser = URL_User + "updateuser";//修改個人信息
     public static final String Url_My = URL_User + "userpersonal";//我的模块
 
-    public static final String Url_UserImg = URL+"/userimage/upload";//相册
-    public static final String Url_UserBlurImg = URL+"/userimage/uploadblurimage";//模糊相册
-    public static final String Url_DeleteImg = URL+"/userimage/deleteimage";
+    public static final String Url_UserImg = URL + "/userimage/upload";//相册
+    public static final String Url_UserBlurImg = URL + "/userimage/uploadblurimage";//模糊相册
+    public static final String Url_DeleteImg = URL + "/userimage/deleteimage";
 
     public static final String Url_UserLocation = URL + "/match/matching";//主页
-    public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";
+    public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";//推荐详情
 
     public static final String Url_Countage = URL_User + "countage";
 
@@ -40,7 +36,6 @@ public  class Urls {
     public static final String Url_ADDFriend = Url_Friend + "addfriend";//添加好友
     public static final String Url_FriendTime = Url_Friend + "friendTime";//校验添加好友时间
     public static final String Url_DelFriend = Url_Friend + "deletefriend";//删除好友
-
 
     //拉黑
     public static final String Url_Black = URL + "/userDefriend/";
@@ -67,15 +62,18 @@ public  class Urls {
 
     //商店
     public static final String Url_Shopping = URL + "/google/check";
-    public static final String Url_ShoppingID = URL + "/product/getProduct";
+    public static final String Url_ShoppingProduct = URL + "/product/";
+    public static final String Url_ShoppingID = Url_ShoppingProduct + "getProduct";//vip、擦子 商品列表
+    //    public static final String Url_ShoppingLifeBookID = Url_ShoppingProduct + "getIapList";//命书商品列表
+
+    //商店命书
+    public static final String Url_Life = URL + "/LifeBook/";
+    public static final String Url_LifeBook = Url_Life + "lifeBook";
+    public static final String Url_lifeUser = Url_Life + "lifeUser";
+    public static final String Url_LifeBookCate = Url_Life + "lifeBookCate";
 
 
-
-
-    //本地
+    //本地保存
     public static final String ImgHead = "/sdcard/foreseers/head";
     public static final String CompressHead = "/sdcard/foreseers/compresshead";
-
-
-
 }

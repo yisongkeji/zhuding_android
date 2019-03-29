@@ -1,45 +1,30 @@
 package com.foreseers.chat.global;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.foreseers.chat.bean.Constant;
 import com.foreseers.chat.db.InviteMessgeDao;
-import com.foreseers.chat.domain.InviteMessage;
 import com.foreseers.chat.util.HuanXinHelper;
-import com.foreseers.chat.util.Urls;
 import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMContactListener;
 import com.hyphenate.EMMessageListener;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.util.EMLog;
-import com.hyphenate.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-
-import okhttp3.OkHttpClient;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
-import static android.content.ContentValues.TAG;
+import okhttp3.OkHttpClient;
 
 
 /**

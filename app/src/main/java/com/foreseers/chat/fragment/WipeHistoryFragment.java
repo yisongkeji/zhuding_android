@@ -1,6 +1,5 @@
 package com.foreseers.chat.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.foreseers.chat.R;
 import com.foreseers.chat.activity.WipeDayHistoryActivity;
 import com.foreseers.chat.adapter.WipeHistoryAdapter;
 import com.foreseers.chat.bean.HistoryBean;
@@ -21,7 +21,6 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MySection;
 import com.foreseers.chat.bean.Video;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
-import com.foreseers.chat.R;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;

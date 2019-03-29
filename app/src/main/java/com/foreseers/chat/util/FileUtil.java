@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;

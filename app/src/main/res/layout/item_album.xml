@@ -9,7 +9,7 @@
         android:id="@+id/img_album"
         android:layout_width="111dp"
         android:layout_height="111dp"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         app:corner_radius="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"

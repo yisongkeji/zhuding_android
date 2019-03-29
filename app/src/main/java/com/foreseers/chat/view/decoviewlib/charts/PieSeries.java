@@ -23,11 +23,9 @@ import android.graphics.Shader;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-
+import com.foreseers.chat.view.decoviewlib.DecoView;
 
 import java.util.ArrayList;
-
-import com.foreseers.chat.view.decoviewlib.DecoView;
 
 public class PieSeries extends ArcSeries {
     public PieSeries(@NonNull SeriesItem seriesItem, int totalAngle, int rotateAngle) {

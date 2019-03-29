@@ -51,6 +51,7 @@
     <string name="user_signature">簽名 ：</string>
 
     <string name="character">TA的個性</string>
+    <string name="character1">性格</string>
     <string name="comment">相處模式</string>
     <string name="courting">如何追求TA</string>
 
@@ -68,6 +69,11 @@
     <string name="txt_bazi">子平八字</string>
     <string name="txt_start_use">開始使用</string>
 
+    <!--商店命书-->
+    <string name="txt_shop_lifebook_item1">当前用户</string>
+    <string name="txt_shop_lifebook_item2">切换用户</string>
+    <string name="txt_shop_lifebook_item3">添加用户</string>
+
     <!--导航 -->
     <string name="item1">聊天</string>
     <string name="item2">朋友</string>
@@ -82,6 +88,7 @@
 
 
     <!--提示-->
+    <string name="text_hint">提示</string>
     <string name="press_again_exit">再次點擊退出</string>
     <string name="no_friend_number">您的好友位置已被充滿，\n請擴充後再來發送好友請求吧。</string>
     <string name="my_add_friend">要向name發送好友請求嗎？您還剩餘num個好友位置。（對方同意才能成為您的好友）</string>
@@ -145,6 +152,7 @@
     <string name="foreseers_clean_friend_record">清空好友聊天記錄</string>
     <string name="foreseers_id_secure">賬號與安全</string>
     <string name="foreseers_blacklist">黑名單</string>
+    <string name="foreseers_fortunetelling">命书测算</string>
     <string name="foreseers_idea_feedback">意見與反饋</string>
     <string name="foreseers_about_us">關于我們</string>
     <string name="foreseers_log_out">退出登錄</string>
@@ -188,8 +196,8 @@
     <string name="foreseers_ensure_del_friends">是否確認刪除這個好友</string>
 
     //dialog_del_img
-    <string name="foreseers_clean_photo">擦看照片</string>
-    <string name="foreseers_ensure_clean_photo">是否確認擦看這張照片</string>
+    <string name="foreseers_del_photo">删除照片</string>
+    <string name="foreseers_ensure_del_photo">是否確認删除這張照片</string>
 
     //dialog_wipe
     <string name="foreseers_wipe_photo">擦照片</string>
@@ -278,5 +286,27 @@
     <string name="foreseers_refuse">拒絕</string>
 
     <string name="at_your_in_group">%s @ you in group chat</string>
+
+    <string name="foreseers_clean_photo">擦看照片</string>
+    <string name="foreseers_ensure_clean_photo">是否确认擦看这张照片</string>
+    <!--举报-->
+    <string name="foreseers_inform">举报</string>
+    <string name="foreseers_report_easons">创建举报理由</string>
+    <string name="foreseers_report_easons_hint">请详细描述你要举报该用户的理由</string>
+
+    <!--开通会员-->
+    <string name="open_vip">开通会员</string>
+
+
+
+    <string name="free_charge">免费</string>
+    <string name="free_buy">buy</string>
+    <string name="free_unlock">unlock</string>
+
+
+    <string name="text_sign">This guy is lazy. He doesn\'t write anything</string>
+
+    <!--商店-->
+    <string name="text_vip">vip</string>
 
 </resources>

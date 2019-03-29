@@ -32,10 +32,11 @@ public class PopItemView extends TextView implements View.OnClickListener {
             if (popItemAction.getStyle() == PopItemAction.PopItemStyle.Normal) {
                 setTextColor(getResources().getColor(R.color.pop_item_text_normal_color));
             } else if (popItemAction.getStyle() == PopItemAction.PopItemStyle.Cancel) {
-                setTextColor(getResources().getColor(R.color.pop_item_text_normal_color));
+                setTextColor(getResources().getColor(R.color.pop_item_text_cancel_color));
                 getPaint().setFakeBoldText(true);
             } else if (popItemAction.getStyle() == PopItemAction.PopItemStyle.Warning) {
                 setTextColor(getResources().getColor(R.color.pop_item_text_warning_color));
+
             }
         }
         setGravity(Gravity.CENTER);

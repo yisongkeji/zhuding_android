@@ -1,11 +1,9 @@
 package com.foreseers.chat.fragment;
 
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -29,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
@@ -40,13 +39,13 @@ import com.foreseers.chat.bean.AlbumBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.AddVIPDialog;
-import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseFragment;
 import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
-import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GifSizeFilter;
+import com.foreseers.chat.util.GlideUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -68,9 +67,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,42 +84,24 @@ import static android.content.Context.MODE_PRIVATE;
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends BaseFragment {
-
-    private final String TAG = "MyFragment@@@@@@";
-    @BindView(R.id.recycler_img)
-    RecyclerView recyclerImg;
     Unbinder unbinder;
-    @BindView(R.id.image_head)
-    RImageView imageHead;
-    @BindView(R.id.layout_album)
-    FrameLayout layoutAlbum;
-    @BindView(R.id.text_name)
-    TextView textName;
-    @BindView(R.id.text_name2)
-    TextView textName2;
-    @BindView(R.id.text_sex)
-    TextView textSex;
-    @BindView(R.id.text_data)
-    TextView textData;
-    @BindView(R.id.text_age)
-    TextView textAge;
-    @BindView(R.id.text_ziwei)
-    TextView textZiwei;
-    @BindView(R.id.text_my_num)
-    TextView textMyNum;
-    @BindView(R.id.layout_change_user_data)
-    FrameLayout layoutChangeUserData;
-    @BindView(R.id.text_vip_day)
-    TextView textVipDay;
-    @BindView(R.id.layout_vip)
-    LinearLayout layoutVip;
-    @BindView(R.id.img_setting)
-    ImageView imgSetting;
-    @BindView(R.id.img_album)
-    ImageView imgAlbum;
-    @BindView(R.id.layout_wipe)
-    LinearLayout layoutWipe;
-
+    private final String TAG = "MyFragment@@@@@@";
+    @BindView(R.id.recycler_img) RecyclerView recyclerImg;
+    @BindView(R.id.image_head) RImageView imageHead;
+    @BindView(R.id.layout_album) FrameLayout layoutAlbum;
+    @BindView(R.id.text_name) TextView textName;
+    @BindView(R.id.text_name2) TextView textName2;
+    @BindView(R.id.text_sex) TextView textSex;
+    @BindView(R.id.text_data) TextView textData;
+    @BindView(R.id.text_age) TextView textAge;
+    @BindView(R.id.text_ziwei) TextView textZiwei;
+    @BindView(R.id.text_my_num) TextView textMyNum;
+    @BindView(R.id.layout_change_user_data) FrameLayout layoutChangeUserData;
+    @BindView(R.id.text_vip_day) TextView textVipDay;
+    @BindView(R.id.layout_vip) LinearLayout layoutVip;
+    @BindView(R.id.img_setting) ImageView imgSetting;
+    @BindView(R.id.img_album) ImageView imgAlbum;
+    @BindView(R.id.layout_wipe) LinearLayout layoutWipe;
 
     private static final int REQUEST_CODE_CHOOSE = 23;
     private static final int REQUEST_CODE_CHOOSE_IMG = 24;
@@ -133,10 +111,8 @@ public class MyFragment extends BaseFragment {
     public final int DATAFELLED = 0;
     public final int USERHEADSUCCESS = 2;
     public final int USERIMGSUCCESS = 3;
-    @BindView(R.id.text_sign)
-    TextView textSign;
-    @BindView(R.id.layout_sign)
-    LinearLayout layoutSign;
+    @BindView(R.id.text_sign) TextView textSign;
+    @BindView(R.id.layout_sign) LinearLayout layoutSign;
     private AlbumBean albumBean;
     private AlbumAdapter albumAdapter;
     private RxPermissions rxPermissions;
@@ -152,13 +128,11 @@ public class MyFragment extends BaseFragment {
     private int albumNum;
     private Intent intent;
 
-
     public MyFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i("shengming", "onCreateView: MyFragment ");
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
@@ -175,9 +149,15 @@ public class MyFragment extends BaseFragment {
     public void initViews() {
         initauthority();
         //看本地有没有头像 有就加载
-        if (PreferenceManager.getInstance().getHeadImgUrl() != null) {
-            File file = new File(Urls.ImgHead + "/" + PreferenceManager.getInstance().getHeadImgUrl().split("/")[4]);
-            Glide.with(MyApplication.getContext()).load(file).error(R.mipmap.icon_me_loading_03).placeholder(R.mipmap.icon_me_loading_03).into(imageHead);
+        if (PreferenceManager.getInstance()
+                .getHeadImgUrl() != null) {
+            File file = new File(Urls.ImgHead + "/" + PreferenceManager.getInstance()
+                    .getHeadImgUrl()
+                    .split("/")[4]);
+            GlideUtil.glideFile(MyApplication.getContext(),file,imageHead);
+
+            Log.d(TAG, "fileurl: "+PreferenceManager.getInstance()
+                    .getHeadImgUrl());
         }
 
         albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
@@ -194,8 +174,7 @@ public class MyFragment extends BaseFragment {
     }
 
     private void getDataFromHttp() {
-        OkGo.<String>post(Urls.Url_My)
-                .tag(this)
+        OkGo.<String>post(Urls.Url_My).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
 
@@ -206,31 +185,23 @@ public class MyFragment extends BaseFragment {
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
                             albumBean = gson.fromJson(response.body(), AlbumBean.class);
-
                             dataBean = albumBean.getData();
-
                             imgList = albumBean.getData().getListimage();
                             vip = dataBean.getVip();
                             albumNum = dataBean.getCountnum();
-
-
+                            Log.d(TAG, "onSuccess: "+dataBean.getHead());
                             getHandler().obtainMessage(DATASUCCESS).sendToTarget();
-
-
                         } else if (loginBean.getStatus().equals("fail")) {
                             getHandler().obtainMessage(DATAFELLED).sendToTarget();
-
                         }
                     }
                 });
-
     }
 
     @Override
     public void installListeners() {
 
     }
-
 
     @Override
     public void processHandlerMessage(Message msg) {
@@ -241,45 +212,63 @@ public class MyFragment extends BaseFragment {
                     if (albumNum >= 6) {
                         layoutAlbum.setClickable(false);
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
-
                     } else {
                         layoutAlbum.setClickable(true);
                         imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
                     }
 
                     if (dataBean.getHead() != null) {
-                        if (PreferenceManager.getInstance().getHeadImgUrl() == null) {
+                        if (PreferenceManager.getInstance()
+                                .getHeadImgUrl() == null) {
                             Log.i(TAG, "initViews: 加载网络图片");
 
-                            Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
+                            GlideUtil.glideMatch(getActivity(),dataBean.getHead(),imageHead);
+//                            Glide.with(getActivity())
+//                                    .load()
+//                                    .error(R.mipmap.icon_me_loading_03)
+//                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                                    .into(imageHead);
                             OkGo.<Bitmap>get(dataBean.getHead()).tag(this)
                                     .execute(new BitmapCallback() {
                                         @Override
                                         public void onSuccess(Response<Bitmap> response) {
-                                            FileUtil.saveFile(response.body(), dataBean.getHead().split("/")[4]);
-                                            PreferenceManager.getInstance().setHeadImgUrl(dataBean.getHead());
+                                            FileUtil.saveFile(response.body(), dataBean.getHead()
+                                                    .split("/")[4]);
+                                            PreferenceManager.getInstance()
+                                                    .setHeadImgUrl(dataBean.getHead());
                                         }
                                     });
+                        } else if (PreferenceManager.getInstance()
+                                .getHeadImgUrl() != null) {
+                            if (!PreferenceManager.getInstance()
+                                    .getHeadImgUrl()
+                                    .equals(dataBean.getHead())) {
 
-
-                        } else if (PreferenceManager.getInstance().getHeadImgUrl() != null) {
-                            if (!PreferenceManager.getInstance().getHeadImgUrl().equals(dataBean.getHead())) {
-                                Log.i(TAG, "initViews: 加载更新网络图片");
-                                Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageHead);
+                                Glide.with(getActivity())
+                                        .load(dataBean.getHead())
+                                        .error(R.mipmap.icon_me_loading_03)
+                                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                        .into(imageHead);
                                 OkGo.<Bitmap>get(dataBean.getHead()).tag(this)
                                         .execute(new BitmapCallback() {
                                             @Override
                                             public void onSuccess(Response<Bitmap> response) {
-                                                FileUtil.saveFile(response.body(), dataBean.getHead().split("/")[4]);
-                                                PreferenceManager.getInstance().setHeadImgUrl(dataBean.getHead());
+                                                FileUtil.saveFile(response.body(), dataBean.getHead()
+                                                        .split("/")[4]);
+                                                PreferenceManager.getInstance()
+                                                        .setHeadImgUrl(dataBean.getHead());
+                                                Log.i(TAG, "initViews: 加载更新网络图片"+dataBean.getHead());
                                             }
                                         });
+
                             }
                         }
-
                     } else {
-                        Glide.with(getActivity()).load(dataBean.getHead()).error(R.mipmap.icon_me_loading_03).diskCacheStrategy
-                                (DiskCacheStrategy.SOURCE).into(imageHead);
+                        Glide.with(getActivity())
+                                .load(dataBean.getHead())
+                                .error(R.mipmap.icon_me_loading_03)
+                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .into(imageHead);
                     }
 
                     textName.setText(dataBean.getUsername());
@@ -287,20 +276,18 @@ public class MyFragment extends BaseFragment {
                     textVipDay.setText(dataBean.getVipday() + "");
                     textSign.setText(dataBean.getObligate());
 
-
                     textName2.setText(dataBean.getUsername());
-                    textSex.setText(dataBean.getSex().equals("F") ? "女" : "男");
+                    textSex.setText(dataBean.getSex()
+                                            .equals("F") ? "女" : "男");
                     textData.setText(dataBean.getDate());
                     textAge.setText(dataBean.getReservedint() + "");
                     textZiwei.setText(dataBean.getZiwei());
-
 
                     if (imgList == null || imgList.size() == 0) {
                         for (int i = 0; i < 1; i++) {
                             imgList.add("");
                         }
                     }
-
 
                     albumAdapter.setNewData(imgList);
                 }
@@ -318,10 +305,9 @@ public class MyFragment extends BaseFragment {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-//
+                                //
                                 FileUtil.deleteFile(blurPath);
                                 FileUtil.deleteFile(newpath);
-
                             }
                         });
 
@@ -338,17 +324,17 @@ public class MyFragment extends BaseFragment {
                                 FileUtil.deleteFile(blurImagePath);
                                 FileUtil.deleteFile(newpath);
                                 getDataFromHttp();
-//                                if (albumNum >= 6) {
-//                                    layoutAlbum.setClickable(false);
-//                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
-//                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
-//                                            .show();
-//                                } else {
-//                                    layoutAlbum.setClickable(true);
-//                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
-//                                }
-//
-//                                albumAdapter.setNewData(imgList);
+                                //                                if (albumNum >= 6) {
+                                //                                    layoutAlbum.setClickable(false);
+                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+                                //                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
+                                //                                            .show();
+                                //                                } else {
+                                //                                    layoutAlbum.setClickable(true);
+                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
+                                //                                }
+                                //
+                                //                                albumAdapter.setNewData(imgList);
                             }
                         });
 
@@ -356,15 +342,14 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip, R
-            .id.img_setting, R.id.layout_wipe, R.id.layout_sign, R.id.lifebook})
+    @OnClick({R.id.image_head, R.id.layout_album, R.id.layout_change_user_data, R.id.layout_vip, R.id.img_setting, R.id.layout_wipe, R.id
+            .layout_sign, R.id.lifebook})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
             case R.id.image_head:
                 rxPermissions = new RxPermissions(getActivity());
-                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
-                        .permission.CAMERA)
+                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                         .subscribe(new Observer<Boolean>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -377,29 +362,19 @@ public class MyFragment extends BaseFragment {
                                             .choose(MimeType.ofAll(), false)
                                             .countable(false)
                                             .capture(true)
-                                            .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.fileprovider",
-                                                    "test"))
+                                            .captureStrategy(new CaptureStrategy(true, "com" + ".foreseers.chat.fileprovider", "test"))
                                             .maxSelectable(1)
-                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
-                                                    Filter.K))
-                                            .gridExpectedSize(getResources()
-                                                    .getDimensionPixelSize(R.dimen
-                                                            .grid_expected_size))
-                                            .restrictOrientation(ActivityInfo
-                                                    .SCREEN_ORIENTATION_PORTRAIT)
+                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                                            .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
-//                                            .imageEngine(new GlideEngine())  // for glide-V3
+                                            //                                            .imageEngine(new GlideEngine())  // for glide-V3
                                             .imageEngine(new GlideEngine())    // for glide-V4
                                             .setOnSelectedListener(new OnSelectedListener() {
                                                 @Override
-                                                public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull
-                                                        List<String> pathList) {
+                                                public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
                                                     // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("onSelected", "onSelected: pathList=" +
-                                                            pathList);
-
+                                                    Log.e("onSelected", "onSelected: pathList=" + pathList);
                                                 }
                                             })
                                             .originalEnable(true)
@@ -409,19 +384,14 @@ public class MyFragment extends BaseFragment {
                                                 @Override
                                                 public void onCheck(boolean isChecked) {
                                                     // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("isChecked", "onCheck: isChecked=" +
-                                                            isChecked);
+                                                    Log.e("isChecked", "onCheck: isChecked=" + isChecked);
                                                 }
                                             })
                                             .forResult(REQUEST_CODE_CHOOSE);
-
-
                                 } else {
-                                    Toast.makeText(getActivity(), R.string
-                                            .permission_request_denied, Toast.LENGTH_LONG)
+                                    Toast.makeText(getActivity(), R.string.permission_request_denied, Toast.LENGTH_LONG)
                                             .show();
                                 }
-
                             }
 
                             @Override
@@ -435,15 +405,14 @@ public class MyFragment extends BaseFragment {
                             }
                         });
 
-
                 break;
             case R.id.layout_album://添加相冊
                 if (albumNum >= 6) {
-                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
+                            .show();
                 } else {
                     rxPermissions = new RxPermissions(getActivity());
-                    rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
-                            .permission.CAMERA)
+                    rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                             .subscribe(new Observer<Boolean>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
@@ -456,31 +425,20 @@ public class MyFragment extends BaseFragment {
                                                 .choose(MimeType.ofAll(), false)//图片类型
                                                 .countable(false)//true:选中后显示数字;false:选中后显示对号
                                                 .capture(false)//选择照片时，是否显示拍照
-                                                .captureStrategy(new CaptureStrategy(true, "com" +
-                                                        ".foreseers.chat.fileprovider",
-                                                        "test"))
+                                                .captureStrategy(new CaptureStrategy(true, "com" + ".foreseers.chat.fileprovider", "test"))
 
                                                 .maxSelectable(1)
-                                                .addFilter(new GifSizeFilter(320, 320, Filter.K *
-                                                        Filter.K))
-                                                .gridExpectedSize(getResources()
-                                                        .getDimensionPixelSize(R.dimen
-                                                                .grid_expected_size))
-                                                .restrictOrientation(ActivityInfo
-                                                        .SCREEN_ORIENTATION_PORTRAIT)
+                                                .addFilter(new GifSizeFilter(320, 320, Filter.K * Filter.K))
+                                                .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                                                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                                                 .thumbnailScale(0.85f)
-//                                            .imageEngine(new GlideEngine())  // for glide-V3
+                                                //                                            .imageEngine(new GlideEngine())  // for glide-V3
                                                 .imageEngine(new GlideEngine())    // for glide-V4
                                                 .setOnSelectedListener(new OnSelectedListener() {
                                                     @Override
-                                                    public void onSelected(
-                                                            @NonNull List<Uri> uriList, @NonNull
-                                                            List<String> pathList) {
+                                                    public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
                                                         // DO SOMETHING IMMEDIATELY HERE
-                                                        Log.e("onSelected", "onSelected: " +
-                                                                "pathList=" +
-                                                                pathList);
-
+                                                        Log.e("onSelected", "onSelected: " + "pathList=" + pathList);
                                                     }
                                                 })
                                                 .originalEnable(true)
@@ -490,19 +448,14 @@ public class MyFragment extends BaseFragment {
                                                     @Override
                                                     public void onCheck(boolean isChecked) {
                                                         // DO SOMETHING IMMEDIATELY HERE
-                                                        Log.e("isChecked", "onCheck: isChecked=" +
-                                                                isChecked);
+                                                        Log.e("isChecked", "onCheck: isChecked=" + isChecked);
                                                     }
                                                 })
                                                 .forResult(REQUEST_CODE_CHOOSE_IMG);
-
-
                                     } else {
-                                        Toast.makeText(getActivity(), R.string
-                                                .permission_request_denied, Toast.LENGTH_LONG)
+                                        Toast.makeText(getActivity(), R.string.permission_request_denied, Toast.LENGTH_LONG)
                                                 .show();
                                     }
-
                                 }
 
                                 @Override
@@ -515,7 +468,6 @@ public class MyFragment extends BaseFragment {
 
                                 }
                             });
-
                 }
                 break;
             case R.id.lifebook://命书
@@ -533,8 +485,8 @@ public class MyFragment extends BaseFragment {
             case R.id.layout_vip://添加vip
 
                 if (vip == 1) {
-                    String[] arr = dataBean.getViptime().split(" ");
-
+                    String[] arr = dataBean.getViptime()
+                            .split(" ");
 
                     intent = new Intent(getActivity(), MyVipActivity.class);
                     Bundle bundle = new Bundle();
@@ -546,20 +498,16 @@ public class MyFragment extends BaseFragment {
                     getActivity().startActivity(intent);
                 } else {
 
-                    addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new
-                            AddVIPDialog
-                                    .LeaveMyDialogListener() {
+                    addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog.LeaveMyDialogListener() {
 
-
-                                @Override
-                                public void onClick(View view) {
-                                    addVIPDialog.dismiss();
-                                }
-                            });
+                        @Override
+                        public void onClick(View view) {
+                            addVIPDialog.dismiss();
+                        }
+                    });
                     addVIPDialog.setCancelable(true);
                     addVIPDialog.show();
                 }
-
 
                 break;
             case R.id.img_setting://设置
@@ -593,24 +541,25 @@ public class MyFragment extends BaseFragment {
             case REQUEST_CODE_CHOOSE: //头像
 
                 if (resultCode == RESULT_OK) {
-                    String path = Matisse.obtainPathResult(data).get(0);
-                    Glide.with(this).load(path).into(imageHead);
+                    String path = Matisse.obtainPathResult(data)
+                            .get(0);
+                    Glide.with(this)
+                            .load(path)
+                            .into(imageHead);
                     try {
 
                         FileInputStream fis = new FileInputStream(path);
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
-//                        Bitmap compressbitmap = compressImage(bitmap);
+                        //                        Bitmap compressbitmap = compressImage(bitmap);
                         newpath = BitmapDispose.saveBitmap(bitmap, 1);
 
                         Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
                         blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                         Log.i("blurPath", "blurPath: " + blurPath);
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
 
                     OkGo.<String>post(Urls.Url_UserHead).tag(this)
                             .params("userid", userid)
@@ -622,22 +571,23 @@ public class MyFragment extends BaseFragment {
                                     Gson gson = new Gson();
                                     UserDataBean userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-                                    sharedPreferences.edit().putString("url", userDataBean.getData().getHead()).commit();
+                                    sharedPreferences.edit()
+                                            .putString("url", userDataBean.getData()
+                                                    .getHead())
+                                            .commit();
 
-                                    getHandler().obtainMessage(USERHEADSUCCESS).sendToTarget();
-
+                                    getHandler().obtainMessage(USERHEADSUCCESS)
+                                            .sendToTarget();
                                 }
                             });
-
-
                 }
                 break;
 
             case REQUEST_CODE_CHOOSE_IMG://相册
                 if (resultCode == RESULT_OK) {
-                    String path = Matisse.obtainPathResult(data).get(0);
+                    String path = Matisse.obtainPathResult(data)
+                            .get(0);
                     Log.i("useridMyfragment", "userid: " + userid);
-
 
                     try {
 
@@ -647,11 +597,9 @@ public class MyFragment extends BaseFragment {
                         blurImagePath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                         Log.i("blurPath", "blurPath: " + blurImagePath);
-
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
 
                     OkGo.<String>post(Urls.Url_UserImg).tag(this)
                             .params("userid", userid)
@@ -659,8 +607,8 @@ public class MyFragment extends BaseFragment {
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    getHandler().obtainMessage(USERIMGSUCCESS).sendToTarget();
-
+                                    getHandler().obtainMessage(USERIMGSUCCESS)
+                                            .sendToTarget();
                                 }
 
                                 @Override
@@ -682,15 +630,12 @@ public class MyFragment extends BaseFragment {
             default:
                 break;
         }
-
-
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
-//        getDataFromHttp();
+        //        getDataFromHttp();
     }
 
     private Bitmap compressImage(Bitmap image) {
@@ -710,7 +655,6 @@ public class MyFragment extends BaseFragment {
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
         return bitmap;
     }
-
 
     private Bitmap comp(Bitmap image) {
 
@@ -739,22 +683,21 @@ public class MyFragment extends BaseFragment {
         } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
             be = (int) (newOpts.outHeight / hh);
         }
-        if (be <= 0)
+        if (be <= 0) {
             be = 1;
+        }
         newOpts.inSampleSize = be;//设置缩放比例
         //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
         isBm = new ByteArrayInputStream(baos.toByteArray());
         bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-//        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
+        //        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
         return bitmap;//压缩好比例大小后再进行质量压缩
     }
-
 
     /**
      *
      *
      */
-
 
     @Override
     public void onStop() {
@@ -766,7 +709,8 @@ public class MyFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         Log.i("shengming", "onDestroy: MyFragment ");
-        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
+        OkGo.cancelTag(OkGo.getInstance()
+                               .getOkHttpClient(), this);
     }
 
     /**
@@ -774,8 +718,7 @@ public class MyFragment extends BaseFragment {
      */
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
             ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
         }

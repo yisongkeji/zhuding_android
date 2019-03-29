@@ -46,9 +46,16 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
-
+import com.foreseers.chat.R;
+import com.foreseers.chat.bean.LocationBean;
+import com.foreseers.chat.bean.UserDataBean;
+import com.foreseers.chat.dialog.DoubtDialog;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
+import com.foreseers.chat.util.GetLocation;
+import com.foreseers.chat.util.GifSizeFilter;
+import com.foreseers.chat.util.LimitInputTextWatcher;
+import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -74,16 +81,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.foreseers.chat.R;
-import com.foreseers.chat.bean.LocationBean;
-import com.foreseers.chat.bean.UserDataBean;
-import com.foreseers.chat.dialog.DoubtDialog;
-import com.foreseers.chat.util.GetLocation;
-import com.foreseers.chat.util.GifSizeFilter;
-import com.foreseers.chat.util.LimitInputTextWatcher;
-import com.foreseers.chat.util.Urls;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 

@@ -20,7 +20,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
-
     <application
         android:name=".global.MyApplication"
         android:allowBackup="true"
@@ -67,6 +66,7 @@
             android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -141,8 +141,7 @@
         <activity android:name=".activity.BlackListActivity" />
         <activity android:name=".activity.OpinionActivity" />
         <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.ClauseActivity"></activity>
-
+        <activity android:name=".activity.ClauseActivity" />
 
         <!-- FCM required start -->
         <service android:name=".fcm.EMFCMMSGService">
@@ -150,7 +149,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".fcm.EMFCMTokenRefreshService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -158,6 +156,10 @@
         </service>
         <!-- FCM required end -->
 
+        <activity android:name=".activity.FortunetellingActivity" />
+        <activity android:name=".activity.FortunetellingUserActivity" />
+        <activity android:name=".activity.ReportActivity" />
+        <activity android:name=".activity.ReportReasonsActivity"></activity>
     </application>
 
 </manifest>

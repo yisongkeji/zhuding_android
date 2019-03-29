@@ -14,11 +14,10 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
+import com.foreseers.chat.bean.LocationBean;
+
 import java.io.IOException;
 import java.util.List;
-
-import com.foreseers.chat.bean.LocationBean;
-import com.foreseers.chat.fragment.MatchFragment;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static com.foreseers.chat.global.MyApplication.getContext;

@@ -4,61 +4,47 @@ public class UserBean {
 
     /**
      * status : success
-     * data : {"head":"http://192.168.1.73:8080/99/1552296737686.jpg","userid":99,"username":"hsjs"}
+     * data : {"head":"http://192.168.1.73:8080/99/1553064588942.jpg","vip":0,"userid":99,"username":"hsjs"}
      */
 
     private String status;
     private DataBean data;
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status;}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public void setStatus(String status) { this.status = status;}
 
-    public DataBean getData() {
-        return data;
-    }
+    public DataBean getData() { return data;}
 
-    public void setData(DataBean data) {
-        this.data = data;
-    }
+    public void setData(DataBean data) { this.data = data;}
 
     public static class DataBean {
         /**
-         * head : http://192.168.1.73:8080/99/1552296737686.jpg
+         * head : http://192.168.1.73:8080/99/1553064588942.jpg
+         * vip : 0
          * userid : 99
          * username : hsjs
          */
 
         private String head;
+        private int vip;
         private int userid;
         private String username;
 
-        public String getHead() {
-            return head;
-        }
+        public String getHead() { return head;}
 
-        public void setHead(String head) {
-            this.head = head;
-        }
+        public void setHead(String head) { this.head = head;}
 
-        public int getUserid() {
-            return userid;
-        }
+        public int getVip() { return vip;}
 
-        public void setUserid(int userid) {
-            this.userid = userid;
-        }
+        public void setVip(int vip) { this.vip = vip;}
 
-        public String getUsername() {
-            return username;
-        }
+        public int getUserid() { return userid;}
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
+        public void setUserid(int userid) { this.userid = userid;}
+
+        public String getUsername() { return username;}
+
+        public void setUsername(String username) { this.username = username;}
     }
 }

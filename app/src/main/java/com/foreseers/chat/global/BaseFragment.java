@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.foreseers.chat.interf.IBaseFragment;
+
 import me.yokeyword.fragmentation.SupportFragment;
 /**
  *
@@ -17,7 +18,8 @@ import me.yokeyword.fragmentation.SupportFragment;
 public abstract class BaseFragment extends SupportFragment implements IBaseFragment {
     private Handler mHandler;
     private Activity mContext;
-
+    public final int DATASUCCESS = 1;
+    public final int DATAFELLED = 0;
     public Activity getContext(){
         return mContext;
     }

@@ -10,18 +10,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-
-import java.util.List;
-
-import butterknife.BindView;
-
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.util.GlideUtil;
+
+import java.util.List;
+
+import butterknife.BindView;
 
 public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, BaseViewHolder> {
 
@@ -100,6 +98,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
                         Bundle bundle = new Bundle();
                         bundle.putString("userid", item.getId() + "");
                         bundle.putInt("lookhead", item.getLookhead());
+                        bundle.putInt("numuser", item.getNumuser());
 
                         intent.putExtras(bundle);
                         context.startActivity(intent);

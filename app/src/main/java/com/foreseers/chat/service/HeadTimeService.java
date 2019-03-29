@@ -1,11 +1,8 @@
 package com.foreseers.chat.service;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 
 import com.foreseers.chat.bean.LoginBean;
@@ -14,8 +11,6 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-
-import java.util.Date;
 
 public class HeadTimeService extends Service {
 

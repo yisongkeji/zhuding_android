@@ -17,8 +17,8 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.GlideUtil;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.decoviewlib.DecoView;
 import com.foreseers.chat.view.decoviewlib.charts.SeriesItem;
@@ -124,61 +124,16 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
                         if (loginBean.getStatus().equals("success")) {
                             analyzeLifeBookBean = gson.fromJson(response.body(), AnalyzeLifeBookBean.class);
                             dataBean = analyzeLifeBookBean.getData();
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
 
                         } else if (loginBean.getStatus().equals("fail")) {
-                            mHandler.obtainMessage(DATAFELLED).sendToTarget();
+                            getHandler().obtainMessage(DATAFELLED).sendToTarget();
                         }
                     }
                 });
     }
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case DATASUCCESS:
-                    GlideUtil.glide(UserAnalyzeLifeBookActivity.this, dataBean.getHead(), itemPopular);
-                    textName.setText(dataBean.getName());
 
-                    switch (dataBean.getSex()) {
-
-                        case "F":
-                            textSex.setText("♀ " + dataBean.getAge());
-                            break;
-                        case "M":
-                            textSex.setText("♂ " + dataBean.getAge());
-                            break;
-                    }
-
-                    textSign.setText(dataBean.getObligate());
-                    textDistance.setText(dataBean.getDistance() + " km +");
-                    textDesc.setText(dataBean.getUserdesc());
-                    int characterscore = dataBean.getCharacterscore();
-                    int mindscore = dataBean.getMindscore();
-                    int bodyscore = dataBean.getBodyscore();
-                    initView(characterscore, mindscore, bodyscore);
-                    characterScoreTxt.setText(characterscore + "");
-
-                    mindScoreTxt.setText(mindscore + "");
-                    bodyScoreTxt.setText(bodyscore + "");
-
-                    Log.i("11111111", characterscore + "   " + mindscore + "    " + bodyscore);
-
-                    progressMatchingRate.setProgress(dataBean.getUserscore());
-                    progressText.setText("匹配度" + dataBean.getUserscore() + "%");
-                    textCommentdesc.setText(dataBean.getCommentdesc());
-                    textCharacteristicdesc.setText(dataBean.getCharacteristicdesc());
-                    textCourtingdesc.setText(dataBean.getSpare());
-                    break;
-                case DATAFELLED:
-                    Toast.makeText(UserAnalyzeLifeBookActivity.this, "网络连接失败", Toast
-                            .LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
 
     private void initView(int characterscore, int mindscore, int bodyscore) {
         int series1Index = setDecoView(characterScore, Color.rgb(233, 233, 235), Color.rgb(100,
@@ -225,6 +180,50 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
 
     @Override
     public void processHandlerMessage(Message msg) {
+        switch (msg.what) {
+            case DATASUCCESS:
+                GlideUtil.glideMatch(UserAnalyzeLifeBookActivity.this, dataBean.getHead(), itemPopular);
+                textName.setText(dataBean.getName());
 
+                switch (dataBean.getSex()) {
+
+                    case "F":
+                        textSex.setText("♀ " + dataBean.getAge());
+                        textSex.setBackgroundResource(R.drawable.rounded_layout_pink);
+                        break;
+                    case "M":
+                        textSex.setText("♂ " + dataBean.getAge());
+                        textSex.setBackgroundResource(R.drawable.rounded_layout_blue);
+                        break;
+                }
+
+                if (dataBean.getObligate()!=null){
+                    textSign.setText(dataBean.getObligate());
+                }
+
+                textDistance.setText(dataBean.getDistance() + " km +");
+                textDesc.setText(dataBean.getUserdesc());
+                int characterscore = dataBean.getCharacterscore();
+                int mindscore = dataBean.getMindscore();
+                int bodyscore = dataBean.getBodyscore();
+                initView(characterscore, mindscore, bodyscore);
+                characterScoreTxt.setText(characterscore + "");
+
+                mindScoreTxt.setText(mindscore + "");
+                bodyScoreTxt.setText(bodyscore + "");
+
+                Log.i("11111111", characterscore + "   " + mindscore + "    " + bodyscore);
+
+                progressMatchingRate.setProgress(dataBean.getUserscore());
+                progressText.setText("匹配度" + dataBean.getUserscore() + "%");
+                textCommentdesc.setText(dataBean.getCommentdesc());
+                textCharacteristicdesc.setText(dataBean.getCharacteristicdesc());
+                textCourtingdesc.setText(dataBean.getSpare());
+                break;
+            case DATAFELLED:
+                Toast.makeText(UserAnalyzeLifeBookActivity.this, "网络连接失败", Toast
+                        .LENGTH_SHORT).show();
+                break;
+        }
     }
 }

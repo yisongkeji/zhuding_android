@@ -41,9 +41,9 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginLeft="23dp"
-                        android:scaleType="fitXY"
+                        android:scaleType="fitCenter"
                         app:corner_radius="5dp"
-                        app:icon_src_normal="@mipmap/icon_avatar_02" />
+                        app:icon_src_normal="@mipmap/icon_me_loading_03" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -69,14 +69,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-
                                 android:layout_marginLeft="8dp"
-                                android:background="@drawable/rounded_layout_blue"
                                 android:gravity="center"
                                 android:paddingLeft="8dp"
                                 android:paddingRight="8dp"
                                 android:textColor="@color/colorWhite"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/sp_15" />
 
                         </LinearLayout>
 
@@ -91,14 +89,14 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/user_location"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/text_distance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/sp_13" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -112,14 +110,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/user_signature"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/sp_13" />
 
                             <TextView
                                 android:id="@+id/text_sign"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@string/text_sign"
                                 android:textColor="@color/colorBlack"
-                                android:textSize="10sp" />
+                                android:textSize="@dimen/sp_13" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -168,7 +167,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:text="@string/character"
+                                    android:text="@string/character1"
                                     android:textColor="@color/colorBlue"
                                     android:textSize="15sp" />
 
@@ -178,7 +177,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
 
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp_15" />
 
                             </LinearLayout>
 
@@ -218,7 +217,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="0"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp_15" />
 
                             </LinearLayout>
 
@@ -258,7 +257,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="0"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp_15" />
 
                             </LinearLayout>
 
@@ -311,9 +310,7 @@
                                 android:id="@+id/text_desc"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
-
                                 android:gravity="center"
-
                                 android:textColor="@color/colorBlack"
                                 android:textSize="18dp" />
 
@@ -354,13 +351,13 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/colorGray2" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="14dp"
-                    android:text="@string/comment"
-                    android:textColor="@color/colorBlue" />
+                    android:background="@mipmap/ui_iandta_getalong_zh_hk" />
+
 
                 <TextView
                     android:id="@+id/text_commentdesc"
@@ -376,13 +373,12 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/colorGray2" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="14dp"
-                    android:text="@string/character"
-                    android:textColor="@color/colorAccent" />
+                    android:background="@mipmap/ui_iandta_individuality_zh_hk" />
 
                 <TextView
                     android:id="@+id/text_characteristicdesc"
@@ -398,13 +394,12 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/colorGray2" />
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="14dp"
-                    android:text="@string/courting"
-                    android:textColor="@color/colorAccent" />
+                    android:background="@mipmap/ui_iandta_chase_zh_hk" />
 
                 <TextView
                     android:id="@+id/text_courtingdesc"

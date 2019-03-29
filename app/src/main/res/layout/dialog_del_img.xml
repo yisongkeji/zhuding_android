@@ -7,17 +7,19 @@
 
 
     <TextView
+        android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/foreseers_clean_photo"
+        android:text="@string/foreseers_del_photo"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:textColor="@color/colorAccent"
         android:textSize="17sp"/>
     <TextView
+        android:id="@+id/text_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/foreseers_ensure_clean_photo"
+        android:text="@string/foreseers_ensure_del_photo"
         android:layout_marginTop="28dp"
         android:layout_gravity="center"
         android:textSize="@dimen/sp_16"/>

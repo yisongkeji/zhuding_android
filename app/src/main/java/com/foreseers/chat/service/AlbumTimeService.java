@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;

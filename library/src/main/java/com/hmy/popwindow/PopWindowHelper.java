@@ -74,7 +74,7 @@ public class PopWindowHelper {
                 // 移除第一条分割线
                 container.removeViewAt(1);
 
-                container.getChildAt(1).setBackgroundResource(R.drawable.pop_selector_cancel);
+                container.getChildAt(1).setBackgroundResource(R.drawable.pop_selector_cancel1);
             } else if (container.getChildCount() > 3) {
                 // 大于一个PopItemView的情况
 

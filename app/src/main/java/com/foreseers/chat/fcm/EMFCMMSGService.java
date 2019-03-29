@@ -1,6 +1,7 @@
 package com.foreseers.chat.fcm;
 
 import android.util.Log;
+
 import com.foreseers.chat.util.HuanXinHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

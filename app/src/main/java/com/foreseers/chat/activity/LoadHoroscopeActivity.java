@@ -10,9 +10,10 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import com.foreseers.chat.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.foreseers.chat.R;
 
 public class LoadHoroscopeActivity extends AppCompatActivity {
 

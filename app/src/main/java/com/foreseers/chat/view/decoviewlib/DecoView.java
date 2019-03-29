@@ -27,10 +27,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-
-
-import java.util.ArrayList;
-
 import com.foreseers.chat.R;
 import com.foreseers.chat.view.decoviewlib.charts.ChartSeries;
 import com.foreseers.chat.view.decoviewlib.charts.DecoDrawEffect;
@@ -41,6 +37,8 @@ import com.foreseers.chat.view.decoviewlib.charts.SeriesItem;
 import com.foreseers.chat.view.decoviewlib.events.DecoEvent;
 import com.foreseers.chat.view.decoviewlib.events.DecoEventManager;
 import com.foreseers.chat.view.decoviewlib.util.GenericFunctions;
+
+import java.util.ArrayList;
 
 /**
  * Android Custom View for displaying animated Arc based charts

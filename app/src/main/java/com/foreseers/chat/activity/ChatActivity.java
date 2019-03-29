@@ -1,26 +1,18 @@
 package com.foreseers.chat.activity;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.cy.translucentparent.StatusNavUtils;
+import com.foreseers.chat.R;
 import com.foreseers.chat.fragment.MyChatFragment;
 import com.foreseers.chat.global.BaseActivity;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.EaseUI;
-import com.hyphenate.easeui.ui.EaseChatFragment;
 
 import butterknife.ButterKnife;
 
-import com.foreseers.chat.R;
-
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
 
 
     private String userid;
@@ -30,27 +22,26 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EaseUI.getInstance().getNotifier().reset();
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-
-
-
-        StatusNavUtils.setStatusBarColor(this,0x00000000);
-//        Window window = getWindow();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
-// WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-// View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            window.setStatusBarColor(0x00000000);
-//            return;
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//        }
 
         Bundle bundle = getIntent().getExtras();
         userid = bundle.getString(EaseConstant.EXTRA_USER_ID);
@@ -68,11 +59,7 @@ public class ChatActivity extends AppCompatActivity {
             avatar=t_avatar;
         }
 
-        Log.i("chatActivity", "userid" + userid + "````username" + username+"      nickname:"+t_userid);
-        initView();
-    }
 
-    private void initView() {
         MyChatFragment chatFragment = new MyChatFragment();
         //传入参数
         Bundle args = new Bundle();
@@ -84,8 +71,17 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        EaseUI.getInstance().getNotifier().reset();
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 }

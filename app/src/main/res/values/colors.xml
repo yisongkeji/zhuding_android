@@ -36,6 +36,15 @@
     <color name="colorGrayBackground">#f3f3f3</color>
     <color name="colorGreen">#18e9d5</color>
     <color name="colorRed">#ff0000</color>
+    <color name="colorOrange">#ff8b5e</color>
+    <color name="colorBlue2">#5ec8ff</color>
 
+
+    <color name="colorLisst1">#f7cbac</color>
+    <color name="colorLisst2">#9cc3e5</color>
+    <color name="colorLisst3">#fee599</color>
+    <color name="colorLisst4">#a5efdd</color>
+    <color name="colorLisst5">#f399a2</color>
+    <color name="colorLisst6">#a8d08d</color>
 
 </resources>

@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -29,20 +30,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.foreseers.chat.R;
 import com.foreseers.chat.bean.UserBean;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
-import com.foreseers.chat.R;
+import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.domain.EaseUser;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.ruffian.library.widget.RImageView;
 
-
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
 
@@ -79,6 +84,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
             holder.refuseBtn.setVisibility(View.GONE);
             Log.i("msg@@@@@", "getView: " + msg.getReason());
             OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                    .params("uid", PreferenceManager.getUserId(context))
                     .params("userid",msg.getFrom())
                     .execute(new StringCallback() {
                         @Override
@@ -97,12 +103,12 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                             } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEINVITEED || msg
                                     .getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED ||
                                     msg.getStatus() == InviteMessage.InviteMessageStatus.GROUPINVITATION) {
-                                String[] arr = msg.getReason().split("\\|");
+//                                String[] arr = msg.getReason().split("\\|");
+//
+//
+//                                holder.name.setText(arr[0]);
 
-
-                                holder.name.setText(arr[0]);
-
-                                Glide.with(context).load(arr[1]).error(R.mipmap.icon_me_loading_03).into(holder.avator);
+                                Glide.with(context).load(head).error(R.mipmap.icon_me_loading_03).into(holder.avator);
 
                                 holder.agreeBtn.setVisibility(View.VISIBLE);
                                 holder.refuseBtn.setVisibility(View.VISIBLE);
@@ -130,7 +136,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                                 holder.agreeBtn.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        // accept invitation
+                                        // accept invitation接受邀请
                                         acceptInvitation(holder.avator, holder.agreeBtn, holder.refuseBtn, msg);
 
                                     }
@@ -138,7 +144,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                                 holder.refuseBtn.setOnClickListener(new OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        // decline invitation
+                                        // decline invitation辞谢邀请
                                         refuseInvitation(holder.agreeBtn, holder.refuseBtn, msg);
                                     }
                                 });
@@ -318,6 +324,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                         Log.i("BEINVITEED", "msg.getFrom(): " + msg.getFrom());
 //                        EMClient.getInstance().contactManager().addContact(msg.getFrom(), msg.getFrom() + "|" + avator);
                         EMClient.getInstance().contactManager().acceptInvitation(msg.getFrom());
+
                         OkGo.<String>post(Urls.Url_ADDFriend).tag(this)
                                 .params("userid", EMClient.getInstance().getCurrentUser())
                                 .params("friendid", msg.getFrom())
@@ -329,6 +336,31 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                                         Log.e("friend", "onSuccess: 添加好友被同意");
                                     }
                                 });
+                        OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                                .params("uid", PreferenceManager.getUserId(context))
+                                .params("userid",msg.getFrom())
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+                                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", MODE_PRIVATE);
+                                        Gson gson=new Gson();
+                                        UserBean userBean =gson.fromJson(response.body(), UserBean.class);
+                                        int userid=userBean.getData().getUserid();
+                                        int vip=userBean.getData().getVip();
+                                        String  head = userBean.getData().getHead();
+                                        String name=userBean.getData().getUsername();
+
+                                        EaseUser easeUser = new EaseUser(userid+"");
+                                        easeUser.setAvatar(head);
+                                        easeUser.setNickname(name);
+
+                                        sharedPreferences.edit().putString(userid+"", name + "&" + head+"&"+vip).commit();
+
+                                        EMMessage message = EMMessage.createTxtSendMessage(getContext().getResources().getString(R.string.add_friend_msg), msg.getFrom());
+                                        EMClient.getInstance().chatManager().sendMessage(message);
+                                    }
+                                });
+
 
                     } else if (msg.getStatus() == InviteMessage.InviteMessageStatus.BEAPPLYED) {
                         //accept application to join group
@@ -340,7 +372,7 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                                 msg.getGroupInviter());
                     }
                     msg.setStatus(InviteMessage.InviteMessageStatus.AGREED);
-                    // update database
+                    // update database更新数据库
                     ContentValues values = new ContentValues();
                     values.put(InviteMessgeDao.COLUMN_NAME_STATUS, msg.getStatus().ordinal());
                     messgeDao.updateMessage(msg.getId(), values);
@@ -352,9 +384,21 @@ public class NewFriendsMsgAdapter extends ArrayAdapter<InviteMessage> {
                             buttonAgree.setText(str2);
                             buttonAgree.setBackground(null);
                             buttonAgree.setEnabled(false);
-                            String[] arr = msg.getReason().split("\\|");
+                            OkGo.<String>post(Urls.Url_Userquery).tag(this)
+                                    .params("uid", PreferenceManager.getUserId(context))
+                                    .params("userid",msg.getFrom())
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onSuccess(Response<String> response) {
+                                            Gson gson=new Gson();
+                                            UserBean userBean =gson.fromJson(response.body(),UserBean.class);
+                                            String  head = userBean.getData().getHead();
+//                                            String name=userBean.getData().getUsername();
+                                            Glide.with(context).load(head).into(avator);
+                                        }
+                                    });
 
-                            Glide.with(context).load(arr[1]).into(avator);
+
                             buttonRefuse.setVisibility(View.INVISIBLE);
                         }
                     });
