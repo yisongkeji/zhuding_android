@@ -473,6 +473,7 @@ public class UserDataActivity extends AppCompatActivity {
                                 if (aBoolean) {
                                     Matisse.from(UserDataActivity.this)
                                             .choose(MimeType.ofAll(), false)
+                                            .theme(R.style.Matisse_Dracula)
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com" +
@@ -716,8 +717,8 @@ public class UserDataActivity extends AppCompatActivity {
 
             }
         })
-                .setSubmitColor(R.color.colorAccent)
-                .setCancelColor(R.color.colorAccent)
+                .setSubmitColor(getResources().getColor(R.color.colorAccent))
+                .setCancelColor(getResources().getColor(R.color.colorAccent))
                 .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {

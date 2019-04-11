@@ -3,6 +3,8 @@ package com.foreseers.chat.global;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.support.multidex.MultiDex;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -41,6 +43,8 @@ public class MyApplication extends Application {
     private EaseUI easeUI;
     private SharedPreferences sharedPreferences;
 
+    private static Typeface typeface;
+
     public static Context getContext() {
         return mContext;
     }
@@ -50,10 +54,12 @@ public class MyApplication extends Application {
         super.onCreate();
         mContext = this;
         instance = this;
+        typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/mytypeface.TTF");
         initOkGo();
 //        OkGo.getInstance().init(this);
         // 初始化环信SDK
         initEasemob();
+        MultiDex.install(mContext);
 
     }
 
@@ -124,5 +130,13 @@ public class MyApplication extends Application {
 //            return hostname.equals("192.168.1.73");
             return true;
         }
+    }
+
+    public static void setTypeface(Typeface typeface) {
+        MyApplication.typeface = typeface;
+    }
+
+    public static Typeface getTypeface() {
+        return typeface;
     }
 }

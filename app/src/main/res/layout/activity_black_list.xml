@@ -7,10 +7,7 @@
     android:orientation="vertical"
     tools:context=".activity.BlackListActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+
 
         <com.foreseers.chat.view.widget.MyTitleBar
             android:id="@+id/my_titlebar"
@@ -25,8 +22,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+
 
     <com.foreseers.chat.view.MyView
         android:layout_width="match_parent"

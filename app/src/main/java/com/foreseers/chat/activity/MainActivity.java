@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
-import com.cy.translucentparent.StatusNavUtils;
+import com.example.com.statusbarutil.StatusBarUtil;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.FriendTimeBean;
 import com.foreseers.chat.bean.LoginBean;
@@ -52,24 +52,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.yokeyword.fragmentation.SupportActivity;
 
-
 public class MainActivity extends SupportActivity {
 
     private final String TAG = "MainActivity@@@@@";
-    @BindView(R.id.fl_content)
-    FrameLayout flContent;
-    @BindView(R.id.bbl)
-    BottomBarLayout mBottomBarLayout;
-    @BindView(R.id.buttom_friend)
-    BottomBarItem buttomFriend;
-    @BindView(R.id.img_main)
-    ImageView imgMain;
-    @BindView(R.id.text_name)
-    TextView textName;
-    @BindView(R.id.text_message)
-    TextView textMessage;
-    @BindView(R.id.layout_message)
-    LinearLayout layoutMessage;
+    @BindView(R.id.fl_content) FrameLayout flContent;
+    @BindView(R.id.bbl) BottomBarLayout mBottomBarLayout;
+    @BindView(R.id.img_main) ImageView imgMain;
+    @BindView(R.id.text_name) TextView textName;
+    @BindView(R.id.text_message) TextView textMessage;
+    @BindView(R.id.layout_message) LinearLayout layoutMessage;
 
     private List<Fragment> mFragmentList = new ArrayList<>();
     private FragmentTransaction transaction;
@@ -91,28 +82,26 @@ public class MainActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        StatusNavUtils.setStatusBarColor(this, 0x00000000);
-        Log.i(TAG, "onCreate: " + HuanXinHelper.getInstance().isLoggedIn());
+//        StatusNavUtils.setStatusBarColor(this, 0x00000000);
+        StatusBarUtil.setImmersiveStatusBar(this, true);
         if (!HuanXinHelper.getInstance().isLoggedIn()) {
-            EMClient.getInstance().login(PreferenceManager.getUserId(this) + "", "123", new EMCallBack() {//回调
-                @Override
-                public void onSuccess() {
-                    EMClient.getInstance().groupManager().loadAllGroups();
-                    EMClient.getInstance().chatManager().loadAllConversations();
-                    Log.d("EMClient", "登录聊天服务器成功！");
+            EMClient.getInstance()
+                    .login(PreferenceManager.getUserId(this) + "", "123", new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            Log.d("EMClient", "登录聊天服务器成功！");
+                        }
 
-                }
+                        @Override
+                        public void onProgress(int progress, String status) { }
 
-                @Override
-                public void onProgress(int progress, String status) {
-
-                }
-
-                @Override
-                public void onError(int code, String message) {
-                    Log.d("EMClient", "登录聊天服务器失败！");
-                }
-            });
+                        @Override
+                        public void onError(int code, String message) {
+                            Log.d("EMClient", "登录聊天服务器失败！");
+                        }
+                    });
         }
 
         initView();
@@ -129,11 +118,9 @@ public class MainActivity extends SupportActivity {
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus().equals("success")) {
 
-                            friendTimeBean = gson.fromJson(response.body(),
-                                    FriendTimeBean.class);
+                            friendTimeBean = gson.fromJson(response.body(), FriendTimeBean.class);
                             dataBean = friendTimeBean.getData();
                             for (int i = 0; i < dataBean.size(); i++) {
-
 
                                 Log.d("TAG@@@", i + "网络请求成功：" + "   hour：" + dataBean.get(i).getHour());
                                 if (dataBean.get(i).getHour() < 8 * 3600000) {//成为好友小于8小时，不可查看清晰头像
@@ -144,46 +131,52 @@ public class MainActivity extends SupportActivity {
                                     intent.putExtra("friendid", dataBean.get(i).getFriend());
                                     intent.putExtra("userid", dataBean.get(i).getUserid());
                                     startService(intent);
-                                } else if (dataBean.get(i).getHour() < 24 * 3600000) {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
+                                } else if (dataBean.get(i)
+                                        .getHour() < 24 * 3600000) {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
                                     Log.d("TAG@@@", "网络请求成功：" + "   hour4444444444444444");
                                     Intent intent = new Intent(MainActivity.this, MediaService.class);
                                     intent.putExtra("type", 1);
-                                    intent.putExtra("hour", dataBean.get(i).getHour());
-                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    intent.putExtra("hour", dataBean.get(i)
+                                            .getHour());
+                                    intent.putExtra("friendid", dataBean.get(i)
+                                            .getFriend());
+                                    intent.putExtra("userid", dataBean.get(i)
+                                            .getUserid());
                                     startService(intent);
-                                } else if (dataBean.get(i).getHour() < 72 * 3600000) {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
+                                } else if (dataBean.get(i)
+                                        .getHour() < 72 * 3600000) {//成为好友小于72小时，大于24小时，可查看清晰头像，聊天可发送图片，不可查看相册
                                     Log.d("TAG@@@", "网络请求成功：" + "   hour777777777777777777");
                                     Intent intent = new Intent(MainActivity.this, MediaService.class);
                                     intent.putExtra("type", 2);
-                                    intent.putExtra("hour", dataBean.get(i).getHour());
-                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    intent.putExtra("hour", dataBean.get(i)
+                                            .getHour());
+                                    intent.putExtra("friendid", dataBean.get(i)
+                                            .getFriend());
+                                    intent.putExtra("userid", dataBean.get(i)
+                                            .getUserid());
                                     startService(intent);
                                 } else {
                                     OkGo.<String>post(Urls.Url_FriendTime).tag(this)
-                                            .params("userid", dataBean.get(i).getUserid())
-                                            .params("friendid", dataBean.get(i).getFriend())
+                                            .params("userid", dataBean.get(i)
+                                                    .getUserid())
+                                            .params("friendid", dataBean.get(i)
+                                                    .getFriend())
                                             .params("lookhead", "1")
                                             .params("sendpix", "1")
                                             .params("lookimages", "1")
                                             .execute(new StringCallback() {
                                                 @Override
                                                 public void onSuccess(Response<String> response) {
-//                                                Log.d("TAG@@@", "OkGo");
-//                                                Gson gson = new Gson();
-//                                                LoginBean bean = gson.fromJson(response.body(),
-// LoginBean.class);
-//
+                                                    //                                                Log.d("TAG@@@", "OkGo");
+                                                    //                                                Gson gson = new Gson();
+                                                    //                                                LoginBean bean = gson.fromJson(response.body(),
+                                                    // LoginBean.class);
+                                                    //
                                                 }
                                             });
                                 }
-
-
                             }
                         }
-
-
                     }
                 });
 
@@ -195,43 +188,36 @@ public class MainActivity extends SupportActivity {
 
                     }
                 });
-
-
     }
 
     private void initView() {
-
-//        聊天
+        int position =getIntent().getIntExtra("position",2);
+        //        聊天
         chatFragment = new ChatFragment();
         mFragmentList.add(chatFragment);
 
-//        朋友
+        //        朋友
         friendFragment = new FriendFragment();
         mFragmentList.add(friendFragment);
 
-
-//        匹配
+        //        匹配
         matchFragment = new MatchFragment();
         mFragmentList.add(matchFragment);
         Log.d(TAG, "initView: matchFragment ");
 
-//        商店
+        //        商店
         shopFragment = new ShopFragment();
         mFragmentList.add(shopFragment);
 
-
-//        個人
+        //        個人
         myFragment = new MyFragment();
         mFragmentList.add(myFragment);
 
-
-        changeFragment(2);
-        mBottomBarLayout.setCurrentItem(2);
+        changeFragment(position);
+        mBottomBarLayout.setCurrentItem(position);
     }
 
-
     private void initData() {
-
 
     }
 
@@ -239,26 +225,20 @@ public class MainActivity extends SupportActivity {
 
         mBottomBarLayout.setOnItemSelectedListener(new BottomBarLayout.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(BottomBarItem bottomBarItem, int previousPosition, int
-                    currentPosition) {
+            public void onItemSelected(BottomBarItem bottomBarItem, int previousPosition, int currentPosition) {
                 changeFragment(currentPosition);
                 switch (currentPosition) {
                     case 0:
-//                        mBottomBarLayout.hideNotify(0);
+                        //                        mBottomBarLayout.hideNotify(0);
                         break;
                     case 1:
                         mBottomBarLayout.hideNotify(1);
                         break;
                 }
-
-
             }
         });
 
-
         contactListener = new ContactListener();
-
-
     }
 
     private void changeFragment(int currentPosition) {
@@ -284,13 +264,14 @@ public class MainActivity extends SupportActivity {
                     if (!chatFragment.isVisible()) {
                         Log.i(TAG, "chatFragment.isVisible(): ");
                         layoutMessage.setVisibility(View.VISIBLE);
-                        EMMessage message= (EMMessage) msg.obj;
-                        Log.i(TAG, "handleMessage: "+message.getUserName()+"    message.getBody():"+message.getBody());
+                        EMMessage message = (EMMessage) msg.obj;
+                        Log.i(TAG, "handleMessage: " + message.getUserName() + "    message.getBody():" + message.getBody());
                         String ticker = EaseCommonUtils.getMessageDigest(message, MyApplication.getContext());
                         if (message.getType() == EMMessage.Type.TXT) {
                             ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
                         }
-                        EaseUser user = HuanXinHelper.getInstance().getUserInfo(message.getFrom());
+                        EaseUser user = HuanXinHelper.getInstance()
+                                .getUserInfo(message.getFrom());
                         textName.setText(user.getNickname());
                         textMessage.setText(ticker);
                         new Thread(new Runnable() {
@@ -309,7 +290,6 @@ public class MainActivity extends SupportActivity {
                                 }
                             }
                         }).start();
-
                     }
 
                     break;
@@ -318,8 +298,6 @@ public class MainActivity extends SupportActivity {
                     break;
             }
         }
-
-
     };
 
     @Override
@@ -327,9 +305,15 @@ public class MainActivity extends SupportActivity {
         super.onResume();
         HuanXinHelper huanXinHelper = HuanXinHelper.getInstance();
         huanXinHelper.pushActivity(this);
-        EMClient.getInstance().chatManager().addMessageListener(messageListener);
-        EMClient.getInstance().contactManager().setContactListener(contactListener);
-        EaseUI.getInstance().getNotifier().reset();
+        EMClient.getInstance()
+                .chatManager()
+                .addMessageListener(messageListener);
+        EMClient.getInstance()
+                .contactManager()
+                .setContactListener(contactListener);
+        EaseUI.getInstance()
+                .getNotifier()
+                .reset();
     }
 
     @Override
@@ -342,9 +326,12 @@ public class MainActivity extends SupportActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EMClient.getInstance().chatManager().removeMessageListener(messageListener);
-        EMClient.getInstance().contactManager().removeContactListener(contactListener);
-
+        EMClient.getInstance()
+                .chatManager()
+                .removeMessageListener(messageListener);
+        EMClient.getInstance()
+                .contactManager()
+                .removeContactListener(contactListener);
     }
 
     @OnClick(R.id.img_main)
@@ -358,15 +345,15 @@ public class MainActivity extends SupportActivity {
             sharedPreferences = MainActivity.this.getSharedPreferences("user", MODE_PRIVATE);
             for (EMMessage message : messages) {
                 //接收并处理扩展消息
-//                String userName = message.getStringAttribute(Constant.USER_NAME, "");
-//                String userId = message.getStringAttribute(Constant.USER, "");
-//                String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
-//                String hxIdFrom = message.getFrom();
-//                EaseUser easeUser = new EaseUser(hxIdFrom);
-//                easeUser.setAvatar(userPic);
-//                easeUser.setNickname(userName);
+                //                String userName = message.getStringAttribute(Constant.USER_NAME, "");
+                //                String userId = message.getStringAttribute(Constant.USER, "");
+                //                String userPic = message.getStringAttribute(Constant.HEAD_IMAGE_URL, "");
+                //                String hxIdFrom = message.getFrom();
+                //                EaseUser easeUser = new EaseUser(hxIdFrom);
+                //                easeUser.setAvatar(userPic);
+                //                easeUser.setNickname(userName);
 
-//                sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
+                //                sharedPreferences.edit().putString(hxIdFrom, userName + "&" + userPic).commit();
 
                 Message message1 = new Message();
                 message1.what = GETmessNum;
@@ -399,7 +386,6 @@ public class MainActivity extends SupportActivity {
         public void onMessageChanged(EMMessage emMessage, Object o) { //消息状态变动
 
         }
-
     };
 
     public class ContactListener implements EMContactListener {
@@ -407,8 +393,8 @@ public class MainActivity extends SupportActivity {
         @Override
         public void onContactInvited(String username, String reason) {
             //收到好友邀请
-            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-
+            mHandler.obtainMessage(DATASUCCESS)
+                    .sendToTarget();
         }
 
         @Override
@@ -426,7 +412,6 @@ public class MainActivity extends SupportActivity {
             //被删除时回调此方法
         }
 
-
         @Override
         public void onContactAdded(String username) {
             //增加了联系人时回调此方法
@@ -436,10 +421,11 @@ public class MainActivity extends SupportActivity {
     public void changeBottombar() {
         mBottomBarLayout.hideNotify(0);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==10001) {
+        if (requestCode == 10001) {
             shopFragment.afterPurchase(requestCode, resultCode, data);
         }
     }

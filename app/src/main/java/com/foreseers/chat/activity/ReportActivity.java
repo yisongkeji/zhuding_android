@@ -120,6 +120,7 @@ public class ReportActivity extends BaseActivity {
                                 if (aBoolean) {
                                     Matisse.from(ReportActivity.this)
                                             .choose(MimeType.ofAll(), false)//图片类型
+                                            .theme(R.style.Matisse_Dracula)
                                             .countable(false)//true:选中后显示数字;false:选中后显示对号
                                             .capture(false)//选择照片时，是否显示拍照
                                             .captureStrategy(new CaptureStrategy(true, "com" + ".foreseers.chat.fileprovider", "test"))

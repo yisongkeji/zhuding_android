@@ -1,11 +1,14 @@
 package com.foreseers.chat.global;
 
+import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
-import com.cy.translucentparent.StatusNavUtils;
+import com.example.com.statusbarutil.StatusBarUtil;
+import com.foreseers.chat.R;
 import com.foreseers.chat.interf.IBaseActivity;
 
 public abstract class BaseActivity extends AppCompatActivity implements IBaseActivity {
@@ -13,13 +16,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     public final int DATASUCCESS = 1;
     public final int DATAFELLED = 0;
     private Handler mHandler;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusNavUtils.setStatusBarColor(this,0x00000000);
-        mHandler = new Handler(){
+//        StatusNavUtils.setStatusBarColor(this, 0x00000000);
+        StatusBarUtil.setImmersiveStatusBar(this, true);
+
+        mHandler = new Handler() {
             @Override
-            public void handleMessage(Message msg){
+            public void handleMessage(Message msg) {
                 processHandlerMessage(msg);
             }
         };
@@ -32,6 +38,4 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     public Handler getHandler() {
         return mHandler;
     }
-
-
 }

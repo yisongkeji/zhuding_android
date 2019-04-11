@@ -81,11 +81,11 @@
             rsb:imageLow="@mipmap/icon_filter_age_02"
             rsb:imageheight="26dp"
             rsb:imagewidth="23dp"
-            rsb:inColor="#8ce6e3"
+            rsb:inColor="@color/colorAccent"
             rsb:lineHeight="10dp"
             rsb:outColor="#eeeeee"
             rsb:smallValue="12"
-            rsb:textColor="#8ce6e3"
+            rsb:textColor="@color/colorAccent"
             rsb:textSize="15sp"
             app:unit="@string/foreseers_age"/>
     </LinearLayout>
@@ -110,11 +110,11 @@
         rsb:imageLow="@mipmap/icon_filter_age_02"
         rsb:imageheight="26dp"
         rsb:imagewidth="23dp"
-        rsb:inColor="#8ce6e3"
+        rsb:inColor="@color/colorAccent"
         rsb:lineHeight="10dp"
         rsb:outColor="#eeeeee"
         rsb:smallValue="1"
-        rsb:textColor="#8ce6e3"
+        rsb:textColor="@color/colorAccent"
         rsb:textSize="15sp"
         rsb:unit="km"
         android:layout_marginBottom="20dp"/>

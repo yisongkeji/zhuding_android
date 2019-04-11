@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.foreseers.chat.fragment.ShopFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="234dp"
-        android:background="@mipmap/icon_header_case_02">
+        android:layout_height="270dp"
+        android:elevation="1dp"
+        android:background="@mipmap/icon_header_case_03">
 
         <com.ms.banner.Banner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            app:indicator_drawable_selected="@color/colorBlack"
+            app:indicator_drawable_unselected="@color/colorGray"
+            app:indicator_margin="10dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="18dp"
                 android:text="@string/item4"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
 
             <LinearLayout
@@ -48,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="2dp"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
 
@@ -59,11 +65,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="250dp">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +82,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="12dp"
-                    android:layout_marginTop="13dp"
                     android:layout_marginRight="10dp"
                     android:background="@color/colorWhite"
                     android:orientation="horizontal">
@@ -689,4 +696,4 @@
     </ScrollView>
 
 
-</LinearLayout>
+</FrameLayout>

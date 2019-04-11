@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+
+        <key>紫薇</key><string>ziwei1</string>
+        <key>天機</key><string>ziwei2</string>
+        <key>太陽</key><string>ziwei3</string>
+        <key>武曲</key><string>ziwei4</string>
+        <key>天同</key><string>ziwei5</string>
+        <key>廉貞</key><string>ziwei6</string>
+        <key>天府</key><string>ziwei7</string>
+        <key>太陰</key><string>ziwei8</string>
+        <key>貪狼</key><string>ziwei9</string>
+        <key>巨門</key><string>ziwei10</string>
+        <key>天相</key><string>ziwei11</string>
+        <key>天梁</key><string>ziwei12</string>
+        <key>七殺</key><string>ziwei13</string>
+        <key>破軍</key><string>ziwei14</string>
+        <key>紫薇天府</key><string>ziwei15</string>
+        <key>紫薇貪狼</key><string>ziwei16</string>
+        <key>紫薇天相</key><string>ziwei17</string>
+        <key>紫薇七殺</key><string>ziwei18</string>
+        <key>紫薇破軍</key><string>ziwei19</string>
+        <key>天機太陰</key><string>ziwei20</string>
+        <key>天機巨門</key><string>ziwei21</string>
+        <key>天機天梁</key><string>ziwei22</string>
+        <key>太陽太陰</key><string>ziwei23</string>
+        <key>太陽巨門</key><string>ziwei24</string>
+        <key>太陽天梁</key><string>ziwei25</string>
+        <key>武曲天府</key><string>ziwei26</string>
+        <key>武曲貪狼</key><string>ziwei27</string>
+        <key>武曲天相</key><string>ziwei28</string>
+        <key>武曲七殺</key><string>ziwei29</string>
+        <key>武曲破軍</key><string>ziwei30</string>
+        <key>天同太陰</key><string>ziwei31</string>
+        <key>天同巨門</key><string>ziwei32</string>
+        <key>天同天梁</key><string>ziwei33</string>
+        <key>廉貞天府</key><string>ziwei34</string>
+        <key>廉貞貪狼</key><string>ziwei35</string>
+        <key>廉貞天相</key><string>ziwei36</string>
+        <key>廉貞七殺</key><string>ziwei37</string>
+        <key>廉貞破軍</key><string>ziwei38</string>
+
+
+
+        <key>雞</key><string>chinese1</string>
+        <key>猴</key><string>chinese2</string>
+        <key>羊</key><string>chinese3</string>
+        <key>豬</key><string>chinese4</string>
+        <key>龍</key><string>chinese5</string>
+        <key>蛇</key><string>chinese6</string>
+        <key>虎</key><string>chinese7</string>
+        <key>馬</key><string>chinese8</string>
+        <key>兔</key><string>chinese9</string>
+        <key>牛</key><string>chinese10</string>
+        <key>鼠</key><string>chinese11</string>
+        <key>狗</key><string>chinese12</string>
+
+
+        <key>亥</key><string>eightword1</string>
+        <key>戌</key><string>eightword2</string>
+        <key>酉</key><string>eightword3</string>
+        <key>申</key><string>eightword4</string>
+        <key>未</key><string>eightword5</string>
+        <key>午</key><string>eightword6</string>
+        <key>巳</key><string>eightword7</string>
+        <key>辰</key><string>eightword8</string>
+        <key>卯</key><string>eightword9</string>
+        <key>寅</key><string>eightword10</string>
+        <key>子</key><string>eightword11</string>
+        <key>丑</key><string>eightword12</string>
+
+
+        <key>天秤座</key><string>horoscope1</string>
+        <key>白羊座</key><string>horoscope2</string>
+        <key>雙魚座</key><string>horoscope3</string>
+        <key>摩羯座</key><string>horoscope4</string>
+        <key>水瓶座</key><string>horoscope5</string>
+        <key>巨蟹座</key><string>horoscope6</string>
+        <key>獅子座</key><string>horoscope7</string>
+        <key>天蠍座</key><string>horoscope8</string>
+        <key>射手座</key><string>horoscope9</string>
+        <key>雙子座</key><string>horoscope10</string>
+        <key>處女座</key><string>horoscope11</string>
+        <key>金牛座</key><string>horoscope12</string>
+
+
+        <key>1</key><string>life1</string>
+        <key>2</key><string>life2</string>
+        <key>3</key><string>life3</string>
+        <key>4</key><string>life4</string>
+        <key>5</key><string>life5</string>
+        <key>6</key><string>life6</string>
+        <key>7</key><string>life7</string>
+        <key>8</key><string>life8</string>
+        <key>9</key><string>life9</string>
+    </dict>
+</plist>

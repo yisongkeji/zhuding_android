@@ -103,7 +103,7 @@ public class ChangeUserDataActivity extends BaseActivity {
                                 .equals("success")) {//老用户
                             userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                             dataBean = userDataBean.getData();
-                            mHandler.obtainMessage(DATASUCCESS)
+                            getHandler().obtainMessage(DATASUCCESS)
                                     .sendToTarget();
                         } else if (loginBean.getStatus()
                                 .equals("fail")) {
@@ -152,39 +152,33 @@ public class ChangeUserDataActivity extends BaseActivity {
 
     @Override
     public void processHandlerMessage(Message msg) {
+        switch (msg.what) {
+            case DATASUCCESS:
+                textName.setText(dataBean.getUsername());
+                textSex.setText(dataBean.getSex()
+                                        .equals("M") ? R.string.man : R.string.woman);
+                textAge.setText(dataBean.getReservedint() + "");
+                textZiwei.setText(dataBean.getZiwei());
+                Log.e("okgo", "textZiwei: " + dataBean.getZiwei());
+                textData.setText(upData());
+                break;
+            case DATASEXSUCCESS:
 
+                textZiwei.setText(dataBean.getZiwei());
+                break;
+            case DATATIMESUCCESS:
+                textAge.setText(dataBean.getReservedint() + "");
+                textZiwei.setText(dataBean.getZiwei());
+                break;
+            case DATAFELLED:
+
+                break;
+        }
     }
 
     private final int DATASEXSUCCESS = 3;
     private final int DATATIMESUCCESS = 4;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case DATASUCCESS:
-                    textName.setText(dataBean.getUsername());
-                    textSex.setText(dataBean.getSex()
-                                            .equals("M") ? R.string.man : R.string.woman);
-                    textAge.setText(dataBean.getReservedint() + "");
-                    textZiwei.setText(dataBean.getZiwei());
-                    Log.e("okgo", "textZiwei: " + dataBean.getZiwei());
-                    textData.setText(upData());
-                    break;
-                case DATASEXSUCCESS:
 
-                    textZiwei.setText(dataBean.getZiwei());
-                    break;
-                case DATATIMESUCCESS:
-                    textAge.setText(dataBean.getReservedint() + "");
-                    textZiwei.setText(dataBean.getZiwei());
-                    break;
-                case DATAFELLED:
-
-                    break;
-            }
-        }
-    };
 
     @OnClick({R.id.layout_change_sex, R.id.layout_birth})
     public void onViewClicked(View view) {
@@ -270,7 +264,7 @@ public class ChangeUserDataActivity extends BaseActivity {
                                     userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     dataBean = userDataBean.getData();
                                     REQUEST_CODE_USER_DATA = 200;
-                                    mHandler.obtainMessage(DATATIMESUCCESS)
+                                    getHandler().obtainMessage(DATATIMESUCCESS)
                                             .sendToTarget();
                                 }
                             }
@@ -351,8 +345,7 @@ public class ChangeUserDataActivity extends BaseActivity {
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 textSex.setText(sexList.get(options1));
                 String newSex;
-                if (sexList.get(options2)
-                        .equals(getString(R.string.man))) {
+                if (options1==0) {
                     newSex = "M";
                 } else {
                     newSex = "F";
@@ -371,7 +364,7 @@ public class ChangeUserDataActivity extends BaseActivity {
                                     dataBean = userDataBean.getData();
 
                                     REQUEST_CODE_USER_DATA = 200;
-                                    mHandler.obtainMessage(DATASEXSUCCESS)
+                                    getHandler().obtainMessage(DATASEXSUCCESS)
                                             .sendToTarget();
                                 }
                             }

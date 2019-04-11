@@ -113,8 +113,6 @@ public class WipeDayHistoryActivity extends BaseActivity {
 
     }
 
-    private final int DATASUCCESS = 1;
-    private final int DATAFELLED = 2;
 
     @Override
     public AppCompatActivity getActivity() {

@@ -300,5 +300,10 @@
     <string name="free_buy">购买</string>
     <string name="free_unlock">已解锁</string>
 
+    <string name="text_lifebook_content1">共&amp;项，免费查看</string>
+    <string name="text_lifebook_content2">共&amp;项，未购买</string>
+    <string name="text_lifebook_content3">共&amp;项，已购买</string>
+
+    <string name="text_look">查看</string>
 
 </resources>

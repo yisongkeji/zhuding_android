@@ -24,24 +24,12 @@ import butterknife.BindView;
 public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, BaseViewHolder> {
 
     Activity context;
-    @BindView(R.id.text_people_progress)
-    TextView textPeopleProgress;
-    @BindView(R.id.text_people_sex)
-    TextView textPeopleSex;
 
-    @BindView(R.id.text_people_location)
-    TextView textPeopleLocation;
-    @BindView(R.id.text_people_name)
-    TextView textPeopleName;
-    @BindView(R.id.layout_item_people)
-    FrameLayout layoutItemPeople;
-    private final Typeface typeface;
     private ImageView image;
 
     public PeopleAdapter(Activity context, @Nullable List<RecommendBean.DataBean> data) {
         super(R.layout.item_people, data);
         this.context = context;
-        typeface = Typeface.createFromAsset(context.getAssets(), "华康华综体W5-B5.TTF");
     }
 
     @Override
@@ -62,9 +50,8 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
         }
 
 
-        baseViewHolder.setTypeface(typeface);
+
         baseViewHolder.setText(R.id.text_people_name, item.getUsername())
-                .setText(R.id.text_people_ziwei, item.getZiwei())
                 .setText(R.id.text_desc, item.getDesc())
                 .setText(R.id.text_people_progress, item.getUserscore() + "")
                 .setText(R.id.text_people_location, item.getDistance() + "km");

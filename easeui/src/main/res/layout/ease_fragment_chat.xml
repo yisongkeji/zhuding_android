@@ -41,14 +41,16 @@
         <com.hyphenate.easeui.widget.EaseChatMessageList
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
 
         <com.hyphenate.easeui.widget.EaseVoiceRecorderView
             android:id="@+id/voice_recorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:overScrollMode="never"/>
     </RelativeLayout>
 
     <com.hyphenate.easeui.widget.EaseChatInputMenu

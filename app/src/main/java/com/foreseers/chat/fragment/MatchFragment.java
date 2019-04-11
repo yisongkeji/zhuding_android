@@ -3,6 +3,7 @@ package com.foreseers.chat.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -343,9 +344,6 @@ public class MatchFragment extends BaseFragment {
                         PopItemAction.OnClickListener() {
                             @Override
                             public void onClick() {
-//                                Toast.makeText(getActivity(), "确定", Toast.LENGTH_LONG).show();
-
-
                                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor
                                 // 得到Editor后，写入需要保存的数据
                                 editor.putString("sex", sex);
@@ -414,7 +412,11 @@ public class MatchFragment extends BaseFragment {
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
-            ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+
+            if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+            }
+
         }
     }
 

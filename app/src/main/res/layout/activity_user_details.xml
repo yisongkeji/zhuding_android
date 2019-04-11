@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.foreseers.chat.activity.UserDetailsActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+
 
         <com.foreseers.chat.view.widget.MyTitleBar
             android:id="@+id/my_titlebar"
@@ -24,7 +21,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,16 +56,21 @@
                         android:visibility="gone">
 
                         <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:background="@mipmap/icon_me_01" />
-
-                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/foreseers_peep"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/sp_12" />
+                            android:background="@mipmap/icon_look_btn" />
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="17dp"-->
+                            <!--android:layout_height="17dp"-->
+                            <!--android:background="@mipmap/icon_me_01" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="@string/foreseers_peep"-->
+                            <!--android:textColor="@color/colorWhite"-->
+                            <!--android:textSize="@dimen/sp_12" />-->
                     </LinearLayout>
 
 
@@ -401,7 +404,6 @@
 
 
         </ScrollView>
-    </LinearLayout>
 
     <com.foreseers.chat.view.MyView
         android:layout_width="match_parent"

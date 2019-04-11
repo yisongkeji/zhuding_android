@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@mipmap/icon_header_case_02"
     android:orientation="vertical">
 
 
@@ -12,7 +11,7 @@
         android:id="@+id/img"
         android:layout_width="67dp"
         android:layout_height="67dp"
-        android:background="@mipmap/icon_store_vip_05" />
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/banner_text1"
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/foreseers_special_vip_id"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/sp_16" />
 
     <TextView
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/foreseers_catch_you"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorBlack"
         android:textSize="@dimen/sp_16" />
 
 </LinearLayout>

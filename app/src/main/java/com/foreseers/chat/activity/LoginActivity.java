@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 //                facebookid= "567979503606543";//刘海强
 
 //                facebookid= "46797950360653";
-//                facebookid= "46797950360652333";
+//                facebookid= "46797950360652333";//齐瑞宁
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);

@@ -335,15 +335,15 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
     public void initViews() {
         packageName = getActivity().getPackageName();
 
-        bannerList.add(new BannerData(R.mipmap.icon_store_vip_05, getResources().getString(R.string.foreseers_special_vip_id),
+        bannerList.add(new BannerData(R.mipmap.icon_vip_me_05, getResources().getString(R.string.foreseers_special_vip_id),
                                       getResources().getString(R.string.foreseers_catch_you), false));
-        bannerList.add(new BannerData(R.mipmap.icon_store_vip_01, getResources().getString(R.string.foreseers_ten_per_day),
+        bannerList.add(new BannerData(R.mipmap.icon_vip_me_01, getResources().getString(R.string.foreseers_ten_per_day),
                                       getResources().getString(R.string.foreseers_look_TA), false));
-        bannerList.add(new BannerData(R.mipmap.icon_store_vip_02, getResources().getString(R.string.foreseers_infinate_priends_num),
+        bannerList.add(new BannerData(R.mipmap.icon_vip_me_02, getResources().getString(R.string.foreseers_infinate_priends_num),
                                       getResources().getString(R.string.foreseers_follow_your_heart), false));
-        bannerList.add(new BannerData(R.mipmap.icon_store_vip_03, getResources().getString(R.string.foreseers_who_see_you),
+        bannerList.add(new BannerData(R.mipmap.icon_vip_me_03, getResources().getString(R.string.foreseers_who_see_you),
                                       getResources().getString(R.string.foreseers_crush_on_you), false));
-        bannerList.add(new BannerData(R.mipmap.icon_store_vip_04, getResources().getString(R.string.foreseers_who_see_you_photo),
+        bannerList.add(new BannerData(R.mipmap.icon_vip_me_04, getResources().getString(R.string.foreseers_who_see_you_photo),
                                       getResources().getString(R.string.foreseers_immediately_TA), false));
 
         banner.setAutoPlay(true)
@@ -399,24 +399,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                 if (textNum != null) {
 
                     if (skuList.size() > 0) {
-//                        textItem3.setText(dataBeanList.get(0)
-//                                                  .get(0)
-//                                                  .getName());
-//                        textItem2.setText(dataBeanList.get(0)
-//                                                  .get(1)
-//                                                  .getName());
-//                        textItem1.setText(dataBeanList.get(0)
-//                                                  .get(2)
-//                                                  .getName());
-//                        priceVip360.setText(dataBeanList.get(1)
-//                                                    .get(0)
-//                                                    .getName());
-//                        priceVip90.setText(dataBeanList.get(1)
-//                                                   .get(1)
-//                                                   .getName());
-//                        priceVip30.setText(dataBeanList.get(1)
-//                                                   .get(2)
-//                                                   .getName());
+
 
                         try {
                             mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
@@ -453,7 +436,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                 productId = packageName + item1;
 
                 break;
-            case R.id.layout_fortunetelling:
+            case R.id.layout_fortunetelling://命书
                 intent = new Intent(getActivity(), FortunetellingUserActivity.class);
                 getActivity().startActivity(intent);
                 break;
@@ -518,18 +501,21 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
         bannerList.clear();
         OkGo.cancelTag(OkGo.getInstance()
                                .getOkHttpClient(), this);
-        if (skuList != null) {
-            skuList.clear();
-        }
-        if (mBroadcastReceiver != null) {
-            getActivity().unregisterReceiver(mBroadcastReceiver);
+        if (textNum!=null){
+            if (skuList != null) {
+                skuList.clear();
+            }
+            if (mBroadcastReceiver != null) {
+                getActivity().unregisterReceiver(mBroadcastReceiver);
+            }
+
+            // very important:
+            if (mHelper != null) {
+                mHelper.disposeWhenFinished();
+                mHelper = null;
+            }
         }
 
-        // very important:
-        if (mHelper != null) {
-            mHelper.disposeWhenFinished();
-            mHelper = null;
-        }
 
     }
 

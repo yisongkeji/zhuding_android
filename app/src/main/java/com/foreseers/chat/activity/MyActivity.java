@@ -1,14 +1,18 @@
 package com.foreseers.chat.activity;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MyBean;
@@ -21,7 +25,9 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.youth.banner.Banner;
+import com.ms.banner.Banner;
+import com.ms.banner.holder.BannerViewHolder;
+import com.ms.banner.holder.HolderCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +38,7 @@ import butterknife.ButterKnife;
 public class MyActivity extends BaseActivity {
 
     @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
-    @BindView(R.id.banner) Banner banner;
+
     @BindView(R.id.img_ani) ImageView imgAni;
     @BindView(R.id.layout_wipe) LinearLayout layoutWipe;
     @BindView(R.id.text_user_details_name) TextView textUserDetailsName;
@@ -42,9 +48,9 @@ public class MyActivity extends BaseActivity {
     @BindView(R.id.text_age) TextView textAge;
     @BindView(R.id.text_ziwei) TextView textZiwei;
     @BindView(R.id.text_sign) TextView textSign;
-    @BindView(R.id.mylayout) LinearLayout mylayout;
     private final int DATASUCCESS = 1;
     private final int DATASUCCESS2 = 2;
+    @BindView(R.id.banner) Banner banner;
     private List<String> imgList = new ArrayList<>();
     private MyBean myBean;
     private MyBean.DataBean dataBean;
@@ -61,25 +67,8 @@ public class MyActivity extends BaseActivity {
             }
         });
         //设置自动轮播，默认为true
-        banner.isAutoPlay(false);
-        //设置图片加载器
-        banner.setImageLoader(new GlideUtil.GlideImageLoader());
-        banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
+        banner.setAutoPlay(false);
 
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
     }
 
     @Override
@@ -107,11 +96,15 @@ public class MyActivity extends BaseActivity {
         switch (msg.what) {
             case DATASUCCESS:
                 if (banner != null) {
-                    //设置图片集合
-                    banner.update(imgList);
-                    //banner设置方法全部调用完毕时最后调用
-                    banner.start();
 
+                    //设置图片加载器
+                    banner.setPages(imgList, new HolderCreator<BannerViewHolder>() {
+                        @Override
+                        public BannerViewHolder createViewHolder() {
+                            return new CustomViewHolder();
+                        }
+                    });
+                    banner.start();
                     switch (dataBean.getVip()) {
                         case 0:
                             imgVip.setVisibility(View.GONE);
@@ -169,4 +162,28 @@ public class MyActivity extends BaseActivity {
                     }
                 });
     }
+    class CustomViewHolder implements BannerViewHolder<Object> {
+
+        private ImageView mImageView;
+
+        @Override
+        public View createView(Context context) {
+            // 返回mImageView页面布局
+            mImageView = new ImageView(context);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+            );
+            mImageView.setBackgroundColor(Color.BLACK);
+            mImageView.setLayoutParams(params);
+            mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            return mImageView;
+        }
+
+        @Override
+        public void onBind(Context context, int position, Object data) {
+            // 数据绑定
+            Glide.with(context).load(data).into(mImageView);
+        }
+    }
+
 }

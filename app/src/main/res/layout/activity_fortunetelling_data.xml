@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.FortunetellingDataActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+            <com.foreseers.chat.view.widget.MyTitleBar
+                android:id="@+id/my_titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleBarLeftImage="@mipmap/icon_me_06"/>
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/user_data_name_hint"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="22sp" />
+
+                <EditText
+                    android:id="@+id/edit_user_name"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_text_accent_side"
+                    android:gravity="center"
+                    android:maxLength="20"
+                    android:textColor="@color/colorAccent" />
+
+                <RadioGroup
+                    android:id="@+id/radio_user_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_sex_man"
+                        android:layout_width="77dp"
+                        android:layout_height="77dp"
+                        android:layout_marginRight="85dp"
+                        android:background="@drawable/radio_man"
+                        android:button="@null">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/radio_sex_woman"
+                        android:layout_width="77dp"
+                        android:layout_height="77dp"
+                        android:background="@drawable/radio_woman"
+                        android:button="@null">
+
+                    </RadioButton>
+                </RadioGroup>
+
+
+                <TextView
+                    android:layout_width="260dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/user_data_birth_hint"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/text_user_birth"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_text_accent_side"
+                    android:gravity="center"
+                    android:hint="@string/birth"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/text_user_timezone"
+                    android:layout_width="245dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_text_accent_side"
+                    android:gravity="center"
+                    android:hint="@string/timezone"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="19sp" />
+
+                <Button
+                    android:id="@+id/bt_affirm"
+                    android:layout_width="168dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_height="49dp"
+                    android:background="@drawable/rounded_text_gray"
+                    android:enabled="false"
+                    android:text="@string/affirm"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="19sp" />
+
+
+            </LinearLayout>
+
+    </ScrollView>
+
+
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

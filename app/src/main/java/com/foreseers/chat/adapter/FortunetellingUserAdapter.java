@@ -10,10 +10,13 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.FortunetellingActivity;
+import com.foreseers.chat.activity.FortunetellingOutlineActivity;
+import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.item.Level0Item;
 import com.foreseers.chat.view.item.Level1Item;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -64,21 +67,7 @@ public class FortunetellingUserAdapter extends BaseMultiItemQuickAdapter<MultiIt
                         } else {
                             expand(pos);
                         }
-                        if (pos==2){
-                            OkGo.<String>post(Urls.Url_LifeBook).tag(this)
-                                    .params("userid", PreferenceManager.getUserId(context))
-                                    .params("name","郑皓")
-                                    .params("date","1993-09-10")
-                                    .params("time","12:00:00")
-                                    .params("gender","M")
-                                    .params("timezone","UTC+06:30")
-                                    .execute(new StringCallback() {
-                                        @Override
-                                        public void onSuccess(Response<String> response) {
 
-                                        }
-                                    });
-                        }
                     }
                 });
                 break;
@@ -91,8 +80,9 @@ public class FortunetellingUserAdapter extends BaseMultiItemQuickAdapter<MultiIt
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(context, FortunetellingActivity.class);
-                                intent.putExtra("lifeuserid",lv1.lifeuserid);
+                                Intent intent = new Intent(context, FortunetellingOutlineActivity.class);
+                                intent.putExtra("lifeuserid",lv1.lifeuserid+"");
+                                intent.putExtra("name",lv1.name+"");
                                 context.startActivity(intent);
                             }
                         });
@@ -101,18 +91,20 @@ public class FortunetellingUserAdapter extends BaseMultiItemQuickAdapter<MultiIt
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                int pos = holder.getAdapterPosition();
-                                //                        int positionAtAll = getParentPositionInAll(pos);
-                                Log.d(TAG, "Level 0 item pos: " + pos);
-                                remove(pos);
-
-                                //                        if (positionAtAll !=0) {
-                                ////                            IExpandable multiItemEntity = (IExpandable) getData().get(positionAtAll);
-                                ////                            if (!hasSubItems(multiItemEntity)) {
-                                ////                                remove(positionAtAll);
-                                ////                            }
-                                //                            remove(pos);
-                                //                        }
+                                OkGo.<String>post(Urls.Url_DeletelifeUser).tag(this)
+                                        .params("userid",PreferenceManager.getUserId(context))
+                                        .params("lifeuserid",lv1.lifeuserid+"")
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onSuccess(Response<String> response) {
+                                                Gson gson=new Gson();
+                                                LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
+                                                if (loginBean.getStatus().equals("success")){
+                                                    int pos = holder.getAdapterPosition();
+                                                    remove(pos);
+                                                }
+                                            }
+                                        });
 
                             }
                         });

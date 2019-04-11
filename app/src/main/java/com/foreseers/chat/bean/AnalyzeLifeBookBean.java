@@ -45,7 +45,7 @@ public class AnalyzeLifeBookBean {
          * userdesc : 一見如故
          * commentgood : null
          * commentbad : null
-         * characteristicgood : null
+         * characteristicgood : · 慢熱、被動\n· 愛出風頭，喜歡人崇拜他\n· 吃軟不吃硬\n· 不喜受约束，獨斷獨行 \n· 跟別人翻面後定必成為陌路人\n· 喜破舊立新\n· 三分鐘熱度\n· 有話說話，不喜歡說謊\n
          * characteristicbad : null
          * mindscore : 78
          * minddesc :
@@ -56,7 +56,7 @@ public class AnalyzeLifeBookBean {
          * distance : 12323
          * spare : TA就是人緣好，身邊超多朋友，身上又散發魅力所以好多異性追TA，想追TA首先要接受這點，千萬不要干擾，不要囉嗦，也不要吃太大的醋！因為TA
          * 就是見友忘情的人，所以不能急，要有耐性～之後要有一件東西可以令TA佩服你，像是專業，感覺你是有料子的，TA就會對你另眼相看的～
-         * spare1 : null
+         * spare1 : TA對你會非常溫柔，肯百份百的付出，不過TA有點霸道，如果你跟異性朋友過多的接觸，TA會吃醋吃很大，心情差時就最好不要碰TA。
          * spare2 : null
          * commentdesc :
          * 你跟TA是同一類人：對自己極有自信，對愛情的期望很高，對感情的需求十分強烈。你們會完全深陷地愛上對方，同時會以愛做藉口不停進行苛索，所以往往越是投入，越是會失望，偏偏二人都愛表現強悍的一面，經常為大小事爭吵，而且互不屈服...... 其實在愛情的國度裡，是沒有高下之分的！贏了糖，輸了廠，值得嗎？
@@ -89,7 +89,7 @@ public class AnalyzeLifeBookBean {
         private String userdesc;
         private Object commentgood;
         private Object commentbad;
-        private Object characteristicgood;
+        private String characteristicgood;
         private Object characteristicbad;
         private int mindscore;
         private String minddesc;
@@ -99,7 +99,7 @@ public class AnalyzeLifeBookBean {
         private String characterdesc;
         private int distance;
         private String spare;
-        private Object spare1;
+        private String spare1;
         private Object spare2;
         private String commentdesc;
         private String characteristicdesc;
@@ -174,12 +174,13 @@ public class AnalyzeLifeBookBean {
             this.commentbad = commentbad;
         }
 
-        public Object getCharacteristicgood() {
-            return characteristicgood;
+        public void setCharacteristicgood(String characteristicgood) {
+            this.characteristicgood = characteristicgood;
         }
 
-        public void setCharacteristicgood(Object characteristicgood) {
-            this.characteristicgood = characteristicgood;
+        public String getCharacteristicgood() {
+
+            return characteristicgood;
         }
 
         public Object getCharacteristicbad() {
@@ -254,12 +255,13 @@ public class AnalyzeLifeBookBean {
             this.spare = spare;
         }
 
-        public Object getSpare1() {
-            return spare1;
+        public void setSpare1(String spare1) {
+            this.spare1 = spare1;
         }
 
-        public void setSpare1(Object spare1) {
-            this.spare1 = spare1;
+        public String getSpare1() {
+
+            return spare1;
         }
 
         public Object getSpare2() {

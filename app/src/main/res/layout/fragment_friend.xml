@@ -17,10 +17,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleBarRightImage="@mipmap/icon_footer_profile_05"
-                app:titleBarTitle="@string/address_list">
+                app:titleBarTitle="@string/address_list"
+            android:elevation="1dp">
 
         </com.foreseers.chat.view.widget.MyTitleBar>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,13 +45,14 @@
                     android:id="@+id/text_num2"/>
 
         </LinearLayout>
-
+        <include
+            android:id="@+id/search_bar_view"
+            layout="@layout/ease_search_bar_with_padding" />
+        </LinearLayout>
     </FrameLayout>
 
 
-    <include
-            android:id="@+id/search_bar_view"
-            layout="@layout/ease_search_bar_with_padding"/>
+
 
     <FrameLayout
             android:id="@+id/content_container"

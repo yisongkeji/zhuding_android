@@ -1,5 +1,6 @@
 package com.foreseers.chat.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import com.foreseers.chat.global.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -28,6 +30,7 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
     @BindView(R.id.layout_frame) FrameLayout layoutFrame;
     @BindView(R.id.text) TextView text;
     @BindView(R.id.layout) FrameLayout layout;
+    @BindView(R.id.text_ok) TextView textOk;
     private WipeHistoryFragment wipeHistoryFragment;
     private FragmentManager fragmentManager;
 
@@ -123,6 +126,17 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
 
     @Override
     public void processHandlerMessage(Message msg) {
+
+    }
+
+    @OnClick(R.id.text_ok)
+    public void onViewClicked() {
+
+        Intent intent=new Intent(this,MainActivity.class);
+        intent.putExtra("position" ,3);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+                .FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     }
 

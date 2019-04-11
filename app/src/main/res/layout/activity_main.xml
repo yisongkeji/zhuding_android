@@ -45,19 +45,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_message_1"
-                    app:iconSelected="@mipmap/icon_header_message_1"
+                    app:iconSelected="@mipmap/icon_header_message_2"
                     app:itemText="@string/item1"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
                     app:textColorSelected="@color/colorAccent" />
 
                 <com.chaychan.library.BottomBarItem
-                    android:id="@+id/buttom_friend"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_friend_1"
-                    app:iconSelected="@mipmap/icon_header_friend_1"
+                    app:iconSelected="@mipmap/icon_header_friend_2"
                     app:itemText="@string/item2"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
@@ -80,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_store_1"
-                    app:iconSelected="@mipmap/icon_header_store_1"
+                    app:iconSelected="@mipmap/icon_header_store_2"
 
                     app:itemText="@string/item4"
                     app:itemTextSize="10sp"
@@ -92,7 +91,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_personal_1"
-                    app:iconSelected="@mipmap/icon_header_personal_1"
+                    app:iconSelected="@mipmap/icon_header_personal_2"
 
                     app:itemText="@string/item5"
                     app:itemTextSize="10sp"
@@ -106,9 +105,10 @@
     <ImageView
         android:id="@+id/img_main"
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:background="@mipmap/icon_header_match_1" />
+        android:background="@mipmap/icon_header_match_1"
+        android:layout_marginBottom="3dp"/>
 
     <LinearLayout
         android:id="@+id/layout_message"
@@ -121,19 +121,15 @@
         android:orientation="horizontal"
         android:visibility="gone">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@mipmap/icon_notice_02" />
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginLeft="3dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="15dp">
 
             <TextView
                 android:id="@+id/text_name"
@@ -157,12 +153,7 @@
                 android:layout_marginTop="2dp"/>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="5dp"
-            android:background="@mipmap/icon_notice_03" />
+
 
     </LinearLayout>
 

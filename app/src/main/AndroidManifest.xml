@@ -159,7 +159,11 @@
         <activity android:name=".activity.FortunetellingActivity" />
         <activity android:name=".activity.FortunetellingUserActivity" />
         <activity android:name=".activity.ReportActivity" />
-        <activity android:name=".activity.ReportReasonsActivity"></activity>
+        <activity android:name=".activity.ReportReasonsActivity" />
+        <activity android:name=".activity.FortunetellingListActivity" />
+        <activity android:name=".activity.FortunetellingContentActivity" />
+        <activity android:name=".activity.FortunetellingDataActivity" />
+        <activity android:name=".activity.FortunetellingOutlineActivity"></activity>
     </application>
 
 </manifest>

@@ -109,8 +109,7 @@ public class BlackListActivity extends BaseActivity {
                                                                                 }).start();
 
                                                                                 OkGo.<String>post(Urls.Url_RemoveBlack).tag(this)
-                                                                                        .params("userid",
-                                                                                                PreferenceManager.getUserId(BlackListActivity.this))
+                                                                                        .params("userid", PreferenceManager.getUserId(BlackListActivity.this))
                                                                                         .params("blackid", item.getUserid() + "")
                                                                                         .execute(new StringCallback() {
                                                                                             @Override

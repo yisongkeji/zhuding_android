@@ -12,11 +12,11 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="73dp">
+            android:layout_height="93dp">
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="71dp"
+                android:layout_height="91dp"
                 android:background="@mipmap/icon_header_case_01" />
 
             <RadioGroup
@@ -35,7 +35,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/foreseers_who_catch_me"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_16" />
 
                 <RadioButton
@@ -47,7 +47,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/foreseers_who_see_me"
-                    android:textColor="@color/colorWhite"
+                    android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_16" />
             </RadioGroup>
 
@@ -104,6 +104,7 @@
 
 
                     <TextView
+                        android:id="@+id/text_ok"
                         android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:text="@string/open_vip"

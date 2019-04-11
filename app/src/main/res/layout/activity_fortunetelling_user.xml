@@ -6,29 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".activity.FortunetellingUserActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:overScrollMode="never">
 
-        <com.foreseers.chat.view.widget.MyTitleBar
-            android:id="@+id/my_titlebar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleBarTitle="@string/foreseers_fortunetelling"
-            app:titleBarLeftImage="@mipmap/icon_me_06" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="11dp"
-            android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+            android:orientation="vertical">
+
+            <com.foreseers.chat.view.widget.MyTitleBar
+                android:id="@+id/my_titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleBarLeftImage="@mipmap/icon_me_06"
+                app:titleBarTitle="@string/foreseers_fortunetelling" />
 
 
-    </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+
+            <LinearLayout
+                android:id="@+id/layout_item3"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view_item3"
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/text_item3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="@dimen/sp_15" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 
     <com.foreseers.chat.view.MyView

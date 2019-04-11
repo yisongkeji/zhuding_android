@@ -139,6 +139,7 @@ public class OpinionActivity extends BaseActivity {
                                 if (aBoolean) {
                                     Matisse.from(OpinionActivity.this)
                                             .choose(MimeType.ofAll(), false)
+                                            .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com.foreseers.chat.fileprovider", "test"))
@@ -199,6 +200,7 @@ public class OpinionActivity extends BaseActivity {
                                 if (aBoolean) {
                                     Matisse.from(OpinionActivity.this)
                                             .choose(MimeType.ofAll(), false)
+                                            .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com.foreseers.chat.fileprovider", "test"))
@@ -258,6 +260,7 @@ public class OpinionActivity extends BaseActivity {
                                 if (aBoolean) {
                                     Matisse.from(OpinionActivity.this)
                                             .choose(MimeType.ofAll(), false)
+                                            .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .capture(true)
                                             .captureStrategy(new CaptureStrategy(true, "com.foreseers.chat.fileprovider", "test"))

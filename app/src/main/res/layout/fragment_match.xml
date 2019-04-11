@@ -45,57 +45,18 @@
     </FrameLayout>
 
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
 
-        <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@mipmap/icon_header_case_01"
-                android:elevation="3dp">
-
-            <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="18dp"
-                    android:orientation="horizontal">
-
-                <ImageView
-                        android:layout_width="17dp"
-                        android:layout_height="15dp"
-                        android:background="@mipmap/icon_header_eraser_01"/>
-
-                <TextView
-                        android:id="@+id/text_canums_num"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="8sp"
-                        android:layout_marginLeft="5dp"/>
-            </LinearLayout>
-
-            <ImageView
-                    android:id="@+id/img_match_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right|bottom"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:padding="8dp"
-                    android:src="@mipmap/icon_footer_profile_01"/>
-
-        </FrameLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+            android:layout_marginTop="70dp">
 
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_people"
@@ -105,6 +66,48 @@
                     android:overScrollMode="never"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@mipmap/icon_header_case_01"
+        android:elevation="3dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="15dp"
+                android:background="@mipmap/icon_header_eraser_01"/>
+
+            <TextView
+                android:id="@+id/text_canums_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="@color/colorBlack"
+                android:textSize="8sp"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_match_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right|bottom"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="25dp"
+            android:padding="8dp"
+            android:src="@mipmap/icon_footer_profile_01"/>
+
+    </FrameLayout>
+
+    <!--</LinearLayout>-->
 
 </FrameLayout>

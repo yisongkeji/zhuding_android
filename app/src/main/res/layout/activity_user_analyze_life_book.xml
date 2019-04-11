@@ -23,7 +23,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,20 +165,22 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/text_1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="@string/character1"
                                     android:textColor="@color/colorBlue"
-                                    android:textSize="15sp" />
+                                    android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/characterScoreTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
 
-                                    android:textSize="@dimen/sp_15" />
+                                    android:textColor="@color/colorBlue"
+                                    android:layout_centerInParent="true"
+                                    android:textSize="20sp" />
 
                             </LinearLayout>
 
@@ -204,20 +207,23 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/text_2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="@string/spirit"
                                     android:textColor="@color/colorPink"
-                                    android:textSize="15sp" />
+                                    android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/mindScoreTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:text="0"
-                                    android:textSize="@dimen/sp_15" />
+
+                                    android:textColor="@color/colorPink"
+
+                                    android:textSize="20sp" />
 
                             </LinearLayout>
 
@@ -244,20 +250,23 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/text_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:text="@string/body"
                                     android:textColor="@color/colorGreen"
-                                    android:textSize="15sp" />
+                                    android:textSize="20sp" />
 
                                 <TextView
                                     android:id="@+id/bodyScoreTxt"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
+
+                                    android:textColor="@color/colorGreen"
                                     android:text="0"
-                                    android:textSize="@dimen/sp_15" />
+                                    android:textSize="20sp" />
 
                             </LinearLayout>
 
@@ -351,12 +360,55 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/colorGray2" />
 
+                <!--ta的个性-->
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="14dp"
-                    android:background="@mipmap/ui_iandta_getalong_zh_hk" />
+                    android:background="@mipmap/icon_login_analysis_01" />
+
+                <TextView
+                    android:id="@+id/text_characteristicgood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorGray2" />
+                <!--他的潜在个性-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@mipmap/icon_login_analysis_03" />
+
+                <TextView
+                    android:id="@+id/text_characteristicdesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorGray2" />
+                <!--相处模式-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@mipmap/icon_login_analysis_02" />
 
 
                 <TextView
@@ -373,33 +425,15 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/colorGray2" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="19dp"
-                    android:layout_marginTop="14dp"
-                    android:background="@mipmap/ui_iandta_individuality_zh_hk" />
 
-                <TextView
-                    android:id="@+id/text_characteristicdesc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginRight="20dp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/colorGray2" />
+                <!--如何追求她-->
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="14dp"
-                    android:background="@mipmap/ui_iandta_chase_zh_hk" />
+                    android:background="@mipmap/icon_login_analysis_05" />
 
                 <TextView
                     android:id="@+id/text_courtingdesc"
@@ -408,6 +442,30 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="14dp"
                     android:layout_marginRight="20dp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorGray2" />
+
+
+                <!--如何对待另一半-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@mipmap/icon_login_analysis_04" />
+
+                <TextView
+                    android:id="@+id/text_spare1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="30dp"/>
 
             </LinearLayout>
 

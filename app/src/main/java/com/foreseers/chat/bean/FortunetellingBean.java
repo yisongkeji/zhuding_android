@@ -12,9 +12,9 @@ public class FortunetellingBean {
 
     /**
      * status : success
-     * data : [{"name":"自身","sign":1,"storeId":"free"},{"name":"愛情","sign":0,"storeId":"iap1"},{"name":"事業及學業","sign":0,"storeId":"iap2"},
-     * {"name":"資產及財運","sign":0,"storeId":"iap3"},{"name":"家庭及人際","sign":0,"storeId":"iap4"},{"name":"2018流年運程","sign":0,"storeId":"iap6"},
-     * {"name":"2019流年運程","sign":0,"storeId":"iap7"}]
+     * data : [{"size":11,"name":"自身","sign":1,"storeId":"free"},{"size":9,"name":"愛情","sign":0,"storeId":"iap1"},{"size":12,"name":"事業及學業",
+     * "sign":0,"storeId":"iap2"},{"size":8,"name":"資產及財運","sign":0,"storeId":"iap3"},{"size":8,"name":"家庭及人際","sign":0,"storeId":"iap4"},
+     * {"size":13,"name":"2018流年運程","sign":0,"storeId":"iap6"},{"size":13,"name":"2019流年運程","sign":0,"storeId":"iap7"}]
      */
 
     private String status;
@@ -30,15 +30,40 @@ public class FortunetellingBean {
 
     public static class DataBean {
         /**
+         * size : 11
          * name : 自身
          * sign : 1
          * storeId : free
+         * lifeuserid
+         * colour
+         * price
          */
 
+        private int size;
         private String name;
         private int sign;
-        private String storeId;
         private int colour;
+        private String storeId;
+        private String lifeuserid;
+        private String price;
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public String getPrice() {
+
+            return price;
+        }
+
+        public void setLifeuserid(String lifeuserid) {
+            this.lifeuserid = lifeuserid;
+        }
+
+        public String getLifeuserid() {
+
+            return lifeuserid;
+        }
 
         public void setColour(int colour) {
             this.colour = colour;
@@ -48,6 +73,10 @@ public class FortunetellingBean {
 
             return colour;
         }
+
+        public int getSize() { return size;}
+
+        public void setSize(int size) { this.size = size;}
 
         public String getName() { return name;}
 

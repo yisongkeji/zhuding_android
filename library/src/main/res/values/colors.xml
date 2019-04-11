@@ -8,7 +8,7 @@
     <color name="pop_bg_translucent">#01000000</color>
     <color name="pop_bg_translucent_half">#70000000</color>
 
-    <color name="pop_item_text_normal_color">#01bca8</color>
+    <color name="pop_item_text_normal_color">#f58ca2</color>
     <color name="pop_item_text_cancel_color">#ffffff</color>
     <color name="pop_item_text_warning_color">#FF3B30</color>
     <color name="pop_item_bg_pressed">#EBEBEB</color>
