@@ -55,8 +55,8 @@ public class MyApplication extends Application {
         mContext = this;
         instance = this;
         typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/mytypeface.TTF");
-//        initOkGo();
-        OkGo.getInstance().init(this);
+        initOkGo();
+//        OkGo.getInstance().init(this);
         // 初始化环信SDK
         initEasemob();
         MultiDex.install(mContext);
@@ -82,18 +82,18 @@ public class MyApplication extends Application {
 
         //https相关设置，
         //信任所有证书,不安全有风险
-//        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
-//        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
+        HttpsUtils.SSLParams sslParams1 = HttpsUtils.getSslSocketFactory();
+        builder.sslSocketFactory(sslParams1.sSLSocketFactory, sslParams1.trustManager);
 
         //使用预埋证书，校验服务端证书（自签名证书）
-        HttpsUtils.SSLParams sslParams3 = null;
-        try {
-            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
-            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        HttpsUtils.SSLParams sslParams3 = null;
+//        try {
+//            sslParams3 = HttpsUtils.getSslSocketFactory(getAssets().open("foreseers.cer"));
+//            builder.sslSocketFactory(sslParams3.sSLSocketFactory, sslParams3.trustManager);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         //配置https的域名匹配规则
         builder.hostnameVerifier(new SafeHostnameVerifier());
