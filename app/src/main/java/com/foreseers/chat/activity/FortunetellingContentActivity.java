@@ -3,6 +3,7 @@ package com.foreseers.chat.activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -93,7 +94,7 @@ public class FortunetellingContentActivity extends BaseActivity {
             case DATASUCCESS:
                 Glide.with(this).load(dataBeanList.get(0).getIcon()).into(img);
 //                GlideUtil.glide(this,dataBeanList.get(0).getIcon(),img);
-                textContent.setText(dataBeanList.get(0).getComment());
+                textContent.setText(Html.fromHtml(dataBeanList.get(0).getComment()));
 
                 break;
         }

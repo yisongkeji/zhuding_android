@@ -10,59 +10,66 @@
 
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <com.foreseers.chat.view.widget.MyTitleBar
-                android:id="@+id/my_titlebar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleBarRightImage="@mipmap/icon_footer_profile_05"
-                app:titleBarTitle="@string/address_list"
-            android:elevation="1dp">
+            android:id="@+id/my_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            app:titleBarRightImage="@mipmap/icon_footer_profile_05"
+            app:titleBarTitle="@string/address_list">
 
         </com.foreseers.chat.view.widget.MyTitleBar>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
+
+
+            <include
+                android:id="@+id/search_bar_view"
+                layout="@layout/ease_search_bar_with_padding" />
+        </LinearLayout>
+
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="55dp"
+            android:orientation="horizontal"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/text_num1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/text_num1"
-                    android:textColor="@color/colorWhite"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/text_num2"/>
+                android:text="0"
+                android:textColor="@color/colorBlack" />
 
-        </LinearLayout>
-        <include
-            android:id="@+id/search_bar_view"
-            layout="@layout/ease_search_bar_with_padding" />
+            <TextView
+                android:id="@+id/text_num2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack" />
+
         </LinearLayout>
     </FrameLayout>
 
 
-
-
     <FrameLayout
-            android:id="@+id/content_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.hyphenate.easeui.widget.EaseContactList
-                android:id="@+id/contact_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            android:id="@+id/contact_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <!-- hyphenate:ctsListInitialLetterBg="#abc" -->
 
     </FrameLayout>

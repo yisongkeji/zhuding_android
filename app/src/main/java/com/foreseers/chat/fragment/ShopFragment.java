@@ -17,6 +17,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.activity.FortunetellingUserActivity;
 import com.foreseers.chat.bean.BannerData;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.ShopCheckBean;
 import com.foreseers.chat.bean.ShoppingIDBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.bill.IabBroadcastReceiver;
@@ -310,7 +311,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-
+                                    getCanumsNum();
                                 }
                             });
                 } catch (Exception e) {

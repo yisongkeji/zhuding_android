@@ -55,8 +55,8 @@ public class MyApplication extends Application {
         mContext = this;
         instance = this;
         typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/mytypeface.TTF");
-        initOkGo();
-//        OkGo.getInstance().init(this);
+//        initOkGo();
+        OkGo.getInstance().init(this);
         // 初始化环信SDK
         initEasemob();
         MultiDex.install(mContext);
@@ -131,7 +131,11 @@ public class MyApplication extends Application {
             return true;
         }
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     public static void setTypeface(Typeface typeface) {
         MyApplication.typeface = typeface;
     }

@@ -75,22 +75,6 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_analyze_life_book);
-        ButterKnife.bind(this);
-        getData();
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
-
-    private void getData() {
-
-        userid = getIntent().getStringExtra("userid");
-
-        getDataFormHttp();
     }
 
     private void getDataFormHttp() {
@@ -147,22 +131,29 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
 
     @Override
     public AppCompatActivity getActivity() {
-        return null;
+        return this;
     }
 
     @Override
     public void initViews() {
-
+        setContentView(R.layout.activity_user_analyze_life_book);
+        ButterKnife.bind(this);
     }
 
     @Override
     public void initDatas() {
-
+        userid = getIntent().getStringExtra("userid");
+        getDataFormHttp();
     }
 
     @Override
     public void installListeners() {
-
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -202,7 +193,8 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
                 Log.i("11111111", characterscore + "   " + mindscore + "    " + bodyscore);
 
                 progressMatchingRate.setProgress(dataBean.getUserscore());
-                progressText.setText(this.getResources().getString(R.string.progress )+ dataBean.getUserscore() + "%");
+                progressText.setText(this.getResources()
+                                             .getString(R.string.progress) + dataBean.getUserscore() + "%");
                 textCommentdesc.setText(dataBean.getCommentdesc());
                 textCharacteristicgood.setText(dataBean.getCharacteristicgood());
                 textCharacteristicdesc.setText(dataBean.getCharacteristicdesc());
@@ -210,7 +202,8 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
                 textSpare1.setText(dataBean.getSpare1());
                 break;
             case DATAFELLED:
-                Toast.makeText(UserAnalyzeLifeBookActivity.this, "网络连接失败", Toast.LENGTH_SHORT)
+                Toast.makeText(UserAnalyzeLifeBookActivity.this, getActivity().getResources()
+                        .getString(R.string.text_err), Toast.LENGTH_SHORT)
                         .show();
                 break;
         }

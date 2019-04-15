@@ -118,7 +118,7 @@ public class UserDetailsActivity extends BaseActivity {
 
     @Override
     public AppCompatActivity getActivity() {
-        return null;
+        return this;
     }
 
     @Override
@@ -505,7 +505,7 @@ public class UserDetailsActivity extends BaseActivity {
 
                 break;
             case DATAFELLED:
-                Toast.makeText(UserDetailsActivity.this, "网络连接失败", Toast.LENGTH_SHORT)
+                Toast.makeText(UserDetailsActivity.this, getActivity().getResources().getString(R.string.text_err), Toast.LENGTH_SHORT)
                         .show();
                 break;
             case ANIMATION:
@@ -524,7 +524,7 @@ public class UserDetailsActivity extends BaseActivity {
     }
 
     public void refresh() {
-        OkGo.<String>post(Urls.Url_AnalyzeLifeBook).tag(this)
+        OkGo.<String>post(Urls.Url_AnalyzeLifeBookInfo).tag(this)
                 .params("uid", PreferenceManager.getUserId(this))
                 .params("userid", userid)
                 .execute(new StringCallback() {

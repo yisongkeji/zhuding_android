@@ -176,16 +176,10 @@
                                 android:textSize="@dimen/sp_10" />
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/text1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="right"
-                            android:text="¥180"
-                            android:textSize="@dimen/sp_10" />
+
 
                         <TextView
+                            android:id="@+id/text1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="¥108"
@@ -237,16 +231,10 @@
                             android:textSize="@dimen/sp_10" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:text="¥45"
-                        android:textSize="@dimen/sp_10" />
+
 
                     <TextView
+                        android:id="@+id/text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥36"
@@ -284,15 +272,10 @@
                             android:textSize="@dimen/sp_10" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
 
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:textSize="@dimen/sp_10" />
 
                     <TextView
+                        android:id="@+id/text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥15"

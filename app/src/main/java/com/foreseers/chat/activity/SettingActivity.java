@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.foreseers.chat.R;
 import com.foreseers.chat.dialog.InformDialog;
 import com.foreseers.chat.global.BaseActivity;
@@ -265,12 +266,13 @@ public class SettingActivity extends BaseActivity {
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.clear();
                         editor.commit();
-
+                        LoginManager.getInstance().logOut();
                         startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
                                 .FLAG_ACTIVITY_NEW_TASK));
 
                     }
                 });
+
             }
 
             @Override

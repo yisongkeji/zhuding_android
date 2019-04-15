@@ -16,6 +16,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.FortunetellingAdapter;
 import com.foreseers.chat.bean.FortunetellingBean;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.ShopCheckBean;
 import com.foreseers.chat.bean.ShoppingIDBean;
 import com.foreseers.chat.bill.IabBroadcastReceiver;
 import com.foreseers.chat.bill.IabHelper;
@@ -92,50 +93,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
                 //                MyLog.d(TAG, "Setup successful. Querying inventory.");
 
-                //                OkGo.<String>get(Urls.Url_ShoppingID).tag(this)
-                //                        .execute(new StringCallback() {
-                //                            @Override
-                //                            public void onSuccess(Response<String> response) {
-                //                                Gson gson = new Gson();
-                //                                LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                //                                if (loginBean.getStatus()
-                //                                        .equals("success")) {
-                //                                    shoppingIDBean = gson.fromJson(response.body(), ShoppingIDBean.class);
-                //                                    dataBeanList = shoppingIDBean.getData();
-                //
-                //                                    for (int i = 0; i < dataBeanList.size(); i++) {
-                //                                        if (dataBeanList.get(i)
-                //                                                .get(0)
-                //                                                .getType()
-                //                                                .equals("vip")) {
-                //                                            vipBeans = dataBeanList.get(i);
-                //                                            for (int j = 0; j < vipBeans.size(); j++) {
-                //                                                skuList.add(vipBeans.get(j)
-                //                                                                    .getGoogleID());
-                //                                            }
-                //                                        }
-                //                                        if (dataBeanList.get(i)
-                //                                                .get(0)
-                //                                                .getType()
-                //                                                .equals("item")) {
-                //                                            eraserBeans = dataBeanList.get(i);
-                //                                            for (int k = 0; k < eraserBeans.size(); k++) {
-                //                                                skuList.add(eraserBeans.get(k)
-                //                                                                    .getGoogleID());
-                //                                            }
-                //                                        }
-                //                                    }
-                //                                    getHandler().obtainMessage(SKUSUCCESS)
-                //                                            .sendToTarget();
-                //                                }
-                //                            }
-                //
-                //                            @Override
-                //                            public void onError(Response<String> response) {
-                //                                super.onError(response);
-                //                                Log.i(TAG, "onError: ");
-                //                            }
-                //                        });
+
             }
         });
     }
@@ -169,7 +127,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     public void initDatas() {
 
         OkGo.<String>post(Urls.Url_LifeBookCate).tag(this)
-                .params("lifeuserid", getIntent().getIntExtra("lifeuserid", 0))
+                .params("lifeuserid",lifeuserid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -208,6 +166,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
+
                     String payload = "";
                     String productId = packageName + dataBean.getStoreId();
 
@@ -305,15 +264,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     //                    complain("Error consuming item. Another async operation in progress.");
                 }
             }
-            //            Purchase itemPurchase = inventory.getPurchase(packageName + product1);
-            //            if (itemPurchase != null && verifyDeveloperPayload(itemPurchase)) {
-            //                try {
-            //                    mHelper.consumeAsync(inventory.getPurchase(packageName + product1), mConsumeFinishedListener);
-            //                } catch (IabHelper.IabAsyncInProgressException e) {
-            ////                    complain("Error consuming item. Another async operation in progress.");
-            //                }
-            //                return;
-            //            }
+
         }
     };
 
@@ -369,12 +320,21 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     Log.i(TAG, "onConsumeFinished: productId" + productId + "     purchaseToken" + purchaseToken);
                     OkGo.<String>post(Urls.Url_Shopping).tag(this)
                             .params("userid", PreferenceManager.getUserId(getActivity()))
+                            .params("lifeuserid", lifeuserid)
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    initDatas();
+                                    Gson gson=new Gson();
+                                    LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
+                                    if (loginBean.getStatus().equals("success")){
+                                        ShopCheckBean shopCheckBean=gson.fromJson(response.body(),ShopCheckBean.class);
+                                        if (shopCheckBean.getData().getStatus()==1){
+                                            initDatas();
+                                        }
+                                    }
+
                                 }
                             });
                 } catch (Exception e) {
@@ -426,7 +386,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
         if (mHelper == null) {
             return;
         }
-
+        if (requestCode == 10001) {
         // Pass on the activity result to the helper for handling
         if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
             // not handled, so handle it ourselves (here's where you'd
@@ -435,6 +395,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
             super.onActivityResult(requestCode, resultCode, data);
         } else {
 
+        }
         }
     }
 

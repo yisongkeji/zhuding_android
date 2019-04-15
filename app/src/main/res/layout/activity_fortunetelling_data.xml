@@ -42,7 +42,8 @@
                     android:background="@drawable/rounded_text_accent_side"
                     android:gravity="center"
                     android:maxLength="20"
-                    android:textColor="@color/colorAccent" />
+                    android:textColor="@color/colorAccent"
+                    android:hint="@string/text_long" />
 
                 <RadioGroup
                     android:id="@+id/radio_user_sex"

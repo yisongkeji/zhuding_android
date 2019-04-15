@@ -319,5 +319,8 @@
     <string name="text_go_lifebook">进入命书</string>
     <string name="text_harmony_zodiac">合拍生肖</string>
 
+    <string name="text_long">长度最小为二</string>
+    <string name="text_err">网络连接失败</string>
+
 
 </resources>

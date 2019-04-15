@@ -22,6 +22,7 @@ public class Urls {
     //match
     public static final String Url_UserLocation = URL + "/match/matching";//主页
     public static final String Url_AnalyzeLifeBook = URL + "/match/showUser";//推荐详情
+    public static final String Url_AnalyzeLifeBookInfo = URL + "/match/userInfo";//推荐详情
 
     //相册
     public static final String Url_UserImg = URL + "/userimage/upload";//相册
@@ -72,7 +73,7 @@ public class Urls {
     public static final String Url_LifebookUser = Url_Life + "lifebookUser";//命书用户概要
     public static final String Url_LifeBookCate = Url_Life + "lifeBookCate";//算命事项
     public static final String Url_LifeBookDetail = Url_Life + "lifeBookDetail";//算命细则
-    public static final String Url_LifeBookDetailname = Url_Life + "lifeBookDetailname";
+    public static final String Url_LifeBookDetailname = Url_Life + "lifeBookDetailname";//命书内容
     public static final String Url_DeletelifeUser = Url_Life + "deletelifeUser";//删除命书用户
 
     //本地保存
