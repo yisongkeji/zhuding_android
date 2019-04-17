@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             case R.id.login_wechat:
                 facebookid= "467979503606542";
-//                facebookid= "567979503606543";//刘海强
+//                facebookid= "0000000000008";//刘海强
 
 //                facebookid= "46797950360653";
 //                facebookid= "46797950360652333";//齐瑞宁

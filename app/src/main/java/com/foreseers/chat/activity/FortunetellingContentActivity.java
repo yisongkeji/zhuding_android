@@ -9,10 +9,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.dd.plist.NSDictionary;
+import com.dd.plist.PropertyListFormatException;
+import com.dd.plist.PropertyListParser;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.FortunetellingContentBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -21,8 +25,14 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +45,7 @@ public class FortunetellingContentActivity extends BaseActivity {
     private Bundle bundle;
     private FortunetellingContentBean dataBean;
     private List<FortunetellingContentBean.DataBean> dataBeanList = new ArrayList<>();
-
+    private NSDictionary dic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +62,21 @@ public class FortunetellingContentActivity extends BaseActivity {
         ButterKnife.bind(this);
         bundle = getIntent().getExtras();
         myTitlebar.setTitle(bundle.getString("title"));
+        try {
+            dic = (NSDictionary) PropertyListParser.parse(MyApplication.getContext()
+                                                                  .getAssets()
+                                                                  .open("LifeBook.plist"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PropertyListFormatException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -92,8 +117,9 @@ public class FortunetellingContentActivity extends BaseActivity {
 
         switch (msg.what) {
             case DATASUCCESS:
-                Glide.with(this).load(dataBeanList.get(0).getIcon()).into(img);
+//                Glide.with(this).load(dataBeanList.get(0).getIcon()).into(img);
 //                GlideUtil.glide(this,dataBeanList.get(0).getIcon(),img);
+                img.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBeanList.get(0).getIcon())).toJavaObject().toString(), "mipmap", getPackageName()));
                 textContent.setText(Html.fromHtml(dataBeanList.get(0).getComment()));
 
                 break;

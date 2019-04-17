@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 
 import com.example.com.statusbarutil.StatusBarUtil;
 import com.foreseers.chat.R;
@@ -20,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        StatusNavUtils.setStatusBarColor(this, 0x00000000);
         StatusBarUtil.setImmersiveStatusBar(this, true);
 
         mHandler = new Handler() {
@@ -38,4 +39,24 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseAct
     public Handler getHandler() {
         return mHandler;
     }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(isCanClick()){
+//            return  super.onKeyDown(keyCode, event);
+//        }
+//        return false;
+//    }
+//    private long currentTime = 0;
+//    private boolean isCanClick() {//限制按钮最少每隔1秒点击一次
+//        Log.e("onKeyDown", "System.currentTimeMillis(): "+System.currentTimeMillis()+"      currentTime: "+currentTime+"\n"+"time: " +(System.currentTimeMillis() - currentTime));
+//        if (System.currentTimeMillis() - currentTime > 1000) {
+//            currentTime = System.currentTimeMillis();
+//            Log.e("onKeyDown", "isCanClick: "+currentTime);
+//            return true;
+//        } else {
+//            Log.e("onKeyDown", "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@false");
+//            return false;
+//        }
+//    }
+
 }

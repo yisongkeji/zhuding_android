@@ -29,6 +29,7 @@ import android.support.v4.app.NotificationCompat;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.EaseUI.EaseSettingsProvider;
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
 import com.hyphenate.util.EasyUtils;
@@ -286,7 +287,8 @@ public class EaseNotifier {
 
             if (settingsProvider.isMsgSoundAllowed(message)) {
                 if (ringtone == null) {
-                    Uri notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                    Uri notificationUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Uri notificationUri = Uri.parse(  "android.resource://" + appContext.getPackageName() + "/"+R.raw.newmessage);
 
                     ringtone = RingtoneManager.getRingtone(appContext, notificationUri);
                     if (ringtone == null) {

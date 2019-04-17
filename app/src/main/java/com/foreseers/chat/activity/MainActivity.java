@@ -1,7 +1,9 @@
 package com.foreseers.chat.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -76,6 +78,8 @@ public class MainActivity extends SupportActivity {
     private ContactListener contactListener;
     private int messNum;
     private SharedPreferences sharedPreferences;
+    private SoundPool soundPool;
+    private int soundID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +195,7 @@ public class MainActivity extends SupportActivity {
     }
 
     private void initView() {
+        initSound();
         int position =getIntent().getIntExtra("position",2);
         //        聊天
         chatFragment = new ChatFragment();
@@ -235,6 +240,7 @@ public class MainActivity extends SupportActivity {
                         mBottomBarLayout.hideNotify(1);
                         break;
                 }
+                playSound();
             }
         });
 
@@ -246,6 +252,24 @@ public class MainActivity extends SupportActivity {
         transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
         transaction.commit();
     }
+    @SuppressLint("NewApi")
+    private void initSound() {
+        soundPool = new SoundPool.Builder().build();
+        soundID = soundPool.load(this, R.raw.bottombar, 1);
+    }
+
+
+    private void playSound() {
+        soundPool.play(
+                soundID,
+                0.1f,      //左耳道音量【0~1】
+                0.5f,      //右耳道音量【0~1】
+                0,         //播放优先级【0表示最低优先级】
+                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                1          //播放速度【1是正常，范围从0~2】
+                      );
+    }
+
 
     private final int DATASUCCESS = 1;
     private final int GETmessNum = 2;
@@ -332,6 +356,7 @@ public class MainActivity extends SupportActivity {
         EMClient.getInstance()
                 .contactManager()
                 .removeContactListener(contactListener);
+        soundPool.release();
     }
 
     @OnClick(R.id.img_main)

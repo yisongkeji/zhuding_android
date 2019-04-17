@@ -151,10 +151,13 @@ public class FriendFragment extends EaseBaseFragment {
 
                         Gson gson = new Gson();
                         FriendNumBean friendNumBean = gson.fromJson(response.body(), FriendNumBean.class);
-                        textNum2.setText(friendNumBean.getData()
-                                                 .getFriendNums() + "");
-                        textNum1.setText(friendNumBean.getData()
-                                                 .getUsenums() + "/");
+                        if (textNum2!=null){
+                            textNum2.setText(friendNumBean.getData()
+                                                     .getFriendNums() + "");
+                            textNum1.setText(friendNumBean.getData()
+                                                     .getUsenums() + "/");
+                        }
+
                     }
                 });
 
@@ -165,31 +168,8 @@ public class FriendFragment extends EaseBaseFragment {
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
-                        if (friendBean.getStatus()
-                                .equals("success")) {
-                            map.clear();
-                            sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-                            //                            sharedPreferences.edit().clear().commit();
+                        if (friendBean.getStatus().equals("success")) {
                             dataBeans = friendBean.getData();
-                            for (int i = 0; i < dataBeans.size(); i++) {
-                                easeUser = new EaseUser(dataBeans.get(i)
-                                                                .getUserid() + "");
-                                easeUser.setAvatar(dataBeans.get(i)
-                                                           .getUserhead());
-                                easeUser.setNickname(dataBeans.get(i)
-                                                             .getUsername());
-
-                                sharedPreferences.edit()
-                                        .putString(dataBeans.get(i)
-                                                           .getUserid() + "", dataBeans.get(i)
-                                                           .getUsername() + "&" + dataBeans.get(i)
-                                                .getUserhead())
-                                        .commit();
-
-                                map.put(dataBeans.get(i)
-                                                .getUserid() + "", easeUser);
-                                Log.i(TAG, "onSuccessmap: " + map);
-                            }
                             mHandler.obtainMessage(DATASUCCESS)
                                     .sendToTarget();
 
@@ -345,7 +325,7 @@ public class FriendFragment extends EaseBaseFragment {
 
     @Override
     public void onDestroy() {
-
+OkGo.getInstance().cancelTag(this);
         EMClient.getInstance()
                 .removeConnectionListener(connectionListener);
 
@@ -554,8 +534,36 @@ public class FriendFragment extends EaseBaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    setContactsMap(map);
-                    refresh();
+                    if (textNum1!=null){
+                        map.clear();
+                        sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
+                        //                            sharedPreferences.edit().clear().commit();
+
+                        for (int i = 0; i < dataBeans.size(); i++) {
+                            easeUser = new EaseUser(dataBeans.get(i)
+                                                            .getUserid() + "");
+                            easeUser.setAvatar(dataBeans.get(i)
+                                                       .getUserhead());
+                            easeUser.setNickname(dataBeans.get(i)
+                                                         .getUsername());
+
+                            sharedPreferences.edit()
+                                    .putString(dataBeans.get(i)
+                                                       .getUserid() + "", dataBeans.get(i)
+                                                       .getUsername() + "&" + dataBeans.get(i)
+                                            .getUserhead())
+                                    .commit();
+
+                            map.put(dataBeans.get(i)
+                                            .getUserid() + "", easeUser);
+                            Log.i(TAG, "onSuccessmap: " + map);
+                        }
+
+                        setContactsMap(map);
+                        refresh();
+                    }
+
+
                     break;
                 case DATAFELLED:
 

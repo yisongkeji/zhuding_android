@@ -1,11 +1,13 @@
 package com.foreseers.chat.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -110,6 +112,8 @@ public class UserDetailsActivity extends BaseActivity {
     private WipeDialog wiped;
     private BlackDialog blackDialog;
     private int numuser;
+    private int soundID;
+    private SoundPool soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +133,7 @@ public class UserDetailsActivity extends BaseActivity {
         //设置自动轮播，默认为true
         banner.setAutoPlay(false);
 
+        initSound();
     }
 
     @Override
@@ -366,6 +371,7 @@ public class UserDetailsActivity extends BaseActivity {
                                                     refresh();
                                                     imgAni.setVisibility(View.VISIBLE);
                                                     animationDrawable.start();
+                                                    playSound();
                                                     new Thread(new Runnable() {
                                                         @Override
                                                         public void run() {
@@ -664,5 +670,27 @@ public class UserDetailsActivity extends BaseActivity {
             Glide.with(context).load(data).into(mImageView);
         }
     }
+    @SuppressLint("NewApi")
+    private void initSound() {
+        soundPool = new SoundPool.Builder().build();
+        soundID = soundPool.load(this, R.raw.eraser, 1);
+    }
 
+
+    private void playSound() {
+        soundPool.play(
+                soundID,
+                0.1f,      //左耳道音量【0~1】
+                0.5f,      //右耳道音量【0~1】
+                0,         //播放优先级【0表示最低优先级】
+                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                1          //播放速度【1是正常，范围从0~2】
+                      );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        soundPool.release();
+    }
 }

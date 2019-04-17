@@ -49,7 +49,8 @@
                     app:itemText="@string/item1"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent" />
+                    app:textColorSelected="@color/colorAccent"
+                    app:itemMarginTop="5dp" />
 
                 <com.chaychan.library.BottomBarItem
                     android:layout_width="0dp"
@@ -60,7 +61,8 @@
                     app:itemText="@string/item2"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent" />
+                    app:textColorSelected="@color/colorAccent"
+                    app:itemMarginTop="5dp" />
 
 
                 <com.chaychan.library.BottomBarItem
@@ -84,7 +86,8 @@
                     app:itemText="@string/item4"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent" />
+                    app:textColorSelected="@color/colorAccent"
+                    app:itemMarginTop="5dp" />
 
                 <com.chaychan.library.BottomBarItem
                     android:layout_width="0dp"
@@ -96,7 +99,8 @@
                     app:itemText="@string/item5"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent" />
+                    app:textColorSelected="@color/colorAccent"
+                    app:itemMarginTop="5dp" />
             </com.chaychan.library.BottomBarLayout>
         </LinearLayout>
 

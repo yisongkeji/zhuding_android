@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.bean.RecommendBean;
+import com.foreseers.chat.util.CustomClickListener;
 import com.foreseers.chat.util.GlideUtil;
 
 import java.util.List;
@@ -77,10 +79,9 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
 
         baseViewHolder.getView(R.id.item_background).findViewById(R.id.item_background)
-                .setOnClickListener(new View.OnClickListener() {
+                .setOnClickListener(new CustomClickListener() {
                     @Override
-                    public void onClick(View view) {
-
+                    protected void onSingleClick() {
                         Intent intent = new Intent(context, UserDetailsActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("userid", item.getId() + "");
@@ -89,6 +90,10 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
 
                         intent.putExtras(bundle);
                         context.startActivity(intent);
+                    }
+
+                    @Override
+                    protected void onFastClick() {
                     }
                 });
 

@@ -96,5 +96,92 @@
         <key>7</key><string>life7</string>
         <key>8</key><string>life8</string>
         <key>9</key><string>life9</string>
+
+
+
+        <key>https://docs.foreseers.com/lifebook/a1.png</key><string>a1_1</string>
+        <key>https://docs.foreseers.com/lifebook/a2.png</key><string>a2_1</string>
+        <key>https://docs.foreseers.com/lifebook/a3.png</key><string>a3_1</string>
+
+        <key>https://docs.foreseers.com/lifebook/a1.jpg</key><string>a1</string>
+        <key>https://docs.foreseers.com/lifebook/a2.jpg</key><string>a2</string>
+        <key>https://docs.foreseers.com/lifebook/a3.jpg</key><string>a3</string>
+        <key>https://docs.foreseers.com/lifebook/a4.jpg</key><string>a4</string>
+        <key>https://docs.foreseers.com/lifebook/a5.jpg</key><string>a5</string>
+        <key>https://docs.foreseers.com/lifebook/a6.jpg</key><string>a6</string>
+        <key>https://docs.foreseers.com/lifebook/a7.jpg</key><string>a7</string>
+        <key>https://docs.foreseers.com/lifebook/a8.jpg</key><string>a8</string>
+        <key>https://docs.foreseers.com/lifebook/a9.jpg</key><string>a9</string>
+        <key>https://docs.foreseers.com/lifebook/a10.jpg</key><string>a10</string>
+        <key>https://docs.foreseers.com/lifebook/a11.jpg</key><string>a11</string>
+        <key>https://docs.foreseers.com/lifebook/b1.jpg</key><string>b1</string>
+        <key>https://docs.foreseers.com/lifebook/b2.jpg</key><string>b2</string>
+        <key>https://docs.foreseers.com/lifebook/b3.jpg</key><string>b3</string>
+        <key>https://docs.foreseers.com/lifebook/b4.jpg</key><string>b4</string>
+        <key>https://docs.foreseers.com/lifebook/b5.jpg</key><string>b5</string>
+        <key>https://docs.foreseers.com/lifebook/b6.jpg</key><string>b6</string>
+        <key>https://docs.foreseers.com/lifebook/b7.jpg</key><string>b7</string>
+        <key>https://docs.foreseers.com/lifebook/b8.jpg</key><string>b8</string>
+        <key>https://docs.foreseers.com/lifebook/b9.jpg</key><string>b9</string>
+        <key>https://docs.foreseers.com/lifebook/b10.jpg</key><string>b10</string>
+        <key>https://docs.foreseers.com/lifebook/c1.jpg</key><string>c1</string>
+        <key>https://docs.foreseers.com/lifebook/c2.jpg</key><string>c2</string>
+        <key>https://docs.foreseers.com/lifebook/c3.jpg</key><string>c3</string>
+        <key>https://docs.foreseers.com/lifebook/c4.jpg</key><string>c4</string>
+        <key>https://docs.foreseers.com/lifebook/c5.jpg</key><string>c5</string>
+        <key>https://docs.foreseers.com/lifebook/c6.jpg</key><string>c6</string>
+        <key>https://docs.foreseers.com/lifebook/c7.jpg</key><string>c7</string>
+        <key>https://docs.foreseers.com/lifebook/c8.jpg</key><string>c8</string>
+        <key>https://docs.foreseers.com/lifebook/c9.jpg</key><string>c9</string>
+        <key>https://docs.foreseers.com/lifebook/c10.jpg</key><string>c10</string>
+        <key>https://docs.foreseers.com/lifebook/c11.jpg</key><string>c11</string>
+        <key>https://docs.foreseers.com/lifebook/c12.jpg</key><string>c12</string>
+        <key>https://docs.foreseers.com/lifebook/c13.jpg</key><string>c13</string>
+        <key>https://docs.foreseers.com/lifebook/d1.jpg</key><string>d1</string>
+        <key>https://docs.foreseers.com/lifebook/d2.jpg</key><string>d2</string>
+        <key>https://docs.foreseers.com/lifebook/d3.jpg</key><string>d3</string>
+        <key>https://docs.foreseers.com/lifebook/d4.jpg</key><string>d4</string>
+        <key>https://docs.foreseers.com/lifebook/d5.jpg</key><string>d5</string>
+        <key>https://docs.foreseers.com/lifebook/d6.jpg</key><string>d6</string>
+        <key>https://docs.foreseers.com/lifebook/d7.jpg</key><string>d7</string>
+        <key>https://docs.foreseers.com/lifebook/d8.jpg</key><string>d8</string>
+        <key>https://docs.foreseers.com/lifebook/e1.jpg</key><string>e1</string>
+        <key>https://docs.foreseers.com/lifebook/e2.jpg</key><string>e2</string>
+        <key>https://docs.foreseers.com/lifebook/e3.jpg</key><string>e3</string>
+        <key>https://docs.foreseers.com/lifebook/e4.jpg</key><string>e4</string>
+        <key>https://docs.foreseers.com/lifebook/e5.jpg</key><string>e5</string>
+        <key>https://docs.foreseers.com/lifebook/e6.jpg</key><string>e6</string>
+        <key>https://docs.foreseers.com/lifebook/e7.jpg</key><string>e7</string>
+        <key>https://docs.foreseers.com/lifebook/e8.jpg</key><string>e8</string>
+        <key>https://docs.foreseers.com/lifebook/f1.jpg</key><string>f1</string>
+        <key>https://docs.foreseers.com/lifebook/f2.jpg</key><string>f2</string>
+        <key>https://docs.foreseers.com/lifebook/f3.jpg</key><string>f3</string>
+        <key>https://docs.foreseers.com/lifebook/f4.jpg</key><string>f4</string>
+        <key>https://docs.foreseers.com/lifebook/f5.jpg</key><string>f5</string>
+        <key>https://docs.foreseers.com/lifebook/f6.jpg</key><string>f6</string>
+        <key>https://docs.foreseers.com/lifebook/f7.jpg</key><string>f7</string>
+        <key>https://docs.foreseers.com/lifebook/f8.jpg</key><string>f8</string>
+        <key>https://docs.foreseers.com/lifebook/f9.jpg</key><string>f9</string>
+        <key>https://docs.foreseers.com/lifebook/f10.jpg</key><string>f10</string>
+        <key>https://docs.foreseers.com/lifebook/f11.jpg</key><string>f11</string>
+        <key>https://docs.foreseers.com/lifebook/f12.jpg</key><string>f12</string>
+        <key>https://docs.foreseers.com/lifebook/g1.jpg</key><string>g1</string>
+        <key>https://docs.foreseers.com/lifebook/g2.jpg</key><string>g2</string>
+        <key>https://docs.foreseers.com/lifebook/g3.jpg</key><string>g3</string>
+        <key>https://docs.foreseers.com/lifebook/g4.jpg</key><string>g4</string>
+        <key>https://docs.foreseers.com/lifebook/g5.jpg</key><string>g5</string>
+        <key>https://docs.foreseers.com/lifebook/g6.jpg</key><string>g6</string>
+        <key>https://docs.foreseers.com/lifebook/g7.jpg</key><string>g7</string>
+        <key>https://docs.foreseers.com/lifebook/g8.jpg</key><string>g8</string>
+        <key>https://docs.foreseers.com/lifebook/g9.jpg</key><string>g9</string>
+        <key>https://docs.foreseers.com/lifebook/g10.jpg</key><string>g10</string>
+        <key>https://docs.foreseers.com/lifebook/g11.jpg</key><string>g11</string>
+        <key>https://docs.foreseers.com/lifebook/g12.jpg</key><string>g12</string>
+
+        <key>https://docs.foreseers.com/lifebook/fortune2019.jpg</key><string>fortune2019</string>
+        <key>https://docs.foreseers.com/lifebook/shiba.jpg</key><string>shiba</string>
+
+
+
     </dict>
 </plist>

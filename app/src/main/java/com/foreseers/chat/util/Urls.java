@@ -12,8 +12,10 @@ public class Urls {
     public static final String Url_UserBlurHead = URL_User + "uploadblurhead";//模糊头像
     public static final String Url_UserShow = URL_User + "show";//个人信息
     public static final String Url_Userquery = URL_User + "queryName";//用户名字和头像
-
     public static final String Url_Countage = URL_User + "countage";
+    public static final String Url_VipTime = URL_User + "getVipTime";//刷新vip时间
+
+
     //我的
     public static final String Url_My = URL_User + "userpersonal";//我的模块
     public static final String Url_UpdateUser = URL_User + "updateuser";//修改個人信息

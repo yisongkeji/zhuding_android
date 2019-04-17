@@ -55,6 +55,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
 
     private List<Integer> rgblist = new ArrayList();
     private FortunetellingBean fortunetellingBean;
+    private FortunetellingBean.DataBean dataBean;
     private List<FortunetellingBean.DataBean> dataBeanList = new ArrayList<>();
     private FortunetellingAdapter fortunetellingAdapter;
     private String lifeuserid;
@@ -93,7 +94,6 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
                 //                MyLog.d(TAG, "Setup successful. Querying inventory.");
 
-
             }
         });
     }
@@ -107,6 +107,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     public void initViews() {
         setContentView(R.layout.activity_fortunetelling);
         ButterKnife.bind(this);
+        rgblist.add(R.mipmap.icon_login_bg_7);
         rgblist.add(R.mipmap.icon_login_bg_1);
         rgblist.add(R.mipmap.icon_login_bg_2);
         rgblist.add(R.mipmap.icon_login_bg_3);
@@ -127,7 +128,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     public void initDatas() {
 
         OkGo.<String>post(Urls.Url_LifeBookCate).tag(this)
-                .params("lifeuserid",lifeuserid)
+                .params("lifeuserid", lifeuserid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -145,7 +146,6 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 });
     }
 
-
     @Override
     public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -159,16 +159,20 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 FortunetellingBean.DataBean dataBean = dataBeanList.get(position);
                 if (dataBean.getSign() == 1) {
-                    Intent intent = new Intent(FortunetellingActivity.this, FortunetellingListActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", dataBean.getName());
-                    bundle.putString("lifeuserid", dataBean.getLifeuserid());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+
+                        Intent intent = new Intent(FortunetellingActivity.this, FortunetellingListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", dataBean.getName());
+                        bundle.putString("lifeuserid", dataBean.getLifeuserid());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+
                 } else {
 
                     String payload = "";
                     String productId = packageName + dataBean.getStoreId();
+
+
 
                     if (productId != null && !productId.isEmpty()) {
                         Log.d(TAG, "onViewClicked-productId: " + productId);
@@ -187,6 +191,18 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
+
+                int k = 0;
+                for (FortunetellingBean.DataBean dataBean : dataBeanList) {
+                    if (dataBean.getSign() == 1) {
+                        k++;
+                    }
+                }
+                if (k >= 3) {
+                    dataBeanList.remove(0);
+                    rgblist.remove(0);
+                }
+
                 for (int i = 0; i < dataBeanList.size(); i++) {
                     for (int j = 0; j < rgblist.size(); j++) {
                         if (j == i) {
@@ -201,6 +217,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                                 .getStoreId());
                     }
                 }
+
                 fortunetellingAdapter.setNewData(dataBeanList);
                 getHandler().obtainMessage(SKUSUCCESS)
                         .sendToTarget();
@@ -223,7 +240,6 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 break;
         }
     }
-
 
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
@@ -264,7 +280,6 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     //                    complain("Error consuming item. Another async operation in progress.");
                 }
             }
-
         }
     };
 
@@ -326,15 +341,16 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    Gson gson=new Gson();
-                                    LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
-                                    if (loginBean.getStatus().equals("success")){
-                                        ShopCheckBean shopCheckBean=gson.fromJson(response.body(),ShopCheckBean.class);
-                                        if (shopCheckBean.getData().getStatus()==1){
+                                    Gson gson = new Gson();
+                                    LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                                    if (loginBean.getStatus()
+                                            .equals("success")) {
+                                        ShopCheckBean shopCheckBean = gson.fromJson(response.body(), ShopCheckBean.class);
+                                        if (shopCheckBean.getData()
+                                                .getStatus() == 1) {
                                             initDatas();
                                         }
                                     }
-
                                 }
                             });
                 } catch (Exception e) {
@@ -387,15 +403,15 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
             return;
         }
         if (requestCode == 10001) {
-        // Pass on the activity result to the helper for handling
-        if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
-            // not handled, so handle it ourselves (here's where you'd
-            // perform any handling of activity results not related to in-app
-            // billing...
-            super.onActivityResult(requestCode, resultCode, data);
-        } else {
+            // Pass on the activity result to the helper for handling
+            if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+                // not handled, so handle it ourselves (here's where you'd
+                // perform any handling of activity results not related to in-app
+                // billing...
+                super.onActivityResult(requestCode, resultCode, data);
+            } else {
 
-        }
+            }
         }
     }
 

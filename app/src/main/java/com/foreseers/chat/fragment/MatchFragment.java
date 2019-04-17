@@ -1,10 +1,12 @@
 package com.foreseers.chat.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
@@ -51,7 +53,6 @@ import butterknife.Unbinder;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
 /**
  * 主页
  * 匹配
@@ -62,14 +63,10 @@ public class MatchFragment extends BaseFragment {
 
     Unbinder unbinder;
 
-    @BindView(R.id.recycler_people)
-    RecyclerView recyclerPeople;
-    @BindView(R.id.img_match_filter)
-    ImageView imgMatchFilter;
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeLayout;
-    @BindView(R.id.text_canums_num)
-    TextView textCanumsNum;
+    @BindView(R.id.recycler_people) RecyclerView recyclerPeople;
+    @BindView(R.id.img_match_filter) ImageView imgMatchFilter;
+    @BindView(R.id.swipeLayout) SwipeRefreshLayout swipeLayout;
+    @BindView(R.id.text_canums_num) TextView textCanumsNum;
     private final int DATASUCCESS = 1;
     private final int DATASUCCESS2 = 2;
     private final int DATAFELLED = 0;
@@ -104,16 +101,15 @@ public class MatchFragment extends BaseFragment {
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private int num;
-
+    private SoundPool soundPool;
+    private int soundID;
 
     public MatchFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match, container, false);
         unbinder = ButterKnife.bind(this, view);
@@ -121,29 +117,26 @@ public class MatchFragment extends BaseFragment {
         return view;
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        soundPool.release();
     }
 
     @Override
     public void initViews() {
         Log.d(TAG, "initViews: ");
-
+        initSound();
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerPeople.setLayoutManager(staggeredGridLayoutManager);
         recyclerPeople.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
         recyclerPeople.setAdapter(peopleAdapter);
 
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
-
-
     }
 
     @Override
@@ -157,9 +150,9 @@ public class MatchFragment extends BaseFragment {
 
         initRefreshLayout();
         swipeLayout.setRefreshing(true);
+
         refresh();
     }
-
 
     private void getDataForHttp() {
         Log.d(TAG, "getDataForHttp: ");
@@ -167,14 +160,12 @@ public class MatchFragment extends BaseFragment {
         ageLittle = "12";
         agebig = "50";
         distance = 100;
-
     }
-
 
     private void getDataFromHttp() {
         Log.d(TAG, "getDataFromHttp: ");
 
-//        if (isGpsEnabled(getContext())) {
+        //        if (isGpsEnabled(getContext())) {
         GetLocation location = new GetLocation();
 
         while (locationBean == null) {
@@ -200,24 +191,23 @@ public class MatchFragment extends BaseFragment {
                             Gson gson = new Gson();
                             loginBean = gson.fromJson(response.body(), LoginBean.class);
 
-                            if (loginBean.getStatus().equals("success")) {
+                            if (loginBean.getStatus()
+                                    .equals("success")) {
                                 recommendBean = gson.fromJson(response.body(), RecommendBean.class);
                                 recommendBeans = recommendBean.getData();
 
-                                getHandler().obtainMessage(DATASUCCESS).sendToTarget();
-
-                            } else if (loginBean.getStatus().equals("fail")) {
-                                Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT).show();
+                                getHandler().obtainMessage(DATASUCCESS)
+                                        .sendToTarget();
+                            } else if (loginBean.getStatus()
+                                    .equals("fail")) {
+                                Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT)
+                                        .show();
                             }
-
-
                         }
                     });
         }
 
         getCanumsNum();
-
-
     }
 
     @Override
@@ -250,12 +240,11 @@ public class MatchFragment extends BaseFragment {
                 Log.d(TAG, "processHandlerMessage: ");
                 if (swipeLayout != null) {
                     swipeLayout.setRefreshing(false);
+                    playSound();
                     if (recommendBeans != null && recommendBeans.size() > 0) {
                         peopleAdapter.setNewData(recommendBeans);
-
                     }
                 }
-
 
                 break;
             case DATASUCCESS2:
@@ -288,9 +277,7 @@ public class MatchFragment extends BaseFragment {
             initPopupWind();
         }
 
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup
-                .OnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -307,8 +294,6 @@ public class MatchFragment extends BaseFragment {
                         sex = "F";
                         Log.i("radioGroup", "onCheckedChanged: " + sex);
                         break;
-
-
                 }
                 Log.i("radioGroup", "onCheckedChanged: " + sex);
             }
@@ -336,32 +321,28 @@ public class MatchFragment extends BaseFragment {
             }
         });
 
-
-        new PopWindow.Builder(getActivity())
-                .setStyle(PopWindow.PopWindowStyle.PopUp)
+        new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
                 .addContentView(view)
-                .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new
-                        PopItemAction.OnClickListener() {
-                            @Override
-                            public void onClick() {
-                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
-                                // 得到Editor后，写入需要保存的数据
-                                editor.putString("sex", sex);
-                                editor.putInt("ageLow", ageLow);
-                                editor.putInt("ageBig", ageBig);
-                                editor.putFloat("ageLowContent", ageLowContent);
-                                editor.putInt("distanceLow", distanceLow);
-                                editor.putInt("distanceBig", distanceBig);
-                                editor.putFloat("distanceLowContent", distanceLowContent);
-                                editor.commit();//提交修改
+                .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
+                    @Override
+                    public void onClick() {
+                        SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+                        // 得到Editor后，写入需要保存的数据
+                        editor.putString("sex", sex);
+                        editor.putInt("ageLow", ageLow);
+                        editor.putInt("ageBig", ageBig);
+                        editor.putFloat("ageLowContent", ageLowContent);
+                        editor.putInt("distanceLow", distanceLow);
+                        editor.putInt("distanceBig", distanceBig);
+                        editor.putFloat("distanceLowContent", distanceLowContent);
+                        editor.commit();//提交修改
 
-                                Log.i(TAG, "onClickPopWindow: " + ageLittle);
-                                getDataFromHttp();
-                                getDataForHttp();
-                            }
-                        }))
+                        Log.i(TAG, "onClickPopWindow: " + ageLittle);
+                        getDataFromHttp();
+                        getDataForHttp();
+                    }
+                }))
                 .show();
-
     }
 
     private void initPopupWind() {
@@ -372,8 +353,7 @@ public class MatchFragment extends BaseFragment {
         RadioButton radioButton_middle = view.findViewById(R.id.radio_middle);
         RadioButton radioButton_right = view.findViewById(R.id.radio_right);
 
-
-//        sex = userInfo.getString("sex", "");
+        //        sex = userInfo.getString("sex", "");
         switch (sex) {
             case "M"://男M
                 radioButton_left.setChecked(true);
@@ -387,13 +367,11 @@ public class MatchFragment extends BaseFragment {
                 radioButton_right.setChecked(true);
                 Log.i("radioGroup", "onCheckedChanged: " + sex);
                 break;
-
         }
-
 
         doubleslideAge = view.findViewById(R.id.doubleslide_age);
         doubleslideDistance = view.findViewById(R.id.doubleslide_distance);
-//        distance = userInfo.getInt("distance", 0);
+        //        distance = userInfo.getInt("distance", 0);
 
     }
 
@@ -413,10 +391,9 @@ public class MatchFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
 
-            if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
             }
-
         }
     }
 
@@ -434,7 +411,6 @@ public class MatchFragment extends BaseFragment {
         doubleslideDistance.setRange(distanceLowContent, distanceLow, distanceBig);
     }
 
-
     /**
      * 用户擦子数
      */
@@ -448,14 +424,32 @@ public class MatchFragment extends BaseFragment {
 
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
-                            userCanumsNumBean = gson.fromJson(response.body(),
-                                    UserCanumsNumBean.class);
-                            num = userCanumsNumBean.getData().getCountnums();
-                            getHandler().obtainMessage(DATASUCCESS2).sendToTarget();
-
+                        if (loginBean.getStatus()
+                                .equals("success")) {
+                            userCanumsNumBean = gson.fromJson(response.body(), UserCanumsNumBean.class);
+                            num = userCanumsNumBean.getData()
+                                    .getCountnums();
+                            getHandler().obtainMessage(DATASUCCESS2)
+                                    .sendToTarget();
                         }
                     }
                 });
+    }
+    @SuppressLint("NewApi")
+    private void initSound() {
+        soundPool = new SoundPool.Builder().build();
+        soundID = soundPool.load(getActivity(), R.raw.reloading, 1);
+    }
+
+
+    private void playSound() {
+        soundPool.play(
+                soundID,
+                0.1f,      //左耳道音量【0~1】
+                0.5f,      //右耳道音量【0~1】
+                0,         //播放优先级【0表示最低优先级】
+                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                1          //播放速度【1是正常，范围从0~2】
+                      );
     }
 }

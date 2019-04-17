@@ -8,13 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.Login;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.ShoppingIDBean;
+import com.foreseers.chat.bean.VipTimeBean;
 import com.foreseers.chat.bill.IabBroadcastReceiver;
 import com.foreseers.chat.bill.IabHelper;
 import com.foreseers.chat.bill.IabResult;
@@ -41,6 +44,9 @@ import butterknife.OnClick;
 import static com.foreseers.chat.activity.FortunetellingActivity.RC_REQUEST;
 import static com.foreseers.chat.util.GooglePlayHelper.TAG;
 import static com.foreseers.chat.util.GooglePlayHelper.base64EncodedPublicKey;
+import static com.foreseers.chat.util.GooglePlayHelper.product1;
+import static com.foreseers.chat.util.GooglePlayHelper.product2;
+import static com.foreseers.chat.util.GooglePlayHelper.product3;
 
 public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.IabBroadcastListener {
 
@@ -54,6 +60,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
     @BindView(R.id.text_username) TextView textUsername;
     @BindView(R.id.text_day) TextView textDay;
     @BindView(R.id.text3) TextView text3;
+    @BindView(R.id.img) ImageView img;
     private String head;
     private String day;
     private String name;
@@ -63,6 +70,9 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
     private List<ShoppingIDBean.DataBean> vipBeans = new ArrayList<>();
     private List<List<ShoppingIDBean.DataBean>> dataBeanList = new ArrayList<>();
     private ArrayList<String> skuList = new ArrayList<String>();
+    private String packageName;
+    private VipTimeBean vipTimeBean;
+
     @Override
     public AppCompatActivity getActivity() {
         return this;
@@ -72,6 +82,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
     public void initViews() {
         setContentView(R.layout.activity_my_vip);
         ButterKnife.bind(this);
+        packageName = getActivity().getPackageName();
     }
 
     @Override
@@ -99,7 +110,13 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
 
     @Override
     public void processHandlerMessage(Message msg) {
-
+       switch (msg.what){
+           case DATASUCCESS:
+               if (textDay!=null){
+                   textDay.setText(vipTimeBean.getData().getViptime());
+               }
+               break;
+       }
     }
 
     @OnClick({R.id.layout_vip1, R.id.layout_vip2, R.id.layout_vip3})
@@ -108,10 +125,25 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
         String productId = "";
         switch (view.getId()) {
             case R.id.layout_vip1:
+                productId = packageName + product1;
+                layoutVip1.setBackgroundResource(R.drawable.background_vip_postpone2);
+                layoutVip2.setBackgroundResource(R.drawable.background_vip_postpone);
+                layoutVip3.setBackgroundResource(R.drawable.background_vip_postpone);
+                img.setVisibility(View.VISIBLE);
                 break;
             case R.id.layout_vip2:
+                productId = packageName + product2;
+                layoutVip1.setBackgroundResource(R.drawable.background_vip_postpone);
+                layoutVip2.setBackgroundResource(R.drawable.background_vip_postpone2);
+                layoutVip3.setBackgroundResource(R.drawable.background_vip_postpone);
+                img.setVisibility(View.GONE);
                 break;
             case R.id.layout_vip3:
+                productId = packageName + product3;
+                layoutVip1.setBackgroundResource(R.drawable.background_vip_postpone);
+                layoutVip2.setBackgroundResource(R.drawable.background_vip_postpone);
+                layoutVip3.setBackgroundResource(R.drawable.background_vip_postpone2);
+                img.setVisibility(View.GONE);
                 break;
         }
         if (productId != null && !productId.isEmpty()) {
@@ -123,6 +155,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
             }
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,16 +206,14 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
                                                                     .getGoogleID());
                                             }
                                         }
-
                                     }
-//                                    getHandler().obtainMessage(SKUSUCCESS).sendToTarget();
+                                    //                                    getHandler().obtainMessage(SKUSUCCESS).sendToTarget();
                                 }
                             }
 
                             @Override
                             public void onError(Response<String> response) {
                                 super.onError(response);
-
                             }
                         });
             }
@@ -300,7 +331,9 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-//                                    getCanumsNum();
+                                    //                                    getCanumsNum();
+                                    refresh();
+
                                 }
                             });
                 } catch (Exception e) {
@@ -312,6 +345,8 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
         }
     };
 
+
+
     /**
      * Verifies the developer payload of a purchase.
      * 验证购买的开发人员有效负载。
@@ -320,6 +355,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
         String payload = p.getDeveloperPayload();
         return true;
     }
+
     @Override
     public void receivedBroadcast() {
         try {
@@ -328,6 +364,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
             //            complain("Error querying inventory. Another async operation in progress.");
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -351,7 +388,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
         super.onDestroy();
         OkGo.cancelTag(OkGo.getInstance()
                                .getOkHttpClient(), this);
-        if (text1!=null){
+        if (text1 != null) {
             if (skuList != null) {
                 skuList.clear();
             }
@@ -365,5 +402,21 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
                 mHelper = null;
             }
         }
+    }
+    private void refresh() {
+
+        OkGo.<String>post(Urls.Url_VipTime).tag(this)
+                .params("userid",PreferenceManager.getUserId(this))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        Gson gson=new Gson();
+                        LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
+                        if (loginBean.getStatus().equals("success")){
+                            vipTimeBean = gson.fromJson(response.body(), VipTimeBean.class);
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                        }
+                    }
+                });
     }
 }

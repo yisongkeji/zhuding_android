@@ -101,6 +101,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
     // Provides purchase notification while this app is running
     private IabBroadcastReceiver mBroadcastReceiver;
     private Intent intent;
+    private String userid;
 
     public ShopFragment() {
         // Required empty public constructor
@@ -305,7 +306,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                     String purchaseToken = purchase.getToken();
                     Log.i(TAG, "onConsumeFinished: productId" + productId + "     purchaseToken" + purchaseToken);
                     OkGo.<String>post(Urls.Url_Shopping).tag(this)
-                            .params("userid", PreferenceManager.getUserId(getActivity()))
+                            .params("userid", userid)
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
                             .execute(new StringCallback() {
@@ -335,7 +336,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
     @Override
     public void initViews() {
         packageName = getActivity().getPackageName();
-
+        userid = PreferenceManager.getUserId(getActivity());
         bannerList.add(new BannerData(R.mipmap.icon_vip_me_05, getResources().getString(R.string.foreseers_special_vip_id),
                                       getResources().getString(R.string.foreseers_catch_you), false));
         bannerList.add(new BannerData(R.mipmap.icon_vip_me_01, getResources().getString(R.string.foreseers_ten_per_day),
@@ -355,6 +356,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                     }
                 })
                 .setBannerAnimation(Transformer.Scale)
+                .setDelayTime(1000)
                 .start();
     }
 
@@ -365,7 +367,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
 
     private void getCanumsNum() {
         OkGo.<String>post(Urls.Url_UserCanumsNum).tag(this)
-                .params("userid", PreferenceManager.getUserId(getActivity()))
+                .params("userid", userid)
                 .execute(new StringCallback() {
 
                     @Override
