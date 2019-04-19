@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.facebook.login.LoginResult;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
+import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
@@ -43,19 +45,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+public class LoginActivity extends BaseActivity {
 
-public class LoginActivity extends AppCompatActivity {
-
-
-    @BindView(R.id.login_facebook)
-    ImageButton loginFacebook;
-    @BindView(R.id.login_wechat)
-    ImageButton loginWechat;
+    @BindView(R.id.login_facebook) ImageButton loginFacebook;
+    @BindView(R.id.login_wechat) ImageButton loginWechat;
+    @BindView(R.id.edit_login) EditText editLogin;
     private CallbackManager callbackManager;
     private Intent intent;
     private AccessToken accessToken;
     private boolean isLoggedIn;
-
 
     private String facebookName;
     private String facebookid;
@@ -75,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
 
         init();
         callBack();
-
     }
 
     private void init() {
@@ -84,34 +81,33 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         accessToken = AccessToken.getCurrentAccessToken();
         isLoggedIn = accessToken != null && !accessToken.isExpired();
-
     }
 
     private void callBack() {
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
+        LoginManager.getInstance()
+                .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         getFacebookInfo(loginResult.getAccessToken());
-                        Toast.makeText(LoginActivity.this, "登錄成功", Toast
-                                .LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "登錄成功", Toast.LENGTH_LONG)
+                                .show();
                     }
 
                     @Override
                     public void onCancel() {
                         // App code
-                        Toast.makeText(LoginActivity.this, "取消登錄", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "取消登錄", Toast.LENGTH_LONG)
+                                .show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Toast.makeText(LoginActivity.this, "登錄失敗", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "登錄失敗", Toast.LENGTH_LONG)
+                                .show();
                     }
                 });
-
-
     }
 
     public void getFacebookInfo(AccessToken accessToken) {
@@ -122,12 +118,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (object != null) {
                     facebookName = object.optString("name");
                     facebookid = object.optString("id");
-                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo11111111111111111111:" +facebookid);
+                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo11111111111111111111:" + facebookid);
                     isFirst();
-                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo" );
+                    Log.e("@##@#@#@#@", "onCompleted:getFacebookInfo");
                 }
             }
-        }).executeAsync();
+        })
+                .executeAsync();
     }
 
     @Override
@@ -139,22 +136,43 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //, "user_friends","email","user_birthday"
-    @OnClick({R.id.login_facebook, R.id.login_wechat})
+    @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.text_login:
+                facebookid = editLogin.getText()
+                        .toString();
+                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+                editor.putString("token", facebookid);
+                editor.putString("huanXinId", huanXinId + "");
+                editor.commit();//提交修改
+
+                goLogin();
+                break;
             case R.id.login_facebook:
 
-                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                LoginManager.getInstance()
+                        .logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
                 break;
             case R.id.login_wechat:
-                facebookid= "467979503606542";
-//                facebookid= "0000000000008";//刘海强
 
-//                facebookid= "46797950360653";
-//                facebookid= "46797950360652333";//齐瑞宁
-                SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
-                SharedPreferences.Editor editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
+                if (editLogin.getText()
+                        .length() == 0) {
+                    facebookid = "467979503606542";
+                } else {
+                    facebookid = editLogin.getText()
+                            .toString();
+                }
+
+                //                facebookid= "0000000000008";//刘海强
+
+                //                facebookid= "46797950360653";
+                //                facebookid= "46797950360652333";//齐瑞宁
+
+                userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
+                editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
                 editor.putString("token", facebookid);
                 editor.putString("huanXinId", huanXinId + "");
                 editor.commit();//提交修改
@@ -167,12 +185,11 @@ public class LoginActivity extends AppCompatActivity {
     private void goLogin() {
         // 是否是新用户
         isFirst();
-
     }
 
     //    判断是不是新用户
     private void isFirst() {
-        Log.e("@##@#@#@#@", "isFirst: " );
+        Log.e("@##@#@#@#@", "isFirst: ");
         OkGo.<String>post(Urls.Url_Query).tag(this)
                 .params("facebookid", facebookid)
                 .execute(new StringCallback() {
@@ -181,16 +198,18 @@ public class LoginActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
 
-                        if (loginBean.getStatus().equals("success")) {//老用户
-                            dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
+                        if (loginBean.getStatus()
+                                .equals("success")) {//老用户
+                            dataBean = gson.fromJson(response.body(), UserDataBean.class)
+                                    .getData();
                             huanXinId = dataBean.getId();
                             Log.e("okgo", "onSuccess: " + huanXinId);
 
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-
-
-                        } else if (loginBean.getStatus().equals("fail")) {
-//                            isLogin();
+                            mHandler.obtainMessage(DATASUCCESS)
+                                    .sendToTarget();
+                        } else if (loginBean.getStatus()
+                                .equals("fail")) {
+                            //                            isLogin();
                             intent = new Intent(LoginActivity.this, UserDataActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("facebookName", facebookName);
@@ -210,32 +229,43 @@ public class LoginActivity extends AppCompatActivity {
             switch (msg.what) {
                 case DATASUCCESS:
                     saveLogin(huanXinId);
-                    Log.i("EMClient", "huanXinId: "+huanXinId+"    huanXinId1: "+huanXinId1);
-                    EMClient.getInstance().login(huanXinId + "", "123", new EMCallBack() {//回调
-                        @Override
-                        public void onSuccess() {
-                            EMClient.getInstance().groupManager().loadAllGroups();
-                            EMClient.getInstance().chatManager().loadAllConversations();
-                            Log.d("EMClient", "登录聊天服务器成功！");
-                            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                            sharedPreferences.edit().putString("user", dataBean.getId() + "").commit();
-                            sharedPreferences.edit().putString("nick", dataBean.getUsername()).commit();
-                            sharedPreferences.edit().putString("url", dataBean.getHead()).commit();
-                            Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
-                        }
+                    Log.i("EMClient", "huanXinId: " + huanXinId + "    huanXinId1: " + huanXinId1);
+                    EMClient.getInstance()
+                            .login(huanXinId + "", "123", new EMCallBack() {//回调
+                                @Override
+                                public void onSuccess() {
+                                    EMClient.getInstance()
+                                            .groupManager()
+                                            .loadAllGroups();
+                                    EMClient.getInstance()
+                                            .chatManager()
+                                            .loadAllConversations();
+                                    Log.d("EMClient", "登录聊天服务器成功！");
+                                    SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                    sharedPreferences.edit()
+                                            .putString("user", dataBean.getId() + "")
+                                            .commit();
+                                    sharedPreferences.edit()
+                                            .putString("nick", dataBean.getUsername())
+                                            .commit();
+                                    sharedPreferences.edit()
+                                            .putString("url", dataBean.getHead())
+                                            .commit();
+                                    Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
+                                }
 
-                        @Override
-                        public void onProgress(int progress, String status) {
+                                @Override
+                                public void onProgress(int progress, String status) {
 
-                        }
+                                }
 
-                        @Override
-                        public void onError(int code, String message) {
-                            Log.d("EMClient", "登录聊天服务器失败！");
-                        }
-                    });
-//                    loginHuanXin();
-//                    getHuanXinLogin();
+                                @Override
+                                public void onError(int code, String message) {
+                                    Log.d("EMClient", "登录聊天服务器失败！");
+                                }
+                            });
+                    //                    loginHuanXin();
+                    //                    getHuanXinLogin();
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
                     startActivity(intent);
@@ -253,19 +283,20 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (EMClient.getInstance().isLoggedInBefore()) {
+                if (EMClient.getInstance()
+                        .isLoggedInBefore()) {
 
-                    EMClient.getInstance().chatManager().loadAllConversations();
-                    EMClient.getInstance().groupManager().loadAllGroups();
-
-
+                    EMClient.getInstance()
+                            .chatManager()
+                            .loadAllConversations();
+                    EMClient.getInstance()
+                            .groupManager()
+                            .loadAllGroups();
                 } else {
-//                    goLogin();
+                    //                    goLogin();
                 }
             }
         }).start();
-
-
     }
 
     /**
@@ -273,11 +304,12 @@ public class LoginActivity extends AppCompatActivity {
      */
 
     public boolean isFirstStart(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(
-                "SHARE_APP_TAG", 0);
+        SharedPreferences preferences = context.getSharedPreferences("SHARE_APP_TAG", 0);
         Boolean isFirst = preferences.getBoolean("FIRSTStart", true);
         if (isFirst) {// 第一次
-            preferences.edit().putBoolean("FIRSTStart", false).commit();
+            preferences.edit()
+                    .putBoolean("FIRSTStart", false)
+                    .commit();
 
             Log.i("GFA", "一次");
             return true;
@@ -292,9 +324,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO};
+            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest
+                    .permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
@@ -324,7 +355,31 @@ public class LoginActivity extends AppCompatActivity {
 
         huanXinId1 = userInfo.getString("huanXinId", "");
 
-
         Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return null;
+    }
+
+    @Override
+    public void initViews() {
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
+    @Override
+    public void processHandlerMessage(Message msg) {
+
     }
 }

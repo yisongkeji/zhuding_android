@@ -56,7 +56,7 @@ public class MyApplication extends Application {
 
 
                 initOkGo();
-//        OkGo.getInstance().init(this);
+//        OkGo.getInstance().init(this);//默认
 
         // 初始化环信SDK
         initEasemob();

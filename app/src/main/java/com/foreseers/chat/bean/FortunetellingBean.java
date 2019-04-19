@@ -37,15 +37,37 @@ public class FortunetellingBean {
          * lifeuserid
          * colour
          * price
+         * img_title
+         * img_content
          */
 
         private int size;
         private String name;
         private int sign;
         private int colour;
+        private int imgtitle;
+        private int imgcontent;
         private String storeId;
         private String lifeuserid;
         private String price;
+
+        public void setImgtitle(int imgtitle) {
+            this.imgtitle = imgtitle;
+        }
+
+        public void setImgcontent(int imgcontent) {
+            this.imgcontent = imgcontent;
+        }
+
+        public int getImgcontent() {
+
+            return imgcontent;
+        }
+
+        public int getImgtitle() {
+
+            return imgtitle;
+        }
 
         public void setPrice(String price) {
             this.price = price;

@@ -37,7 +37,7 @@ public class CustomViewHolder implements BannerViewHolder<BannerData> {
     public void onBind(Context context, int position, BannerData data) {
         banner_text1.setText(data.getText1());
         banner_text2.setText(data.getText2());
-        Glide.with(context).load(data.getUrl()).into(img);
+        img.setImageResource(data.getUrl());
     }
 
 }

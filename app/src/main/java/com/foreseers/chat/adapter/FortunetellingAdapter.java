@@ -16,7 +16,10 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.activity.FortunetellingListActivity;
 import com.foreseers.chat.bean.FortunetellingBean;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * File description.
@@ -26,10 +29,10 @@ import java.util.List;
  */
 public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.DataBean, BaseViewHolder> {
     private Context context;
-
     public FortunetellingAdapter(Context context, @Nullable List<FortunetellingBean.DataBean> data) {
         super(R.layout.item_fortunetelling, data);
         this.context = context;
+
     }
 
     @Override
@@ -39,8 +42,7 @@ public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.D
         CardView cardView = (CardView) helper.getView(R.id.card_View)
                 .findViewById(R.id.card_View);
         cardView.setBackgroundResource(item.getColour());
-        helper
-                .setText(R.id.text_price,item.getPrice())
+        helper.setText(R.id.text_price,item.getPrice())
                 .setText(R.id.text_type, (item.getSign() == 1) ?context.getString(R.string.free_unlock) :context.getString(R.string.free_buy)  )
                 .setText(R.id.text_content, (item.getSign() == 1) ? context.getResources()
                         .getString(R.string.text_lifebook_content3)
@@ -49,6 +51,11 @@ public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.D
                         .replace("&", item.getSize() + "") );
         Glide.with(context).load((item.getSign() == 1) ?R.mipmap.icon_lock_02:R.mipmap.icon_lock_01).into((ImageView) helper.getView(R.id.img));
 
+        helper.getView(R.id.img_title).setBackgroundResource(item.getImgtitle());
+        if (helper.getAdapterPosition()!=0){
+            Log.e(TAG, "convert: "+item.getImgcontent());
+            helper.getView(R.id.img_content).setBackgroundResource(item.getImgcontent());
+        }
 
         if (item.getName()
                 .equals("自身")) {
@@ -63,4 +70,5 @@ public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.D
 
 
     }
+
 }

@@ -10,6 +10,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -67,9 +68,10 @@ public class MatchFragment extends BaseFragment {
     @BindView(R.id.img_match_filter) ImageView imgMatchFilter;
     @BindView(R.id.swipeLayout) SwipeRefreshLayout swipeLayout;
     @BindView(R.id.text_canums_num) TextView textCanumsNum;
-    private final int DATASUCCESS = 1;
+
+    private final int DATASUCCESSNOSOUND = 4;
     private final int DATASUCCESS2 = 2;
-    private final int DATAFELLED = 0;
+    @BindView(R.id.img_top) ImageView imgTop;
 
     private List<RecommendBean.DataBean> recommendBeans = new ArrayList<>();
     private RecommendBean recommendBean;
@@ -77,7 +79,7 @@ public class MatchFragment extends BaseFragment {
     private String facebookid;
     private String huanXinId;
     private SharedPreferences sPreferences;
-    private int mNextRequestPage = 1;
+    //    private int mNextRequestPage = 1;
     private LocationBean locationBean;
     private String sex;
     private SharedPreferences userInfo;
@@ -96,13 +98,14 @@ public class MatchFragment extends BaseFragment {
     private Float distanceLowContent;
 
     private RadioGroup radioGroup;
-    private View view;
+    private View popview;
     private DoubleSlideSeekBar doubleslideAge, doubleslideDistance;
     private LoginBean loginBean;
     private UserCanumsNumBean userCanumsNumBean;
     private int num;
     private SoundPool soundPool;
     private int soundID;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     public MatchFragment() {
         // Required empty public constructor
@@ -113,7 +116,6 @@ public class MatchFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_match, container, false);
         unbinder = ButterKnife.bind(this, view);
-        Log.d(TAG, "onCreateView: ");
         return view;
     }
 
@@ -131,7 +133,7 @@ public class MatchFragment extends BaseFragment {
         initauthority();
         //匹配
         peopleAdapter = new PeopleAdapter(getActivity(), recommendBeans);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerPeople.setLayoutManager(staggeredGridLayoutManager);
         recyclerPeople.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
         recyclerPeople.setAdapter(peopleAdapter);
@@ -141,7 +143,6 @@ public class MatchFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
-        Log.d(TAG, "initDatas: ");
         facebookid = PreferenceManager.getFaceBookId(getActivity());
         huanXinId = PreferenceManager.getUserId(getActivity());
         userInfo = getActivity().getSharedPreferences("condition", MODE_PRIVATE);
@@ -151,7 +152,7 @@ public class MatchFragment extends BaseFragment {
         initRefreshLayout();
         swipeLayout.setRefreshing(true);
 
-        refresh();
+        refresh(1);
     }
 
     private void getDataForHttp() {
@@ -162,10 +163,8 @@ public class MatchFragment extends BaseFragment {
         distance = 100;
     }
 
-    private void getDataFromHttp() {
-        Log.d(TAG, "getDataFromHttp: ");
+    private void getDataFromHttp(final int sound) {
 
-        //        if (isGpsEnabled(getContext())) {
         GetLocation location = new GetLocation();
 
         while (locationBean == null) {
@@ -196,12 +195,18 @@ public class MatchFragment extends BaseFragment {
                                 recommendBean = gson.fromJson(response.body(), RecommendBean.class);
                                 recommendBeans = recommendBean.getData();
 
-                                getHandler().obtainMessage(DATASUCCESS)
-                                        .sendToTarget();
+                                if (sound == 0) {
+                                    getHandler().obtainMessage(DATASUCCESS)
+                                            .sendToTarget();
+                                } else {
+                                    getHandler().obtainMessage(DATASUCCESSNOSOUND)
+                                            .sendToTarget();
+                                }
                             } else if (loginBean.getStatus()
                                     .equals("fail")) {
-                                Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT)
-                                        .show();
+
+                                getHandler().obtainMessage(DATAFELLED)
+                                        .sendToTarget();
                             }
                         }
                     });
@@ -217,7 +222,7 @@ public class MatchFragment extends BaseFragment {
             case 33:
                 Log.d(TAG, "onActivityResult: ");
                 swipeLayout.setRefreshing(true);
-                refresh();
+                refresh(0);
                 break;
         }
     }
@@ -231,6 +236,22 @@ public class MatchFragment extends BaseFragment {
     @Override
     public void installListeners() {
 
+        recyclerPeople.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (recyclerView.canScrollVertically(-1)) {
+                    imgTop.setVisibility(View.VISIBLE);
+                }else {
+                    imgTop.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
@@ -247,6 +268,16 @@ public class MatchFragment extends BaseFragment {
                 }
 
                 break;
+            case DATASUCCESSNOSOUND:
+                if (swipeLayout != null) {
+                    swipeLayout.setRefreshing(false);
+
+                    if (recommendBeans != null && recommendBeans.size() > 0) {
+                        peopleAdapter.setNewData(recommendBeans);
+                    }
+                }
+
+                break;
             case DATASUCCESS2:
                 if (textCanumsNum != null) {
                     textCanumsNum.setText(num + "");
@@ -254,106 +285,119 @@ public class MatchFragment extends BaseFragment {
                 break;
             case DATAFELLED:
                 swipeLayout.setRefreshing(false);
+                Toast.makeText(getActivity(), "网络请求失败", Toast.LENGTH_SHORT)
+                        .show();
                 break;
         }
     }
 
-    @OnClick(R.id.img_match_filter)
-    public void onViewClicked() {
+    @OnClick({R.id.img_match_filter, R.id.img_top})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
 
-        String s = userInfo.getString("sex", null);
-        ageLowContent = userInfo.getFloat("ageLowContent", 0);
-        ageLow = userInfo.getInt("ageLow", 0);
-        ageBig = userInfo.getInt("ageBig", 0);
-        distanceLowContent = userInfo.getFloat("distanceLowContent", 0);
-        distanceLow = userInfo.getInt("distanceLow", 0);
-        distanceBig = userInfo.getInt("distanceBig", 0);
-        /**
-         * 用户保存信息
-         */
-        if (ageLow != 0) {
-            showUserInfo(ageLowContent, ageLow, ageBig, distanceLowContent, distanceLow, distanceBig, s);
-        } else {
-            initPopupWind();
-        }
+            case R.id.img_match_filter:
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    case R.id.radio_left://男M
-                        sex = "M";
-                        Log.i("radioGroup", "onCheckedChanged: " + sex);
-                        break;
-                    case R.id.radio_middle://不限
-                        sex = "";
-                        Log.i("radioGroup", "onCheckedChanged: " + sex);
-                        break;
-                    case R.id.radio_right://女F
-                        sex = "F";
-                        Log.i("radioGroup", "onCheckedChanged: " + sex);
-                        break;
+                String s = userInfo.getString("sex", null);
+                ageLowContent = userInfo.getFloat("ageLowContent", 0);
+                ageLow = userInfo.getInt("ageLow", 0);
+                ageBig = userInfo.getInt("ageBig", 0);
+                distanceLowContent = userInfo.getFloat("distanceLowContent", 0);
+                distanceLow = userInfo.getInt("distanceLow", 0);
+                distanceBig = userInfo.getInt("distanceBig", 0);
+                /**
+                 * 用户保存信息
+                 */
+                if (ageLow != 0) {
+                    showUserInfo(ageLowContent, ageLow, ageBig, distanceLowContent, distanceLow, distanceBig, s);
+                } else {
+                    initPopupWind();
                 }
-                Log.i("radioGroup", "onCheckedChanged: " + sex);
-            }
-        });
 
-        doubleslideAge.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
-            @Override
-            public void onRange(float low, float big) {
-                ageLittle = doubleslideAge.getSmallRange() + "";
-                agebig = doubleslideAge.getBigRange() + "";
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
-                ageLow = doubleslideAge.getSmallX();
-                ageBig = doubleslideAge.getBigX();
-                ageLowContent = doubleslideAge.getSmallContent();
-            }
-        });
-        doubleslideDistance.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
-            @Override
-            public void onRange(float low, float big) {
-                distance = doubleslideDistance.getBigRange();
-
-                distanceLowContent = doubleslideDistance.getSmallContent();
-                distanceLow = doubleslideDistance.getSmallX();
-                distanceBig = doubleslideDistance.getBigX();
-            }
-        });
-
-        new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
-                .addContentView(view)
-                .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
                     @Override
-                    public void onClick() {
-                        SharedPreferences.Editor editor = userInfo.edit();//获取Editor
-                        // 得到Editor后，写入需要保存的数据
-                        editor.putString("sex", sex);
-                        editor.putInt("ageLow", ageLow);
-                        editor.putInt("ageBig", ageBig);
-                        editor.putFloat("ageLowContent", ageLowContent);
-                        editor.putInt("distanceLow", distanceLow);
-                        editor.putInt("distanceBig", distanceBig);
-                        editor.putFloat("distanceLowContent", distanceLowContent);
-                        editor.commit();//提交修改
-
-                        Log.i(TAG, "onClickPopWindow: " + ageLittle);
-                        getDataFromHttp();
-                        getDataForHttp();
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        switch (i) {
+                            case R.id.radio_left://男M
+                                sex = "M";
+                                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                                break;
+                            case R.id.radio_middle://不限
+                                sex = "";
+                                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                                break;
+                            case R.id.radio_right://女F
+                                sex = "F";
+                                Log.i("radioGroup", "onCheckedChanged: " + sex);
+                                break;
+                        }
+                        Log.i("radioGroup", "onCheckedChanged: " + sex);
                     }
-                }))
-                .show();
+                });
+
+                doubleslideAge.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
+                    @Override
+                    public void onRange(float low, float big) {
+                        ageLittle = doubleslideAge.getSmallRange() + "";
+                        agebig = doubleslideAge.getBigRange() + "";
+
+                        ageLow = doubleslideAge.getSmallX();
+                        ageBig = doubleslideAge.getBigX();
+                        ageLowContent = doubleslideAge.getSmallContent();
+                    }
+                });
+                doubleslideDistance.setOnRangeListener(new DoubleSlideSeekBar.onRangeListener() {
+                    @Override
+                    public void onRange(float low, float big) {
+                        distance = doubleslideDistance.getBigRange();
+
+                        distanceLowContent = doubleslideDistance.getSmallContent();
+                        distanceLow = doubleslideDistance.getSmallX();
+                        distanceBig = doubleslideDistance.getBigX();
+                    }
+                });
+
+
+               new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
+                        .addContentView(popview)
+                        .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
+                            @Override
+                            public void onClick() {
+                                SharedPreferences.Editor editor = userInfo.edit();//获取Editor
+                                // 得到Editor后，写入需要保存的数据
+                                editor.putString("sex", sex);
+                                editor.putInt("ageLow", ageLow);
+                                editor.putInt("ageBig", ageBig);
+                                editor.putFloat("ageLowContent", ageLowContent);
+                                editor.putInt("distanceLow", distanceLow);
+                                editor.putInt("distanceBig", distanceBig);
+                                editor.putFloat("distanceLowContent", distanceLowContent);
+                                editor.commit();//提交修改
+
+                                Log.i(TAG, "onClickPopWindow: " + ageLittle);
+                                getDataFromHttp(0);
+                                getDataForHttp();
+                            }
+                        }))
+                        .show();
+                break;
+
+            case R.id.img_top:
+                recyclerPeople.scrollToPosition(0);
+                swipeLayout.setRefreshing(true);
+                refresh(0);
+                break;
+        }
     }
 
     private void initPopupWind() {
-        view = View.inflate(getActivity(), R.layout.item_match_filter, null);
-        radioGroup = view.findViewById(R.id.radioGroup);
+        popview = View.inflate(getActivity(), R.layout.item_match_filter, null);
+        radioGroup = popview.findViewById(R.id.radioGroup);
 
-        RadioButton radioButton_left = view.findViewById(R.id.radio_left);
-        RadioButton radioButton_middle = view.findViewById(R.id.radio_middle);
-        RadioButton radioButton_right = view.findViewById(R.id.radio_right);
+        RadioButton radioButton_left = popview.findViewById(R.id.radio_left);
+        RadioButton radioButton_middle = popview.findViewById(R.id.radio_middle);
+        RadioButton radioButton_right = popview.findViewById(R.id.radio_right);
 
-        //        sex = userInfo.getString("sex", "");
         switch (sex) {
             case "M"://男M
                 radioButton_left.setChecked(true);
@@ -369,17 +413,15 @@ public class MatchFragment extends BaseFragment {
                 break;
         }
 
-        doubleslideAge = view.findViewById(R.id.doubleslide_age);
-        doubleslideDistance = view.findViewById(R.id.doubleslide_distance);
-        //        distance = userInfo.getInt("distance", 0);
-
+        doubleslideAge = popview.findViewById(R.id.doubleslide_age);
+        doubleslideDistance = popview.findViewById(R.id.doubleslide_distance);
     }
 
     private void initRefreshLayout() {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refresh();
+                refresh(0);
             }
         });
     }
@@ -397,11 +439,10 @@ public class MatchFragment extends BaseFragment {
         }
     }
 
-    private void refresh() {
-        Log.d(TAG, "refresh: ");
-        mNextRequestPage = 1;
+    private void refresh(int sound) {
+
         peopleAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
-        getDataFromHttp();
+        getDataFromHttp(sound);
     }
 
     private void showUserInfo(float ageLowContent, int ageLow, int ageBig, float distanceLowContent, int distanceLow, int distanceBig, String s) {
@@ -435,21 +476,19 @@ public class MatchFragment extends BaseFragment {
                     }
                 });
     }
+
     @SuppressLint("NewApi")
     private void initSound() {
         soundPool = new SoundPool.Builder().build();
         soundID = soundPool.load(getActivity(), R.raw.reloading, 1);
     }
 
-
     private void playSound() {
-        soundPool.play(
-                soundID,
-                0.1f,      //左耳道音量【0~1】
-                0.5f,      //右耳道音量【0~1】
-                0,         //播放优先级【0表示最低优先级】
-                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
-                1          //播放速度【1是正常，范围从0~2】
+        soundPool.play(soundID, 0.1f,      //左耳道音量【0~1】
+                       0.5f,      //右耳道音量【0~1】
+                       0,         //播放优先级【0表示最低优先级】
+                       0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                       1          //播放速度【1是正常，范围从0~2】
                       );
     }
 }

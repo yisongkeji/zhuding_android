@@ -30,6 +30,7 @@ import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -54,6 +55,8 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     @BindView(R.id.recyclerview) RecyclerView recyclerview;
 
     private List<Integer> rgblist = new ArrayList();
+    private List<Integer> titlelist = new ArrayList();
+    private List<Integer> contentlist = new ArrayList();
     private FortunetellingBean fortunetellingBean;
     private FortunetellingBean.DataBean dataBean;
     private List<FortunetellingBean.DataBean> dataBeanList = new ArrayList<>();
@@ -65,6 +68,8 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     static final int RC_REQUEST = 10001;
     private ArrayList<String> skuList = new ArrayList<String>();
     public final int SKUSUCCESS = 5;
+    private KProgressHUD hud;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +120,22 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
         rgblist.add(R.mipmap.icon_login_bg_5);
         rgblist.add(R.mipmap.icon_login_bg_6);
 
+        titlelist.add(R.mipmap.icon_font_bg_13);
+        titlelist.add(R.mipmap.icon_font_bg_1);
+        titlelist.add(R.mipmap.icon_font_bg_3);
+        titlelist.add(R.mipmap.icon_font_bg_5);
+        titlelist.add(R.mipmap.icon_font_bg_7);
+        titlelist.add(R.mipmap.icon_font_bg_9);
+        titlelist.add(R.mipmap.icon_font_bg_11);
+
+        contentlist.add(0);
+        contentlist.add(R.mipmap.icon_font_bg_2);
+        contentlist.add(R.mipmap.icon_font_bg_4);
+        contentlist.add(R.mipmap.icon_font_bg_6);
+        contentlist.add(R.mipmap.icon_font_bg_8);
+        contentlist.add(R.mipmap.icon_font_bg_10);
+        contentlist.add(R.mipmap.icon_font_bg_12);
+
         lifeuserid = getIntent().getStringExtra("lifeuserid");
 
         fortunetellingAdapter = new FortunetellingAdapter(this, dataBeanList);
@@ -122,16 +143,24 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
         recyclerview.setAdapter(fortunetellingAdapter);
         String name = getIntent().getStringExtra("name");
         myTitlebar.setTitle(name);
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //                .setLabel("Please wait")
+                //                .setDetailsLabel("Downloading data")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
     }
 
     @Override
     public void initDatas() {
-
+        hud.show();
         OkGo.<String>post(Urls.Url_LifeBookCate).tag(this)
                 .params("lifeuserid", lifeuserid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+
 
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
@@ -158,21 +187,19 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 FortunetellingBean.DataBean dataBean = dataBeanList.get(position);
+                name = dataBean.getName();
                 if (dataBean.getSign() == 1) {
 
-                        Intent intent = new Intent(FortunetellingActivity.this, FortunetellingListActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", dataBean.getName());
-                        bundle.putString("lifeuserid", dataBean.getLifeuserid());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-
+                    Intent intent = new Intent(FortunetellingActivity.this, FortunetellingListActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name",name );
+                    bundle.putString("lifeuserid", dataBean.getLifeuserid());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 } else {
 
                     String payload = "";
                     String productId = packageName + dataBean.getStoreId();
-
-
 
                     if (productId != null && !productId.isEmpty()) {
                         Log.d(TAG, "onViewClicked-productId: " + productId);
@@ -199,19 +226,34 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     }
                 }
                 if (k >= 3) {
+                    if (rgblist.size()>6){
+                        rgblist.remove(0);
+                        titlelist.remove(0);
+                        contentlist.remove(0);
+                    }
                     dataBeanList.remove(0);
-                    rgblist.remove(0);
+
                 }
 
                 for (int i = 0; i < dataBeanList.size(); i++) {
                     for (int j = 0; j < rgblist.size(); j++) {
                         if (j == i) {
-                            dataBeanList.get(i)
-                                    .setColour(rgblist.get(j));
-                            dataBeanList.get(i)
-                                    .setLifeuserid(lifeuserid);
+                            dataBeanList.get(i).setColour(rgblist.get(j));
                         }
                     }
+                    for (int j = 0; j <titlelist.size(); j++) {
+                        if (j == i) {
+                            dataBeanList.get(i).setImgtitle(titlelist.get(j));
+                        }
+                    }
+
+                    for (int j = 0; j <contentlist.size(); j++) {
+                        if (j == i) {
+                            dataBeanList.get(i).setImgcontent(contentlist.get(j));
+                        }
+                    }
+
+                    dataBeanList.get(i).setLifeuserid(lifeuserid);
                     if (i > 0) {
                         skuList.add(packageName + dataBeanList.get(i)
                                 .getStoreId());
@@ -221,6 +263,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 fortunetellingAdapter.setNewData(dataBeanList);
                 getHandler().obtainMessage(SKUSUCCESS)
                         .sendToTarget();
+                hud.dismiss();
                 break;
 
             case SKUSUCCESS:
@@ -332,7 +375,6 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 try {
                     final String productId = purchase.getSku();
                     String purchaseToken = purchase.getToken();
-                    Log.i(TAG, "onConsumeFinished: productId" + productId + "     purchaseToken" + purchaseToken);
                     OkGo.<String>post(Urls.Url_Shopping).tag(this)
                             .params("userid", PreferenceManager.getUserId(getActivity()))
                             .params("lifeuserid", lifeuserid)
@@ -349,10 +391,19 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                                         if (shopCheckBean.getData()
                                                 .getStatus() == 1) {
                                             initDatas();
+                                            if (!shopCheckBean.getData().getProductId().equals("com.foreseers.chat.iap100")){
+                                                Intent intent = new Intent(FortunetellingActivity.this, FortunetellingListActivity.class);
+                                                Bundle bundle = new Bundle();
+                                                bundle.putString("name", name);
+                                                bundle.putString("lifeuserid", lifeuserid);
+                                                intent.putExtras(bundle);
+                                                startActivity(intent);
+                                            }
                                         }
                                     }
                                 }
                             });
+
                 } catch (Exception e) {
                 }
             } else {

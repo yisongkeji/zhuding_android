@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ImgAlbumActivity;
+import com.foreseers.chat.util.CustomClickListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,13 +47,17 @@ public class AlbumAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
         data = getData();
-        Glide.with(context).load(item.toString()).error(R.mipmap.default_image).placeholder(R.mipmap.default_image).into(
-                (ImageView) helper.getView(R.id.img_album));
+        Log.i(TAG, "convert: "+item.toString());
+        if (!item.toString().equals("")){
+            Glide.with(context).load(item.toString()).error(R.mipmap.default_image).placeholder(R.mipmap.default_image).into(
+                    (ImageView) helper.getView(R.id.img_album));
+        }
 
-        helper.getView(R.id.img_album).setOnClickListener(new View.OnClickListener() {
+
+        helper.getView(R.id.img_album).setOnClickListener(new CustomClickListener() {
+
             @Override
-            public void onClick(View view) {
-
+            protected void onSingleClick() {
                 Log.i(TAG, "onClick helper.getAdapterPosition(): " + helper.getAdapterPosition());
                 for (int j = 0; j < data.size(); j++) {
                     float[] xyf = new float[]{screenWidth / 2, 0};
@@ -65,16 +70,10 @@ public class AlbumAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 intent.putExtra("xyMap", xyMap);
                 Log.i(TAG, "data: " + data.toString());
                 fragment.startActivityForResult(intent, REQUEST_CODE_DELETEIMG);
+            }
 
-
-//                Intent intent = new Intent(context, ImgAlbumActivity.class);
-//                Bundle bundle=new Bundle();
-//                bundle.putString("data", item);
-//                bundle.putInt("position", helper.getAdapterPosition());
-//                intent.putExtras(bundle);
-//                Log.i("ImgAlbumActivity@@@@@11", " helper.getAdapterPosition()" +  helper
-// .getAdapterPosition());
-//                context.startActivity(intent);
+            @Override
+            protected void onFastClick() {
 
             }
         });

@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
+import com.foreseers.chat.activity.FortunetellingOutlineActivity;
 import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
 import com.foreseers.chat.activity.SettingActivity;
@@ -158,6 +159,8 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
     private int viptype=0x002;
     private String packageName;
     private Map<String, String> pricemap;
+    private String lifeuserid;
+    private String name;
 
     public MyFragment() {
     }
@@ -262,7 +265,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
-
+                lifeuserid = dataBean.getLifeuserid()+"";
                 if (layoutAlbum != null) {
                     if (albumNum >= 6) {
                         layoutAlbum.setClickable(false);
@@ -321,7 +324,8 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                                 .into(imageHead);
                     }
 
-                    textName.setText(dataBean.getUsername());
+                    name = dataBean.getUsername();
+                    textName.setText(name);
                     textMyNum.setText(dataBean.getNum() + "");
                     textVipDay.setText(dataBean.getVipday() + "");
                     textSign.setText(dataBean.getObligate());
@@ -535,8 +539,9 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                 }
                 break;
             case R.id.lifebook://命书
-                intent = new Intent(getActivity(), LifeBookActivity.class);
-                intent.putExtra("type", 0);
+                intent = new Intent(getActivity(), FortunetellingOutlineActivity.class);
+                intent.putExtra("lifeuserid", lifeuserid);
+                intent.putExtra("name", name);
                 getActivity().startActivity(intent);
                 break;
             case R.id.layout_change_user_data://修改個人信息

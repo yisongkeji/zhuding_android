@@ -1,72 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_View"
     android:layout_width="match_parent"
     android:layout_height="90dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="10dp"
     android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
     android:layout_marginTop="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginRight="15dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/img"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="3dp">
-                <TextView
-                    android:id="@+id/text_title"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/icon_lock_01" />
+
+                <ImageView
+                    android:id="@+id/img_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"/>
-                <TextView
-                    android:id="@+id/text_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/sp_15"
-                    android:text="@string/text_lifebook_content1"/>
+                    android:textSize="18sp" />
             </LinearLayout>
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/text_content"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="bottom"
-                android:paddingBottom="8dp">
-                <TextView
-                    android:id="@+id/text_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/sp_15"
-                    android:textColor="@color/colorGray2"
-                    android:layout_marginRight="10dp"/>
-                <TextView
-                    android:id="@+id/text_type"
-                    android:layout_width="42dp"
-                    android:layout_height="16dp"
-                    android:background="@mipmap/icon_buy_btn"
-                    android:text="@string/free_buy"
-                    android:gravity="center"
-                    android:textSize="@dimen/sp_11"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginRight="15dp"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/text_lifebook_content1"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/sp_15" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/text_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textColor="@color/colorGray"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:id="@+id/text_type"
+                        android:layout_width="42dp"
+                        android:layout_height="16dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/icon_buy_btn"
+                        android:gravity="center"
+                        android:text="@string/free_buy"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/sp_11" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </android.support.v7.widget.CardView>

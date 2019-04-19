@@ -76,6 +76,13 @@ public class FortunetellingUserAdapter extends BaseMultiItemQuickAdapter<MultiIt
                 holder.setText(R.id.text_name, lv1.name)
                         .setText(R.id.text_time, lv1.age);
 
+                if (lv1.self==1){
+                    holder.getView(R.id.right).setVisibility(View.GONE);
+                }else {
+                    holder.getView(R.id.right).setVisibility(View.VISIBLE);
+                }
+
+
                 holder.getView(R.id.content)
                         .setOnClickListener(new View.OnClickListener() {
                             @Override

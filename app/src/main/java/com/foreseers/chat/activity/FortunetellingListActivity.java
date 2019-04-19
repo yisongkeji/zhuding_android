@@ -102,7 +102,7 @@ public class FortunetellingListActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent=new Intent(FortunetellingListActivity.this,FortunetellingContentActivity.class);
                 Bundle bundle=new Bundle();
-                bundle.putString("lifesuerid",lifeuserid);
+                bundle.putString("lifeuserid",lifeuserid);
                 bundle.putString("name",name);
                 bundle.putString("title", dataBeans.get(position));
                intent.putExtras(bundle);

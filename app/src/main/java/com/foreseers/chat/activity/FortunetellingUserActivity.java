@@ -23,6 +23,7 @@ import com.foreseers.chat.view.item.Level0Item;
 import com.foreseers.chat.view.item.Level1Item;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -50,6 +51,7 @@ public class FortunetellingUserActivity extends BaseActivity {
     private LifeBookUserBean lifeBookUserBean;
     private List<LifeBookUserBean.DataBean> lifeBookUserBeanList = new ArrayList<>();
     ArrayList<MultiItemEntity> list;
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +67,19 @@ public class FortunetellingUserActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_fortunetelling_user);
         ButterKnife.bind(this);
+        //                .setLabel("Please wait")
+        //                .setDetailsLabel("Downloading data")
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //                .setLabel("Please wait")
+                //                .setDetailsLabel("Downloading data")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         list = generateData();
         fortunetellingUserAdapter = new FortunetellingUserAdapter(this, list);
 
-        //        view_item2.setBackgroundResource(R.color.colorOrange);
-        //        textTitle_item2.setText(getResources().getString(R.string.txt_shop_lifebook_item2));
         viewItem3.setBackgroundResource(R.color.colorBlue2);
         textItem3.setText(getResources().getString(R.string.txt_shop_lifebook_item3));
 
@@ -83,7 +93,7 @@ public class FortunetellingUserActivity extends BaseActivity {
 
     }
 
-    private void initData(){
+    private void initData() {
         OkGo.<String>post(Urls.Url_lifeUser).tag(this)
                 .params("userid", PreferenceManager.getUserId(this))
                 .execute(new StringCallback() {
@@ -102,6 +112,7 @@ public class FortunetellingUserActivity extends BaseActivity {
                     }
                 });
     }
+
     @Override
     public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -119,6 +130,7 @@ public class FortunetellingUserActivity extends BaseActivity {
                 list = generateData();
                 fortunetellingUserAdapter.setNewData(list);
                 fortunetellingUserAdapter.expandAll();
+                hud.dismiss();
                 break;
         }
     }
@@ -133,7 +145,8 @@ public class FortunetellingUserActivity extends BaseActivity {
                                              .getName(), lifeBookUserBeanList.get(j)
                                              .getDate() + " " + lifeBookUserBeanList.get(j)
                         .getTime(), lifeBookUserBeanList.get(j)
-                                             .getLifeuserid());
+                                             .getLifeuserid(), lifeBookUserBeanList.get(j)
+                                             .getSelf());
                 lv0.addSubItem(lv1);
             }
         }

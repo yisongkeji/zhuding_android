@@ -36,6 +36,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 命书概要
+ */
 public class FortunetellingOutlineActivity extends BaseActivity {
 
     @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;

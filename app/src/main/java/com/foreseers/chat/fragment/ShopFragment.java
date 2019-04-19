@@ -76,7 +76,6 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
     @BindView(R.id.text_item3) TextView textItem3;
     @BindView(R.id.text_item2) TextView textItem2;
     @BindView(R.id.text_item1) TextView textItem1;
-    @BindView(R.id.layout_fortunetelling) LinearLayout layoutFortunetelling;
     @BindView(R.id.banner) Banner banner;
 
     private LoginBean loginBean;
@@ -356,7 +355,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                     }
                 })
                 .setBannerAnimation(Transformer.Scale)
-                .setDelayTime(1000)
+                .setDelayTime(4000)
                 .start();
     }
 

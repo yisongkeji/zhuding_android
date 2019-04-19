@@ -118,7 +118,17 @@ public class AlbumBean {
         private int countnum;
         private int age;
         private int vipday;
+        private int lifeuserid;
         private ArrayList<String> listimage;
+
+        public void setLifeuserid(int lifeuserid) {
+            this.lifeuserid = lifeuserid;
+        }
+
+        public int getLifeuserid() {
+
+            return lifeuserid;
+        }
 
         public int getId() {
             return id;

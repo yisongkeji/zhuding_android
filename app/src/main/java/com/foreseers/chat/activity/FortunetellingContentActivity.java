@@ -21,6 +21,7 @@ import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -46,6 +47,8 @@ public class FortunetellingContentActivity extends BaseActivity {
     private FortunetellingContentBean dataBean;
     private List<FortunetellingContentBean.DataBean> dataBeanList = new ArrayList<>();
     private NSDictionary dic;
+    private KProgressHUD hud;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +80,23 @@ public class FortunetellingContentActivity extends BaseActivity {
         } catch (SAXException e) {
             e.printStackTrace();
         }
+        //                .setLabel("Please wait")
+        //                .setDetailsLabel("Downloading data")
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //                .setLabel("Please wait")
+                //                .setDetailsLabel("Downloading data")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
     }
 
     @Override
     public void initDatas() {
 
         OkGo.<String>post(Urls.Url_LifeBookDetailname).tag(this)
-                .params("lifesuerid", bundle.getString("lifesuerid"))
+                .params("lifeuserid", bundle.getString("lifeuserid"))
                 .params("name", bundle.getString("name"))
                 .params("title", bundle.getString("title"))
                 .execute(new StringCallback() {
@@ -117,11 +130,10 @@ public class FortunetellingContentActivity extends BaseActivity {
 
         switch (msg.what) {
             case DATASUCCESS:
-//                Glide.with(this).load(dataBeanList.get(0).getIcon()).into(img);
-//                GlideUtil.glide(this,dataBeanList.get(0).getIcon(),img);
+
                 img.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBeanList.get(0).getIcon())).toJavaObject().toString(), "mipmap", getPackageName()));
                 textContent.setText(Html.fromHtml(dataBeanList.get(0).getComment()));
-
+                hud.dismiss();
                 break;
         }
     }

@@ -66,6 +66,14 @@
                     android:overScrollMode="never"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
+    <ImageView
+        android:id="@+id/img_top"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/icon_header_up_01"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="20dp"
+        android:visibility="gone"/>
 
     <FrameLayout
         android:layout_width="match_parent"

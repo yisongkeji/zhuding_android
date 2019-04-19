@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@mipmap/icon_login_case_01"
     tools:context="com.foreseers.chat.activity.LoginActivity">
 
     <!--<com.facebook.login.widget.LoginButton-->
@@ -19,22 +19,77 @@
         android:gravity="center"
         android:orientation="vertical">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_login_white"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/icon_me_10" />
+
+            <EditText
+                android:id="@+id/edit_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="@string/text_hint_login"
+                android:paddingLeft="15dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_login_white2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="@string/text_login"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_16">
+
+
+        </TextView>
+
         <ImageButton
             android:id="@+id/login_facebook"
             android:layout_width="248dp"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/icon_login_facebook" />
 
 
         <ImageButton
             android:id="@+id/login_wechat"
             android:layout_width="248dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/icon_login_wechat" />
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:src="@mipmap/icon_logo_01" />
+
     <com.foreseers.chat.view.MyView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </FrameLayout>

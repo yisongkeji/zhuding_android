@@ -12,7 +12,7 @@ public class LifeBookUserBean {
 
     /**
      * status : success
-     * data : [{"date":"1993-09-10","lifeuserid":7,"name":"qi","time":"12:00:00"},{"date":"1993-09-10","lifeuserid":8,"name":"郑皓","time":"12:00:00"}]
+     * data : [{"date":"1998-04-18","lifeuserid":53,"name":"日益壮大","self":1,"time":"11:00:00"}]
      */
 
     private String status;
@@ -28,15 +28,17 @@ public class LifeBookUserBean {
 
     public static class DataBean {
         /**
-         * date : 1993-09-10
-         * lifeuserid : 7
-         * name : qi
-         * time : 12:00:00
+         * date : 1998-04-18
+         * lifeuserid : 53
+         * name : 日益壮大
+         * self : 1
+         * time : 11:00:00
          */
 
         private String date;
         private int lifeuserid;
         private String name;
+        private int self;
         private String time;
 
         public String getDate() { return date;}
@@ -50,6 +52,10 @@ public class LifeBookUserBean {
         public String getName() { return name;}
 
         public void setName(String name) { this.name = name;}
+
+        public int getSelf() { return self;}
+
+        public void setSelf(int self) { this.self = self;}
 
         public String getTime() { return time;}
 

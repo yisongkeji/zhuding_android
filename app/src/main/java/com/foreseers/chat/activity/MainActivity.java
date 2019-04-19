@@ -86,15 +86,19 @@ public class MainActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-//        StatusNavUtils.setStatusBarColor(this, 0x00000000);
         StatusBarUtil.setImmersiveStatusBar(this, true);
-        if (!HuanXinHelper.getInstance().isLoggedIn()) {
+        if (!HuanXinHelper.getInstance()
+                .isLoggedIn()) {
             EMClient.getInstance()
                     .login(PreferenceManager.getUserId(this) + "", "123", new EMCallBack() {//回调
                         @Override
                         public void onSuccess() {
-                            EMClient.getInstance().groupManager().loadAllGroups();
-                            EMClient.getInstance().chatManager().loadAllConversations();
+                            EMClient.getInstance()
+                                    .groupManager()
+                                    .loadAllGroups();
+                            EMClient.getInstance()
+                                    .chatManager()
+                                    .loadAllConversations();
                             Log.d("EMClient", "登录聊天服务器成功！");
                         }
 
@@ -120,20 +124,26 @@ public class MainActivity extends SupportActivity {
 
                         Gson gson = new Gson();
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus().equals("success")) {
+                        if (loginBean.getStatus()
+                                .equals("success")) {
 
                             friendTimeBean = gson.fromJson(response.body(), FriendTimeBean.class);
                             dataBean = friendTimeBean.getData();
                             for (int i = 0; i < dataBean.size(); i++) {
 
-                                Log.d("TAG@@@", i + "网络请求成功：" + "   hour：" + dataBean.get(i).getHour());
-                                if (dataBean.get(i).getHour() < 8 * 3600000) {//成为好友小于8小时，不可查看清晰头像
+                                Log.d("TAG@@@", i + "网络请求成功：" + "   hour：" + dataBean.get(i)
+                                        .getHour());
+                                if (dataBean.get(i)
+                                        .getHour() < 8 * 3600000) {//成为好友小于8小时，不可查看清晰头像
                                     Log.d("TAG@@@", "网络请求成功：" + "   hour888888888888888");
                                     Intent intent = new Intent(MainActivity.this, MediaService.class);
                                     intent.putExtra("type", 0);
-                                    intent.putExtra("hour", dataBean.get(i).getHour());
-                                    intent.putExtra("friendid", dataBean.get(i).getFriend());
-                                    intent.putExtra("userid", dataBean.get(i).getUserid());
+                                    intent.putExtra("hour", dataBean.get(i)
+                                            .getHour());
+                                    intent.putExtra("friendid", dataBean.get(i)
+                                            .getFriend());
+                                    intent.putExtra("userid", dataBean.get(i)
+                                            .getUserid());
                                     startService(intent);
                                 } else if (dataBean.get(i)
                                         .getHour() < 24 * 3600000) {//成为好友小于24小时，大于8小时，可查看清晰头像，聊天不可发送图片
@@ -196,27 +206,27 @@ public class MainActivity extends SupportActivity {
 
     private void initView() {
         initSound();
-        int position =getIntent().getIntExtra("position",2);
+        int position = getIntent().getIntExtra("position", 2);
         //        聊天
         chatFragment = new ChatFragment();
-        mFragmentList.add(chatFragment);
+        mFragmentList.add( chatFragment);
 
         //        朋友
         friendFragment = new FriendFragment();
-        mFragmentList.add(friendFragment);
+        mFragmentList.add( friendFragment);
 
         //        匹配
         matchFragment = new MatchFragment();
-        mFragmentList.add(matchFragment);
+        mFragmentList.add( matchFragment);
         Log.d(TAG, "initView: matchFragment ");
 
         //        商店
         shopFragment = new ShopFragment();
-        mFragmentList.add(shopFragment);
+        mFragmentList.add( shopFragment);
 
         //        個人
         myFragment = new MyFragment();
-        mFragmentList.add(myFragment);
+        mFragmentList.add( myFragment);
 
         changeFragment(position);
         mBottomBarLayout.setCurrentItem(position);
@@ -249,27 +259,39 @@ public class MainActivity extends SupportActivity {
 
     private void changeFragment(int currentPosition) {
         transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
+
+        for (int i = 0; i < mFragmentList.size(); i++) {
+
+            if (i == currentPosition) {
+                if (!mFragmentList.get(i).isAdded()){
+                    transaction.add(R.id.fl_content, mFragmentList.get(i));
+                }
+                transaction.show(mFragmentList.get(i));
+            } else {
+                if (mFragmentList.get(i).isAdded()) {
+                    transaction.hide(mFragmentList.get(i));
+                }
+            }
+        }
+
+        //        transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
         transaction.commit();
     }
+
     @SuppressLint("NewApi")
     private void initSound() {
         soundPool = new SoundPool.Builder().build();
         soundID = soundPool.load(this, R.raw.bottombar, 1);
     }
 
-
     private void playSound() {
-        soundPool.play(
-                soundID,
-                0.1f,      //左耳道音量【0~1】
-                0.5f,      //右耳道音量【0~1】
-                0,         //播放优先级【0表示最低优先级】
-                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
-                1          //播放速度【1是正常，范围从0~2】
+        soundPool.play(soundID, 0.1f,      //左耳道音量【0~1】
+                       0.5f,      //右耳道音量【0~1】
+                       0,         //播放优先级【0表示最低优先级】
+                       0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                       1          //播放速度【1是正常，范围从0~2】
                       );
     }
-
 
     private final int DATASUCCESS = 1;
     private final int GETmessNum = 2;

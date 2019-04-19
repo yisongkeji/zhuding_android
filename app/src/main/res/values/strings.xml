@@ -310,7 +310,7 @@
     <string name="text_vip">vip</string>
 
 
-    <string name="text_lifebook_content1">共&amp;项，免费查看</string>
+    <string name="text_lifebook_content1">共&amp;项，\n免费查看</string>
     <string name="text_lifebook_content2">共&amp;项，未购买</string>
     <string name="text_lifebook_content3">共&amp;项，已购买</string>
 
@@ -321,6 +321,8 @@
 
     <string name="text_long">长度最小为二</string>
     <string name="text_err">网络连接失败</string>
+    <string name="text_hint_login">用户名</string>
+    <string name="text_login">登录</string>
 
 
 </resources>

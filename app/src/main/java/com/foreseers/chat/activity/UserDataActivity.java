@@ -57,6 +57,7 @@ import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.util.LimitInputTextWatcher;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -84,61 +85,34 @@ import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
-
 public class UserDataActivity extends AppCompatActivity {
 
-    @BindView(R.id.img_doubt)
-    ImageView imgDoubt;
-    @BindView(R.id.edit_user_name)
-    EditText editUserName;
-    @BindView(R.id.bt_affirm_name)
-    Button btAffirmName;
-    @BindView(R.id.layout_user_name)
-    LinearLayout layoutUserName;
-    @BindView(R.id.text_user_birth)
-    TextView textUserBirth;
-    @BindView(R.id.bt_affirm_birth)
-    Button btAffirmBirth;
-    @BindView(R.id.layout_user_birth)
-    LinearLayout layoutUserBirth;
-    @BindView(R.id.text_user_name_affirm)
-    TextView textUserNameAffirm;
-    @BindView(R.id.text_user_birth_affirm)
-    TextView textUserBirthAffirm;
-    @BindView(R.id.bt_affirm)
-    Button btAffirm;
-    @BindView(R.id.layout_user_data_affirm)
-    FrameLayout layoutUserDataAffirm;
-    @BindView(R.id.umg_name_modification)
-    ImageView umgNameModification;
-    @BindView(R.id.umg_birth_modification)
-    ImageView umgBirthModification;
-    @BindView(R.id.umg_sex_modification)
-    ImageView umgSexModification;
-    @BindView(R.id.text_user_sex_affirm)
-    TextView textUserSexAffirm;
-    @BindView(R.id.radio_sex_man)
-    RadioButton radioSexMan;
-    @BindView(R.id.radio_sex_woman)
-    RadioButton radioSexWoman;
-    @BindView(R.id.radio_user_sex)
-    RadioGroup radioUserSex;
-    @BindView(R.id.text_user_timezone)
-    TextView textUserTimezone;
-    @BindView(R.id.umg_timezone_modification)
-    ImageView umgTimezoneModification;
-    @BindView(R.id.text_user_timezone_affirm)
-    TextView textUserTimezoneAffirm;
-    @BindView(R.id.layout_user_data)
-    RelativeLayout layoutUserData;
-    @BindView(R.id.img_head)
-    ImageView imgHead;
-    @BindView(R.id.bt_affirm_head)
-    Button btAffirmHead;
-    @BindView(R.id.layout_user_head)
-    LinearLayout layoutUserHead;
-    @BindView(R.id.img_head_affirm)
-    ImageView imgHeadAffirm;
+    @BindView(R.id.img_doubt) ImageView imgDoubt;
+    @BindView(R.id.edit_user_name) EditText editUserName;
+    @BindView(R.id.bt_affirm_name) Button btAffirmName;
+    @BindView(R.id.layout_user_name) LinearLayout layoutUserName;
+    @BindView(R.id.text_user_birth) TextView textUserBirth;
+    @BindView(R.id.bt_affirm_birth) Button btAffirmBirth;
+    @BindView(R.id.layout_user_birth) LinearLayout layoutUserBirth;
+    @BindView(R.id.text_user_name_affirm) TextView textUserNameAffirm;
+    @BindView(R.id.text_user_birth_affirm) TextView textUserBirthAffirm;
+    @BindView(R.id.bt_affirm) Button btAffirm;
+    @BindView(R.id.layout_user_data_affirm) FrameLayout layoutUserDataAffirm;
+    @BindView(R.id.umg_name_modification) ImageView umgNameModification;
+    @BindView(R.id.umg_birth_modification) ImageView umgBirthModification;
+    @BindView(R.id.umg_sex_modification) ImageView umgSexModification;
+    @BindView(R.id.text_user_sex_affirm) TextView textUserSexAffirm;
+    @BindView(R.id.radio_sex_man) RadioButton radioSexMan;
+    @BindView(R.id.radio_sex_woman) RadioButton radioSexWoman;
+    @BindView(R.id.radio_user_sex) RadioGroup radioUserSex;
+    @BindView(R.id.text_user_timezone) TextView textUserTimezone;
+    @BindView(R.id.umg_timezone_modification) ImageView umgTimezoneModification;
+    @BindView(R.id.text_user_timezone_affirm) TextView textUserTimezoneAffirm;
+    @BindView(R.id.layout_user_data) RelativeLayout layoutUserData;
+    @BindView(R.id.img_head) ImageView imgHead;
+    @BindView(R.id.bt_affirm_head) Button btAffirmHead;
+    @BindView(R.id.layout_user_head) LinearLayout layoutUserHead;
+    @BindView(R.id.img_head_affirm) ImageView imgHeadAffirm;
 
     private TimePickerView pvCustomLunar;
     private int i = 0;
@@ -166,6 +140,7 @@ public class UserDataActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_CHOOSE = 23;
     private String path;
     private String blurPath;
+    private KProgressHUD hud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +158,8 @@ public class UserDataActivity extends AppCompatActivity {
         facebookName = bundle.getString("facebookName");
         facebookId = bundle.getString("facebookId");
         editUserName.setText(facebookName);
-        if (editUserName.getText().length() > 0) {
+        if (editUserName.getText()
+                .length() > 0) {
             name = true;
             doubleChose();
         }
@@ -195,6 +171,15 @@ public class UserDataActivity extends AppCompatActivity {
         layoutUserBirth.setVisibility(View.GONE);
         layoutUserHead.setVisibility(View.GONE);
         layoutUserDataAffirm.setVisibility(View.GONE);
+        //                .setLabel("Please wait")
+        //                .setDetailsLabel("Downloading data")
+        hud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                //                .setLabel("Please wait")
+                //                .setDetailsLabel("Downloading data")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f);
     }
 
     //監聽
@@ -274,7 +259,6 @@ public class UserDataActivity extends AppCompatActivity {
         });
     }
 
-
     /**
      * 日期選擇
      * 农历时间已扩展至 ： 1900 - 2100年
@@ -284,8 +268,7 @@ public class UserDataActivity extends AppCompatActivity {
         Calendar startDate = Calendar.getInstance();
         startDate.set(1940, 1, 1);
         Calendar endDate = Calendar.getInstance();
-        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1,
-                selectedDate.get(Calendar.DAY_OF_MONTH));
+        endDate.set(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1, selectedDate.get(Calendar.DAY_OF_MONTH));
         //时间选择器 ，自定义布局
         pvCustomLunar = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
@@ -293,7 +276,7 @@ public class UserDataActivity extends AppCompatActivity {
 
                 textUserBirth.setText(getTime(date));
                 textUserBirthAffirm.setText(getTime(date));
-//                Toast.makeText(UserDataActivity.this, getTime(date), Toast.LENGTH_SHORT).show();
+                //                Toast.makeText(UserDataActivity.this, getTime(date), Toast.LENGTH_SHORT).show();
             }
         })
 
@@ -322,18 +305,14 @@ public class UserDataActivity extends AppCompatActivity {
                         });
                         //公农历切换
                         CheckBox cb_lunar = (CheckBox) v.findViewById(R.id.cb_lunar);
-                        cb_lunar.setOnCheckedChangeListener(new CompoundButton
-                                .OnCheckedChangeListener() {
+                        cb_lunar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean
-                                    isChecked) {
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 pvCustomLunar.setLunarCalendar(!pvCustomLunar.isLunarCalendar());
                                 //自适应宽
-                                setTimePickerChildWeight(v, isChecked ? 0.8f : 1f, isChecked ? 1f
-                                        : 1.1f);
+                                setTimePickerChildWeight(v, isChecked ? 0.8f : 1f, isChecked ? 1f : 1.1f);
                             }
                         });
-
                     }
 
                     /**
@@ -345,14 +324,12 @@ public class UserDataActivity extends AppCompatActivity {
                     private void setTimePickerChildWeight(View v, float yearWeight, float weight) {
                         ViewGroup timePicker = (ViewGroup) v.findViewById(R.id.timepicker);
                         View year = timePicker.getChildAt(0);
-                        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year
-                                .getLayoutParams());
+                        LinearLayout.LayoutParams lp = ((LinearLayout.LayoutParams) year.getLayoutParams());
                         lp.weight = yearWeight;
                         year.setLayoutParams(lp);
                         for (int i = 1; i < timePicker.getChildCount(); i++) {
                             View childAt = timePicker.getChildAt(i);
-                            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams)
-                                    childAt.getLayoutParams());
+                            LinearLayout.LayoutParams childLp = ((LinearLayout.LayoutParams) childAt.getLayoutParams());
                             childLp.weight = weight;
                             childAt.setLayoutParams(childLp);
                         }
@@ -364,7 +341,6 @@ public class UserDataActivity extends AppCompatActivity {
                 .build();
     }
 
-
     //    getTime
     private String getTime(Date date) {//可根据需要自行截取数据显示
 
@@ -372,17 +348,14 @@ public class UserDataActivity extends AppCompatActivity {
         return format.format(date);
     }
 
-
-    @OnClick({R.id.img_doubt, R.id.bt_affirm_name, R.id.text_user_birth, R.id.bt_affirm_birth, R
-            .id.bt_affirm, R.id.img_head, R.id.umg_name_modification, R.id.umg_sex_modification,
-            R.id.umg_birth_modification, R.id.text_user_timezone, R.id.bt_affirm_head, R.id
+    @OnClick({R.id.img_doubt, R.id.bt_affirm_name, R.id.text_user_birth, R.id.bt_affirm_birth, R.id.bt_affirm, R.id.img_head, R.id
+            .umg_name_modification, R.id.umg_sex_modification, R.id.umg_birth_modification, R.id.text_user_timezone, R.id.bt_affirm_head, R.id
             .umg_timezone_modification})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_doubt:
 
-                doubtDialog = new DoubtDialog(this, R.style.MyDialog, new DoubtDialog
-                        .LeaveMyDialogListener() {
+                doubtDialog = new DoubtDialog(this, R.style.MyDialog, new DoubtDialog.LeaveMyDialogListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -410,13 +383,12 @@ public class UserDataActivity extends AppCompatActivity {
                         break;
                 }
                 textUserNameAffirm.setText(editUserName.getText());
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context
-                        .INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
-                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView()
+                                                        .getWindowToken(), 0);
                 }
                 chengAnimation();
-
 
                 break;
             case R.id.text_user_birth:
@@ -424,7 +396,6 @@ public class UserDataActivity extends AppCompatActivity {
                 break;
             case R.id.text_user_timezone:
                 pvNoLinkOptions.show();
-
 
                 break;
             case R.id.bt_affirm_birth://出生日期确认button
@@ -461,8 +432,7 @@ public class UserDataActivity extends AppCompatActivity {
             case R.id.img_head://选择头像
 
                 RxPermissions rxPermissions = new RxPermissions(this);
-                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest
-                        .permission.CAMERA)
+                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                         .subscribe(new Observer<Boolean>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -476,28 +446,19 @@ public class UserDataActivity extends AppCompatActivity {
                                             .theme(R.style.Matisse_Dracula)
                                             .countable(true)
                                             .capture(true)
-                                            .captureStrategy(new CaptureStrategy(true, "com" +
-                                                    ".foreseers.chat.fileprovider", "test"))
+                                            .captureStrategy(new CaptureStrategy(true, "com" + ".foreseers.chat.fileprovider", "test"))
                                             .maxSelectable(1)
-                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K *
-                                                    Filter.K))
-                                            .gridExpectedSize(getResources()
-                                                    .getDimensionPixelSize(R.dimen
-                                                            .grid_expected_size))
-                                            .restrictOrientation(ActivityInfo
-                                                    .SCREEN_ORIENTATION_PORTRAIT)
+                                            .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                                            .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                                            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                                             .thumbnailScale(0.85f)
-//                                            .imageEngine(new GlideEngine())  // for glide-V3
+                                            //                                            .imageEngine(new GlideEngine())  // for glide-V3
                                             .imageEngine(new GlideEngine())    // for glide-V4
                                             .setOnSelectedListener(new OnSelectedListener() {
                                                 @Override
-                                                public void onSelected(
-                                                        @NonNull List<Uri> uriList, @NonNull
-                                                        List<String> pathList) {
+                                                public void onSelected(@NonNull List<Uri> uriList, @NonNull List<String> pathList) {
                                                     // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("onSelected", "onSelected: pathList=" +
-                                                            pathList);
-
+                                                    Log.e("onSelected", "onSelected: pathList=" + pathList);
                                                 }
                                             })
                                             .originalEnable(true)
@@ -507,17 +468,14 @@ public class UserDataActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onCheck(boolean isChecked) {
                                                     // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("isChecked", "onCheck: isChecked=" +
-                                                            isChecked);
+                                                    Log.e("isChecked", "onCheck: isChecked=" + isChecked);
                                                 }
                                             })
                                             .forResult(REQUEST_CODE_CHOOSE);
                                 } else {
-                                    Toast.makeText(UserDataActivity.this, R.string
-                                            .permission_request_denied, Toast.LENGTH_LONG)
+                                    Toast.makeText(UserDataActivity.this, R.string.permission_request_denied, Toast.LENGTH_LONG)
                                             .show();
                                 }
-
                             }
 
                             @Override
@@ -531,7 +489,6 @@ public class UserDataActivity extends AppCompatActivity {
                             }
                         });
                 break;
-
 
             case R.id.bt_affirm_head://头像确认
                 Log.i("######", "onViewClicked: #########");
@@ -557,16 +514,21 @@ public class UserDataActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
-//            mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
-            Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)) +
-                    "%%%%%%%%%" + Matisse.obtainPathResult(data).get(0));
-            path = Matisse.obtainPathResult(data).get(0);
+            //            mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
+            Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)) + "%%%%%%%%%" + Matisse.obtainPathResult(data)
+                    .get(0));
+            path = Matisse.obtainPathResult(data)
+                    .get(0);
 
             String[] arr = path.split("_");
             String newpath = arr[arr.length - 1];
 
-            Glide.with(this).load(path).into(imgHead);
-            Glide.with(this).load(path).into(imgHeadAffirm);
+            Glide.with(this)
+                    .load(path)
+                    .into(imgHead);
+            Glide.with(this)
+                    .load(path)
+                    .into(imgHeadAffirm);
             btAffirmHead.setBackgroundResource(R.drawable.rounded_text_accent);
             btAffirmHead.setEnabled(true);
 
@@ -578,7 +540,6 @@ public class UserDataActivity extends AppCompatActivity {
                 blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
 
                 Log.i("blurPath", "blurPath: " + blurPath);
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -586,7 +547,6 @@ public class UserDataActivity extends AppCompatActivity {
             Log.e("OnActivityResult ", "newpath: " + newpath);
 
             Log.e("OnActivityResult", "path: " + path);
-
         }
     }
 
@@ -597,19 +557,22 @@ public class UserDataActivity extends AppCompatActivity {
         Log.e("OKGO", "time: ##" + time2);
         Log.e("OKGO", "gender: ##" + gender);
         Log.e("OKGO", "facebookid: ##" + facebookId);
-        Log.e("OKGO", "zone: ##" + textUserTimezone.getText().toString());
+        Log.e("OKGO", "zone: ##" + textUserTimezone.getText()
+                .toString());
 
         GetLocation getLocation = new GetLocation();
 
         LocationBean locationBean = getLocation.getLocation(this);
-
+        hud.show();
         OkGo.<String>post(Urls.Url_UserData).tag(this)
-                .params("username", editUserName.getText().toString())
+                .params("username", editUserName.getText()
+                        .toString())
                 .params("date", date)
                 .params("time", time2)
                 .params("gender", gender)
                 .params("facebookid", facebookId)
-                .params("zone", textUserTimezone.getText().toString())
+                .params("zone", textUserTimezone.getText()
+                        .toString())
                 .params("country", locationBean.getCountry())
                 .params("city", locationBean.getCity())
                 .params("area", locationBean.getArea())
@@ -620,24 +583,27 @@ public class UserDataActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        hud.dismiss();
                         Log.e("OkGo", "Success: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         gson = new Gson();
                         userDataBean = gson.fromJson(response.body(), UserDataBean.class);
-                        if (userDataBean.getStatus().equals("success")) {
+                        if (userDataBean.getStatus()
+                                .equals("success")) {
                             userData = userDataBean.getData();
-                            mHandler.obtainMessage(DATASUCCESS).sendToTarget();
-                        } else if (userDataBean.getStatus().equals("fail")) {
-                            Toast.makeText(UserDataActivity.this, "发送失败", Toast.LENGTH_LONG).show();
+                            mHandler.obtainMessage(DATASUCCESS)
+                                    .sendToTarget();
+                        } else if (userDataBean.getStatus()
+                                .equals("fail")) {
+                            Toast.makeText(UserDataActivity.this, "发送失败", Toast.LENGTH_LONG)
+                                    .show();
                         }
-
                     }
 
                     @Override
                     public void onError(Response<String> response) {
                         super.onError(response);
-                        Log.e("OkGo", "onError:############################### " + response
-                                .getException());
-//                        mHandler.obtainMessage(DATAFELLED).sendToTarget();
+                        Log.e("OkGo", "onError:############################### " + response.getException());
+                        //                        mHandler.obtainMessage(DATAFELLED).sendToTarget();
                     }
                 });
     }
@@ -665,7 +631,6 @@ public class UserDataActivity extends AppCompatActivity {
                                                 public void onSuccess(Response<String> response) {
 
                                                     FileUtil.deleteFile(blurPath);
-
                                                 }
                                             });
                                 }
@@ -687,21 +652,22 @@ public class UserDataActivity extends AppCompatActivity {
     };
 
     private void upData() {
-        Log.i("OkGo", "date: " + textUserBirth.getText().toString());
+        Log.i("OkGo", "date: " + textUserBirth.getText()
+                .toString());
 
-        String birth = textUserBirth.getText().toString();
+        String birth = textUserBirth.getText()
+                .toString();
         //出生日期
         int indexYear = birth.indexOf("日");
         String date1 = birth.substring(0, indexYear);
         String date2 = date1.replace("年", "-");
         date = date2.replace("月", "-");
 
-
         //出生时间
         int index = birth.indexOf(" ");
         String time1 = birth.substring(index + 1, birth.length() - 1);
         time2 = time1 + ":00:00";
-//
+        //
     }
 
     //選擇時區
@@ -714,26 +680,22 @@ public class UserDataActivity extends AppCompatActivity {
                 textUserTimezoneAffirm.setText(timezone.get(options2));
                 time = true;
                 doubleTime();
-
             }
-        })
-                .setSubmitColor(getResources().getColor(R.color.colorAccent))
+        }).setSubmitColor(getResources().getColor(R.color.colorAccent))
                 .setCancelColor(getResources().getColor(R.color.colorAccent))
                 .setOptionsSelectChangeListener(new OnOptionsSelectChangeListener() {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3) {
-//                         textUserTimezone.setText(timezone.get(options2));
-//                        String str = "options1: " + options1 + "\noptions2: " + options2 +
-// "\noptions3: " + options3;
-//                        Toast.makeText(UserDataActivity.this, str, Toast.LENGTH_SHORT).show();
+                        //                         textUserTimezone.setText(timezone.get(options2));
+                        //                        String str = "options1: " + options1 + "\noptions2: " + options2 +
+                        // "\noptions3: " + options3;
+                        //                        Toast.makeText(UserDataActivity.this, str, Toast.LENGTH_SHORT).show();
                     }
                 })
                 // .setSelectOptions(0, 1, 1)
                 .build();
         pvNoLinkOptions.setNPicker(one, timezone, three);
         pvNoLinkOptions.setSelectOptions(0, 27, 0);
-
-
     }
 
     //對第一頁的判斷
@@ -746,7 +708,6 @@ public class UserDataActivity extends AppCompatActivity {
             btAffirmName.setBackgroundResource(R.drawable.rounded_text_gray);
             btAffirmName.setEnabled(false);
         }
-
     }
 
     //對第一頁時間的判斷
@@ -758,7 +719,6 @@ public class UserDataActivity extends AppCompatActivity {
             btAffirmBirth.setBackgroundResource(R.drawable.rounded_text_gray);
             btAffirmBirth.setEnabled(false);
         }
-
     }
 
     //時區
@@ -804,7 +764,6 @@ public class UserDataActivity extends AppCompatActivity {
 
         one.add("");
         three.add("");
-
     }
 
     //渐变
@@ -816,9 +775,8 @@ public class UserDataActivity extends AppCompatActivity {
         aa.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation arg0) {
-//				redirectTo();
+                //				redirectTo();
                 Log.i("log", "触发了事件");
-
             }
 
             @Override
@@ -828,7 +786,6 @@ public class UserDataActivity extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
             }
-
         });
     }
 
@@ -843,8 +800,6 @@ public class UserDataActivity extends AppCompatActivity {
         editor.putString("huanXinId", huanXinId + "");
         editor.commit();//提交修改
         Log.i("facebookid", "isLogin: " + userInfo.getString("token", ""));
-
-
     }
 
     /**
@@ -852,9 +807,8 @@ public class UserDataActivity extends AppCompatActivity {
      */
     private void initauthority() {
         if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            String[] mPermissionList = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission
+                    .WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }

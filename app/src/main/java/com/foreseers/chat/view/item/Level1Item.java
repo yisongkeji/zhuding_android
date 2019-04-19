@@ -13,11 +13,13 @@ public class Level1Item implements MultiItemEntity {
     public String name;
     public String age;
     public int lifeuserid;
+    public int self;
 
-    public Level1Item(String name, String age,int lifeuserid) {
+    public Level1Item(String name, String age,int lifeuserid,int self) {
         this.age = age;
         this.name = name;
         this.lifeuserid=lifeuserid;
+        this.self=self;
     }
 
     @Override
