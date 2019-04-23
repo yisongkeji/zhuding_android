@@ -27,6 +27,7 @@ import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.ErrBean;
 import com.foreseers.chat.bean.InquireFriendBean;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.UserInforBean;
 import com.foreseers.chat.dialog.AddFriendDialog;
 import com.foreseers.chat.dialog.AddFriendErrorDialog;
 import com.foreseers.chat.dialog.BlackDialog;
@@ -96,8 +97,8 @@ public class UserDetailsActivity extends BaseActivity {
     private int distance;
     private int userscore;
     private AddFriendErrorDialog addFriendErrorDialog;
-    private AnalyzeLifeBookBean analyzeLifeBookBean;
-    private AnalyzeLifeBookBean.DataBean dataBean;
+private UserInforBean userInforBean;
+    private UserInforBean.DataBean dataBean;
     private String avatar;
     private List<String> imgList = new ArrayList<>();
     private int friend;
@@ -114,6 +115,7 @@ public class UserDetailsActivity extends BaseActivity {
     private int numuser;
     private int soundID;
     private SoundPool soundPool;
+    private String lifeuserid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,8 +189,7 @@ public class UserDetailsActivity extends BaseActivity {
                     }
                 } else {
 
-                        layoutWipe.setVisibility(View.GONE);
-
+                    layoutWipe.setVisibility(View.GONE);
                 }
             }
 
@@ -199,10 +200,9 @@ public class UserDetailsActivity extends BaseActivity {
         });
     }
 
-
     private final int ANIMATION = 3;
 
-    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe})
+    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe,R.id.layout_lifebook})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_add_friend://添加好友
@@ -333,6 +333,15 @@ public class UserDetailsActivity extends BaseActivity {
                 }
 
                 break;
+            case R.id.layout_lifebook://TA的命书
+                if (thirthday==1){
+                    intent =new Intent(this,FortunetellingActivity.class);
+                    intent.putExtra("name",username);
+                    intent.putExtra("lifeuserid",lifeuserid);
+                    startActivity(intent);
+                }
+
+                break;
 
             case R.id.chat_user_details://发消息
                 intent = new Intent(this, ChatActivity.class);
@@ -437,7 +446,7 @@ public class UserDetailsActivity extends BaseActivity {
                             break;
                     }
                     //设置图片集合
-//                    banner.update(imgList);
+                    //                    banner.update(imgList);
                     //设置图片加载器
                     banner.setPages(imgList, new HolderCreator<BannerViewHolder>() {
                         @Override
@@ -473,7 +482,7 @@ public class UserDetailsActivity extends BaseActivity {
                     textLocation.setText(distance + "km +");
                     progressText.setText(userscore + "");
                     textDesc.setText(desc);
-                    if (sign!=null){
+                    if (sign != null) {
                         textSign.setText(sign);
                     }
 
@@ -511,7 +520,8 @@ public class UserDetailsActivity extends BaseActivity {
 
                 break;
             case DATAFELLED:
-                Toast.makeText(UserDetailsActivity.this, getActivity().getResources().getString(R.string.text_err), Toast.LENGTH_SHORT)
+                Toast.makeText(UserDetailsActivity.this, getActivity().getResources()
+                        .getString(R.string.text_err), Toast.LENGTH_SHORT)
                         .show();
                 break;
             case ANIMATION:
@@ -540,10 +550,11 @@ public class UserDetailsActivity extends BaseActivity {
                         LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                         if (loginBean.getStatus()
                                 .equals("success")) {
-                            analyzeLifeBookBean = gson.fromJson(response.body(), AnalyzeLifeBookBean.class);
+                            userInforBean = gson.fromJson(response.body(), UserInforBean.class);
 
-                            dataBean = analyzeLifeBookBean.getData();
+                            dataBean = userInforBean.getData();
                             username = dataBean.getName();
+                            lifeuserid = dataBean.getLifeuserid()+"";
                             sex = dataBean.getSex();
                             age = dataBean.getAge();
                             num = dataBean.getNum();
@@ -647,6 +658,7 @@ public class UserDetailsActivity extends BaseActivity {
                 .create()
                 .show();
     }
+
     class CustomViewHolder implements BannerViewHolder<Object> {
 
         private ImageView mImageView;
@@ -655,9 +667,7 @@ public class UserDetailsActivity extends BaseActivity {
         public View createView(Context context) {
             // 返回mImageView页面布局
             mImageView = new ImageView(context);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
-            );
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             mImageView.setBackgroundColor(Color.BLACK);
             mImageView.setLayoutParams(params);
             mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -667,24 +677,24 @@ public class UserDetailsActivity extends BaseActivity {
         @Override
         public void onBind(Context context, int position, Object data) {
             // 数据绑定
-            Glide.with(context).load(data).into(mImageView);
+            Glide.with(context)
+                    .load(data)
+                    .into(mImageView);
         }
     }
+
     @SuppressLint("NewApi")
     private void initSound() {
         soundPool = new SoundPool.Builder().build();
         soundID = soundPool.load(this, R.raw.eraser, 1);
     }
 
-
     private void playSound() {
-        soundPool.play(
-                soundID,
-                0.1f,      //左耳道音量【0~1】
-                0.5f,      //右耳道音量【0~1】
-                0,         //播放优先级【0表示最低优先级】
-                0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
-                1          //播放速度【1是正常，范围从0~2】
+        soundPool.play(soundID, 0.1f,      //左耳道音量【0~1】
+                       0.5f,      //右耳道音量【0~1】
+                       0,         //播放优先级【0表示最低优先级】
+                       0,         //循环模式【0表示循环一次，-1表示一直循环，其他表示数字+1表示当前数字对应的循环次数】
+                       1          //播放速度【1是正常，范围从0~2】
                       );
     }
 

@@ -113,6 +113,7 @@ public class UserDataActivity extends AppCompatActivity {
     @BindView(R.id.bt_affirm_head) Button btAffirmHead;
     @BindView(R.id.layout_user_head) LinearLayout layoutUserHead;
     @BindView(R.id.img_head_affirm) ImageView imgHeadAffirm;
+    @BindView(R.id.name_hint) TextView nameHint;
 
     private TimePickerView pvCustomLunar;
     private int i = 0;
@@ -199,13 +200,19 @@ public class UserDataActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() >= 2) {
-                    name = true;
-                    doubleChose();
-                } else {
-                    name = false;
-                    doubleChose();
+                if (editable.length() != 0) {
+                    nameHint.setVisibility(View.VISIBLE);
+                     if (editable.length() >= 2) {
+                        name = true;
+                        doubleChose();
+                    } else {
+                        name = false;
+                        doubleChose();
+                    }
+                }else {
+                    nameHint.setVisibility(View.GONE);
                 }
+
             }
         });
 

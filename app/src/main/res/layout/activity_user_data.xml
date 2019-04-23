@@ -46,27 +46,43 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="131dp"
+                        android:layout_marginTop="110dp"
                         android:text="@string/user_data_name_hint"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorAccent"
                         android:textSize="22sp" />
 
                     <EditText
                         android:id="@+id/edit_user_name"
                         android:layout_width="245dp"
                         android:layout_height="52dp"
-                        android:layout_marginTop="67dp"
+                        android:layout_marginTop="30dp"
                         android:background="@drawable/rounded_text_accent_side"
                         android:gravity="center"
                         android:maxLength="20"
                         android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/name_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_data_name_hint2"
+                        android:layout_marginTop="10sp"
+                        android:textSize="10sp"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_data_sex_hint"
+                        android:layout_marginTop="40dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="20sp"/>
 
                     <RadioGroup
                         android:id="@+id/radio_user_sex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal">
 
                         <RadioButton

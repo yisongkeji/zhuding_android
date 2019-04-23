@@ -41,34 +41,6 @@ public class WipeDayHistoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wipe_day_history);
-        ButterKnife.bind(this);
-        initView();
-        initData();
-        getDataFromHttp();
-    }
-
-
-    private void initView() {
-        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        wipeDayHistoryAdapter = new WipeDayHistoryAdapter(this, dataBeans);
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,
-                StaggeredGridLayoutManager.VERTICAL);
-        recyclerview.setLayoutManager(staggeredGridLayoutManager);
-        recyclerview.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
-        recyclerview.setAdapter(wipeDayHistoryAdapter);
-
-    }
-
-    private void initData() {
-        datetime = getIntent().getStringExtra("datetime");
-        type = getIntent().getIntExtra("type",0);
     }
 
     private void getDataFromHttp() {
@@ -80,7 +52,6 @@ public class WipeDayHistoryActivity extends BaseActivity {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-
                                 Gson gson = new Gson();
                                 LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                                 if (loginBean.getStatus().equals("success")) {
@@ -98,7 +69,6 @@ public class WipeDayHistoryActivity extends BaseActivity {
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-
                                 Gson gson = new Gson();
                                 LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
                                 if (loginBean.getStatus().equals("success")) {
@@ -121,12 +91,28 @@ public class WipeDayHistoryActivity extends BaseActivity {
 
     @Override
     public void initViews() {
+        setContentView(R.layout.activity_wipe_day_history);
+        ButterKnife.bind(this);
+        myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
+        wipeDayHistoryAdapter = new WipeDayHistoryAdapter(this, dataBeans);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,
+                                                                                               StaggeredGridLayoutManager.VERTICAL);
+        recyclerview.setLayoutManager(staggeredGridLayoutManager);
+        recyclerview.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
+        recyclerview.setAdapter(wipeDayHistoryAdapter);
+        datetime = getIntent().getStringExtra("datetime");
+        type = getIntent().getIntExtra("type",0);
     }
 
     @Override
     public void initDatas() {
-
+        getDataFromHttp();
     }
 
     @Override

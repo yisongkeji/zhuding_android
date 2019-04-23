@@ -368,6 +368,7 @@
 
                 <!--TA的命書-->
                 <LinearLayout
+                    android:id="@+id/layout_lifebook"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"

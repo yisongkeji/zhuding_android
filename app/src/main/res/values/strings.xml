@@ -7,6 +7,8 @@
 
     //hint
     <string name="user_data_name_hint">那麼怎麼稱呼您？</string>
+    <string name="user_data_sex_hint">请选择您的性别？</string>
+    <string name="user_data_name_hint2">昵称不能小于两个字符</string>
     <string name="user_data_birth_hint">請告知我們您的出生年月以及出生時間。</string>
     <string name="user_data_affirm_hint">请確認您的個人信息是否正確無誤？</string>
     <string name="doubt">在您首次登錄[註定]時，需要填寫您的真實信息，我們會根據這些信息精確地為您匹配靈魂伴侶并免費贈送一次基礎的命書測算。</string>

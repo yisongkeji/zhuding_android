@@ -156,6 +156,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     public void initDatas() {
         hud.show();
         OkGo.<String>post(Urls.Url_LifeBookCate).tag(this)
+                .params("userid", PreferenceManager.getUserId(this))
                 .params("lifeuserid", lifeuserid)
                 .execute(new StringCallback() {
                     @Override
@@ -200,6 +201,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
 
                     String payload = "";
                     String productId = packageName + dataBean.getStoreId();
+
 
                     if (productId != null && !productId.isEmpty()) {
                         Log.d(TAG, "onViewClicked-productId: " + productId);

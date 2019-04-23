@@ -39,6 +39,13 @@
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="1106190114019314#foreseers" />
+        <!--环信测试key-->
+        <!--<meta-data-->
+            <!--android:name="EASEMOB_APPKEY"-->
+            <!--android:value="1106190114019314#zzzz" />-->
+
+
+
         <!-- 声明SDK所需的service SDK核心功能 -->
         <service
             android:name="com.hyphenate.chat.EMChatService"

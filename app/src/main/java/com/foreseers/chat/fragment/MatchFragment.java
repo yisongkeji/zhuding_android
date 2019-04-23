@@ -33,7 +33,9 @@ import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.global.BaseFragment;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.GetLocation;
+import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.DoubleSlideSeekBar;
@@ -43,7 +45,9 @@ import com.hmy.popwindow.PopWindow;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +55,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -78,7 +84,6 @@ public class MatchFragment extends BaseFragment {
     private PeopleAdapter peopleAdapter;
     private String facebookid;
     private String huanXinId;
-    private SharedPreferences sPreferences;
     //    private int mNextRequestPage = 1;
     private LocationBean locationBean;
     private String sex;
@@ -247,7 +252,7 @@ public class MatchFragment extends BaseFragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (recyclerView.canScrollVertically(-1)) {
                     imgTop.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     imgTop.setVisibility(View.GONE);
                 }
             }
@@ -357,8 +362,7 @@ public class MatchFragment extends BaseFragment {
                     }
                 });
 
-
-               new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
+                new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
                         .addContentView(popview)
                         .addItemAction(new PopItemAction("确定", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
                             @Override
@@ -430,13 +434,37 @@ public class MatchFragment extends BaseFragment {
      * 位置权限
      */
     private void initauthority() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+        //        if (Build.VERSION.SDK_INT >= 23) {
+        //            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+        //
+        //            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager
+        // .PERMISSION_GRANTED) {
+        //                ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
+        //            }
+        //        }
 
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
-            }
-        }
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
+        rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void refresh(int sound) {

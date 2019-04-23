@@ -55,7 +55,7 @@ public class MyApplication extends Application {
         instance = this;
 
 
-                initOkGo();
+                initOkGo();//手动配置
 //        OkGo.getInstance().init(this);//默认
 
         // 初始化环信SDK

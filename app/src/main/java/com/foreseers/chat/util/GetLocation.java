@@ -41,26 +41,7 @@ public class GetLocation {
                 showLocation(location);
             } else {
                 Log.e("Exception", "获取地理位置失败 ");
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(activity);
-                dialog.setTitle("请打开位置服务");
-                dialog.setMessage("请先打开定位服务");
-                dialog.setPositiveButton("设置", new android.content.DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        // 转到手机设置界面，用户设置GPS
 
-                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        activity.startActivityForResult(intent, 33); // 设置完成后返回到原来的界面
-
-                    }
-                });
-                dialog.setNeutralButton("取消", new android.content.DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        arg0.dismiss();
-                    }
-                });
-                dialog.show();
             }
         } catch (Exception e) {
             Log.e("Exception", "getLocation: " + e.toString());
@@ -75,6 +56,7 @@ public class GetLocation {
         try {
             addList = ge.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 //            addList = ge.getFromLocation(22.3043710000, 114.1853080000, 1);
+            Log.e("location", "Latitude: "+ location.getLatitude()+"\nLongitude:"+location.getLongitude());
         } catch (IOException e) {
             e.printStackTrace();
         }

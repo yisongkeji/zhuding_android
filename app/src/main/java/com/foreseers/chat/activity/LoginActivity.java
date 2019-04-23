@@ -68,19 +68,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-
-        init();
-        callBack();
-    }
-
-    private void init() {
-        initauthority();//获取位置权限
-
-        callbackManager = CallbackManager.Factory.create();
-        accessToken = AccessToken.getCurrentAccessToken();
-        isLoggedIn = accessToken != null && !accessToken.isExpired();
     }
 
     private void callBack() {
@@ -111,7 +98,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void getFacebookInfo(AccessToken accessToken) {
-
         GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -135,7 +121,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    //, "user_friends","email","user_birthday"
     @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -161,15 +146,13 @@ public class LoginActivity extends BaseActivity {
                 if (editLogin.getText()
                         .length() == 0) {
                     facebookid = "467979503606542";
+//                                    facebookid= "100002";//齐瑞宁
+                    //                facebookid= "0000000000008";//刘海强
+                    //                facebookid= "46797950360653";
                 } else {
                     facebookid = editLogin.getText()
                             .toString();
                 }
-
-                //                facebookid= "0000000000008";//刘海强
-
-                //                facebookid= "46797950360653";
-                //                facebookid= "46797950360652333";//齐瑞宁
 
                 userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
                 editor = userInfo.edit();//获取Editor //得到Editor后，写入需要保存的数据
@@ -205,7 +188,7 @@ public class LoginActivity extends BaseActivity {
                             huanXinId = dataBean.getId();
                             Log.e("okgo", "onSuccess: " + huanXinId);
 
-                            mHandler.obtainMessage(DATASUCCESS)
+                            getHandler().obtainMessage(DATASUCCESS)
                                     .sendToTarget();
                         } else if (loginBean.getStatus()
                                 .equals("fail")) {
@@ -221,62 +204,6 @@ public class LoginActivity extends BaseActivity {
                     }
                 });
     }
-
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case DATASUCCESS:
-                    saveLogin(huanXinId);
-                    Log.i("EMClient", "huanXinId: " + huanXinId + "    huanXinId1: " + huanXinId1);
-                    EMClient.getInstance()
-                            .login(huanXinId + "", "123", new EMCallBack() {//回调
-                                @Override
-                                public void onSuccess() {
-                                    EMClient.getInstance()
-                                            .groupManager()
-                                            .loadAllGroups();
-                                    EMClient.getInstance()
-                                            .chatManager()
-                                            .loadAllConversations();
-                                    Log.d("EMClient", "登录聊天服务器成功！");
-                                    SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                    sharedPreferences.edit()
-                                            .putString("user", dataBean.getId() + "")
-                                            .commit();
-                                    sharedPreferences.edit()
-                                            .putString("nick", dataBean.getUsername())
-                                            .commit();
-                                    sharedPreferences.edit()
-                                            .putString("url", dataBean.getHead())
-                                            .commit();
-                                    Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
-                                }
-
-                                @Override
-                                public void onProgress(int progress, String status) {
-
-                                }
-
-                                @Override
-                                public void onError(int code, String message) {
-                                    Log.d("EMClient", "登录聊天服务器失败！");
-                                }
-                            });
-                    //                    loginHuanXin();
-                    //                    getHuanXinLogin();
-                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
-                    startActivity(intent);
-                    finish();
-                    break;
-                case DATAFELLED:
-
-                    break;
-            }
-        }
-    };
 
     private void loginHuanXin() {
         getHuanXinLogin();
@@ -365,7 +292,16 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initViews() {
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
+
+        initauthority();//获取位置权限
+
+        callbackManager = CallbackManager.Factory.create();
+        accessToken = AccessToken.getCurrentAccessToken();
+        isLoggedIn = accessToken != null && !accessToken.isExpired();
+        callBack();
     }
 
     @Override
@@ -380,6 +316,54 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void processHandlerMessage(Message msg) {
+        switch (msg.what) {
+            case DATASUCCESS:
+                saveLogin(huanXinId);
+                Log.i("EMClient", "huanXinId: " + huanXinId + "    huanXinId1: " + huanXinId1);
+                EMClient.getInstance()
+                        .login(huanXinId + "", "123", new EMCallBack() {//回调
+                            @Override
+                            public void onSuccess() {
+                                EMClient.getInstance()
+                                        .groupManager()
+                                        .loadAllGroups();
+                                EMClient.getInstance()
+                                        .chatManager()
+                                        .loadAllConversations();
+                                Log.d("EMClient", "登录聊天服务器成功！");
+                                SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                                sharedPreferences.edit()
+                                        .putString("user", dataBean.getId() + "")
+                                        .commit();
+                                sharedPreferences.edit()
+                                        .putString("nick", dataBean.getUsername())
+                                        .commit();
+                                sharedPreferences.edit()
+                                        .putString("url", dataBean.getHead())
+                                        .commit();
+                                Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
+                            }
 
+                            @Override
+                            public void onProgress(int progress, String status) {
+
+                            }
+
+                            @Override
+                            public void onError(int code, String message) {
+                                Log.d("EMClient", "登录聊天服务器失败！");
+                            }
+                        });
+                //                    loginHuanXin();
+                //                    getHuanXinLogin();
+                intent = new Intent(LoginActivity.this, MainActivity.class);
+                Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
+                startActivity(intent);
+                finish();
+                break;
+            case DATAFELLED:
+
+                break;
+        }
     }
 }

@@ -1,12 +1,10 @@
 package com.foreseers.chat.activity;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -65,9 +63,7 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
     @BindView(R.id.text_2) TextView text2;
     @BindView(R.id.text_3) TextView text3;
 
-    private String facebookid;
     private String userid;
-    private SharedPreferences sPreferences;
     private AnalyzeLifeBookBean analyzeLifeBookBean;
     private AnalyzeLifeBookBean.DataBean dataBean;
     private Typeface typeface;
@@ -189,8 +185,6 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
 
                 mindScoreTxt.setText(mindscore + "");
                 bodyScoreTxt.setText(bodyscore + "");
-
-                Log.i("11111111", characterscore + "   " + mindscore + "    " + bodyscore);
 
                 progressMatchingRate.setProgress(dataBean.getUserscore());
                 progressText.setText(this.getResources()

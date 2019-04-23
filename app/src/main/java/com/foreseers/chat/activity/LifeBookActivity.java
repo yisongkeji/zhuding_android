@@ -64,10 +64,8 @@ public class LifeBookActivity extends BaseActivity {
         int type = getIntent().getIntExtra("type", 0);
         if (type == 0) {
             gotoMainPage.setVisibility(View.GONE);
-            myTitlebar.setVisibility(View.VISIBLE);
         } else {
             gotoMainPage.setVisibility(View.VISIBLE);
-            myTitlebar.setVisibility(View.GONE);
         }
     }
 

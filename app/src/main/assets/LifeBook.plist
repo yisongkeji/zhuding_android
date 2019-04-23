@@ -4,7 +4,7 @@
 <plist version="1.0">
     <dict>
 
-        <key>紫薇</key><string>ziwei1</string>
+        <key>紫微</key><string>ziwei1</string>
         <key>天機</key><string>ziwei2</string>
         <key>太陽</key><string>ziwei3</string>
         <key>武曲</key><string>ziwei4</string>
@@ -18,11 +18,11 @@
         <key>天梁</key><string>ziwei12</string>
         <key>七殺</key><string>ziwei13</string>
         <key>破軍</key><string>ziwei14</string>
-        <key>紫薇天府</key><string>ziwei15</string>
-        <key>紫薇貪狼</key><string>ziwei16</string>
-        <key>紫薇天相</key><string>ziwei17</string>
-        <key>紫薇七殺</key><string>ziwei18</string>
-        <key>紫薇破軍</key><string>ziwei19</string>
+        <key>紫微天府</key><string>ziwei15</string>
+        <key>紫微貪狼</key><string>ziwei16</string>
+        <key>紫微天相</key><string>ziwei17</string>
+        <key>紫微七殺</key><string>ziwei18</string>
+        <key>紫微破軍</key><string>ziwei19</string>
         <key>天機太陰</key><string>ziwei20</string>
         <key>天機巨門</key><string>ziwei21</string>
         <key>天機天梁</key><string>ziwei22</string>

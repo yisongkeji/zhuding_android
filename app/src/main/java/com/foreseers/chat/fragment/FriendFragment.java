@@ -96,6 +96,7 @@ public class FriendFragment extends EaseBaseFragment {
     private EaseUser easeUser;
     private SharedPreferences sharedPreferences;
     private InviteMessgeDao inviteMessgeDao;
+    private String userid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -135,40 +136,39 @@ public class FriendFragment extends EaseBaseFragment {
             @Override
             public void onClick(View view) {
                 // 进入申请与通知页面
-                startActivity(new Intent(getActivity(), NewFriendsMsgActivity.class));
+                FriendFragment.this.startActivityForResult(new Intent(getActivity(), NewFriendsMsgActivity.class),0x001);
             }
         });
+        userid = PreferenceManager.getUserId(getActivity());
     }
 
     @Override
     protected void setUpView() {
 
         OkGo.<String>post(Urls.Url_GetFriendNum).tag(this)
-                .params("userid", PreferenceManager.getUserId(getActivity()))
+                .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
                         Gson gson = new Gson();
                         FriendNumBean friendNumBean = gson.fromJson(response.body(), FriendNumBean.class);
-                        if (textNum2!=null){
-                            textNum2.setText(friendNumBean.getData()
-                                                     .getFriendNums() + "");
-                            textNum1.setText(friendNumBean.getData()
-                                                     .getUsenums() + "/");
+                        if (textNum2 != null) {
+                            textNum2.setText(friendNumBean.getData().getFriendNums() + "");
+                            textNum1.setText(friendNumBean.getData().getUsenums() + "/");
                         }
-
                     }
                 });
 
         OkGo.<String>post(Urls.Url_GetFriend).tag(this)
-                .params("userid", PreferenceManager.getUserId(getActivity()))
+                .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         FriendBean friendBean = gson.fromJson(response.body(), FriendBean.class);
-                        if (friendBean.getStatus().equals("success")) {
+                        if (friendBean.getStatus()
+                                .equals("success")) {
                             dataBeans = friendBean.getData();
                             mHandler.obtainMessage(DATASUCCESS)
                                     .sendToTarget();
@@ -253,6 +253,19 @@ public class FriendFragment extends EaseBaseFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0x001:
+                setUpView();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         this.hidden = hidden;
@@ -325,7 +338,8 @@ public class FriendFragment extends EaseBaseFragment {
 
     @Override
     public void onDestroy() {
-OkGo.getInstance().cancelTag(this);
+        OkGo.getInstance()
+                .cancelTag(this);
         EMClient.getInstance()
                 .removeConnectionListener(connectionListener);
 
@@ -534,7 +548,7 @@ OkGo.getInstance().cancelTag(this);
             super.handleMessage(msg);
             switch (msg.what) {
                 case DATASUCCESS:
-                    if (textNum1!=null){
+                    if (textNum1 != null) {
                         map.clear();
                         sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
                         //                            sharedPreferences.edit().clear().commit();
@@ -562,7 +576,6 @@ OkGo.getInstance().cancelTag(this);
                         setContactsMap(map);
                         refresh();
                     }
-
 
                     break;
                 case DATAFELLED:
