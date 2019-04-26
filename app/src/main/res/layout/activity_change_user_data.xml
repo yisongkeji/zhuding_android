@@ -49,7 +49,8 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorGray2"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_14"
+                android:maxLength="20"/>
 
             <ImageView
                 android:layout_width="12dp"

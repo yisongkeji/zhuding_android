@@ -6,10 +6,12 @@
     <string name="login_with_facebook">Facebook登錄</string>
 
     //hint
-    <string name="user_data_name_hint">那麼怎麼稱呼您？</string>
+    <string name="user_data_name_hint">那麽怎麽稱呼您？</string>
+    <string name="user_data_sex_hint">請選擇您的性別？</string>
+    <string name="user_data_name_hint2">昵稱不能小於兩個字符</string>
     <string name="user_data_birth_hint">請告知我們您的出生年月以及出生時間。</string>
-    <string name="user_data_affirm_hint">请確認您的個人信息是否正確無誤？</string>
-    <string name="doubt">在您首次登錄[註定]時，需要填寫您的真實信息，我們會根據這些信息精確地為您匹配靈魂伴侶并免費贈送一次基礎的命書測算。</string>
+    <string name="user_data_affirm_hint">請確認您的個人信息是否正確無誤？</string>
+    <string name="doubt">在您首次登錄[註定]時，需要填寫您的真實信息，我們會根據這些信息精確地為您匹配靈魂伴侶並免費贈送壹次基礎的命書測算。</string>
     //按鈕
     <string name="affirm">確認</string>
     <string name="no_problem">沒有問題</string>
@@ -18,7 +20,7 @@
     <string name="accomplish">完成</string>
     //text
     <string name="name">姓名</string>
-    <string name="nickname">昵稱</string>
+    <string name="nickname">暱稱</string>
     <string name="birth">出生日期</string>
     <string name="sex">性別</string>
     <string name="age">年齡</string>
@@ -46,11 +48,12 @@
     <string name="ta_life_book">TA的命書</string>
     <string name="send_message">傳訊息</string>
 
-    <string name="user_nickname">昵稱 ：</string>
+    <string name="user_nickname">暱稱 ：</string>
     <string name="user_location">距離 ：</string>
     <string name="user_signature">簽名 ：</string>
 
     <string name="character">TA的個性</string>
+    <string name="character1">性格</string>
     <string name="comment">相處模式</string>
     <string name="courting">如何追求TA</string>
 
@@ -59,16 +62,27 @@
     <string name="day">日</string>
     <string name="time">時</string>
 
-    <!--命书-->
+    <!--命書-->
     <string name="txt_personal_analysis">已完成計算您的專屬命書</string>
     <string name="txt_horoscope">星座</string>
+    <string name="text_harmony_zodiac">合拍生肖</string>
     <string name="txt_zodiac">生肖</string>
-    <string name="txt_ziwei">紫微斗數命宮</string>
+    <string name="txt_harmony_zodiac">合拍生肖</string>
+    <string name="txt_star">人命卦</string>
+    <string name="txt_harmony_star">合拍命卦</string>
+    <string name="txt_ziwei">紫微鬥數命宮</string>
+    <string name="txt_harmony_ziwei">合拍命格</string>
     <string name="txt_numerology">生命靈數命數</string>
+    <string name="txt_harmony_numerology">合拍靈數</string>
     <string name="txt_bazi">子平八字</string>
     <string name="txt_start_use">開始使用</string>
 
-    <!--导航 -->
+    <!--商店命書-->
+    <string name="txt_shop_lifebook_item1">當前用戶</string>
+    <string name="txt_shop_lifebook_item2">切換用戶</string>
+    <string name="txt_shop_lifebook_item3">添加用戶</string>
+
+    <!--導航 -->
     <string name="item1">聊天</string>
     <string name="item2">朋友</string>
     <string name="item3">匹配</string>
@@ -82,9 +96,10 @@
 
 
     <!--提示-->
+    <string name="text_hint">提示</string>
     <string name="press_again_exit">再次點擊退出</string>
     <string name="no_friend_number">您的好友位置已被充滿，\n請擴充後再來發送好友請求吧。</string>
-    <string name="my_add_friend">要向name發送好友請求嗎？您還剩余num個好友位置。（對方同意才能成為您的好友）</string>
+    <string name="my_add_friend">要向name發送好友請求嗎？您還剩餘num個好友位置。（對方同意才能成為您的好友）</string>
     <string name="send_success">好友請求發送成功！請等待對方同意。</string>
     <string name="send_defeated">好友請求發送失敗，您的好友位置已被充滿。</string>
 
@@ -92,10 +107,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--命书接口-->
+    <!--命書接口-->
     <string name="lifebook">兩小無猜</string>
 
-    <string name="error_gif">長寬不小于 %1$dpx，且大小不超過 %2$sM。</string>
+    <string name="error_gif">長寬不小於 %1$dpx，且大小不超過 %2$sM。</string>
     <string name="permission_request_denied">需要相應的權限</string>
 
 
@@ -122,12 +137,12 @@
 
     //my_vip
     <string name="foreseers_my_vip">我的會員</string>
-    <string name="foreseers_destined_vip">注定會員：</string>
+    <string name="foreseers_destined_vip">註定會員：</string>
     <string name="foreseers_expire_vip">到期</string>
-    <string name="foreseers_destined">注定會員</string>
+    <string name="foreseers_destined">註定會員</string>
     <string name="foreseers_renew">點擊選擇續費時長</string>
     <string name="foreseers_day">天</string>
-    <string name="foreseers_destined_vip_pre">注定會員特權</string>
+    <string name="foreseers_destined_vip_pre">註定會員特權</string>
     <string name="foreseers_vip_id">會員標識</string>
     <string name="foreseers_who_see_me">誰看過我</string>
     <string name="foreseers_who_catch_me">誰擦過我</string>
@@ -145,8 +160,9 @@
     <string name="foreseers_clean_friend_record">清空好友聊天記錄</string>
     <string name="foreseers_id_secure">賬號與安全</string>
     <string name="foreseers_blacklist">黑名單</string>
+    <string name="foreseers_fortunetelling">命書測算</string>
     <string name="foreseers_idea_feedback">意見與反饋</string>
-    <string name="foreseers_about_us">關于我們</string>
+    <string name="foreseers_about_us">關於我們</string>
     <string name="foreseers_log_out">退出登錄</string>
 
     //sign
@@ -162,7 +178,7 @@
     <string name="foreseers_match_degree_percent">匹配度35%</string>
 
     //user_data
-    <string name="foreseers_choose_photo">請選擇一張照片作為您的頭像。</string>
+    <string name="foreseers_choose_photo">請選擇壹張照片作為您的頭像。</string>
 
     //user_details
     <string name="foreseers_user_nickname">用戶暱稱</string>
@@ -188,8 +204,8 @@
     <string name="foreseers_ensure_del_friends">是否確認刪除這個好友</string>
 
     //dialog_del_img
-    <string name="foreseers_clean_photo">擦看照片</string>
-    <string name="foreseers_ensure_clean_photo">是否確認擦看這張照片</string>
+    <string name="foreseers_del_photo">刪除照片</string>
+    <string name="foreseers_ensure_del_photo">是否確認刪除這張照片</string>
 
     //dialog_wipe
     <string name="foreseers_wipe_photo">擦照片</string>
@@ -229,7 +245,7 @@
 
     //item_people
     <string name="foreseers_seven_killed">七殺</string>
-    <string name="foreseers_first_meet">一見如故</string>
+    <string name="foreseers_first_meet">壹見如故</string>
 
     //pickerview_costom_lunar
     <string name="foreseers_lunar">農曆</string>
@@ -247,17 +263,17 @@
 
     //view_page4
     <string name="foreseers_who_see_you">讓妳知道誰曾查看過妳</string>
-    <string name="foreseers_crush_on_you">為妳心動</string>
+    <string name="foreseers_crush_on_you">爲妳心動</string>
 
     view_page5
-    <string name="foreseers_who_see_you_photo">讓你知道誰偷看了你的頭像</string>
+    <string name="foreseers_who_see_you_photo">讓妳知道誰偷看了妳的頭像</string>
     <string name="foreseers_immediately_TA">立即去撩TA</string>
 
     //about
     <string name="foreseers_about_app_name">關於註定</string>
     <string name="foreseers_version">版本V</string>
-    <string name="foreseers_about_content">\t玄人文化企業有限公司(下稱玄人)為一間新世代的企業，將多年來的中西玄學術數知識和數據系統化，再作出有效分析，從而得出更準確更有效的結果，除此之外，更會提供一站網上以及智能手機應用程式平台，供普羅大眾使用，大家可以利用該平台尋找心儀的玄學服務，無論一般文字咨詢，以至一對一的視像面談，一一都可以在玄人找到。
- \t中西玄學文化實在博大精深，有見及此，玄人還會提供網上學習平台，將知識推廣至更闊的層面，無遠弗屆，不論求問者，服務提供者，從此都不會再受到地域及時間限制，無論身處地球上任何一個角落，只要一機在手，隨時都能夠輕鬆地接觸玄學，令玄學的普世價值漸漸重回正軌。"
+    <string name="foreseers_about_content">\t玄人文化企業有限公司(下稱玄人)為壹間新世代的企業，將多年來的中西玄學術數知識和數據系統化，再作出有效分析，從而得出更準確更有效的結果，除此之外，更會提供壹站網上以及智能手機應用程式平臺，供普羅大眾使用，大家可以利用該平臺尋找心儀的玄學服務，無論壹般文字咨詢，以至壹對壹的視像面談，壹壹都可以在玄人找到。
+ \t中西玄學文化實在博大精深，有見及此，玄人還會提供網上學習平臺，將知識推廣至更闊的層面，無遠弗屆，不論求問者，服務提供者，從此都不會再受到地域及時間限制，無論身處地球上任何壹個角落，只要壹機在手，隨時都能夠輕鬆地接觸玄學，令玄學的普世價值漸漸重回正軌。"
                 </string>
     <string name="foreseers_terms_conditions">《條款細則》</string>
     <string name="foreseers_and">和</string>
@@ -268,25 +284,64 @@
 
     //opinion
     <string name="foreseers_opinion_feekback">意見與反饋</string>
-    <string name="foreseers_please_opinion">请详细描述问题和意见</string>
+    <string name="foreseers_please_opinion">請詳細描述問題和意見</string>
     <string name="foreseers_submit">提交</string>
 
     //wipe_history
     <string name="foreseers_became_vip_see">成為會員後可查看</string>
 
     //em_row_invite_msg
+    <string name="foreseers_refuse">拒絕</string>
 
-    <string name="text_hint">提示</string>
+    <string name="at_your_in_group">%s @ you in group chat</string>
+
+    <string name="foreseers_clean_photo">擦看照片</string>
+    <string name="foreseers_ensure_clean_photo">是否確認擦看這張照片</string>
     <!--舉報-->
     <string name="foreseers_inform">舉報</string>
     <string name="foreseers_report_easons">創建舉報理由</string>
     <string name="foreseers_report_easons_hint">請詳細描述妳要舉報該用戶的理由</string>
-    <!--开通会员-->
+
+    <!--開通會員-->
     <string name="open_vip">開通會員</string>
-    <string name="text_sign">這個人很懶，什麽都沒寫</string>
+
+
+    <string name="free_charge">免費</string>
+    <string name="free_buy">buy</string>
+    <string name="free_unlock">unlock</string>
+
+
+    <string name="text_sign">This guy is lazy. He doesn\'t write anything</string>
+
     <!--商店-->
     <string name="text_vip">vip</string>
 
-    <string name="text_look">查看</string>
 
+    <string name="text_lifebook_content1">共&amp;項，\n免費查看</string>
+    <string name="text_lifebook_content2">共&amp;項，未購買</string>
+    <string name="text_lifebook_content3">共&amp;項，已購買</string>
+
+    <string name="text_look">查看</string>
+    <string name="title_outline">命書概要</string>
+    <string name="text_go_lifebook">進入命書</string>
+
+
+    <string name="text_long">長度最小為二</string>
+    <string name="text_err">網絡連接失敗</string>
+    <string name="text_hint_login">用戶名</string>
+    <string name="text_login">登錄</string>
+
+    <string name="privacy">請同意隱私政策</string>
+    <string name="ok">確定</string>
+
+    <string name="removed_from_blacklist">從黑名單中移除</string>
+
+    <string name="login_success">登錄成功</string>
+    <string name="login_defeated">登錄失敗</string>
+    <string name="login_cancel">取消登錄</string>
+
+    <string name="up_success">上傳成功...</string>
+    <string name="content_not_null">內容不能為空</string>
+    <string name="no_eraser">擦子數不足</string>
+    <string name="go_blacklist">拉黑</string>
 </resources>

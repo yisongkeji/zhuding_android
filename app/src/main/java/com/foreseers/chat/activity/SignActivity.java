@@ -27,20 +27,60 @@ import butterknife.OnClick;
 
 public class SignActivity extends BaseActivity {
 
-    @BindView(R.id.my_titlebar)
-    MyTitleBar myTitlebar;
-    @BindView(R.id.edittext)
-    EditText edittext;
-    @BindView(R.id.text_num)
-    TextView textNum;
-    @BindView(R.id.text_save)
-    TextView textSave;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
+    @BindView(R.id.edittext) EditText edittext;
+    @BindView(R.id.text_num) TextView textNum;
+    @BindView(R.id.text_save) TextView textSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @OnClick(R.id.text_save)
+    public void onViewClicked() {
+        String sign = edittext.getText()
+                .toString();
+        if (sign != null && !sign.isEmpty()) {
+            OkGo.<String>post(Urls.Url_UserSign).tag(this)
+                    .params("userid", PreferenceManager.getUserId(this))
+                    .params("obligate", sign)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            Gson gson = new Gson();
+                            LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
+                            if (loginBean.getStatus()
+                                    .equals("success")) {
+                                finish();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(this, getActivity().getResources()
+                    .getString(R.string.content_not_null), Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_sign);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,59 +100,10 @@ public class SignActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                textNum.setText(String.valueOf(edittext.getText().length()));
-
+                textNum.setText(String.valueOf(edittext.getText()
+                                                       .length()));
             }
         });
-
-
-    }
-
-    @OnClick(R.id.text_save)
-    public void onViewClicked() {
-        String sign = edittext.getText().toString();
-        if (sign != null && !sign.isEmpty()) {
-            OkGo.<String>post(Urls.Url_UserSign).tag(this)
-                    .params("userid", PreferenceManager.getUserId(this))
-                    .params("obligate", sign)
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            Gson gson=new Gson();
-                            LoginBean loginBean=gson.fromJson(response.body(),LoginBean.class);
-                            if (loginBean.getStatus().equals("success")){
-                                finish();
-                            }else {
-                                Toast.makeText(SignActivity.this, "发送失败，请检查网络重新发送", Toast.LENGTH_LONG).show();
-                            }
-
-                        }
-                    });
-        } else {
-            Toast.makeText(this, "签名不能为空", Toast.LENGTH_LONG).show();
-        }
-
-
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
-
     }
 
     @Override

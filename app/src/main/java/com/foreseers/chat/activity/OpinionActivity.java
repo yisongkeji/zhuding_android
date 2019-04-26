@@ -70,8 +70,27 @@ public class OpinionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_opinion);
         ButterKnife.bind(this);
+
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,26 +114,6 @@ public class OpinionActivity extends BaseActivity {
                                                        .length()));
             }
         });
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
-
     }
 
     @Override
@@ -326,7 +325,7 @@ public class OpinionActivity extends BaseActivity {
                 layoutCancel3.setVisibility(View.GONE);
                 break;
             case R.id.text_ok:
-                Toast.makeText(this, "上传成功...", Toast.LENGTH_SHORT)
+                Toast.makeText(this, getActivity().getResources().getString(R.string.up_success), Toast.LENGTH_SHORT)
                         .show();
                 break;
         }

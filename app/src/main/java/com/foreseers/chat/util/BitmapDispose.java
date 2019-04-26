@@ -63,8 +63,10 @@ public class BitmapDispose {
      */
     public static Bitmap blurBitmap(Context context, Bitmap image, float blurRadius) {
         // 计算图片缩小后的长宽
-        int width = Math.round(image.getWidth() * BITMAP_SCALE);
-        int height = Math.round(image.getHeight() * BITMAP_SCALE);
+//        int width = Math.round(image.getWidth() * BITMAP_SCALE);
+//        int height = Math.round(image.getHeight() * BITMAP_SCALE);
+        int width = Math.round(image.getWidth()  );
+        int height = Math.round(image.getHeight() );
 
         // 将缩小后的图片做为预渲染的图片
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);

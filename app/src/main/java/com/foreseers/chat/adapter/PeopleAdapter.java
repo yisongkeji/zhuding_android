@@ -78,24 +78,7 @@ public class PeopleAdapter extends BaseQuickAdapter<RecommendBean.DataBean, Base
         }
 
 
-        baseViewHolder.getView(R.id.item_background).findViewById(R.id.item_background)
-                .setOnClickListener(new CustomClickListener() {
-                    @Override
-                    protected void onSingleClick() {
-                        Intent intent = new Intent(context, UserDetailsActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("userid", item.getId() + "");
-                        bundle.putInt("lookhead", item.getLookhead());
-                        bundle.putInt("numuser", item.getNumuser());
 
-                        intent.putExtras(bundle);
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    protected void onFastClick() {
-                    }
-                });
 
     }
 

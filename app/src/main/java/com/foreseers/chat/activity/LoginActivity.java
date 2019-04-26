@@ -6,15 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -50,6 +51,8 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_facebook) ImageButton loginFacebook;
     @BindView(R.id.login_wechat) ImageButton loginWechat;
     @BindView(R.id.edit_login) EditText editLogin;
+    @BindView(R.id.text_login) TextView textLogin;
+    @BindView(R.id.check_privacy) CheckBox checkPrivacy;
     private CallbackManager callbackManager;
     private Intent intent;
     private AccessToken accessToken;
@@ -70,6 +73,34 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public AppCompatActivity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void initViews() {
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+
+        initauthority();//获取位置权限
+
+        callbackManager = CallbackManager.Factory.create();
+        accessToken = AccessToken.getCurrentAccessToken();
+        isLoggedIn = accessToken != null && !accessToken.isExpired();
+        callBack();
+    }
+
+    @Override
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void installListeners() {
+
+    }
+
     private void callBack() {
         LoginManager.getInstance()
                 .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -77,21 +108,21 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         getFacebookInfo(loginResult.getAccessToken());
-                        Toast.makeText(LoginActivity.this, "登錄成功", Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_success), Toast.LENGTH_LONG)
                                 .show();
                     }
 
                     @Override
                     public void onCancel() {
                         // App code
-                        Toast.makeText(LoginActivity.this, "取消登錄", Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_cancel), Toast.LENGTH_LONG)
                                 .show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Toast.makeText(LoginActivity.this, "登錄失敗", Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_defeated), Toast.LENGTH_LONG)
                                 .show();
                     }
                 });
@@ -121,10 +152,11 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login})
+    @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login,R.id.check_privacy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_login:
+
                 facebookid = editLogin.getText()
                         .toString();
                 SharedPreferences userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
@@ -136,17 +168,19 @@ public class LoginActivity extends BaseActivity {
                 goLogin();
                 break;
             case R.id.login_facebook:
-
-                LoginManager.getInstance()
-                        .logInWithReadPermissions(this, Arrays.asList("public_profile"));
-
+                if (checkPrivacy.isChecked()) {
+                    LoginManager.getInstance()
+                            .logInWithReadPermissions(this, Arrays.asList("public_profile"));
+                }else {
+                    Toast.makeText(this,this.getResources().getString(R.string.privacy),Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.login_wechat:
 
                 if (editLogin.getText()
                         .length() == 0) {
                     facebookid = "467979503606542";
-//                                    facebookid= "100002";//齐瑞宁
+                    //                                    facebookid= "100002";//齐瑞宁
                     //                facebookid= "0000000000008";//刘海强
                     //                facebookid= "46797950360653";
                 } else {
@@ -161,6 +195,11 @@ public class LoginActivity extends BaseActivity {
                 editor.commit();//提交修改
 
                 goLogin();
+                break;
+            case R.id.check_privacy:
+                intent = new Intent(this, ClauseActivity.class);
+                intent.putExtra("type", 1);
+                startActivity(intent);
                 break;
         }
     }
@@ -286,38 +325,10 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-
-
-        initauthority();//获取位置权限
-
-        callbackManager = CallbackManager.Factory.create();
-        accessToken = AccessToken.getCurrentAccessToken();
-        isLoggedIn = accessToken != null && !accessToken.isExpired();
-        callBack();
-    }
-
-    @Override
-    public void initDatas() {
-
-    }
-
-    @Override
-    public void installListeners() {
-
-    }
-
-    @Override
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
+
                 saveLogin(huanXinId);
                 Log.i("EMClient", "huanXinId: " + huanXinId + "    huanXinId1: " + huanXinId1);
                 EMClient.getInstance()
@@ -342,6 +353,10 @@ public class LoginActivity extends BaseActivity {
                                         .putString("url", dataBean.getHead())
                                         .commit();
                                 Log.i("SharedPreferences", "onSuccess: " + sharedPreferences.getString("url", ""));
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
+                                startActivity(intent);
+                                finish();
                             }
 
                             @Override
@@ -356,10 +371,8 @@ public class LoginActivity extends BaseActivity {
                         });
                 //                    loginHuanXin();
                 //                    getHuanXinLogin();
-                intent = new Intent(LoginActivity.this, MainActivity.class);
-                Log.d("@#@#@#@#@#@#", "handleMessage: MainActivity");
-                startActivity(intent);
-                finish();
+
+
                 break;
             case DATAFELLED:
 

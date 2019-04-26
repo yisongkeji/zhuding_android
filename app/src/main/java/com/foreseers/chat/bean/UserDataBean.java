@@ -97,7 +97,7 @@ public class UserDataBean {
         private int userstar;
         private int reservedint;
         private String reservedvar;
-        private Object reservedvar1;
+        private String  reservedvar1;
         private String cat1;
 
         public int getId() {
@@ -332,12 +332,13 @@ public class UserDataBean {
             this.reservedvar = reservedvar;
         }
 
-        public Object getReservedvar1() {
-            return reservedvar1;
+        public void setReservedvar1(String reservedvar1) {
+            this.reservedvar1 = reservedvar1;
         }
 
-        public void setReservedvar1(Object reservedvar1) {
-            this.reservedvar1 = reservedvar1;
+        public String getReservedvar1() {
+
+            return reservedvar1;
         }
 
         public String getCat1() {

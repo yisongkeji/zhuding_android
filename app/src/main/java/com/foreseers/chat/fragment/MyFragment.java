@@ -101,7 +101,7 @@ import static com.foreseers.chat.util.GooglePlayHelper.product3;
  * 个人
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.IabBroadcastListener {
+public class MyFragment extends BaseFragment implements IabBroadcastReceiver.IabBroadcastListener {
     Unbinder unbinder;
 
     @BindView(R.id.recycler_img) RecyclerView recyclerImg;
@@ -156,7 +156,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
     private TextView textprice360;
     private TextView textprice90;
     private TextView textprice30;
-    private int viptype=0x002;
+    private int viptype = 0x002;
     private String packageName;
     private Map<String, String> pricemap;
     private String lifeuserid;
@@ -172,13 +172,12 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
         return view;
     }
 
-
     @Override
     public void initViews() {
         packageName = getActivity().getPackageName();
 
         rxPermissions = new RxPermissions(getActivity());
-        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
+        rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)
                 .subscribe(new Observer<Boolean>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -186,7 +185,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
 
                     @Override
                     public void onNext(Boolean aBoolean) {
-                        if (aBoolean){
+                        if (aBoolean) {
                             //看本地有没有头像 有就加载
                             if (PreferenceManager.getInstance()
                                     .getHeadImgUrl() != null) {
@@ -211,7 +210,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
 
                     }
                 });
-
 
         albumAdapter = new AlbumAdapter(getActivity(), MyFragment.this, imgList);
         recyclerImg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -265,7 +263,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
     public void processHandlerMessage(Message msg) {
         switch (msg.what) {
             case DATASUCCESS:
-                lifeuserid = dataBean.getLifeuserid()+"";
+                lifeuserid = dataBean.getLifeuserid() + "";
                 if (layoutAlbum != null) {
                     if (albumNum >= 6) {
                         layoutAlbum.setClickable(false);
@@ -352,49 +350,34 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
 
                 break;
 
-            case USERHEADSUCCESS:
-                OkGo.<String>post(Urls.Url_UserBlurHead).tag(this)
-                        .params("userid", userid)
-                        .params("file", new File(blurPath))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                //
-                                FileUtil.deleteFile(blurPath);
-                                FileUtil.deleteFile(newpath);
-                            }
-                        });
-
-                break;
-
             case USERIMGSUCCESS:
-                OkGo.<String>post(Urls.Url_UserBlurImg).tag(this)
-                        .params("userid", userid)
-                        .params("file", new File(blurImagePath))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-
-                                FileUtil.deleteFile(blurImagePath);
-                                FileUtil.deleteFile(newpath);
-                                getDataFromHttp();
-                                //                                if (albumNum >= 6) {
-                                //                                    layoutAlbum.setClickable(false);
-                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
-                                //                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
-                                //                                            .show();
-                                //                                } else {
-                                //                                    layoutAlbum.setClickable(true);
-                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
-                                //                                }
-                                //
-                                //                                albumAdapter.setNewData(imgList);
-                            }
-                        });
-
+                //                OkGo.<String>post(Urls.Url_UserBlurImg).tag(this)
+                //                        .params("userid", userid)
+                //                        .params("file", new File(blurImagePath))
+                //                        .execute(new StringCallback() {
+                //                            @Override
+                //                            public void onSuccess(Response<String> response) {
+                //
+                //                                FileUtil.deleteFile(blurImagePath);
+                //                                FileUtil.deleteFile(newpath);
+                //
+                //                                //                                if (albumNum >= 6) {
+                //                                //                                    layoutAlbum.setClickable(false);
+                //                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_05);
+                //                                //                                    Toast.makeText(getActivity(), "相册已达数量上限", Toast.LENGTH_LONG)
+                //                                //                                            .show();
+                //                                //                                } else {
+                //                                //                                    layoutAlbum.setClickable(true);
+                //                                //                                    imgAlbum.setBackgroundResource(R.mipmap.icon_site_02);
+                //                                //                                }
+                //                                //
+                //                                //                                albumAdapter.setNewData(imgList);
+                //                            }
+                //                        });
+                getDataFromHttp();
                 break;
             case SKUSUCCESS:
-                if (textName!=null){
+                if (textName != null) {
                     if (skuList.size() > 0) {
                         try {
                             mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
@@ -413,7 +396,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
-            case R.id.image_head:
+            case R.id.image_head://头像
                 rxPermissions = new RxPermissions(getActivity());
                 rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                         .subscribe(new Observer<Boolean>() {
@@ -612,7 +595,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                                                                                 .getGoogleID());
                                                         }
                                                     }
-
                                                 }
                                                 getHandler().obtainMessage(SKUSUCCESS)
                                                         .sendToTarget();
@@ -627,64 +609,62 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                                     });
                         }
                     });
-                        addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog ,  new AddVIPDialog.LeaveMyDialogListener() {
+                    addVIPDialog = new AddVIPDialog(getActivity(), R.style.MyDialog, new AddVIPDialog.LeaveMyDialogListener() {
 
-                            @Override
-                            public void onClick(View view) {
+                        @Override
+                        public void onClick(View view) {
 
-                                switch (view.getId()) {
-                                    case R.id.layout_vip1:
+                            switch (view.getId()) {
+                                case R.id.layout_vip1:
 
-                                        viptype = 0x001;
+                                    viptype = 0x001;
 
-                                        textday1 = view.findViewById(R.id.text_day1);
-                                        textprice360 = view.findViewById(R.id.text_price360);
+                                    textday1 = view.findViewById(R.id.text_day1);
+                                    textprice360 = view.findViewById(R.id.text_price360);
 
-                                        break;
-                                    case R.id.layout_vip2:
-                                        viptype=0x002;
-                                        textprice90 = view.findViewById(R.id.text_price90);
+                                    break;
+                                case R.id.layout_vip2:
+                                    viptype = 0x002;
+                                    textprice90 = view.findViewById(R.id.text_price90);
 
-                                        break;
-                                    case R.id.layout_vip3:
-                                        viptype=0x003;
-                                        textprice30 = view.findViewById(R.id.text_price30);
-                                        break;
-                                    case R.id.button_vip:
+                                    break;
+                                case R.id.layout_vip3:
+                                    viptype = 0x003;
+                                    textprice30 = view.findViewById(R.id.text_price30);
+                                    break;
+                                case R.id.button_vip:
 
-                                        String payload = "";
-                                        String productId = "";
-                                        switch (viptype){
-                                            case 0x001:
-                                                productId = packageName + product1;
-                                                break;
-                                            case 0x002:
-                                                productId = packageName + product2;
-                                                break;
-                                            case 0x003:
-                                                productId = packageName + product3;
-                                                break;
+                                    String payload = "";
+                                    String productId = "";
+                                    switch (viptype) {
+                                        case 0x001:
+                                            productId = packageName + product1;
+                                            break;
+                                        case 0x002:
+                                            productId = packageName + product2;
+                                            break;
+                                        case 0x003:
+                                            productId = packageName + product3;
+                                            break;
+                                    }
+                                    if (productId != null && !productId.isEmpty()) {
+                                        Log.d(TAG, "onViewClicked-productId: " + productId);
+                                        try {
+                                            mHelper.launchPurchaseFlow(getActivity(), productId, 1002, mPurchaseFinishedListener, payload);
+                                        } catch (IabHelper.IabAsyncInProgressException e) {
+                                            //                    complain("Error launching purchase flow. Another async operation in progress.");
                                         }
-                                        if (productId != null && !productId.isEmpty()) {
-                                            Log.d(TAG, "onViewClicked-productId: " + productId);
-                                            try {
-                                                mHelper.launchPurchaseFlow(getActivity(), productId, 1002, mPurchaseFinishedListener, payload);
-                                            } catch (IabHelper.IabAsyncInProgressException e) {
-                                                //                    complain("Error launching purchase flow. Another async operation in progress.");
-                                            }
-                                        }
+                                    }
 
-                                        addVIPDialog.dismiss();
+                                    addVIPDialog.dismiss();
 
-                                        break;
-                                }
+                                    break;
                             }
-                        });
-                        addVIPDialog.setCancelable(true);
-                        addVIPDialog.show();
-                    }
-
-
+                        }
+                    });
+                    addVIPDialog.setCancelable(true);
+                    addVIPDialog.show();
+                }
 
                 break;
             case R.id.img_setting://设置
@@ -729,11 +709,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                         Bitmap bitmap = BitmapFactory.decodeStream(fis);
                         //                        Bitmap compressbitmap = compressImage(bitmap);
                         newpath = BitmapDispose.saveBitmap(bitmap, 1);
-
-                        Bitmap blurBitmap = BitmapDispose.blurBitmap(getActivity(), bitmap, 25);
-                        blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
-
-                        Log.i("blurPath", "blurPath: " + blurPath);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -744,7 +719,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-
                                     Gson gson = new Gson();
                                     UserDataBean userDataBean = gson.fromJson(response.body(), UserDataBean.class);
                                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
@@ -752,9 +726,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                                             .putString("url", userDataBean.getData()
                                                     .getHead())
                                             .commit();
-
-                                    getHandler().obtainMessage(USERHEADSUCCESS)
-                                            .sendToTarget();
                                 }
                             });
                 }
@@ -805,8 +776,6 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                 getDataFromHttp();
                 break;
 
-
-
             case 10002:
 
                 if (mHelper == null) {
@@ -823,19 +792,16 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
 
                 }
 
-            break;
+                break;
 
             default:
                 break;
         }
     }
 
-
-
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
             //            MyLog.d(TAG, "Query inventory finished.");
-
 
             // Have we been disposed of in the meantime? If so, quit.
             if (mHelper == null) {
@@ -854,15 +820,15 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                     switch (details.getSku()) {
                         case "com.foreseers.chat.vip360":
                             pricemap.put("360", details.getPrice());
-//                            textprice360.setText(details.getPrice());
+                            //                            textprice360.setText(details.getPrice());
                             break;
                         case "com.foreseers.chat.vip90":
                             pricemap.put("90", details.getPrice());
-//                            textprice90.setText(details.getPrice());
+                            //                            textprice90.setText(details.getPrice());
                             break;
                         case "com.foreseers.chat.vip30":
                             pricemap.put("30", details.getPrice());
-//                            textprice30.setText(details.getPrice());
+                            //                            textprice30.setText(details.getPrice());
                             break;
                     }
                 }
@@ -967,6 +933,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
         String payload = p.getDeveloperPayload();
         return true;
     }
+
     @Override
     public void receivedBroadcast() {
         try {
@@ -975,6 +942,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
             //            complain("Error querying inventory. Another async operation in progress.");
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -983,65 +951,10 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
 
     @Override
     public void onResume() {
-        super.onResume();
+
         //        getDataFromHttp();
+        super.onResume();
     }
-
-//    private Bitmap compressImage(Bitmap image) {
-//
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-//        int options = 100;
-//        Log.i("######", "compressImage: " + baos.toByteArray().length);
-//        while (baos.toByteArray().length / 1024 > 400) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
-//            baos.reset();//重置baos即清空baos
-//            options -= 10;//每次都减少10
-//            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
-//            Log.i("######", "compressImage: " + baos.toByteArray().length);
-//        }
-//        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-//        //把压缩后的数据baos存放到ByteArrayInputStream中
-//        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
-//        return bitmap;
-//    }
-
-//    private Bitmap comp(Bitmap image) {
-//
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory
-//            // .decodeStream）时溢出
-//            baos.reset();//重置baos即清空baos
-//            image.compress(Bitmap.CompressFormat.JPEG, 50, baos);//这里压缩50%，把压缩后的数据存放到baos中
-//        }
-//        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-//        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-//        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
-//        newOpts.inJustDecodeBounds = true;
-//        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-//        newOpts.inJustDecodeBounds = false;
-//        int w = newOpts.outWidth;
-//        int h = newOpts.outHeight;
-//        //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-//        float hh = 1280f;//这里设置高度为800f
-//        float ww = 768f;//这里设置宽度为480f
-//        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
-//        int be = 1;//be=1表示不缩放
-//        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
-//            be = (int) (newOpts.outWidth / ww);
-//        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
-//            be = (int) (newOpts.outHeight / hh);
-//        }
-//        if (be <= 0) {
-//            be = 1;
-//        }
-//        newOpts.inSampleSize = be;//设置缩放比例
-//        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
-//        isBm = new ByteArrayInputStream(baos.toByteArray());
-//        bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-//        //        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
-//        return bitmap;//压缩好比例大小后再进行质量压缩
-//    }
 
     /**
      *
@@ -1060,7 +973,7 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
         Log.i("shengming", "onDestroy: MyFragment ");
         OkGo.cancelTag(OkGo.getInstance()
                                .getOkHttpClient(), this);
-        if (textName!=null){
+        if (textName != null) {
             if (skuList != null) {
                 skuList.clear();
             }
@@ -1074,17 +987,5 @@ public class MyFragment extends BaseFragment  implements IabBroadcastReceiver.Ia
                 mHelper = null;
             }
         }
-
     }
-
-    /**
-     * 申请权限
-     */
-//    private void initauthority() {
-//        if (Build.VERSION.SDK_INT >= 23) {
-//            String[] mPermissionList = new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
-//            ActivityCompat.requestPermissions(getActivity(), mPermissionList, 123);
-//        }
-//    }
 }

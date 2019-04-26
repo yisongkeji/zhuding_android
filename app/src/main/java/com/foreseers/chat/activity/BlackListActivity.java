@@ -82,7 +82,9 @@ public class BlackListActivity extends BaseActivity {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 final BlackBean.DataBean item = dataBeans.get(position);
                 new PopWindow.Builder(BlackListActivity.this).setStyle(PopWindow.PopWindowStyle.PopUp)
-                        .addItemAction(new PopItemAction("从黑名单中移除", PopItemAction.PopItemStyle.Normal, new PopItemAction.OnClickListener() {
+                        .addItemAction(new PopItemAction(getActivity().getResources().getString(R.string.removed_from_blacklist), PopItemAction.PopItemStyle.Normal, new
+                                PopItemAction
+                                .OnClickListener() {
                             @Override
                             public void onClick() {
 
@@ -129,7 +131,9 @@ public class BlackListActivity extends BaseActivity {
                                 informDialog.show();
                             }
                         }))
-                        .addItemAction(new PopItemAction("取消", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
+                        .addItemAction(new PopItemAction(getActivity().getResources().getString(R.string.cancel), PopItemAction.PopItemStyle.Cancel, new
+                                PopItemAction
+                                .OnClickListener() {
                             @Override
                             public void onClick() {
 

@@ -7,10 +7,12 @@
 
     //hint
     <string name="user_data_name_hint">那么怎么称呼您？</string>
+    <string name="user_data_sex_hint">请选择您的性别？</string>
+    <string name="user_data_name_hint2">昵称不能小于两个字符</string>
     <string name="user_data_birth_hint">请告知我们您的出生年月以及出生时间。</string>
     <string name="user_data_affirm_hint">请确认您的个人信息是否正确无误？</string>
     <string name="doubt">在您首次登录[注定]时，需要填写您的真实信息，我们会根据这些信息精确地为您匹配灵魂伴侣并免费赠送一次基础的命书测算。</string>
-    //按鈕
+    //按钮
     <string name="affirm">确认</string>
     <string name="no_problem">没有问题</string>
     <string name="konw">我知道了</string>
@@ -18,9 +20,9 @@
     <string name="accomplish">完成</string>
     //text
     <string name="name">姓名</string>
-    <string name="nickname">昵称</string>
+    <string name="nickname">暱称</string>
     <string name="birth">出生日期</string>
-    <string name="sex">性別</string>
+    <string name="sex">性别</string>
     <string name="age">年龄</string>
     <string name="xingsu">星宿</string>
     <string name="man">男</string>
@@ -46,11 +48,12 @@
     <string name="ta_life_book">TA的命书</string>
     <string name="send_message">传讯息</string>
 
-    <string name="user_nickname">昵称 ：</string>
+    <string name="user_nickname">暱称 ：</string>
     <string name="user_location">距离 ：</string>
     <string name="user_signature">签名 ：</string>
 
     <string name="character">TA的个性</string>
+    <string name="character1">性格</string>
     <string name="comment">相处模式</string>
     <string name="courting">如何追求TA</string>
 
@@ -62,11 +65,22 @@
     <!--命书-->
     <string name="txt_personal_analysis">已完成计算您的专属命书</string>
     <string name="txt_horoscope">星座</string>
+    <string name="text_harmony_zodiac">合拍生肖</string>
     <string name="txt_zodiac">生肖</string>
+    <string name="txt_harmony_zodiac">合拍生肖</string>
+    <string name="txt_star">人命卦</string>
+    <string name="txt_harmony_star">合拍命卦</string>
     <string name="txt_ziwei">紫微斗数命宫</string>
+    <string name="txt_harmony_ziwei">合拍命格</string>
     <string name="txt_numerology">生命灵数命数</string>
+    <string name="txt_harmony_numerology">合拍灵数</string>
     <string name="txt_bazi">子平八字</string>
     <string name="txt_start_use">开始使用</string>
+
+    <!--商店命书-->
+    <string name="txt_shop_lifebook_item1">当前用户</string>
+    <string name="txt_shop_lifebook_item2">切换用户</string>
+    <string name="txt_shop_lifebook_item3">添加用户</string>
 
     <!--导航 -->
     <string name="item1">聊天</string>
@@ -82,9 +96,10 @@
 
 
     <!--提示-->
+    <string name="text_hint">提示</string>
     <string name="press_again_exit">再次点击退出</string>
     <string name="no_friend_number">您的好友位置已被充满，\n请扩充后再来发送好友请求吧。</string>
-    <string name="my_add_friend">要向name发送好友请求吗？您还剩余num个好友位置。（对方同意才能成为您的好友）</string>
+    <string name="my_add_friend">要向name发送好友请求吗？您还剩馀num个好友位置。（对方同意才能成为您的好友）</string>
     <string name="send_success">好友请求发送成功！请等待对方同意。</string>
     <string name="send_defeated">好友请求发送失败，您的好友位置已被充满。</string>
 
@@ -145,6 +160,7 @@
     <string name="foreseers_clean_friend_record">清空好友聊天记录</string>
     <string name="foreseers_id_secure">账号与安全</string>
     <string name="foreseers_blacklist">黑名单</string>
+    <string name="foreseers_fortunetelling">命书测算</string>
     <string name="foreseers_idea_feedback">意见与反馈</string>
     <string name="foreseers_about_us">关于我们</string>
     <string name="foreseers_log_out">退出登录</string>
@@ -188,8 +204,8 @@
     <string name="foreseers_ensure_del_friends">是否确认删除这个好友</string>
 
     //dialog_del_img
-    <string name="foreseers_clean_photo">擦看照片</string>
-    <string name="foreseers_ensure_clean_photo">是否确认擦看这张照片</string>
+    <string name="foreseers_del_photo">删除照片</string>
+    <string name="foreseers_ensure_del_photo">是否确认删除这张照片</string>
 
     //dialog_wipe
     <string name="foreseers_wipe_photo">擦照片</string>
@@ -232,7 +248,7 @@
     <string name="foreseers_first_meet">一见如故</string>
 
     //pickerview_costom_lunar
-    <string name="foreseers_lunar">农历</string>
+    <string name="foreseers_lunar">农曆</string>
 
     //view_page1
     <string name="foreseers_catch_you">让对方一眼发现你</string>
@@ -247,7 +263,7 @@
 
     //view_page4
     <string name="foreseers_who_see_you">让你知道谁曾查看过你</string>
-    <string name="foreseers_crush_on_you">为你心动</string>
+    <string name="foreseers_crush_on_you">爲你心动</string>
 
     view_page5
     <string name="foreseers_who_see_you_photo">让你知道谁偷看了你的头像</string>
@@ -257,7 +273,8 @@
     <string name="foreseers_about_app_name">关于注定</string>
     <string name="foreseers_version">版本V</string>
     <string name="foreseers_about_content">\t玄人文化企业有限公司(下称玄人)为一间新世代的企业，将多年来的中西玄学术数知识和数据系统化，再作出有效分析，从而得出更准确更有效的结果，除此之外，更会提供一站网上以及智能手机应用程式平台，供普罗大众使用，大家可以利用该平台寻找心仪的玄学服务，无论一般文字咨询，以至一对一的视像面谈，一一都可以在玄人找到。
- \t中西玄学文化实在博大精深，有见及此，玄人还会提供网上学习平台，将知识推广至更阔的层面，无远弗届，不论求问者，服务提供者，从此都不会再受到地域及时间限制，无论身处地球上任何一个角落，只要一机在手，随时都能够轻鬆地接触玄学，令玄学的普世价值渐渐重回正轨。" </string>
+ \t中西玄学文化实在博大精深，有见及此，玄人还会提供网上学习平台，将知识推广至更阔的层面，无远弗届，不论求问者，服务提供者，从此都不会再受到地域及时间限制，无论身处地球上任何一个角落，只要一机在手，随时都能够轻鬆地接触玄学，令玄学的普世价值渐渐重回正轨。"
+                </string>
     <string name="foreseers_terms_conditions">《条款细则》</string>
     <string name="foreseers_and">和</string>
     <string name="foreseers_privacy_policy">《隐私政策》</string>
@@ -276,34 +293,55 @@
     //em_row_invite_msg
     <string name="foreseers_refuse">拒绝</string>
 
+    <string name="at_your_in_group">%s @ you in group chat</string>
 
-    <string name="at_your_in_group">%s在群聊中@了你</string>
-
-
-    <string name="text_hint">提示</string>
-
+    <string name="foreseers_clean_photo">擦看照片</string>
+    <string name="foreseers_ensure_clean_photo">是否确认擦看这张照片</string>
     <!--举报-->
     <string name="foreseers_inform">举报</string>
     <string name="foreseers_report_easons">创建举报理由</string>
     <string name="foreseers_report_easons_hint">请详细描述你要举报该用户的理由</string>
 
-
-
     <!--开通会员-->
     <string name="open_vip">开通会员</string>
 
-    <string name="text_sign">这个人很懒，什么都没写</string>
+
+    <string name="free_charge">免费</string>
+    <string name="free_buy">buy</string>
+    <string name="free_unlock">unlock</string>
+
+
+    <string name="text_sign">This guy is lazy. He doesn\'t write anything</string>
 
     <!--商店-->
     <string name="text_vip">vip</string>
-    <string name="free_charge">免费</string>
-    <string name="free_buy">购买</string>
-    <string name="free_unlock">已解锁</string>
 
-    <string name="text_lifebook_content1">共&amp;项，免费查看</string>
+
+    <string name="text_lifebook_content1">共&amp;项，\n免费查看</string>
     <string name="text_lifebook_content2">共&amp;项，未购买</string>
     <string name="text_lifebook_content3">共&amp;项，已购买</string>
 
     <string name="text_look">查看</string>
+    <string name="title_outline">命书概要</string>
+    <string name="text_go_lifebook">进入命书</string>
 
+
+    <string name="text_long">长度最小为二</string>
+    <string name="text_err">网络连接失败</string>
+    <string name="text_hint_login">用户名</string>
+    <string name="text_login">登录</string>
+
+    <string name="privacy">请同意隐私政策</string>
+    <string name="ok">确定</string>
+
+    <string name="removed_from_blacklist">从黑名单中移除</string>
+
+    <string name="login_success">登录成功</string>
+    <string name="login_defeated">登录失败</string>
+    <string name="login_cancel">取消登录</string>
+
+    <string name="up_success">上传成功...</string>
+    <string name="content_not_null">内容不能为空</string>
+    <string name="no_eraser">擦子数不足</string>
+    <string name="go_blacklist">拉黑</string>
 </resources>

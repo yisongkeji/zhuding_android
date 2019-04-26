@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,7 +24,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.R;
-import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.ErrBean;
 import com.foreseers.chat.bean.InquireFriendBean;
 import com.foreseers.chat.bean.LoginBean;
@@ -84,6 +84,8 @@ public class UserDetailsActivity extends BaseActivity {
     @BindView(R.id.img_ani) ImageView imgAni;
     @BindView(R.id.layout) LinearLayout layout;
     @BindView(R.id.banner) Banner banner;
+    @BindView(R.id.img_vip) ImageView imgVip;
+    @BindView(R.id.layout_lifebook) LinearLayout layoutLifebook;
 
     private NoFriendNumberDialog noFriendNumberDialog;
     private AddFriendDialog addFriendDialog;
@@ -97,7 +99,7 @@ public class UserDetailsActivity extends BaseActivity {
     private int distance;
     private int userscore;
     private AddFriendErrorDialog addFriendErrorDialog;
-private UserInforBean userInforBean;
+    private UserInforBean userInforBean;
     private UserInforBean.DataBean dataBean;
     private String avatar;
     private List<String> imgList = new ArrayList<>();
@@ -116,6 +118,8 @@ private UserInforBean userInforBean;
     private int soundID;
     private SoundPool soundPool;
     private String lifeuserid;
+    private int vip;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +148,7 @@ private UserInforBean userInforBean;
         Bundle bundle = intent.getExtras();
         userid = bundle.getString("userid");
         numuser = bundle.getInt("numuser");
+        position = bundle.getInt("position");
         if (numuser == 0) {
             layout.setVisibility(View.GONE);
         } else if (numuser == 1) {
@@ -162,6 +167,13 @@ private UserInforBean userInforBean;
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (lookhead==1){
+                    intent =new Intent();
+                    intent.putExtra("position",position);
+                    intent.putExtra("userid",userid);
+                    setResult(0x002,intent);
+                }
+
                 finish();
             }
         });
@@ -202,7 +214,7 @@ private UserInforBean userInforBean;
 
     private final int ANIMATION = 3;
 
-    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe,R.id.layout_lifebook})
+    @OnClick({R.id.img_add_friend, R.id.layout_analyze_life_book, R.id.chat_user_details, R.id.layout_wipe, R.id.layout_lifebook})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_add_friend://添加好友
@@ -334,10 +346,10 @@ private UserInforBean userInforBean;
 
                 break;
             case R.id.layout_lifebook://TA的命书
-                if (thirthday==1){
-                    intent =new Intent(this,FortunetellingActivity.class);
-                    intent.putExtra("name",username);
-                    intent.putExtra("lifeuserid",lifeuserid);
+                if (thirthday == 1) {
+                    intent = new Intent(this, FortunetellingActivity.class);
+                    intent.putExtra("name", username);
+                    intent.putExtra("lifeuserid", lifeuserid);
                     startActivity(intent);
                 }
 
@@ -399,12 +411,10 @@ private UserInforBean userInforBean;
                                                     ErrBean errBean = gson.fromJson(response.body(), ErrBean.class);
                                                     if (errBean.getData()
                                                             .getErrCode() == 2000) {
-                                                        Toast.makeText(UserDetailsActivity
-                                                                               .this, "擦字数不足", Toast.LENGTH_LONG)
-                                                                .show();
-                                                    } else {
-                                                        Toast.makeText(UserDetailsActivity
-                                                                               .this, "发送失败，请检查网络", Toast.LENGTH_LONG)
+                                                        Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.no_eraser)
+                                                                      ,
+                                                                       Toast
+                                                                .LENGTH_LONG)
                                                                 .show();
                                                     }
                                                 }
@@ -468,6 +478,16 @@ private UserInforBean userInforBean;
                         default:
                             break;
                     }
+
+                    switch (vip){
+                        case 0:
+                            imgVip.setVisibility(View.GONE);
+                            break;
+                        case 1:
+                            imgVip.setVisibility(View.VISIBLE);
+                            break;
+                    }
+
                     switch (friend) {
                         case 0://是好友
                             imgAddFriend.setBackgroundResource(R.mipmap.icon_data_03);
@@ -554,7 +574,7 @@ private UserInforBean userInforBean;
 
                             dataBean = userInforBean.getData();
                             username = dataBean.getName();
-                            lifeuserid = dataBean.getLifeuserid()+"";
+                            lifeuserid = dataBean.getLifeuserid() + "";
                             sex = dataBean.getSex();
                             age = dataBean.getAge();
                             num = dataBean.getNum();
@@ -568,6 +588,7 @@ private UserInforBean userInforBean;
                             desc = dataBean.getUserdesc();
                             sign = dataBean.getObligate();
                             lookhead = dataBean.getLookhead();
+                            vip = dataBean.getVip();
 
                             imgList.add(avatar);
 
@@ -591,14 +612,18 @@ private UserInforBean userInforBean;
     private void initPopupWind() {
 
         new PopWindow.Builder(this).setStyle(PopWindow.PopWindowStyle.PopUp)
-                .addItemAction(new PopItemAction("举报", PopItemAction.PopItemStyle.Normal, new PopItemAction.OnClickListener() {
+                .addItemAction(new PopItemAction(getActivity().getResources().getString(R.string.foreseers_inform), PopItemAction.PopItemStyle
+                        .Normal, new PopItemAction
+                        .OnClickListener() {
                     @Override
                     public void onClick() {
                         intent = new Intent(UserDetailsActivity.this, ReportActivity.class);
                         startActivity(intent);
                     }
                 }))
-                .addItemAction(new PopItemAction("拉黑", PopItemAction.PopItemStyle.Normal, new PopItemAction.OnClickListener() {
+                .addItemAction(new PopItemAction(getActivity().getResources().getString(R.string.go_blacklist), PopItemAction.PopItemStyle.Normal, new
+                        PopItemAction
+                        .OnClickListener() {
                     @Override
                     public void onClick() {
 
@@ -649,7 +674,9 @@ private UserInforBean userInforBean;
                         blackDialog.show();
                     }
                 }))
-                .addItemAction(new PopItemAction("取消", PopItemAction.PopItemStyle.Cancel, new PopItemAction.OnClickListener() {
+                .addItemAction(new PopItemAction(getActivity().getResources().getString(R.string.cancel), PopItemAction.PopItemStyle.Cancel, new
+                        PopItemAction
+                        .OnClickListener() {
                     @Override
                     public void onClick() {
 
@@ -702,5 +729,19 @@ private UserInforBean userInforBean;
     protected void onDestroy() {
         super.onDestroy();
         soundPool.release();
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (lookhead==1){
+                intent =new Intent();
+                intent.putExtra("position",position);
+                intent.putExtra("userid",userid);
+                setResult(0x002,intent);
+            }
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

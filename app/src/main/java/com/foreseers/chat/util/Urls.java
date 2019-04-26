@@ -5,6 +5,8 @@ public class Urls {
 //    public static final String URL = "http://192.168.1.73:8080";
                 public static final String URL = "https://chat.foreseers.cn:443";
 
+                public static final String webURL = "file:///android_asset/web";
+
     public static final String URL_User = URL + "/user/";
     public static final String Url_Query = URL_User + "queryUser";//判断是不是新用户
     public static final String Url_UserData = URL_User + "insertUser";//注册

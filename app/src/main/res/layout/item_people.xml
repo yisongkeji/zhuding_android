@@ -60,56 +60,68 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp">
 
-            <TextView
-                android:id="@+id/text_people_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="9dp"
-                android:text="name"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
-
             <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
+                android:id="@+id/layout_1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp">
-
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_people_name"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="@string/foreseers_match_degree"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_toStartOf="@+id/linearLayout"
+                    android:layout_toLeftOf="@+id/linearLayout"
+                    android:text="name"
                     android:textColor="@color/colorBlack"
-                    android:textSize="9sp" />
+                    android:textSize="20sp"
+                   android:ellipsize="end"
+                    android:maxLines="1"/>
 
-                <TextView
-                    android:id="@+id/text_people_progress"
+                <LinearLayout
+                    android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorMain"
-                    android:textSize="12sp" />
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="15dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="%"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="9sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/foreseers_match_degree"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/text_people_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorMain"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="%"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="9sp" />
+                </LinearLayout>
+
             </LinearLayout>
+
 
 
             <LinearLayout
                 android:id="@+id/layout_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_people_name"
+                android:layout_below="@id/layout_1"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/text_people_name">
+                app:layout_constraintTop_toBottomOf="@+id/layout_1">
 
                 <TextView
                     android:id="@+id/text_people_sex"
@@ -123,8 +135,6 @@
                     android:textSize="@dimen/sp_10"
                     card_view:layout_editor_absoluteX="2dp"
                     card_view:layout_editor_absoluteY="41dp" />
-
-
 
                 <TextView
                     android:id="@+id/text_people_location"

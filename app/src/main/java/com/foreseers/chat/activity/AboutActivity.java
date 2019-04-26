@@ -3,6 +3,7 @@ package com.foreseers.chat.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -44,7 +45,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public AppCompatActivity getActivity() {
-        return null;
+        return this;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
 
-        webView.loadUrl(Urls.URL + "/about_tc.html");
+        webView.loadUrl(Urls.webURL + "/about_tc.html");
         webView.setWebChromeClient(webChromeClient);
         webView.setWebViewClient(webViewClient);
 
@@ -117,11 +118,6 @@ public class AboutActivity extends BaseActivity {
             //            }
             return super.shouldOverrideUrlLoading(view, url);
         }
-
-        @Override
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-            handler.proceed();//接受证书
-        }
     };
     //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等
     private WebChromeClient webChromeClient = new WebChromeClient() {
@@ -130,7 +126,8 @@ public class AboutActivity extends BaseActivity {
         public boolean onJsAlert(WebView webView, String url, String message, JsResult result) {
             AlertDialog.Builder localBuilder = new AlertDialog.Builder(webView.getContext());
             localBuilder.setMessage(message)
-                    .setPositiveButton("确定", null);
+                    .setPositiveButton(getActivity().getResources()
+                                               .getString(R.string.ok), null);
             localBuilder.setCancelable(false);
             localBuilder.create()
                     .show();
@@ -157,7 +154,6 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("ansen", "是否有上一个页面:" + webView.canGoBack());
         //        if (webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
         //            webView.goBack(); // goBack()表示返回webView的上一页面
         //            return true;

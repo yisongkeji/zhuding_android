@@ -9,8 +9,8 @@ android {
         applicationId "com.foreseers.chat"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 16     //4.23
-        versionName "1.4.23"
+        versionCode 17     //4.26
+        versionName "1.4.26"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -75,5 +75,6 @@ dependencies {
     implementation 'com.googlecode.plist:dd-plist:1.21'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 apply plugin: 'com.google.gms.google-services'

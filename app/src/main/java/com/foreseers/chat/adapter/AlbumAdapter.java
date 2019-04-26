@@ -51,32 +51,34 @@ public class AlbumAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         if (!item.toString().equals("")){
             Glide.with(context).load(item.toString()).error(R.mipmap.default_image).placeholder(R.mipmap.default_image).into(
                     (ImageView) helper.getView(R.id.img_album));
+            helper.getView(R.id.img_album).setOnClickListener(new CustomClickListener() {
+
+                @Override
+                protected void onSingleClick() {
+                    Log.i(TAG, "onClick helper.getAdapterPosition(): " + helper.getAdapterPosition());
+                    for (int j = 0; j < data.size(); j++) {
+                        float[] xyf = new float[]{screenWidth / 2, 0};
+                        xyMap.put(helper.getAdapterPosition(), xyf);
+                    }
+
+                    Intent intent = new Intent(mContext, ImgAlbumActivity.class);
+                    intent.putStringArrayListExtra("urls", (ArrayList<String>) data);
+                    intent.putExtra("position", helper.getAdapterPosition());
+                    intent.putExtra("xyMap", xyMap);
+                    Log.i(TAG, "data: " + data.toString());
+                    fragment.startActivityForResult(intent, REQUEST_CODE_DELETEIMG);
+                }
+
+                @Override
+                protected void onFastClick() {
+
+                }
+            });
         }
 
 
-        helper.getView(R.id.img_album).setOnClickListener(new CustomClickListener() {
 
-            @Override
-            protected void onSingleClick() {
-                Log.i(TAG, "onClick helper.getAdapterPosition(): " + helper.getAdapterPosition());
-                for (int j = 0; j < data.size(); j++) {
-                    float[] xyf = new float[]{screenWidth / 2, 0};
-                    xyMap.put(helper.getAdapterPosition(), xyf);
-                }
 
-                Intent intent = new Intent(mContext, ImgAlbumActivity.class);
-                intent.putStringArrayListExtra("urls", (ArrayList<String>) data);
-                intent.putExtra("position", helper.getAdapterPosition());
-                intent.putExtra("xyMap", xyMap);
-                Log.i(TAG, "data: " + data.toString());
-                fragment.startActivityForResult(intent, REQUEST_CODE_DELETEIMG);
-            }
-
-            @Override
-            protected void onFastClick() {
-
-            }
-        });
 
 
     }

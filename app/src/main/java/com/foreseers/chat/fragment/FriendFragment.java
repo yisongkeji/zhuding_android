@@ -68,7 +68,7 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class FriendFragment extends EaseBaseFragment {
     private static final String TAG = "EaseContactListFragment";
-    protected List<EaseUser> contactList;
+    protected List<EaseUser>   contactList = new ArrayList<EaseUser>();
     protected ListView listView;
     protected boolean hidden;
     protected ImageButton clearSearch;
@@ -181,7 +181,8 @@ public class FriendFragment extends EaseBaseFragment {
         EMClient.getInstance()
                 .addConnectionListener(connectionListener);
 
-        contactList = new ArrayList<EaseUser>();
+
+        contactList.clear();
         getContactList();
 
         contactListLayout.init(contactList);
@@ -271,6 +272,7 @@ public class FriendFragment extends EaseBaseFragment {
         this.hidden = hidden;
         if (!hidden) {
             refresh();
+            setUpView();
         }
     }
 

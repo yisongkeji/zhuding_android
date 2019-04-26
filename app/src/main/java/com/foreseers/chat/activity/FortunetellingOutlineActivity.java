@@ -146,21 +146,21 @@ public class FortunetellingOutlineActivity extends BaseActivity {
                 img1.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBean.getHoroscope())).toJavaObject().toString(), "mipmap", getPackageName()));
 
                 textZodiac.setText(getResources().getString(R.string.txt_zodiac) + ":\t" +dataBean.getZodiac());
-                textZodiacmatch.setText(getResources().getString(R.string.txt_zodiac) + ":\t" +dataBean.getZodiacmatch());
+                textZodiacmatch.setText(getResources().getString(R.string.txt_harmony_zodiac) + ":\t" +dataBean.getZodiacmatch());
                 img2.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBean.getZodiac())).toJavaObject().toString(), "mipmap", getPackageName()));
 
                 textStar.setText(getResources().getString(R.string.txt_star) + ":\t" +dataBean.getStar());
-                textStarmatch.setText(getResources().getString(R.string.txt_star) + ":\t" +dataBean.getStarmatch());
+                textStarmatch.setText(getResources().getString(R.string.txt_harmony_star) + ":\t" +dataBean.getStarmatch());
                 img3.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBean.getStar()+"")).toJavaObject().toString(),
                                                                         "mipmap", getPackageName()));
 
                 textNumerology.setText(getResources().getString(R.string.txt_numerology) + ":\t" +dataBean.getNumerology());
-                textNumerologymatch.setText(getResources().getString(R.string.txt_numerology) + ":\t" +dataBean.getNumerologymatch());
+                textNumerologymatch.setText(getResources().getString(R.string.txt_harmony_numerology) + ":\t" +dataBean.getNumerologymatch());
                 img4.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBean.getNumerology()+"")).toJavaObject().toString(),
                                                                         "mipmap", getPackageName()));
 
                 textZiwei.setText(getResources().getString(R.string.txt_ziwei) + ":\t" +dataBean.getZiwei());
-                textZiweimatch.setText(getResources().getString(R.string.txt_ziwei) + ":\t" +dataBean.getZiweimatch());
+                textZiweimatch.setText(getResources().getString(R.string.txt_harmony_ziwei) + ":\t" +dataBean.getZiweimatch());
                 img5.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(dataBean.getZiwei())).toJavaObject().toString(),
                                                                         "mipmap", getPackageName()));
 
@@ -169,7 +169,7 @@ public class FortunetellingOutlineActivity extends BaseActivity {
 
                 Log.d("tellingOutlineActivity", "processHandlerMessage: "+bazi+"     i: "+i);
                 textBazi.setText(getResources().getString(R.string.txt_bazi) + ":\t" +i);
-                textBazimatch.setText(getResources().getString(R.string.txt_bazi) + ":\t" +dataBean.getBazimatch());
+                textBazimatch.setText(getResources().getString(R.string.txt_harmony_ziwei) + ":\t" +dataBean.getBazimatch());
                 img6.setBackgroundResource(getResources().getIdentifier((dic.objectForKey(i)).toJavaObject().toString(),
                                                                         "mipmap", getPackageName()));
 

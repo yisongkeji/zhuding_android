@@ -453,7 +453,7 @@ public class UserDataActivity extends AppCompatActivity {
                                             .theme(R.style.Matisse_Dracula)
                                             .countable(true)
                                             .capture(true)
-                                            .captureStrategy(new CaptureStrategy(true, "com" + ".foreseers.chat.fileprovider", "test"))
+                                            .captureStrategy(new CaptureStrategy(true, "com.foreseers.chat.fileprovider", "test"))
                                             .maxSelectable(1)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                                             .gridExpectedSize(getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
@@ -539,17 +539,17 @@ public class UserDataActivity extends AppCompatActivity {
             btAffirmHead.setBackgroundResource(R.drawable.rounded_text_accent);
             btAffirmHead.setEnabled(true);
 
-            try {
-
-                FileInputStream fis = new FileInputStream(path);
-                Bitmap bitmap = BitmapFactory.decodeStream(fis);
-                Bitmap blurBitmap = BitmapDispose.blurBitmap(UserDataActivity.this, bitmap, 25);
-                blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
-
-                Log.i("blurPath", "blurPath: " + blurPath);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//
+//                FileInputStream fis = new FileInputStream(path);
+//                Bitmap bitmap = BitmapFactory.decodeStream(fis);
+////                Bitmap blurBitmap = BitmapDispose.blurBitmap(UserDataActivity.this, bitmap, 25);
+////                blurPath = BitmapDispose.saveBitmap(blurBitmap, 0);
+//
+//                Log.i("blurPath", "blurPath: " + blurPath);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
             Log.e("OnActivityResult ", "newpath: " + newpath);
 
@@ -558,14 +558,6 @@ public class UserDataActivity extends AppCompatActivity {
     }
 
     private void upDataForHttp() {
-
-        Log.e("OKGO", "username: ##" + facebookName);
-        Log.e("OKGO", "date: ##" + date);
-        Log.e("OKGO", "time: ##" + time2);
-        Log.e("OKGO", "gender: ##" + gender);
-        Log.e("OKGO", "facebookid: ##" + facebookId);
-        Log.e("OKGO", "zone: ##" + textUserTimezone.getText()
-                .toString());
 
         GetLocation getLocation = new GetLocation();
 
@@ -630,16 +622,16 @@ public class UserDataActivity extends AppCompatActivity {
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    OkGo.<String>post(Urls.Url_UserBlurHead).tag(this)
-                                            .params("userid", userData.getId())
-                                            .params("file", new File(blurPath))
-                                            .execute(new StringCallback() {
-                                                @Override
-                                                public void onSuccess(Response<String> response) {
-
-                                                    FileUtil.deleteFile(blurPath);
-                                                }
-                                            });
+//                                    OkGo.<String>post(Urls.Url_UserBlurHead).tag(this)
+//                                            .params("userid", userData.getId())
+//                                            .params("file", new File(blurPath))
+//                                            .execute(new StringCallback() {
+//                                                @Override
+//                                                public void onSuccess(Response<String> response) {
+//
+//                                                    FileUtil.deleteFile(blurPath);
+//                                                }
+//                                            });
                                 }
                             });
 

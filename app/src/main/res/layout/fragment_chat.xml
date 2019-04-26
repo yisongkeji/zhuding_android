@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 android:elevation="1dp"
-        app:titleBarRightImage="@mipmap/icon_header_btn_04"
         app:titleBarTitle="@string/address_chat">
 
     </com.foreseers.chat.view.widget.MyTitleBar>

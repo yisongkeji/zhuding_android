@@ -58,6 +58,15 @@ public class MyActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public AppCompatActivity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void initViews() {
         setContentView(R.layout.activity_my);
         ButterKnife.bind(this);
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
@@ -68,17 +77,6 @@ public class MyActivity extends BaseActivity {
         });
         //设置自动轮播，默认为true
         banner.setAutoPlay(false);
-
-    }
-
-    @Override
-    public AppCompatActivity getActivity() {
-        return null;
-    }
-
-    @Override
-    public void initViews() {
-
     }
 
     @Override
@@ -119,10 +117,10 @@ public class MyActivity extends BaseActivity {
                     textAge.setText(dataBean.getAge() + "");
                     switch (dataBean.getSex()) {
                         case "F":
-                            textSex.setText("女");
+                            textSex.setText(getActivity().getResources().getString(R.string.woman));
                             break;
                         case "M":
-                            textSex.setText("男");
+                            textSex.setText(getActivity().getResources().getString(R.string.man));
                             break;
                     }
                     textZiwei.setText(dataBean.getZiwei());

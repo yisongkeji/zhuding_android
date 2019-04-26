@@ -25,12 +25,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.foreseers.chat.R;
+import com.foreseers.chat.activity.UserDetailsActivity;
 import com.foreseers.chat.adapter.PeopleAdapter;
 import com.foreseers.chat.bean.LocationBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.RecommendBean;
 import com.foreseers.chat.bean.UserCanumsNumBean;
+import com.foreseers.chat.bean.VipTimeBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.global.BaseFragment;
 import com.foreseers.chat.global.MyApplication;
@@ -111,6 +114,7 @@ public class MatchFragment extends BaseFragment {
     private SoundPool soundPool;
     private int soundID;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private int position;
 
     public MatchFragment() {
         // Required empty public constructor
@@ -141,8 +145,24 @@ public class MatchFragment extends BaseFragment {
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerPeople.setLayoutManager(staggeredGridLayoutManager);
         recyclerPeople.addItemDecoration(new GridSectionAverageGapItemDecoration(10, 10, 10, 10));
-        recyclerPeople.setAdapter(peopleAdapter);
 
+        peopleAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                RecommendBean.DataBean mybean = (RecommendBean.DataBean) adapter.getItem(position);
+
+                Intent intent = new Intent(getContext(), UserDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userid", mybean.getId() + "");
+                bundle.putInt("lookhead", mybean.getLookhead());
+                bundle.putInt("numuser", mybean.getNumuser());
+                bundle.putInt("position", position);
+
+                intent.putExtras(bundle);
+                MatchFragment.this.startActivityForResult(intent, 0x001);
+            }
+        });
+        recyclerPeople.setAdapter(peopleAdapter);
         swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
     }
 
@@ -162,10 +182,21 @@ public class MatchFragment extends BaseFragment {
 
     private void getDataForHttp() {
         Log.d(TAG, "getDataForHttp: ");
-        sex = "";
-        ageLittle = "12";
-        agebig = "50";
-        distance = 100;
+
+        if (userInfo != null) {
+            if (userInfo.getInt("ageLow", 0) == 0) {
+                sex = "";
+                ageLittle = "12";
+                agebig = "50";
+                distance = 100;
+            } else {
+                sex = userInfo.getString("sex", null);
+                ageLittle = userInfo.getInt("ageLow", 0) + "";
+                agebig = userInfo.getInt("ageBig", 0) + "";
+                distance = userInfo.getInt("distanceBig", 0);
+            }
+        }
+        Log.d(TAG, "getDataForHttp: \n sex:" + sex + "\n ageLittle:" + ageLittle + "\n agebig" + agebig + "\n distance" + distance);
     }
 
     private void getDataFromHttp(final int sound) {
@@ -203,7 +234,7 @@ public class MatchFragment extends BaseFragment {
                                 if (sound == 0) {
                                     getHandler().obtainMessage(DATASUCCESS)
                                             .sendToTarget();
-                                } else {
+                                } else if (sound == 1) {
                                     getHandler().obtainMessage(DATASUCCESSNOSOUND)
                                             .sendToTarget();
                                 }
@@ -228,6 +259,38 @@ public class MatchFragment extends BaseFragment {
                 Log.d(TAG, "onActivityResult: ");
                 swipeLayout.setRefreshing(true);
                 refresh(0);
+                break;
+            case 0x001:
+                if (resultCode == 0x002) {
+                    position = data.getIntExtra("position", 0);
+
+                    OkGo.<String>post(Urls.Url_VipTime).tag(this)
+                            .params("userid", data.getStringExtra("userid"))
+                            .execute(new StringCallback() {
+
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Gson gson = new Gson();
+                                    VipTimeBean vipTimeBean = gson.fromJson(response.body(), VipTimeBean.class);
+                                    String newhead = vipTimeBean.getData()
+                                            .getHead();
+
+                                    RecommendBean.DataBean mybean = recommendBeans.get(position);
+                                    mybean.setHead(newhead);
+
+//                                    String head="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3342608762,1591169269&fm=27&gp=0.jpg";
+////                                    peopleAdapter.remove(position);
+////                                    peopleAdapter.addData(position, mybean);
+                                    peopleAdapter.getItem(position).setHead(newhead);
+                                    peopleAdapter.notifyItemChanged(position);
+                                }
+                            });
+
+                    //                    peopleAdapter.getItem(position)
+                    //                            .setHead("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3342608762,
+                    // 1591169269&fm=27&gp=0.jpg");
+                }
+
                 break;
         }
     }
@@ -301,7 +364,6 @@ public class MatchFragment extends BaseFragment {
         switch (view.getId()) {
 
             case R.id.img_match_filter:
-
                 String s = userInfo.getString("sex", null);
                 ageLowContent = userInfo.getFloat("ageLowContent", 0);
                 ageLow = userInfo.getInt("ageLow", 0);
