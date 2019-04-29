@@ -181,11 +181,7 @@ public class MainActivity extends SupportActivity {
                                             .execute(new StringCallback() {
                                                 @Override
                                                 public void onSuccess(Response<String> response) {
-                                                    //                                                Log.d("TAG@@@", "OkGo");
-                                                    //                                                Gson gson = new Gson();
-                                                    //                                                LoginBean bean = gson.fromJson(response.body(),
-                                                    // LoginBean.class);
-                                                    //
+
                                                 }
                                             });
                                 }
@@ -209,24 +205,24 @@ public class MainActivity extends SupportActivity {
         int position = getIntent().getIntExtra("position", 2);
         //        聊天
         chatFragment = new ChatFragment();
-        mFragmentList.add( chatFragment);
+        mFragmentList.add(chatFragment);
 
         //        朋友
         friendFragment = new FriendFragment();
-        mFragmentList.add( friendFragment);
+        mFragmentList.add(friendFragment);
 
         //        匹配
         matchFragment = new MatchFragment();
-        mFragmentList.add( matchFragment);
+        mFragmentList.add(matchFragment);
         Log.d(TAG, "initView: matchFragment ");
 
         //        商店
         shopFragment = new ShopFragment();
-        mFragmentList.add( shopFragment);
+        mFragmentList.add(shopFragment);
 
         //        個人
         myFragment = new MyFragment();
-        mFragmentList.add( myFragment);
+        mFragmentList.add(myFragment);
 
         changeFragment(position);
         mBottomBarLayout.setCurrentItem(position);
@@ -263,12 +259,14 @@ public class MainActivity extends SupportActivity {
         for (int i = 0; i < mFragmentList.size(); i++) {
 
             if (i == currentPosition) {
-                if (!mFragmentList.get(i).isAdded()){
+                if (!mFragmentList.get(i)
+                        .isAdded()) {
                     transaction.add(R.id.fl_content, mFragmentList.get(i));
                 }
                 transaction.show(mFragmentList.get(i));
             } else {
-                if (mFragmentList.get(i).isAdded()) {
+                if (mFragmentList.get(i)
+                        .isAdded()) {
                     transaction.hide(mFragmentList.get(i));
                 }
             }

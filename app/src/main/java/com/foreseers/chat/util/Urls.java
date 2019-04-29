@@ -2,10 +2,10 @@ package com.foreseers.chat.util;
 
 public class Urls {
 
-//    public static final String URL = "http://192.168.1.73:8080";
-                public static final String URL = "https://chat.foreseers.cn:443";
+    //    public static final String URL = "http://192.168.1.73:8080";
+    public static final String URL = "https://chat.foreseers.cn:443";
 
-                public static final String webURL = "file:///android_asset/web";
+    public static final String webURL = "file:///android_asset/web";
 
     public static final String URL_User = URL + "/user/";
     public static final String Url_Query = URL_User + "queryUser";//判断是不是新用户
@@ -16,7 +16,6 @@ public class Urls {
     public static final String Url_Userquery = URL_User + "queryName";//用户名字和头像
     public static final String Url_Countage = URL_User + "countage";
     public static final String Url_VipTime = URL_User + "getVipTime";//刷新vip时间
-
 
     //我的
     public static final String Url_My = URL_User + "userpersonal";//我的模块
