@@ -19,8 +19,10 @@ import android.webkit.WebViewClient;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -144,6 +146,11 @@ public class ClauseActivity extends BaseActivity {
 
     @Override
     public void processHandlerMessage(Message msg) {
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }

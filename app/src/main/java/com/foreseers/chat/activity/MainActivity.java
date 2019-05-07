@@ -46,6 +46,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -377,6 +378,8 @@ public class MainActivity extends SupportActivity {
                 .contactManager()
                 .removeContactListener(contactListener);
         soundPool.release();
+
+
     }
 
     @OnClick(R.id.img_main)

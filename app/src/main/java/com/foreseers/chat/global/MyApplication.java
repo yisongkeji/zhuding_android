@@ -4,7 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
@@ -17,6 +19,8 @@ import com.hyphenate.easeui.EaseUI;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+
+
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -44,6 +48,8 @@ public class MyApplication extends Application {
 
     private static Typeface typeface;
 
+
+
     public static Context getContext() {
         return mContext;
     }
@@ -51,18 +57,29 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+        mContext = getApplicationContext();
         instance = this;
 
+        initlog();
 
-                initOkGo();//手动配置
-//        OkGo.getInstance().init(this);//默认
+
+        initOkGo();//手动配置
+        //        OkGo.getInstance().init(this);//默认
 
         // 初始化环信SDK
         initEasemob();
-//        MultiDex.install(mContext);
+        //        MultiDex.install(mContext);
         //设置字体
         initTypeFace();
+    }
+
+    private void initlog() {
+//        refWatcher = setupLeakCanary();//2
+
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this);
     }
 
     private void initOkGo() {
@@ -140,18 +157,28 @@ public class MyApplication extends Application {
 
     private void initTypeFace() {
 
-         typeface=Typeface.createFromAsset(getAssets(),"fonts/mytypeface.TTF");
+        typeface = Typeface.createFromAsset(getAssets(), "fonts/mytypeface.TTF");
         Field field = null;
         try {
             field = Typeface.class.getDeclaredField("MONOSPACE");
             field.setAccessible(true);
-            field.set(null,typeface);
+            field.set(null, typeface);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
     }
 
+//    private RefWatcher setupLeakCanary() {
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return RefWatcher.DISABLED;
+//        }
+//        return LeakCanary.install(this);//1
+//    }
+//
+//    public static RefWatcher getRefWatcher(Context context) {
+//        MyApplication leakApplication = (MyApplication) context.getApplicationContext();
+//        return leakApplication.refWatcher;
+//    }
 }

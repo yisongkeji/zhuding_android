@@ -15,6 +15,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.AnalyzeLifeBookBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
@@ -26,6 +27,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.ruffian.library.widget.RImageView;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -202,4 +204,10 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

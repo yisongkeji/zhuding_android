@@ -35,6 +35,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.FortunetellingOutlineBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -42,6 +43,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -400,5 +402,10 @@ public class FortunetellingDataActivity extends BaseActivity {
             btAffirm.setBackgroundResource(R.drawable.rounded_text_gray);
             btAffirm.setEnabled(false);
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

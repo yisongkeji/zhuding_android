@@ -26,6 +26,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
@@ -136,5 +137,10 @@ public class FortunetellingContentActivity extends BaseActivity {
                 hud.dismiss();
                 break;
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

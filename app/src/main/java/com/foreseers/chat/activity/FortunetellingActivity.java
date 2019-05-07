@@ -1,15 +1,18 @@
 package com.foreseers.chat.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.foreseers.chat.R;
@@ -26,6 +29,7 @@ import com.foreseers.chat.bill.Purchase;
 import com.foreseers.chat.bill.SkuDetails;
 import com.foreseers.chat.fragment.ShopFragment;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -35,6 +39,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -74,8 +80,28 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        try {
+            //获得 所有属性  getField->public  以及父类
+            Field mCurRootViewField = InputMethodManager.class.getDeclaredField("mCurRootView");
+            //设置允许访问权限
+            mCurRootViewField.setAccessible(true);
+            // 对象
+            Object mCurRootView = mCurRootViewField.get(im);
+            if (null != mCurRootView){
+                Context context = ((View) mCurRootView).getContext();
+                if (context == this){
+                    //破怪gc 引用链
+                    mCurRootViewField.set(im,null);
+                }
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         packageName = this.getPackageName() + ".";
-        mHelper = new IabHelper(this, base64EncodedPublicKey);
+        mHelper = new IabHelper(MyApplication.getContext(), base64EncodedPublicKey);
 
         // enable debug logging (for a production application, you should set this to false).
         mHelper.enableDebugLogging(true);
@@ -98,6 +124,11 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
 
                 // IAB is fully set up. Now, let's get an inventory of stuff we own.
                 //                MyLog.d(TAG, "Setup successful. Querying inventory.");
+//                try {
+//                    mHelper.queryInventoryAsync(mGotInventoryListener);
+//                } catch (IabHelper.IabAsyncInProgressException e) {
+//                    //                    complain("Error querying inventory. Another async operation in progress.");
+//                }
 
             }
         });
@@ -138,7 +169,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
 
         lifeuserid = getIntent().getStringExtra("lifeuserid");
 
-        fortunetellingAdapter = new FortunetellingAdapter(this, dataBeanList);
+        fortunetellingAdapter = new FortunetellingAdapter(FortunetellingActivity.this, dataBeanList);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         recyclerview.setAdapter(fortunetellingAdapter);
         String name = getIntent().getStringExtra("name");
@@ -256,10 +287,11 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     }
 
                     dataBeanList.get(i).setLifeuserid(lifeuserid);
-                    if (i > 0) {
+
+//                    if (i > 0) {
                         skuList.add(packageName + dataBeanList.get(i)
                                 .getStoreId());
-                    }
+//                    }
                 }
 
                 fortunetellingAdapter.setNewData(dataBeanList);
@@ -273,6 +305,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                     if (skuList.size() > 0) {
                         try {
                             mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
+
                         } catch (IabHelper.IabAsyncInProgressException e) {
                             // complain("Error querying inventory. Another async operation in progress.");
                         }
@@ -280,9 +313,9 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 }
 
                 break;
-            case 200:
-                fortunetellingAdapter.setNewData(dataBeanList);
-                break;
+//            case 200:
+//                fortunetellingAdapter.setNewData(dataBeanList);
+//                break;
         }
     }
 
@@ -300,21 +333,27 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 return;
             }
             for (String sku : skuList) {
-                Log.e(TAG, "onQueryInventoryFinished: skuList: " + skuList + "  \n sku: " + sku);
+
                 if (inventory.hasDetails(sku)) {
                     SkuDetails details = inventory.getSkuDetails(sku);
-
-                    for (int i = 1; i < dataBeanList.size(); i++) {
-                        if ((packageName + dataBeanList.get(i)
-                                .getStoreId()).equals(sku)) {
+//                    dataBeanList.get(0)
+//                            .setPrice(details.getPrice());
+                    for (int i = 0; i < dataBeanList.size(); i++) {
+                        if ((packageName + dataBeanList.get(i).getStoreId()).equals(sku)) {
                             dataBeanList.get(i)
                                     .setPrice(details.getPrice());
                         }
                     }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fortunetellingAdapter.setNewData(dataBeanList);
+                        }
+                    });
+
                 }
             }
-            getHandler().obtainMessage(200)
-                    .sendToTarget();
+
             // Check for item delivery
             // 检查物品交付情况
             List<Purchase> allpurchasedItems = inventory.getAllPurchases();
@@ -482,9 +521,12 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                                .getOkHttpClient(), this);
         if (skuList != null) {
             skuList.clear();
+            rgblist.clear();
+            titlelist.clear();
+            contentlist.clear();
         }
         if (mBroadcastReceiver != null) {
-            getActivity().unregisterReceiver(mBroadcastReceiver);
+            FortunetellingActivity.this.unregisterReceiver(mBroadcastReceiver);
         }
 
         // very important:
@@ -492,5 +534,12 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
             mHelper.disposeWhenFinished();
             mHelper = null;
         }
+
+//
+//            RefWatcher refWatcher = MyApplication.getRefWatcher(this);//1
+//            refWatcher.watch(this);
+
     }
+
+
 }

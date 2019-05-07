@@ -25,6 +25,7 @@ import com.foreseers.chat.bill.Inventory;
 import com.foreseers.chat.bill.Purchase;
 import com.foreseers.chat.bill.SkuDetails;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -33,6 +34,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.ruffian.library.widget.RImageView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -402,6 +404,8 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
                 mHelper = null;
             }
         }
+
+
     }
     private void refresh() {
 

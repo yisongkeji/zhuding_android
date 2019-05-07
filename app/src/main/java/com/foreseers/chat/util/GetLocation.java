@@ -48,7 +48,9 @@ public class GetLocation {
         }
         return locationBean;
     }
+    private void unregisterLocationListener() {
 
+    }
     //这是根据经纬度，向谷歌的API解析发网络请求，然后获取response，这里超时时间不要太短，否则来不及返回位置信息，直接失败了
     private void showLocation(final Location loc) {
         List<Address> addList = null;
@@ -56,7 +58,7 @@ public class GetLocation {
         try {
             addList = ge.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 //            addList = ge.getFromLocation(22.3043710000, 114.1853080000, 1);
-            Log.e("location", "Latitude: "+ location.getLatitude()+"\nLongitude:"+location.getLongitude());
+            Log.d("location", "Latitude: "+ location.getLatitude()+"\nLongitude:"+location.getLongitude());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +81,7 @@ public class GetLocation {
                 locationBean.setLat(location.getLatitude());
                 //维度
                 locationBean.setLng(location.getLongitude());
-                Log.e("location", "Country: "+ ad.getCountryName()+"   "+ad.getAdminArea());
+                Log.i("location", "Country: "+ ad.getCountryName()+"   "+ad.getAdminArea());
             }
         }else {
 

@@ -11,8 +11,10 @@ import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 
 import com.foreseers.chat.R;
+import com.foreseers.chat.global.MyApplication;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -146,6 +148,11 @@ public class SplashActivity extends AppCompatActivity {
 
         Log.i("huanXinId", "isLogin: " + userInfo.getString("huanXinId", ""));
 
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }

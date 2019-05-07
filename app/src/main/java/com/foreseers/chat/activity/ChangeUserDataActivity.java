@@ -1,5 +1,6 @@
 package com.foreseers.chat.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -38,6 +40,8 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
+
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +50,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.example.com.statusbarutil.OSUtils.isEmui;
 
 public class ChangeUserDataActivity extends BaseActivity {
 
@@ -391,4 +397,13 @@ public class ChangeUserDataActivity extends BaseActivity {
         sexList.add(getString(R.string.woman));
 
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
+    }
+
+
+
 }

@@ -17,6 +17,8 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.fragment.LookHistoryFragment;
 import com.foreseers.chat.fragment.WipeHistoryFragment;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,4 +147,10 @@ public class WipeHistoryActivity extends BaseActivity implements RadioGroup.OnCh
     //        transaction.replace(R.id.fl_content, mFragmentList.get(currentPosition));
     //        transaction.commit();
     //    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

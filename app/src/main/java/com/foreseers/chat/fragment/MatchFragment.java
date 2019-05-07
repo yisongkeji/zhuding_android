@@ -181,7 +181,6 @@ public class MatchFragment extends BaseFragment {
     }
 
     private void getDataForHttp() {
-        Log.d(TAG, "getDataForHttp: ");
 
         if (userInfo != null) {
             if (userInfo.getInt("ageLow", 0) == 0) {
@@ -196,16 +195,12 @@ public class MatchFragment extends BaseFragment {
                 distance = userInfo.getInt("distanceBig", 0);
             }
         }
-        Log.d(TAG, "getDataForHttp: \n sex:" + sex + "\n ageLittle:" + ageLittle + "\n agebig" + agebig + "\n distance" + distance);
     }
 
     private void getDataFromHttp(final int sound) {
 
         GetLocation location = new GetLocation();
-
-        while (locationBean == null) {
-            locationBean = location.getLocation(getActivity());
-        }
+        locationBean = location.getLocation(getActivity());
         if (locationBean != null) {
             OkGo.<String>post(Urls.Url_UserLocation).tag(this)
                     .params("facebookid", facebookid)
@@ -278,10 +273,12 @@ public class MatchFragment extends BaseFragment {
                                     RecommendBean.DataBean mybean = recommendBeans.get(position);
                                     mybean.setHead(newhead);
 
-//                                    String head="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3342608762,1591169269&fm=27&gp=0.jpg";
-////                                    peopleAdapter.remove(position);
-////                                    peopleAdapter.addData(position, mybean);
-                                    peopleAdapter.getItem(position).setHead(newhead);
+                                    //                                    String head="https://ss1.bdstatic
+                                    // .com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3342608762,1591169269&fm=27&gp=0.jpg";
+                                    ////                                    peopleAdapter.remove(position);
+                                    ////                                    peopleAdapter.addData(position, mybean);
+                                    peopleAdapter.getItem(position)
+                                            .setHead(newhead);
                                     peopleAdapter.notifyItemChanged(position);
                                 }
                             });

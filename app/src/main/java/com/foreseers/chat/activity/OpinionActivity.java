@@ -22,8 +22,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.GifSizeFilter;
 import com.foreseers.chat.view.widget.MyTitleBar;
+
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -371,5 +373,10 @@ public class OpinionActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

@@ -81,16 +81,30 @@
             android:layout_marginTop="20dp"
             android:background="@mipmap/icon_login_wechat" />
     </LinearLayout>
-    <CheckBox
-        android:id="@+id/check_privacy"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/foreseers_privacy_policy"
-        android:textColor="@color/colorBlack"
         android:layout_gravity="bottom|center"
-        android:textSize="@dimen/sp_13"
-        android:checked="true"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/check_privacy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/check_privacy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/foreseers_privacy_policy"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_13" />
+    </LinearLayout>
+
 
     <ImageView
         android:layout_width="190dp"

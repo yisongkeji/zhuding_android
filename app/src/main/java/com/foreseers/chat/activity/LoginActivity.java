@@ -30,6 +30,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.Urls;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
@@ -37,6 +38,7 @@ import com.hyphenate.chat.EMClient;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
 
 import org.json.JSONObject;
 
@@ -108,21 +110,24 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         getFacebookInfo(loginResult.getAccessToken());
-                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_success), Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources()
+                                .getString(R.string.login_success), Toast.LENGTH_LONG)
                                 .show();
                     }
 
                     @Override
                     public void onCancel() {
                         // App code
-                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_cancel), Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources()
+                                .getString(R.string.login_cancel), Toast.LENGTH_LONG)
                                 .show();
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Toast.makeText(LoginActivity.this, getActivity().getResources().getString(R.string.login_defeated), Toast.LENGTH_LONG)
+                        Toast.makeText(LoginActivity.this, getActivity().getResources()
+                                .getString(R.string.login_defeated), Toast.LENGTH_LONG)
                                 .show();
                     }
                 });
@@ -152,7 +157,7 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login,R.id.check_privacy})
+    @OnClick({R.id.login_facebook, R.id.login_wechat, R.id.text_login, R.id.check_privacy, R.id.check_privacy_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_login:
@@ -166,13 +171,17 @@ public class LoginActivity extends BaseActivity {
                 editor.commit();//提交修改
 
                 goLogin();
+
                 break;
             case R.id.login_facebook:
+
                 if (checkPrivacy.isChecked()) {
                     LoginManager.getInstance()
                             .logInWithReadPermissions(this, Arrays.asList("public_profile"));
-                }else {
-                    Toast.makeText(this,this.getResources().getString(R.string.privacy),Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, this.getResources()
+                            .getString(R.string.privacy), Toast.LENGTH_LONG)
+                            .show();
                 }
                 break;
             case R.id.login_wechat:
@@ -195,8 +204,10 @@ public class LoginActivity extends BaseActivity {
                 editor.commit();//提交修改
 
                 goLogin();
+
                 break;
-            case R.id.check_privacy:
+
+            case R.id.check_privacy_text:
                 intent = new Intent(this, ClauseActivity.class);
                 intent.putExtra("type", 1);
                 startActivity(intent);
@@ -372,11 +383,16 @@ public class LoginActivity extends BaseActivity {
                 //                    loginHuanXin();
                 //                    getHuanXinLogin();
 
-
                 break;
             case DATAFELLED:
 
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

@@ -13,6 +13,7 @@ import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.WipeDayHistoryBean;
 import com.foreseers.chat.decoration.GridSectionAverageGapItemDecoration;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -20,6 +21,7 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,4 +132,10 @@ public class WipeDayHistoryActivity extends BaseActivity {
                 break;
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

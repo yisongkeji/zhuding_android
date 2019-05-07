@@ -12,6 +12,7 @@
     <string name="user_data_birth_hint">请告知我们您的出生年月以及出生时间。</string>
     <string name="user_data_affirm_hint">请确认您的个人信息是否正确无误？</string>
     <string name="doubt">在您首次登录[注定]时，需要填写您的真实信息，我们会根据这些信息精确地为您匹配灵魂伴侣并免费赠送一次基础的命书测算。</string>
+
     //按钮
     <string name="affirm">确认</string>
     <string name="no_problem">没有问题</string>

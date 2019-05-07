@@ -21,9 +21,11 @@ import android.widget.TextView;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.APKVersionCodeUtils;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -159,5 +161,11 @@ public class AboutActivity extends BaseActivity {
         //            return true;
         //        }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

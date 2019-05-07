@@ -15,12 +15,14 @@ import com.facebook.login.LoginManager;
 import com.foreseers.chat.R;
 import com.foreseers.chat.dialog.InformDialog;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.HuanXinHelper;
 import com.foreseers.chat.view.widget.MyTitleBar;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.exceptions.HyphenateException;
+
 
 import java.util.List;
 import java.util.Map;
@@ -36,24 +38,15 @@ import static com.foreseers.chat.util.DataCleanManager.getTotalCacheSize;
 public class SettingActivity extends BaseActivity {
 
     private final String TAG = "SettingActivity@@@@@@";
-    @BindView(R.id.my_titlebar)
-    MyTitleBar myTitlebar;
-    @BindView(R.id.layout_black)
-    LinearLayout layoutBlack;
-    @BindView(R.id.layout_about)
-    LinearLayout layoutAbout;
-    @BindView(R.id.button_out)
-    Button buttonOut;
-    @BindView(R.id.text_num)
-    TextView textNum;
-    @BindView(R.id.layout_cache)
-    LinearLayout layoutCache;
-    @BindView(R.id.layout_temporarychat)
-    LinearLayout layoutTemporarychat;
-    @BindView(R.id.layout_friendchat)
-    LinearLayout layoutFriendchat;
-    @BindView(R.id.layout_opinion)
-    LinearLayout layoutOpinion;
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
+    @BindView(R.id.layout_black) LinearLayout layoutBlack;
+    @BindView(R.id.layout_about) LinearLayout layoutAbout;
+    @BindView(R.id.button_out) Button buttonOut;
+    @BindView(R.id.text_num) TextView textNum;
+    @BindView(R.id.layout_cache) LinearLayout layoutCache;
+    @BindView(R.id.layout_temporarychat) LinearLayout layoutTemporarychat;
+    @BindView(R.id.layout_friendchat) LinearLayout layoutFriendchat;
+    @BindView(R.id.layout_opinion) LinearLayout layoutOpinion;
     private Intent intent;
     private Map<String, EMConversation> conversations;
     private List<String> friendids;
@@ -88,7 +81,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void installListeners() {
-
         myTitlebar.setLeftLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,8 +99,7 @@ public class SettingActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_cache://清理缓存
-                informDialog = new InformDialog(SettingActivity.this, 4, R.style.MyDialog, new InformDialog
-                        .LeaveMyDialogListener() {
+                informDialog = new InformDialog(SettingActivity.this, 4, R.style.MyDialog, new InformDialog.LeaveMyDialogListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -134,8 +125,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.layout_temporarychat://清理临时聊天
 
-                informDialog = new InformDialog(SettingActivity.this, 2, R.style.MyDialog, new InformDialog
-                        .LeaveMyDialogListener() {
+                informDialog = new InformDialog(SettingActivity.this, 2, R.style.MyDialog, new InformDialog.LeaveMyDialogListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -147,9 +137,13 @@ public class SettingActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         try {
-                                            friendids = EMClient.getInstance().contactManager().getAllContactsFromServer();
+                                            friendids = EMClient.getInstance()
+                                                    .contactManager()
+                                                    .getAllContactsFromServer();
 
-                                            conversations = EMClient.getInstance().chatManager().getAllConversations();
+                                            conversations = EMClient.getInstance()
+                                                    .chatManager()
+                                                    .getAllConversations();
                                             chatids = conversations.keySet();
                                             runOnUiThread(new Runnable() {
                                                 @Override
@@ -160,7 +154,9 @@ public class SettingActivity extends BaseActivity {
                                                         if (!friendids.contains(str)) {
                                                             Log.i(TAG, "删除id: " + str);
                                                             //删除和某个user会话，如果需要保留聊天记录，传false
-                                                            EMClient.getInstance().chatManager().deleteConversation(str, true);
+                                                            EMClient.getInstance()
+                                                                    .chatManager()
+                                                                    .deleteConversation(str, true);
                                                         }
                                                     }
                                                 }
@@ -168,7 +164,6 @@ public class SettingActivity extends BaseActivity {
                                         } catch (HyphenateException e) {
                                             e.printStackTrace();
                                         }
-
                                     }
                                 }).start();
                                 break;
@@ -184,8 +179,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.layout_friendchat://清理好友聊天
 
-                informDialog = new InformDialog(SettingActivity.this, 3, R.style.MyDialog, new InformDialog
-                        .LeaveMyDialogListener() {
+                informDialog = new InformDialog(SettingActivity.this, 3, R.style.MyDialog, new InformDialog.LeaveMyDialogListener() {
 
                     @Override
                     public void onClick(View view) {
@@ -197,9 +191,13 @@ public class SettingActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         try {
-                                            friendids = EMClient.getInstance().contactManager().getAllContactsFromServer();
+                                            friendids = EMClient.getInstance()
+                                                    .contactManager()
+                                                    .getAllContactsFromServer();
 
-                                            conversations = EMClient.getInstance().chatManager().getAllConversations();
+                                            conversations = EMClient.getInstance()
+                                                    .chatManager()
+                                                    .getAllConversations();
                                             chatids = conversations.keySet();
                                             runOnUiThread(new Runnable() {
                                                 @Override
@@ -211,17 +209,17 @@ public class SettingActivity extends BaseActivity {
                                                             if (str.equals(friend)) {
                                                                 Log.i(TAG, "删除id: " + str);
                                                                 //删除和某个user会话，如果需要保留聊天记录，传false
-                                                                EMClient.getInstance().chatManager().deleteConversation(str, true);
+                                                                EMClient.getInstance()
+                                                                        .chatManager()
+                                                                        .deleteConversation(str, true);
                                                             }
                                                         }
-
                                                     }
                                                 }
                                             });
                                         } catch (HyphenateException e) {
                                             e.printStackTrace();
                                         }
-
                                     }
                                 }).start();
                                 break;
@@ -256,42 +254,47 @@ public class SettingActivity extends BaseActivity {
 
     void logout() {
 
-        HuanXinHelper.getInstance().logout(true, new EMCallBack() {
-
-            @Override
-            public void onSuccess() {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        SharedPreferences preferences = getSharedPreferences("loginToken", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.clear();
-                        editor.commit();
-                        LoginManager.getInstance().logOut();
-                        startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
-                                .FLAG_ACTIVITY_NEW_TASK));
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onProgress(int progress, String status) {
-
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                getActivity().runOnUiThread(new Runnable() {
+        HuanXinHelper.getInstance()
+                .logout(true, new EMCallBack() {
 
                     @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
+                    public void onSuccess() {
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                SharedPreferences preferences = getSharedPreferences("loginToken", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.clear();
+                                editor.commit();
+                                LoginManager.getInstance()
+                                        .logOut();
+                                startActivity(new Intent(getActivity(), LoginActivity.class).setFlags(
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
 
                     }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        getActivity().runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+
+                            }
+                        });
+                    }
                 });
-            }
-        });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }

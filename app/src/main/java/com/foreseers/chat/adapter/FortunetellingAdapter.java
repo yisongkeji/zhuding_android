@@ -38,7 +38,7 @@ public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.D
     @Override
     protected void convert(BaseViewHolder helper, final FortunetellingBean.DataBean item) {
 
-        Log.d(TAG, "convert: item.getColour()" + item.getColour());
+
         CardView cardView = (CardView) helper.getView(R.id.card_View)
                 .findViewById(R.id.card_View);
         cardView.setBackgroundResource(item.getColour());
@@ -53,7 +53,7 @@ public class FortunetellingAdapter extends BaseQuickAdapter<FortunetellingBean.D
 
         helper.getView(R.id.img_title).setBackgroundResource(item.getImgtitle());
         if (helper.getAdapterPosition()!=0){
-            Log.e(TAG, "convert: "+item.getImgcontent());
+
             helper.getView(R.id.img_content).setBackgroundResource(item.getImgcontent());
         }
 

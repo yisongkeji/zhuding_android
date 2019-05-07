@@ -17,6 +17,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.bean.MyBean;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.GlideUtil;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
@@ -28,6 +29,7 @@ import com.lzy.okgo.model.Response;
 import com.ms.banner.Banner;
 import com.ms.banner.holder.BannerViewHolder;
 import com.ms.banner.holder.HolderCreator;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,5 +185,9 @@ public class MyActivity extends BaseActivity {
             Glide.with(context).load(data).into(mImageView);
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+    }
 }

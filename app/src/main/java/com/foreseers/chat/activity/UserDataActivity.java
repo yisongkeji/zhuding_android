@@ -50,6 +50,7 @@ import com.foreseers.chat.R;
 import com.foreseers.chat.bean.LocationBean;
 import com.foreseers.chat.bean.UserDataBean;
 import com.foreseers.chat.dialog.DoubtDialog;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.BitmapDispose;
 import com.foreseers.chat.util.FileUtil;
 import com.foreseers.chat.util.GetLocation;
@@ -61,6 +62,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -811,4 +813,10 @@ public class UserDataActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

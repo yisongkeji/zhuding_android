@@ -13,7 +13,9 @@ import com.foreseers.chat.adapter.NewFriendsMsgAdapter;
 import com.foreseers.chat.db.InviteMessgeDao;
 import com.foreseers.chat.domain.InviteMessage;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.view.widget.MyTitleBar;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -82,5 +84,10 @@ public class NewFriendsMsgActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

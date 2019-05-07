@@ -11,6 +11,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.foreseers.chat.R;
+import com.foreseers.chat.global.MyApplication;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,4 +60,10 @@ public class LoadHoroscopeActivity extends AppCompatActivity {
             imgLogo.startAnimation(operatingAnim);
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }

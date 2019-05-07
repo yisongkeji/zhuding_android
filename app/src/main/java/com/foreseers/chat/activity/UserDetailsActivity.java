@@ -35,6 +35,7 @@ import com.foreseers.chat.dialog.DelFriendDialog;
 import com.foreseers.chat.dialog.NoFriendNumberDialog;
 import com.foreseers.chat.dialog.WipeDialog;
 import com.foreseers.chat.global.BaseActivity;
+import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.HuanXinHelper;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
@@ -51,6 +52,7 @@ import com.lzy.okgo.model.Response;
 import com.ms.banner.Banner;
 import com.ms.banner.holder.BannerViewHolder;
 import com.ms.banner.holder.HolderCreator;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -729,6 +731,9 @@ public class UserDetailsActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         soundPool.release();
+
+
+
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

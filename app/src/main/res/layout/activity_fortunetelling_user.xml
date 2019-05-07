@@ -24,6 +24,31 @@
                 app:titleBarTitle="@string/foreseers_fortunetelling" />
 
 
+            <LinearLayout
+                android:id="@+id/layout_item1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorOrange"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="13dp"
+                    android:textSize="@dimen/sp_15"
+                    android:text="@string/txt_shop_lifebook_item3"/>
+
+
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview"
@@ -44,17 +69,17 @@
                 android:orientation="horizontal">
 
                 <View
-                    android:id="@+id/view_item3"
                     android:layout_width="3dp"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorBlue2"/>
 
                 <TextView
-                    android:id="@+id/text_item3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="13dp"
-                    android:textSize="@dimen/sp_15" />
+                    android:textSize="@dimen/sp_15"
+                    android:text="@string/txt_shop_lifebook_item3"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
