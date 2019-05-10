@@ -104,6 +104,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void callBack() {
+
         LoginManager.getInstance()
                 .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                     @Override

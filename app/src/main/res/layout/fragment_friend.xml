@@ -69,7 +69,8 @@
         <com.hyphenate.easeui.widget.EaseContactList
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/bgcolorGray"/>
         <!-- hyphenate:ctsListInitialLetterBg="#abc" -->
 
     </FrameLayout>

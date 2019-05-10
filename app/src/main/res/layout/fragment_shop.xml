@@ -11,7 +11,7 @@
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="265dp"
         android:background="@mipmap/icon_header_case_03"
         android:elevation="1dp">
 
@@ -45,8 +45,8 @@
                 android:layout_marginRight="15dp">
 
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="23dp"
+                    android:layout_height="20dp"
                     android:background="@mipmap/icon_header_eraser_01" />
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="2dp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_16" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -67,7 +67,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="245dp"
         android:overScrollMode="never">
 
 
@@ -79,8 +79,8 @@
 
             <ImageView
                 android:id="@+id/layout_fortunetelling"
-                android:layout_width="250dp"
-                android:layout_height="68dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/fortunetelling_sel"
                 android:gravity="center_vertical"
                 android:layout_gravity="center">
@@ -598,7 +598,7 @@
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21dp"
-                        android:text="30个"
+                        android:text="@string/foreseers_thirty_num"
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/sp_13" />
 

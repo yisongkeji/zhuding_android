@@ -31,7 +31,7 @@
             android:id="@+id/radio_left"
 
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/radio_left"
             android:button="@null" />
@@ -39,7 +39,7 @@
         <RadioButton
             android:id="@+id/radio_middle"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/radio_middle"
             android:button="@null"
@@ -48,7 +48,7 @@
         <RadioButton
             android:id="@+id/radio_right"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/radio_right"
             android:button="@null" />
@@ -80,7 +80,7 @@
             rsb:hasRule="false"
             rsb:imageLow="@mipmap/icon_filter_age_02"
             rsb:imageheight="26dp"
-            rsb:imagewidth="23dp"
+            rsb:imagewidth="25dp"
             rsb:inColor="@color/colorAccent"
             rsb:lineHeight="10dp"
             rsb:outColor="#eeeeee"
@@ -109,7 +109,7 @@
         rsb:imageBig="@mipmap/icon_filter_age_02"
         rsb:imageLow="@mipmap/icon_filter_age_02"
         rsb:imageheight="26dp"
-        rsb:imagewidth="23dp"
+        rsb:imagewidth="25dp"
         rsb:inColor="@color/colorAccent"
         rsb:lineHeight="10dp"
         rsb:outColor="#eeeeee"

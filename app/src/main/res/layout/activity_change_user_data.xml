@@ -91,7 +91,8 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginRight="18dp"
-                android:background="@mipmap/icon_me_05" />
+                android:background="@mipmap/icon_me_05"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <LinearLayout
@@ -126,7 +127,8 @@
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginRight="18dp"
-                android:background="@mipmap/icon_me_05" />
+                android:background="@mipmap/icon_me_05"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <LinearLayout

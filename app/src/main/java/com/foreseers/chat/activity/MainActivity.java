@@ -23,6 +23,9 @@ import com.example.com.statusbarutil.StatusBarUtil;
 import com.foreseers.chat.R;
 import com.foreseers.chat.bean.FriendTimeBean;
 import com.foreseers.chat.bean.LoginBean;
+import com.foreseers.chat.bean.UserCanumsBean;
+import com.foreseers.chat.bean.UserStatusBean;
+import com.foreseers.chat.dialog.EraserDialog;
 import com.foreseers.chat.fragment.ChatFragment;
 import com.foreseers.chat.fragment.FriendFragment;
 import com.foreseers.chat.fragment.MatchFragment;
@@ -81,6 +84,7 @@ public class MainActivity extends SupportActivity {
     private SharedPreferences sharedPreferences;
     private SoundPool soundPool;
     private int soundID;
+    private EraserDialog eraserDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,14 +195,56 @@ public class MainActivity extends SupportActivity {
                     }
                 });
 
-        OkGo.<String>post(Urls.Url_UserCanums).tag(this)
+
+        OkGo.<String>post(Urls.Url_UserStatus).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
+                        Gson gson=new Gson();
+                        UserStatusBean userStatusBean=gson.fromJson(response.body(),UserStatusBean.class);
+                        if (userStatusBean.getData().getEveryStatus()==0){//没领 ， 弹窗 : 0
 
+                            eraserDialog = new EraserDialog(MainActivity.this, R.style.MyDialog, new EraserDialog
+                                    .LeaveMyDialogListener(){
+
+                                @Override
+                                public void onClick(View view) {
+                                    switch (view.getId()){
+                                        case R.id.text_ok:
+                                            OkGo.<String>post(Urls.Url_UserCanums).tag(this)
+                                                    .params("userid", userid)
+                                                    .execute(new StringCallback() {
+                                                        @Override
+                                                        public void onSuccess(Response<String> response) {
+                                                            eraserDialog.findViewById(R.id.cardView).setVisibility(View.GONE);
+                                                            eraserDialog.findViewById(R.id.layout).setVisibility(View.VISIBLE);
+
+                                                            UserCanumsBean userCanumsBean= new Gson().fromJson(response.body(),UserCanumsBean.class);
+                                                           TextView textView= eraserDialog.findViewById(R.id.text_num);
+                                                           TextView textView1=eraserDialog.findViewById(R.id.text_nums);
+                                                           textView.setText(" × "+userCanumsBean.getData().getNum());
+                                                            textView1.setText(getResources().getString(R.string.everyday_text).replace("num",
+                                                                                                                                       ""+userCanumsBean.getData().getNum()));
+                                                        }
+                                                    });
+
+                                            break;
+                                        case R.id.img_finish:
+                                            eraserDialog.dismiss();
+                                            break;
+                                    }
+                                }
+                            });
+                            eraserDialog.setCancelable(true);
+
+                            eraserDialog.show();
+
+
+                        }
                     }
                 });
+
     }
 
     private void initView() {
@@ -266,8 +312,7 @@ public class MainActivity extends SupportActivity {
                 }
                 transaction.show(mFragmentList.get(i));
             } else {
-                if (mFragmentList.get(i)
-                        .isAdded()) {
+                if (mFragmentList.get(i).isAdded()) {
                     transaction.hide(mFragmentList.get(i));
                 }
             }

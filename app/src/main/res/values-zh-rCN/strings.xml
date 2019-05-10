@@ -234,6 +234,7 @@
     <string name="foreseers_advance_see_photo">提前查看对方头像</string>
     <string name="foreseers_two_hundred_num">200个</string>
     <string name="foreseers_ninety_num">90个</string>
+    <string name="foreseers_thirty_num">30个</string>
     <string name="foreseers_measure">测算</string>
     <string name="foreseers_developing">(开发中)</string>
 
@@ -344,4 +345,5 @@
     <string name="content_not_null">内容不能为空</string>
     <string name="no_eraser">擦子数不足</string>
     <string name="go_blacklist">拉黑</string>
+    <string name="everyday">每日签到</string>
 </resources>

@@ -115,7 +115,7 @@ public class DoubleSlideSeekBar extends View {
     /**
      * 线（进度条） 开始的位置
      */
-    private int lineStart = paddingLeft;
+    private int lineStart = paddingLeft+50;
     /**
      * 线的Y轴位置
      */
@@ -418,8 +418,8 @@ public class DoubleSlideSeekBar extends View {
         textPaint.setTextSize(textSize);
         textPaint.setAntiAlias(true);
 
-
-        canvas.drawText(String.format("%.0f" + unit, smallRange), lineStart - 100, textHeight +
+        //画 左边字
+        canvas.drawText(String.format("%.0f" + unit, smallRange), lineStart - 125, textHeight +
                 10, textPaint);
 
         if (range()) {

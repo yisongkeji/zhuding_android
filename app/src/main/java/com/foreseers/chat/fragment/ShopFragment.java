@@ -308,6 +308,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                             .params("userid", userid)
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
+                            .params("os", "A")
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {

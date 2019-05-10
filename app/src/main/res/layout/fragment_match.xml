@@ -9,71 +9,69 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-
     <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="43dp"
-            android:elevation="5dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@mipmap/icon_header_btn_01"
+        android:elevation="5dp">
 
-        <ImageView
-                android:layout_width="156dp"
-                android:layout_height="53dp"
-                android:background="@mipmap/icon_header_btn_01"/>
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
 
             <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="17dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@mipmap/icon_header_btn_02"/>
+                android:layout_width="13dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center_vertical"
+                android:background="@mipmap/icon_header_btn_02" />
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
-                    android:text="@string/foreseers_nearby"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="16sp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:text="@string/foreseers_nearby"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
         </LinearLayout>
     </FrameLayout>
 
 
     <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-            android:layout_marginTop="70dp">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_people"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGrayBackground"
-                    android:overScrollMode="never"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_people"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayBackground"
+            android:overScrollMode="never" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ImageView
         android:id="@+id/img_top"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/icon_header_up_01"
         android:layout_gravity="right|bottom"
         android:layout_margin="20dp"
-        android:visibility="gone"/>
+        android:src="@mipmap/icon_header_up_01"
+        android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -90,29 +88,29 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="17dp"
-                android:layout_height="15dp"
-                android:background="@mipmap/icon_header_eraser_01"/>
+                android:layout_width="20dp"
+                android:layout_height="18dp"
+                android:background="@mipmap/icon_header_eraser_01" />
 
             <TextView
                 android:id="@+id/text_canums_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
                 android:textColor="@color/colorBlack"
-                android:textSize="8sp"
-                android:layout_marginLeft="5dp"/>
+                android:textSize="15sp" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/img_match_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical|right|bottom"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="25dp"
             android:padding="8dp"
-            android:src="@mipmap/icon_footer_profile_01"/>
+            android:src="@mipmap/icon_footer_profile_01" />
 
     </FrameLayout>
 

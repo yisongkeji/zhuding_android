@@ -330,6 +330,7 @@ public class MyVipActivity extends BaseActivity implements IabBroadcastReceiver.
                             .params("userid", PreferenceManager.getUserId(getActivity()))
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
+                            .params("os", "A")
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {

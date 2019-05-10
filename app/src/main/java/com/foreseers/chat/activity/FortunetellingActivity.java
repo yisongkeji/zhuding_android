@@ -421,6 +421,7 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                             .params("lifeuserid", lifeuserid)
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
+                            .params("os", "A")
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {

@@ -186,19 +186,19 @@ public class ChangeUserDataActivity extends BaseActivity {
     private final int DATATIMESUCCESS = 4;
 
 
-    @OnClick({R.id.layout_change_sex, R.id.layout_birth})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.layout_change_sex:
-                pvSexOptions.show();
-                break;
-            case R.id.layout_birth:
-                pvCustomLunar.show();
-                break;
-            default:
-                break;
-        }
-    }
+//    @OnClick({R.id.layout_change_sex, R.id.layout_birth})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.layout_change_sex:
+//                pvSexOptions.show();
+//                break;
+//            case R.id.layout_birth:
+//                pvCustomLunar.show();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -46,11 +46,12 @@
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_message_1"
                     app:iconSelected="@mipmap/icon_header_message_2"
+                    app:iconWidth="25dp"
+                    app:iconHeight="25dp"
                     app:itemText="@string/item1"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent"
-                    app:itemMarginTop="5dp" />
+                    app:textColorSelected="@color/colorAccent" />
 
                 <com.chaychan.library.BottomBarItem
                     android:layout_width="0dp"
@@ -58,11 +59,12 @@
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_friend_1"
                     app:iconSelected="@mipmap/icon_header_friend_2"
+                    app:iconWidth="25dp"
+                    app:iconHeight="25dp"
                     app:itemText="@string/item2"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent"
-                    app:itemMarginTop="5dp" />
+                    app:textColorSelected="@color/colorAccent"/>
 
 
                 <com.chaychan.library.BottomBarItem
@@ -83,11 +85,12 @@
                     app:iconNormal="@mipmap/icon_header_store_1"
                     app:iconSelected="@mipmap/icon_header_store_2"
 
+                    app:iconWidth="25dp"
+                    app:iconHeight="25dp"
                     app:itemText="@string/item4"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
-                    app:textColorSelected="@color/colorAccent"
-                    app:itemMarginTop="5dp" />
+                    app:textColorSelected="@color/colorAccent" />
 
                 <com.chaychan.library.BottomBarItem
                     android:layout_width="0dp"
@@ -95,12 +98,13 @@
                     android:layout_weight="1"
                     app:iconNormal="@mipmap/icon_header_personal_1"
                     app:iconSelected="@mipmap/icon_header_personal_2"
-
+                    app:iconWidth="23dp"
+                    app:iconHeight="23dp"
                     app:itemText="@string/item5"
                     app:itemTextSize="10sp"
                     app:textColorNormal="@color/colorBlack"
                     app:textColorSelected="@color/colorAccent"
-                    app:itemMarginTop="5dp" />
+                    app:itemMarginTop="2dp"/>
             </com.chaychan.library.BottomBarLayout>
         </LinearLayout>
 

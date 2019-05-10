@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -321,6 +322,14 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
                                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .into(imageHead);
                     }
+//                    Typeface tf = Typeface.createFromAsset(MyApplication.getContext().getAssets(), "fonts/华康华综体W5-B5.TTF");
+//                    textName.setTypeface(tf);
+                    //从asset 读取字体
+
+////                    //根据路径得到Typeface
+//                    Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/汉鼎繁中圆.TTF");
+//                    textName.setTypeface(tf);
+
 
                     name = dataBean.getUsername();
                     textName.setText(name);
@@ -910,6 +919,7 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
                             .params("userid", PreferenceManager.getUserId(getActivity()))
                             .params("productId", productId)
                             .params("purchaseToken", purchaseToken)
+                            .params("os", "A")
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {

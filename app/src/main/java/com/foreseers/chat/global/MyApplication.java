@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.foreseers.chat.db.InviteMessgeDao;
+import com.foreseers.chat.util.FontUtils;
 import com.foreseers.chat.util.HuanXinHelper;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMMessageListener;
@@ -20,10 +22,11 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
-
+import org.greenrobot.eventbus.Logger;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -47,8 +50,7 @@ public class MyApplication extends Application {
     private SharedPreferences sharedPreferences;
 
     private static Typeface typeface;
-
-
+    private static String lang;
 
     public static Context getContext() {
         return mContext;
@@ -60,26 +62,23 @@ public class MyApplication extends Application {
         mContext = getApplicationContext();
         instance = this;
 
-        initlog();
-
-
-        initOkGo();//手动配置
-        //        OkGo.getInstance().init(this);//默认
+                initOkGo();//手动配置
+//        OkGo.getInstance().init(this);//默认
 
         // 初始化环信SDK
         initEasemob();
-        //        MultiDex.install(mContext);
+        MultiDex.install(mContext);
         //设置字体
-        initTypeFace();
+        //        initTypeFace();
     }
 
     private void initlog() {
-//        refWatcher = setupLeakCanary();//2
+        //        refWatcher = setupLeakCanary();//2
 
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return;
-//        }
-//        LeakCanary.install(this);
+        //        if (LeakCanary.isInAnalyzerProcess(this)) {
+        //            return;
+        //        }
+        //        LeakCanary.install(this);
     }
 
     private void initOkGo() {
@@ -140,6 +139,8 @@ public class MyApplication extends Application {
         return instance;
     }
 
+    public static String getlang() {return lang;}
+
     private class SafeHostnameVerifier implements HostnameVerifier {
         @Override
         public boolean verify(String hostname, SSLSession session) {
@@ -156,29 +157,41 @@ public class MyApplication extends Application {
     }
 
     private void initTypeFace() {
-
-        typeface = Typeface.createFromAsset(getAssets(), "fonts/mytypeface.TTF");
-        Field field = null;
-        try {
-            field = Typeface.class.getDeclaredField("MONOSPACE");
-            field.setAccessible(true);
-            field.set(null, typeface);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = getResources().getConfiguration()
+                    .getLocales()
+                    .get(0);
+        } else {
+            locale = getResources().getConfiguration().locale;
         }
+        lang = locale.getLanguage() + "-" + locale.getCountry();
+
+        Log.i("&*&*&*&", "initTypeFace: " + lang);
+
+        //        //        typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/华康华综体W5-B5.TTF");
+        //        typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/汉鼎繁中圆.TTF");
+        //        Field field = null;
+        //        try {
+        //            field = Typeface.class.getDeclaredField("SERIF");
+        //            field.setAccessible(true);
+        //            field.set(null, typeface);
+        //        } catch (NoSuchFieldException e) {
+        //            e.printStackTrace();
+        //        } catch (IllegalAccessException e) {
+        //            e.printStackTrace();
+        //        }
     }
 
-//    private RefWatcher setupLeakCanary() {
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return RefWatcher.DISABLED;
-//        }
-//        return LeakCanary.install(this);//1
-//    }
-//
-//    public static RefWatcher getRefWatcher(Context context) {
-//        MyApplication leakApplication = (MyApplication) context.getApplicationContext();
-//        return leakApplication.refWatcher;
-//    }
+    //    private RefWatcher setupLeakCanary() {
+    //        if (LeakCanary.isInAnalyzerProcess(this)) {
+    //            return RefWatcher.DISABLED;
+    //        }
+    //        return LeakCanary.install(this);//1
+    //    }
+    //
+    //    public static RefWatcher getRefWatcher(Context context) {
+    //        MyApplication leakApplication = (MyApplication) context.getApplicationContext();
+    //        return leakApplication.refWatcher;
+    //    }
 }

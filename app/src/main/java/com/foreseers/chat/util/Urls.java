@@ -2,7 +2,7 @@ package com.foreseers.chat.util;
 
 public class Urls {
 
-    //    public static final String URL = "http://192.168.1.73:8080";
+//        public static final String URL = "http://192.168.1.73:8080";
     public static final String URL = "https://chat.foreseers.cn:443";
 
     public static final String webURL = "file:///android_asset/web";
@@ -61,6 +61,7 @@ public class Urls {
 
     //擦子
     public static final String Url_Canums = URL + "/userCanums/";
+    public static final String Url_UserStatus = Url_Canums + "getStatus"; //判断是否领过擦子
     public static final String Url_UserCanums = Url_Canums + "updatenums"; //领擦子
     public static final String Url_UserCanumsNum = Url_Canums + "getUserNums"; //擦子数
 
