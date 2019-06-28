@@ -56,4 +56,10 @@
         <item name="android:windowEnterAnimation">@anim/boxing_fade_in</item>
         <item name="android:windowExitAnimation">@anim/boxing_fade_out</item>
     </style>
+
+    <declare-styleable name="CircleRelativeLayoutLayout">
+        <attr name="background_color" format="color" />
+        <attr name="background_alpha" format="integer" />
+    </declare-styleable>
+
 </resources>

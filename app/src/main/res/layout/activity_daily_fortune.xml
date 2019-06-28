@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/icon_dayluck_01"
+    tools:context=".activity.DailyFortuneActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/statusbar_height"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp">
+
+                <ImageView
+                    android:id="@+id/daily_fortune_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/icon_me_06" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/icon_dayluck_16" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/daily_fortune_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="220dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/icon_dayluck_15"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginRight="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/my_lifebook"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_dayluck_02"
+                            android:gravity="center"
+                            android:text="@string/my_lifebook"
+                             />
+
+                        <TextView
+                            android:id="@+id/teacher_idea"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_dayluck_03"
+                            android:gravity="center"
+                            android:text="@string/teacher_idea"
+                             />
+
+                        <TextView
+                            android:id="@+id/heart_test"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_dayluck_04"
+                            android:gravity="center"
+                            android:text="@string/heart_test"
+                             />
+
+                        <TextView
+                            android:id="@+id/daily_question"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@mipmap/icon_dayluck_05"
+                            android:gravity="center"
+                            android:text="@string/daily_ask"
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1sp"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="40dp"
+                        android:background="@color/colorAccent" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="50dp">
+
+                        <ImageView
+                            android:id="@+id/fortune_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/icon_dayluck_06" />
+
+                        <TextView
+                            android:id="@+id/youjiang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@+id/fortune_iv"
+                            android:text="@string/youjiangwenda"
+                             />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/youjiang"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/fortune_iv"
+                            android:text="@string/meiri"
+                            android:textSize="10sp" />
+
+                        <Button
+                            android:id="@+id/button_1"
+                            android:layout_width="58dp"
+                            android:layout_height="22dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@color/colorAccent"
+                            android:text="@string/kaishidati"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="11sp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/icon_dayluck_17" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/icon_dayluck_12"
+                        android:gravity="center"
+                        android:text="6月13日"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/icon_dayluck_15_2"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_07"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
+                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_08"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
+                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_11"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
+                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_09"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
+                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_010"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
+                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+    <com.foreseers.chat.view.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

@@ -56,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
-                android:overScrollMode="never"></android.support.v7.widget.RecyclerView>
+                android:overScrollMode="never"/>
 
             <LinearLayout
                 android:id="@+id/layout_item3"

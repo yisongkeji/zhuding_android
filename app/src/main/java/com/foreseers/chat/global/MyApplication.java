@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.foreseers.chat.db.InviteMessgeDao;
-import com.foreseers.chat.util.FontUtils;
 import com.foreseers.chat.util.HuanXinHelper;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMMessageListener;
@@ -22,10 +20,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 
-import org.greenrobot.eventbus.Logger;
-
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;

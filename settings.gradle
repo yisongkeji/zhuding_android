@@ -1,1 +1,1 @@
-include ':app', ':library', ':easeui', ':statusbarutil'
+include ':app', ':library', ':easeui', ':statusbarutil', ':RCLayout'

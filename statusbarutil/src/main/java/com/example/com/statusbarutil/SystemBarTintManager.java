@@ -74,7 +74,7 @@ public class SystemBarTintManager {
      * @param activity
      * @return
      */
-    private int getStatusBarHeight(Activity activity) {
+    public static int getStatusBarHeight(Activity activity) {
         int statusBarHeight = 0;
         int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {

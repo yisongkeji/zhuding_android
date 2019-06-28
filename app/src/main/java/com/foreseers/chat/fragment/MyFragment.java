@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
+import com.foreseers.chat.activity.DailyFortuneActivity;
 import com.foreseers.chat.activity.FortunetellingOutlineActivity;
 import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
@@ -196,7 +197,9 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
                                 GlideUtil.glideFile(MyApplication.getContext(), file, imageHead);
 
                                 Log.d(TAG, "fileurl: " + PreferenceManager.getInstance()
-                                        .getHeadImgUrl());
+                                        .getHeadImgUrl()+"==========="+Urls.ImgHead + "/" + PreferenceManager.getInstance()
+                                        .getHeadImgUrl()
+                                        .split("/")[4]);
                             }
                         }
                     }
@@ -530,8 +533,12 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
                             });
                 }
                 break;
-            case R.id.lifebook://命书
-                intent = new Intent(getActivity(), FortunetellingOutlineActivity.class);
+            case R.id.lifebook://每日运势
+//                intent = new Intent(getActivity(), FortunetellingOutlineActivity.class);
+//                intent.putExtra("lifeuserid", lifeuserid);
+//                intent.putExtra("name", name);
+//                getActivity().startActivity(intent);
+                intent = new Intent(getActivity(), DailyFortuneActivity.class);
                 intent.putExtra("lifeuserid", lifeuserid);
                 intent.putExtra("name", name);
                 getActivity().startActivity(intent);

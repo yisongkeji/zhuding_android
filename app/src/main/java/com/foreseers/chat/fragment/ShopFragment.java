@@ -449,7 +449,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
             try {
                 mHelper.launchPurchaseFlow(getActivity(), productId, RC_REQUEST, mPurchaseFinishedListener, payload);
             } catch (IabHelper.IabAsyncInProgressException e) {
-                //                    complain("Error launching purchase flow. Another async operation in progress.");
+//                                    complain("Error launching purchase flow. Another async operation in progress.");
             }
         }
     }
@@ -549,4 +549,6 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
 
         }
     }
+
+
 }

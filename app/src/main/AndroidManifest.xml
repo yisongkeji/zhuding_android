@@ -28,7 +28,7 @@
         android:roundIcon="@mipmap/icon_logo_01"
         android:supportsRtl="true"
         android:theme="@style/ChatAppTheme"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <receiver android:name=".service.AlarmReceiver" />
 
         <service android:name=".service.MediaService" />
@@ -40,11 +40,10 @@
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="1106190114019314#foreseers" />
-        <!--环信测试key-->
-        <!--<meta-data-->
-            <!--android:name="EASEMOB_APPKEY"-->
-            <!--android:value="1106190114019314#zzzz" />-->
-
+        <!-- 环信测试key -->
+        <!-- <meta-data -->
+        <!-- android:name="EASEMOB_APPKEY" -->
+        <!-- android:value="1106190114019314#zzzz" /> -->
 
 
         <!-- 声明SDK所需的service SDK核心功能 -->
@@ -171,7 +170,9 @@
         <activity android:name=".activity.FortunetellingListActivity" />
         <activity android:name=".activity.FortunetellingContentActivity" />
         <activity android:name=".activity.FortunetellingDataActivity" />
-        <activity android:name=".activity.FortunetellingOutlineActivity"></activity>
+        <activity android:name=".activity.FortunetellingOutlineActivity" />
+        <activity android:name=".activity.DailyFortuneActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DailyQuestionActivity" />
     </application>
 
 </manifest>

@@ -221,7 +221,7 @@
     <string name="foreseers_nickname">昵称</string>
     <string name="foreseers_catch_me">擦过我</string>
     <string name="foreseers_vip_remain">VIP剩余</string>
-    <string name="foreseers_lifebook">命书</string>
+    <string name="foreseers_lifebook">每日运势</string>
 
     //fragment_shop
     <string name="foreseers_choose_open_time">选择开通时间</string>
@@ -255,7 +255,7 @@
     <string name="foreseers_catch_you">让对方一眼发现你</string>
 
     //view_page2
-    <string name="foreseers_ten_per_day">每日赠送10擦子</string>
+    <string name="foreseers_ten_per_day">每日赠送20擦子</string>
     <string name="foreseers_look_TA">快去偷看心仪的TA</string>
 
     view_page3
@@ -346,4 +346,22 @@
     <string name="no_eraser">擦子数不足</string>
     <string name="go_blacklist">拉黑</string>
     <string name="everyday">每日签到</string>
+    <string name="everyday1">每日签到可以获得擦子</string>
+    <string name="everyday11">擦子用于看其他用户相片</string>
+    <string name="everyday_ok">点我签到</string>
+    <string name="everyday_text">恭喜你获得num个擦子！</string>
+
+    <string name="hint">账号错误</string>
+
+    <!--每日运势-->
+    <string name="my_lifebook">我的命书</string>
+    <string name="teacher_idea">大师建议</string>
+    <string name="heart_test">心理测试</string>
+    <string name="daily_ask">每日一问</string>
+    <string name="youjiangwenda">有奖问答</string>
+    <string name="meiri">每日问答问题免费获得擦子</string>
+    <string name="kaishidati">开始答题</string>
+
+    <string name="daily_question">每日一问</string>
+
 </resources>

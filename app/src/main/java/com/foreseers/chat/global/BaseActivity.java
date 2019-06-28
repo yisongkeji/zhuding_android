@@ -1,20 +1,12 @@
 package com.foreseers.chat.global;
 
-import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 
 import com.example.com.statusbarutil.StatusBarUtil;
-import com.foreseers.chat.R;
 import com.foreseers.chat.interf.IBaseActivity;
-
-import butterknife.internal.Utils;
 
 public abstract class BaseActivity extends AppCompatActivity implements IBaseActivity {
 

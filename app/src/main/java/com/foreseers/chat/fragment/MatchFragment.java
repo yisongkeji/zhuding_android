@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
@@ -566,8 +567,12 @@ public class MatchFragment extends BaseFragment {
 
     @SuppressLint("NewApi")
     private void initSound() {
-        soundPool = new SoundPool.Builder().build();
-        soundID = soundPool.load(getActivity(), R.raw.reloading, 1);
+        if (Build.VERSION.SDK_INT >= 21) {
+            soundPool = new SoundPool.Builder().build();
+        }else {
+            soundPool=new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        }
+            soundID = soundPool.load(getActivity(), R.raw.reloading, 1);
     }
 
     private void playSound() {

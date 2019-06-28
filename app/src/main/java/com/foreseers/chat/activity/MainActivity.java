@@ -3,7 +3,9 @@ package com.foreseers.chat.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -48,7 +51,6 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,37 +197,42 @@ public class MainActivity extends SupportActivity {
                     }
                 });
 
-
         OkGo.<String>post(Urls.Url_UserStatus).tag(this)
                 .params("userid", userid)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        Gson gson=new Gson();
-                        UserStatusBean userStatusBean=gson.fromJson(response.body(),UserStatusBean.class);
-                        if (userStatusBean.getData().getEveryStatus()==0){//没领 ， 弹窗 : 0
+                        Gson gson = new Gson();
+                        UserStatusBean userStatusBean = gson.fromJson(response.body(), UserStatusBean.class);
+                        if (userStatusBean.getData()
+                                .getEveryStatus() == 0) {//没领 ， 弹窗 : 0
 
-                            eraserDialog = new EraserDialog(MainActivity.this, R.style.MyDialog, new EraserDialog
-                                    .LeaveMyDialogListener(){
+                            //签到弹窗
+                            eraserDialog = new EraserDialog(MainActivity.this, R.style.MyDialog, new EraserDialog.LeaveMyDialogListener() {
 
                                 @Override
                                 public void onClick(View view) {
-                                    switch (view.getId()){
+                                    switch (view.getId()) {
                                         case R.id.text_ok:
                                             OkGo.<String>post(Urls.Url_UserCanums).tag(this)
                                                     .params("userid", userid)
                                                     .execute(new StringCallback() {
                                                         @Override
                                                         public void onSuccess(Response<String> response) {
-                                                            eraserDialog.findViewById(R.id.cardView).setVisibility(View.GONE);
-                                                            eraserDialog.findViewById(R.id.layout).setVisibility(View.VISIBLE);
+                                                            eraserDialog.findViewById(R.id.cardView)
+                                                                    .setVisibility(View.GONE);
+                                                            eraserDialog.findViewById(R.id.layout)
+                                                                    .setVisibility(View.VISIBLE);
 
-                                                            UserCanumsBean userCanumsBean= new Gson().fromJson(response.body(),UserCanumsBean.class);
-                                                           TextView textView= eraserDialog.findViewById(R.id.text_num);
-                                                           TextView textView1=eraserDialog.findViewById(R.id.text_nums);
-                                                           textView.setText(" × "+userCanumsBean.getData().getNum());
-                                                            textView1.setText(getResources().getString(R.string.everyday_text).replace("num",
-                                                                                                                                       ""+userCanumsBean.getData().getNum()));
+                                                            UserCanumsBean userCanumsBean = new Gson().fromJson(response.body(),
+                                                                                                                UserCanumsBean.class);
+                                                            TextView textView = eraserDialog.findViewById(R.id.text_num);
+                                                            TextView textView1 = eraserDialog.findViewById(R.id.text_nums);
+                                                            textView.setText(" × " + userCanumsBean.getData()
+                                                                    .getNum());
+                                                            textView1.setText(getResources().getString(R.string.everyday_text)
+                                                                                      .replace("num", "" + userCanumsBean.getData()
+                                                                                              .getNum()));
                                                         }
                                                     });
 
@@ -239,12 +246,9 @@ public class MainActivity extends SupportActivity {
                             eraserDialog.setCancelable(true);
 
                             eraserDialog.show();
-
-
                         }
                     }
                 });
-
     }
 
     private void initView() {
@@ -312,7 +316,8 @@ public class MainActivity extends SupportActivity {
                 }
                 transaction.show(mFragmentList.get(i));
             } else {
-                if (mFragmentList.get(i).isAdded()) {
+                if (mFragmentList.get(i)
+                        .isAdded()) {
                     transaction.hide(mFragmentList.get(i));
                 }
             }
@@ -324,8 +329,17 @@ public class MainActivity extends SupportActivity {
 
     @SuppressLint("NewApi")
     private void initSound() {
-        soundPool = new SoundPool.Builder().build();
-        soundID = soundPool.load(this, R.raw.bottombar, 1);
+        if (Build.VERSION.SDK_INT >= 21) {
+            soundPool = new SoundPool.Builder().build();
+        } else {
+            /**
+             * 第一个参数：int maxStreams：SoundPool对象的最大并发流数
+             * 第二个参数：int streamType：AudioManager中描述的音频流类型
+             *第三个参数：int srcQuality：采样率转换器的质量。 目前没有效果。 使用0作为默认值。
+             */
+            soundPool=new SoundPool(1, AudioManager.STREAM_MUSIC,0);
+        }
+            soundID = soundPool.load(this, R.raw.bottombar, 1);
     }
 
     private void playSound() {
@@ -423,8 +437,6 @@ public class MainActivity extends SupportActivity {
                 .contactManager()
                 .removeContactListener(contactListener);
         soundPool.release();
-
-
     }
 
     @OnClick(R.id.img_main)

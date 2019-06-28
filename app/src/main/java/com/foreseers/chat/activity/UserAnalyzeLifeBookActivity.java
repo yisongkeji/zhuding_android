@@ -104,7 +104,7 @@ public class UserAnalyzeLifeBookActivity extends BaseActivity {
         int series2Index = setDecoView(mindScore, Color.rgb(233, 233, 235), Color.rgb(248, 156, 166), mindscore, 20f);
         int series3Index = setDecoView(bodyScore, Color.rgb(233, 233, 235), Color.rgb(182, 217, 159), bodyscore, 20f);
 
-        typeface = Typeface.createFromAsset(this.getAssets(), "华康华综体W5-B5.TTF");
+        typeface = Typeface.createFromAsset(this.getAssets(), "fonts/华康华综体W5-B5.TTF");
         text1.setTypeface(typeface);
         text2.setTypeface(typeface);
         text3.setTypeface(typeface);

@@ -30,6 +30,7 @@ import com.foreseers.chat.bill.SkuDetails;
 import com.foreseers.chat.fragment.ShopFragment;
 import com.foreseers.chat.global.BaseActivity;
 import com.foreseers.chat.global.MyApplication;
+import com.foreseers.chat.util.GooglePlayHelper;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -304,8 +305,9 @@ public class FortunetellingActivity extends BaseActivity implements IabBroadcast
                 if (recyclerview != null) {
                     if (skuList.size() > 0) {
                         try {
-                            mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
-
+                            if (GooglePlayHelper.isGooglePlayServiceAvailable(FortunetellingActivity.this)) {
+                                mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
+                            }
                         } catch (IabHelper.IabAsyncInProgressException e) {
                             // complain("Error querying inventory. Another async operation in progress.");
                         }

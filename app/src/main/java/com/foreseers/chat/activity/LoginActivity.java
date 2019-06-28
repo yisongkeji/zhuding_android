@@ -130,6 +130,7 @@ public class LoginActivity extends BaseActivity {
                         Toast.makeText(LoginActivity.this, getActivity().getResources()
                                 .getString(R.string.login_defeated), Toast.LENGTH_LONG)
                                 .show();
+                        Log.e("facebook登录错误", exception.getMessage());
                     }
                 });
     }
@@ -171,7 +172,29 @@ public class LoginActivity extends BaseActivity {
                 editor.putString("huanXinId", huanXinId + "");
                 editor.commit();//提交修改
 
-                goLogin();
+                OkGo.<String>post(Urls.Url_Query).tag(this)
+                        .params("facebookid", facebookid)
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                Gson gson = new Gson();
+                                loginBean = gson.fromJson(response.body(), LoginBean.class);
+
+                                if (loginBean.getStatus()
+                                        .equals("success")) {//老用户
+                                    dataBean = gson.fromJson(response.body(), UserDataBean.class)
+                                            .getData();
+                                    huanXinId = dataBean.getId();
+                                    Log.e("okgo", "onSuccess: " + huanXinId);
+
+                                    getHandler().obtainMessage(DATASUCCESS)
+                                            .sendToTarget();
+                                } else if (loginBean.getStatus()
+                                        .equals("fail")) {
+                                   Toast.makeText(getApplicationContext(),getResources().getString(R.string.hint),Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
 
                 break;
             case R.id.login_facebook:
@@ -187,15 +210,13 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.login_wechat:
 
-                if (editLogin.getText()
-                        .length() == 0) {
+                if (editLogin.getText().length() == 0) {
                     facebookid = "467979503606542";
                     //                                    facebookid= "100002";//齐瑞宁
                     //                facebookid= "0000000000008";//刘海强
                     //                facebookid= "46797950360653";
                 } else {
-                    facebookid = editLogin.getText()
-                            .toString();
+                    facebookid = editLogin.getText().toString();
                 }
 
                 userInfo = getSharedPreferences("loginToken", MODE_PRIVATE);
@@ -232,17 +253,13 @@ public class LoginActivity extends BaseActivity {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
 
-                        if (loginBean.getStatus()
-                                .equals("success")) {//老用户
-                            dataBean = gson.fromJson(response.body(), UserDataBean.class)
-                                    .getData();
+                        if (loginBean.getStatus().equals("success")) {//老用户
+                            dataBean = gson.fromJson(response.body(), UserDataBean.class).getData();
                             huanXinId = dataBean.getId();
                             Log.e("okgo", "onSuccess: " + huanXinId);
 
-                            getHandler().obtainMessage(DATASUCCESS)
-                                    .sendToTarget();
-                        } else if (loginBean.getStatus()
-                                .equals("fail")) {
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
+                        } else if (loginBean.getStatus().equals("fail")) {
                             //                            isLogin();
                             intent = new Intent(LoginActivity.this, UserDataActivity.class);
                             Bundle bundle = new Bundle();
