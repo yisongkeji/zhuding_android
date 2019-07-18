@@ -186,6 +186,7 @@ public class AttentionFragment extends BaseFragment {
 
     }
 
+    //弹出举报dialog
     private void initPopupWind() {
 
         new PopWindow.Builder(getActivity()).setStyle(PopWindow.PopWindowStyle.PopUp)
