@@ -5,12 +5,15 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="E:/.gradle/wrapper/dists/gradle-4.6-all" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/FlycoTabLayout_Lib" />
             <option value="$PROJECT_DIR$/RCLayout" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/easeui" />
+            <option value="$PROJECT_DIR$/easyswipemenulibrary" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/statusbarutil" />
           </set>

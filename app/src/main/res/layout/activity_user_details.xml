@@ -7,8 +7,6 @@
     android:background="@color/bgcolorGray"
     tools:context="com.foreseers.chat.activity.UserDetailsActivity">
 
-
-
         <com.foreseers.chat.view.widget.MyTitleBar
             android:id="@+id/my_titlebar"
             android:layout_width="match_parent"

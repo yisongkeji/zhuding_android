@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:hyphenate="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/colorGray4"
+    android:orientation="vertical"
     tools:context="com.foreseers.chat.fragment.ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,31 +15,30 @@
         android:id="@+id/my_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:elevation="1dp"
+        android:elevation="1dp"
+        app:titleBarRightImage="@mipmap/icon_header_friend_1"
         app:titleBarTitle="@string/address_chat">
 
     </com.foreseers.chat.view.widget.MyTitleBar>
 
 
     <FrameLayout
+        android:id="@+id/fl_error_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fl_error_item"
-        android:layout_marginTop="70dp">
-    </FrameLayout>
+        android:layout_marginTop="70dp"/>
 
     <com.hyphenate.easeui.widget.EaseConversationList
         android:id="@+id/conversation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="7dp"
         android:background="@android:color/transparent"
         android:cacheColorHint="#00000000"
         android:divider="@color/recall_gray"
         android:dividerHeight="2dp"
-        hyphenate:cvsListPrimaryTextSize="16sp"
         android:overScrollMode="never"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginTop="80dp"
-        />
+        hyphenate:cvsListPrimaryTextSize="16sp" />
 </FrameLayout>

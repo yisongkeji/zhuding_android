@@ -291,9 +291,11 @@ public class HuanXinHelper {
                                     easeUser.setAvatar(head);
                                     easeUser.setNickname(name);
 
-                                    sharedPreferences.edit()
-                                            .putString(userid + "", name + "&" + head + "&" + vip)
-                                            .commit();
+                                    if (sharedPreferences!=null) {
+                                        sharedPreferences.edit()
+                                                .putString(userid + "", name + "&" + head + "&" + vip)
+                                                .commit();
+                                    }
                                 }
                             });
                 }

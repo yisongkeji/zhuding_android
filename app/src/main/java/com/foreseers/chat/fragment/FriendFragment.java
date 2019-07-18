@@ -593,4 +593,6 @@ public class FriendFragment extends EaseBaseFragment {
         OkGo.cancelTag(OkGo.getInstance()
                                .getOkHttpClient(), this);
     }
+
+
 }

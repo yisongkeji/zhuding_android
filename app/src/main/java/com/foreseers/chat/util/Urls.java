@@ -2,7 +2,7 @@ package com.foreseers.chat.util;
 
 public class Urls {
 
-//        public static final String URL = "http://192.168.1.73:8080";
+//        public static final String URL = "http://192.168.18.6:8080";
     public static final String URL = "https://chat.foreseers.cn:443";
 
     public static final String webURL = "file:///android_asset/web";
@@ -79,6 +79,10 @@ public class Urls {
     public static final String Url_LifeBookDetail = Url_Life + "lifeBookDetail";//算命细则
     public static final String Url_LifeBookDetailname = Url_Life + "lifeBookDetailname";//命书内容
     public static final String Url_DeletelifeUser = Url_Life + "deletelifeUser";//删除命书用户
+
+    //每日运势
+    public static final String Url_Today = URL + "/today/";
+    public static final String Url_DailyFortune = Url_Today + "todayFortune";//每日运势
 
     //本地保存
     public static final String ImgHead = "/sdcard/foreseers/head";

@@ -46,7 +46,7 @@ public class DailyQuestionAdapter extends BaseQuickAdapter<DailyQuestionBean, Ba
         Glide.with(mContext)
                 .load(imageList.get(helper.getLayoutPosition()))
                 .into((ImageView) helper.getView(R.id.question_iv));
-        helper.setText(R.id.question_content, "aaaa");
+        helper.setText(R.id.question_content, "我今天的心情情绪起伏大吗？");
 
         SpannableString spannableString = new SpannableString("在文本中添加表情（表情）");
         Drawable drawable = mContext.getResources()
@@ -63,9 +63,9 @@ public class DailyQuestionAdapter extends BaseQuickAdapter<DailyQuestionBean, Ba
                 .getDrawable(R.mipmap.icon_dayask_11);
         drawable3.setBounds(0, 0, 42, 42);
         ImageSpan imageSpan3 = new ImageSpan(drawable3);
-        spannableString.setSpan(imageSpan, 6, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+//        spannableString.setSpan(imageSpan, 6, 8, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         spannableString.setSpan(imageSpan2, 0, 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(imageSpan3, 4, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+//        spannableString.setSpan(imageSpan3, 4, 5, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         helper.setText(R.id.question_answer, spannableString);
 
         if (item.isSwipe()) {//表示已经滑动过了

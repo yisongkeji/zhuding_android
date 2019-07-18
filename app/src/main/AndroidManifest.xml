@@ -173,6 +173,7 @@
         <activity android:name=".activity.FortunetellingOutlineActivity" />
         <activity android:name=".activity.DailyFortuneActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.DailyQuestionActivity" />
+        <activity android:name=".activity.FriendActivity" />
     </application>
 
 </manifest>

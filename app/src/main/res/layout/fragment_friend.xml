@@ -11,7 +11,9 @@
     <!-- TODO: Update blank fragment layout -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <com.foreseers.chat.view.widget.MyTitleBar
             android:id="@+id/my_titlebar"
@@ -19,9 +21,7 @@
             android:layout_height="wrap_content"
             android:elevation="1dp"
             app:titleBarRightImage="@mipmap/icon_footer_profile_05"
-            app:titleBarTitle="@string/address_list">
-
-        </com.foreseers.chat.view.widget.MyTitleBar>
+            app:titleBarTitle="@string/address_list"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,6 +29,40 @@
             android:layout_marginTop="70dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:text="80\n我关注的" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:text="0/20\n好友" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:text="2\n关注我的" />
+
+            </LinearLayout>
 
             <include
                 android:id="@+id/search_bar_view"
@@ -41,8 +75,8 @@
             android:layout_gravity="bottom"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="55dp"
-            android:orientation="horizontal"
-            android:elevation="2dp">
+            android:elevation="2dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/text_num1"
@@ -58,6 +92,7 @@
                 android:textColor="@color/colorBlack" />
 
         </LinearLayout>
+
     </FrameLayout>
 
 
@@ -70,7 +105,7 @@
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bgcolorGray"/>
+            android:background="@color/bgcolorGray" />
         <!-- hyphenate:ctsListInitialLetterBg="#abc" -->
 
     </FrameLayout>

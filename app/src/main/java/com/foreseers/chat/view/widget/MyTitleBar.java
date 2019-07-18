@@ -105,4 +105,6 @@ public class MyTitleBar  extends RelativeLayout {
     public RelativeLayout getRightLayout(){
         return rightLayout;
     }
+
+
 }

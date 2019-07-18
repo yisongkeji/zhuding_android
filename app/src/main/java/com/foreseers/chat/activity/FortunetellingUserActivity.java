@@ -8,12 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.foreseers.chat.R;
 import com.foreseers.chat.adapter.FortunetellingUserAdapter;
 import com.foreseers.chat.bean.LifeBookUserBean;
 import com.foreseers.chat.bean.LoginBean;
 import com.foreseers.chat.global.BaseActivity;
-import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.util.PreferenceManager;
 import com.foreseers.chat.util.Urls;
 import com.foreseers.chat.view.widget.MyTitleBar;
@@ -25,6 +25,7 @@ import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

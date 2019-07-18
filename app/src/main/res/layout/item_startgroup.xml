@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    >
+
+    <com.ruffian.library.widget.RImageView
+        android:id="@+id/item_stargroup_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:elevation="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:border_color="@color/colorWhite"
+        app:border_width="2dp"
+        app:corner_radius="40dp"
+        app:icon_src_normal="@mipmap/icon_me_loading_03" />
+
+    <TextView
+        android:id="@+id/item_stargroup_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:text="CR7"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/item_stargroup_icon"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_icon" />
+
+    <TextView
+        android:id="@+id/item_stargroup_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="5小时前"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_stargroup_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_stargroup_name" />
+
+    <TextView
+        android:id="@+id/item_stargroup_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="当看着自己努力做得天甜品被所有人接受的时候，你就会很有成就感。"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/item_stargroup_time"
+        app:layout_constraintLeft_toLeftOf="@+id/item_stargroup_time"
+        app:layout_constraintTop_toBottomOf="@+id/item_stargroup_time" />
+
+    <TextView
+        android:id="@+id/item_stargroup_sharecount"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:drawableLeft="@mipmap/icon_starcircle_btn_05"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="123"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_stargroup_imgrv" />
+
+    <TextView
+        android:id="@+id/item_stargroup_volume"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:drawableLeft="@mipmap/icon_starcircle_btn_04"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="21"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_stargroup_sharecount"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_sharecount" />
+
+    <TextView
+        android:id="@+id/item_stargroup_praise"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:drawableLeft="@mipmap/icon_starcircle_btn_02"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="50"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/item_stargroup_volume"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_volume" />
+
+    <TextView
+        android:id="@+id/item_stargroup_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="7月09日"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_name" />
+
+    <ImageView
+        android:id="@+id/item_stargroup_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/icon_starcircle_bg_01"
+        app:layout_constraintLeft_toRightOf="@+id/item_stargroup_name"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_name" />
+
+    <ImageView
+        android:id="@+id/item_stargroup_share"
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_stargroup_praise"
+        app:layout_constraintStart_toStartOf="@+id/item_stargroup_name"
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_praise"
+        android:padding="3dp"
+        app:srcCompat="@mipmap/icon_header_btn_04" />
+
+    <View
+        android:id="@+id/item_stargroup_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_stargroup_praise"
+        android:layout_marginTop="5dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_stargroup_imgrv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/item_stargroup_content"
+        app:layout_constraintStart_toStartOf="@+id/item_stargroup_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_stargroup_content" />
+
+</android.support.constraint.ConstraintLayout>

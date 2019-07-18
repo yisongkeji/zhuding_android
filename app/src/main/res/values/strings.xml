@@ -85,7 +85,7 @@
 
     <!--导航 -->
     <string name="item1">聊天</string>
-    <string name="item2">朋友</string>
+    <string name="item2">星圈</string>
     <string name="item3">匹配</string>
     <string name="item4">商店</string>
     <string name="item5">个人</string>
@@ -362,8 +362,20 @@
     <string name="youjiangwenda">有奖问答</string>
     <string name="meiri">每日问答问题免费获得擦子</string>
     <string name="kaishidati">开始答题</string>
+    <string name="jiankangyunshi">家里有养狗狗的，最好能定期带它去打针，这样也是为了你的家人的健康。</string>
 
     <string name="daily_question">每日一问</string>
+
+    <!--通讯录-->
+    <string name="friend_text1">我关注的</string>
+    <string name="friend_text2">好友</string>
+    <string name="friend_text3">关注我的</string>
+
+    <!--星圈-->
+    <string name="tab1">关注</string>
+    <string name="tab2">热门</string>
+    <string name="tab3">最新</string>
+    <string name="not_interest">不感兴趣</string>
 
 
 </resources>

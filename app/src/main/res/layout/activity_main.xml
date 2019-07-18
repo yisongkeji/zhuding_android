@@ -16,13 +16,13 @@
             android:id="@+id/fl_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="51dp"
-            android:layout_gravity="bottom"
             android:orientation="vertical">
 
             <View
@@ -57,8 +57,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:iconNormal="@mipmap/icon_header_friend_1"
-                    app:iconSelected="@mipmap/icon_header_friend_2"
+                    app:iconNormal="@mipmap/icon_header_star_2"
+                    app:iconSelected="@mipmap/icon_header_star_1"
                     app:iconWidth="25dp"
                     app:iconHeight="25dp"
                     app:itemText="@string/item2"

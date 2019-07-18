@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chaychan.library.BottomBarItem;
 import com.chaychan.library.BottomBarLayout;
@@ -34,6 +33,7 @@ import com.foreseers.chat.fragment.FriendFragment;
 import com.foreseers.chat.fragment.MatchFragment;
 import com.foreseers.chat.fragment.MyFragment;
 import com.foreseers.chat.fragment.ShopFragment;
+import com.foreseers.chat.fragment.StarGroupFragment;
 import com.foreseers.chat.global.MyApplication;
 import com.foreseers.chat.service.MediaService;
 import com.foreseers.chat.util.HuanXinHelper;
@@ -74,6 +74,7 @@ public class MainActivity extends SupportActivity {
     private FragmentTransaction transaction;
     private ChatFragment chatFragment;
     private FriendFragment friendFragment;
+    private StarGroupFragment startGroupFragment;
     private MatchFragment matchFragment;
     private ShopFragment shopFragment;
     private MyFragment myFragment;
@@ -259,8 +260,10 @@ public class MainActivity extends SupportActivity {
         mFragmentList.add(chatFragment);
 
         //        朋友
-        friendFragment = new FriendFragment();
-        mFragmentList.add(friendFragment);
+//        friendFragment = new FriendFragment();
+//        mFragmentList.add(friendFragment);
+        startGroupFragment=new StarGroupFragment();
+        mFragmentList.add(startGroupFragment);
 
         //        匹配
         matchFragment = new MatchFragment();

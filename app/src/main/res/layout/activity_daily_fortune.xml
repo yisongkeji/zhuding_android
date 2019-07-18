@@ -183,6 +183,7 @@
                         android:src="@mipmap/icon_dayluck_17" />
 
                     <TextView
+                        android:id="@+id/fortune_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -214,10 +215,10 @@
                         android:src="@mipmap/icon_dayluck_07"
                         />
                     <TextView
+                        android:id="@+id/fortune_zonghe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="30"
-                        android:text="@string/foreseers_about_content"
                         android:textSize="12dp"
                         android:lineSpacingExtra="5dp"
                         android:layout_marginTop="10dp"
@@ -231,10 +232,10 @@
                         android:layout_marginTop="10dp"
                         />
                     <TextView
+                        android:id="@+id/fortune_jiankang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="30"
-                        android:text="@string/foreseers_about_content"
                         android:textSize="12dp"
                         android:lineSpacingExtra="5dp"
                         android:layout_marginTop="10dp"
@@ -248,10 +249,10 @@
                         android:layout_marginTop="10dp"
                         />
                     <TextView
+                        android:id="@+id/fortune_shiye"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="30"
-                        android:text="@string/foreseers_about_content"
                         android:textSize="12dp"
                         android:lineSpacingExtra="5dp"
                         android:layout_marginTop="10dp"
@@ -265,10 +266,10 @@
                         android:layout_marginTop="10dp"
                         />
                     <TextView
+                        android:id="@+id/fortune_love"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="30"
-                        android:text="@string/foreseers_about_content"
                         android:textSize="12dp"
                         android:lineSpacingExtra="5dp"
                         android:layout_marginTop="10dp"
@@ -282,10 +283,26 @@
                         android:layout_marginTop="10dp"
                         />
                     <TextView
+                        android:id="@+id/fortune_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="30"
-                        android:text="@string/foreseers_about_content"
+                        android:textSize="12dp"
+                        android:lineSpacingExtra="5dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black_deep"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/icon_dayluck_18"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:id="@+id/fortune_interpersonal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="30"
                         android:textSize="12dp"
                         android:lineSpacingExtra="5dp"
                         android:layout_marginTop="10dp"

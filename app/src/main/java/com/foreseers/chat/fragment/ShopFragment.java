@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ import com.ms.banner.Banner;
 import com.ms.banner.Transformer;
 import com.ms.banner.holder.BannerViewHolder;
 import com.ms.banner.holder.HolderCreator;
+import com.ruffian.library.widget.utils.TextViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,35 +149,25 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                             public void onSuccess(Response<String> response) {
                                 Gson gson = new Gson();
                                 LoginBean loginBean = gson.fromJson(response.body(), LoginBean.class);
-                                if (loginBean.getStatus()
-                                        .equals("success")) {
+                                if (loginBean.getStatus().equals("success")) {
                                     shoppingIDBean = gson.fromJson(response.body(), ShoppingIDBean.class);
                                     dataBeanList = shoppingIDBean.getData();
 
                                     for (int i = 0; i < dataBeanList.size(); i++) {
-                                        if (dataBeanList.get(i)
-                                                .get(0)
-                                                .getType()
-                                                .equals("vip")) {
+                                        if (dataBeanList.get(i).get(0).getType().equals("vip")) {
                                             vipBeans = dataBeanList.get(i);
                                             for (int j = 0; j < vipBeans.size(); j++) {
-                                                skuList.add(vipBeans.get(j)
-                                                                    .getGoogleID());
+                                                skuList.add(vipBeans.get(j).getGoogleID());
                                             }
                                         }
-                                        if (dataBeanList.get(i)
-                                                .get(0)
-                                                .getType()
-                                                .equals("item")) {
+                                        if (dataBeanList.get(i).get(0).getType().equals("item")) {
                                             eraserBeans = dataBeanList.get(i);
                                             for (int k = 0; k < eraserBeans.size(); k++) {
-                                                skuList.add(eraserBeans.get(k)
-                                                                    .getGoogleID());
+                                                skuList.add(eraserBeans.get(k).getGoogleID());
                                             }
                                         }
                                     }
-                                    getHandler().obtainMessage(SKUSUCCESS)
-                                            .sendToTarget();
+                                    getHandler().obtainMessage(SKUSUCCESS).sendToTarget();
                                 }
                             }
 
@@ -374,20 +366,18 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                     public void onSuccess(Response<String> response) {
                         Gson gson = new Gson();
                         loginBean = gson.fromJson(response.body(), LoginBean.class);
-                        if (loginBean.getStatus()
-                                .equals("success")) {
+                        if (loginBean.getStatus().equals("success")) {
                             userCanumsNumBean = gson.fromJson(response.body(), UserCanumsNumBean.class);
-                            num = userCanumsNumBean.getData()
-                                    .getCountnums();
-                            getHandler().obtainMessage(DATASUCCESS)
-                                    .sendToTarget();
+                            num = userCanumsNumBean.getData().getCountnums();
+                            getHandler().obtainMessage(DATASUCCESS).sendToTarget();
                         }
                     }
                 });
     }
 
     @Override
-    public void installListeners() { }
+    public void installListeners() {
+    }
 
     @Override
     public void processHandlerMessage(Message msg) {
@@ -402,7 +392,6 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                 if (textNum != null) {
 
                     if (skuList.size() > 0) {
-
 
                         try {
                             mHelper.queryInventoryAsync(true, skuList, null, mGotInventoryListener);
@@ -449,7 +438,7 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
             try {
                 mHelper.launchPurchaseFlow(getActivity(), productId, RC_REQUEST, mPurchaseFinishedListener, payload);
             } catch (IabHelper.IabAsyncInProgressException e) {
-//                                    complain("Error launching purchase flow. Another async operation in progress.");
+                //                                    complain("Error launching purchase flow. Another async operation in progress.");
             }
         }
     }
@@ -502,9 +491,8 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
         super.onDestroyView();
         unbinder.unbind();
         bannerList.clear();
-        OkGo.cancelTag(OkGo.getInstance()
-                               .getOkHttpClient(), this);
-        if (textNum!=null){
+        OkGo.cancelTag(OkGo.getInstance().getOkHttpClient(), this);
+        if (textNum != null) {
             if (skuList != null) {
                 skuList.clear();
             }
@@ -518,8 +506,6 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
                 mHelper = null;
             }
         }
-
-
     }
 
     @Override
@@ -549,6 +535,4 @@ public class ShopFragment extends BaseFragment implements IabBroadcastReceiver.I
 
         }
     }
-
-
 }

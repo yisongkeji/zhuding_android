@@ -1,1 +1,1 @@
-include ':app', ':library', ':easeui', ':statusbarutil', ':RCLayout'
+include ':app', ':library', ':easeui', ':statusbarutil', ':RCLayout', ':FlycoTabLayout_Lib', ':easyswipemenulibrary'

@@ -230,8 +230,6 @@
         <attr name="smallValue" />
     </declare-styleable>
 
-
-
     <declare-styleable name="RoundImageView">
         <attr name="image_radius" format="dimension" />//圆角大小
         <attr name="image_shadow_radius" format="dimension" />//阴影大小
@@ -247,4 +245,6 @@
         <attr name="titleBarRightImage" format="reference"/>
         <attr name="titleBarBackground" format="reference|color"/>
     </declare-styleable>
+
+
 </resources>

@@ -17,10 +17,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChatActivity;
+import com.foreseers.chat.activity.FriendActivity;
 import com.foreseers.chat.activity.MainActivity;
+import com.foreseers.chat.view.widget.MyTitleBar;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMConversationListener;
 import com.hyphenate.EMError;
@@ -53,6 +56,7 @@ public class ChatFragment extends EaseBaseFragment {
     @BindView(R.id.fl_error_item) FrameLayout flErrorItem;
     @BindView(R.id.conversation) EaseConversationList conversation;
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
+    @BindView(R.id.my_titlebar) MyTitleBar myTitlebar;
 
     private ConversationListItemClickListener listItemClickListener;
     protected boolean isConflict;
@@ -60,6 +64,7 @@ public class ChatFragment extends EaseBaseFragment {
     private final static int MSG_REFRESH = 2;
     private SharedPreferences sharedPreferences;
     private MessageListener messageListener;
+    private ImageView rightIv;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -96,6 +101,13 @@ public class ChatFragment extends EaseBaseFragment {
     @Override
     protected void initView() {
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        rightIv=myTitlebar.findViewById(R.id.right_image);
+        myTitlebar.setRightLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), FriendActivity.class));
+            }
+        });
     }
 
     @Override
