@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tab1"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="@string/tab3"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
             />

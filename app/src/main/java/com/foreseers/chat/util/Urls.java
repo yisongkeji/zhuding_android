@@ -3,7 +3,8 @@ package com.foreseers.chat.util;
 public class Urls {
 
 //        public static final String URL = "http://192.168.18.6:8080";
-    public static final String URL = "https://chat.foreseers.cn:443";
+//    public static final String URL = "https://chat.foreseers.cn:443";
+    public static final String URL = "http://39.106.187.201:80";
 
     public static final String webURL = "file:///android_asset/web";
 

@@ -119,13 +119,10 @@ public class GetLocation {
     public boolean locationInitByNETWORK() {
         // 没有NETWORK，直接返回
         if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
             return false;
         }
-        locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-        location = locationManager
-                .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location != null) {
             return true;
         } else {

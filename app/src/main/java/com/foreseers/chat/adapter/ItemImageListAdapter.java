@@ -15,7 +15,7 @@ public class ItemImageListAdapter extends BaseQuickAdapter<String, BaseViewHolde
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-//        GlideUtil.glide(mContext, "", (ImageView) helper.getView(R.id.item_stargroup_icon));
+        GlideUtil.glide(mContext, item, (ImageView) helper.getView(R.id.imageView));
     }
 
 

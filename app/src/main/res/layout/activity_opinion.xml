@@ -17,9 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleBarLeftImage="@mipmap/icon_me_06"
-            app:titleBarTitle="@string/foreseers_opinion_feekback">
-
-        </com.foreseers.chat.view.widget.MyTitleBar>
+            app:titleBarTitle="@string/foreseers_opinion_feekback"/>
 
         <ScrollView
             android:layout_width="match_parent"

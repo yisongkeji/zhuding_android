@@ -377,5 +377,6 @@
     <string name="tab2">熱門</string>
     <string name="tab3">最新</string>
     <string name="not_interest">不感興趣</string>
+    <string name="search">搜尋</string>
 
 </resources>

@@ -83,7 +83,6 @@ public class OpinionActivity extends BaseActivity {
     public void initViews() {
         setContentView(R.layout.activity_opinion);
         ButterKnife.bind(this);
-
     }
 
     @Override
@@ -112,8 +111,7 @@ public class OpinionActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                textnum.setText(String.valueOf(edittext.getText()
-                                                       .length()));
+                textnum.setText(String.valueOf(edittext.getText().length()));
             }
         });
     }
@@ -374,9 +372,9 @@ public class OpinionActivity extends BaseActivity {
                 break;
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 }

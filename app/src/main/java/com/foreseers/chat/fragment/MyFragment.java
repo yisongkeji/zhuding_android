@@ -7,14 +7,10 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,8 +29,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.foreseers.chat.R;
 import com.foreseers.chat.activity.ChangeUserDataActivity;
 import com.foreseers.chat.activity.DailyFortuneActivity;
-import com.foreseers.chat.activity.FortunetellingOutlineActivity;
-import com.foreseers.chat.activity.LifeBookActivity;
 import com.foreseers.chat.activity.MyVipActivity;
 import com.foreseers.chat.activity.SettingActivity;
 import com.foreseers.chat.activity.SignActivity;
@@ -75,8 +68,6 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy;
 import com.zhihu.matisse.listener.OnCheckedListener;
 import com.zhihu.matisse.listener.OnSelectedListener;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -93,7 +84,6 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.foreseers.chat.util.GooglePlayHelper.TAG;
 import static com.foreseers.chat.util.GooglePlayHelper.base64EncodedPublicKey;
 import static com.foreseers.chat.util.GooglePlayHelper.product1;
 import static com.foreseers.chat.util.GooglePlayHelper.product2;
@@ -749,8 +739,7 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
 
             case REQUEST_CODE_CHOOSE_IMG://相册
                 if (resultCode == RESULT_OK) {
-                    String path = Matisse.obtainPathResult(data)
-                            .get(0);
+                    String path = Matisse.obtainPathResult(data).get(0);
                     Log.i("useridMyfragment", "userid: " + userid);
 
                     try {
@@ -771,8 +760,7 @@ public class MyFragment extends BaseFragment implements IabBroadcastReceiver.Iab
                             .execute(new StringCallback() {
                                 @Override
                                 public void onSuccess(Response<String> response) {
-                                    getHandler().obtainMessage(USERIMGSUCCESS)
-                                            .sendToTarget();
+                                    getHandler().obtainMessage(USERIMGSUCCESS).sendToTarget();
                                 }
 
                                 @Override

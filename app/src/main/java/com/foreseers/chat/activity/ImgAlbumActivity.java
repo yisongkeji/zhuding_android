@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class ImgAlbumActivity extends BaseActivity {
     private TextView vp_text;
     private Context mContext;
     private DelImgDialog delImgDialog;
+    private String tag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,13 @@ public class ImgAlbumActivity extends BaseActivity {
 
         mContext = this;
         initView();
+        tag=getIntent().getStringExtra("tagstate");
+        if (!TextUtils.isEmpty(tag)){
+            //这里主要是因为星圈里的图片详情点击跟个人里边重用了  在这里边不需要显示titlebar里右边的删除按钮
+            if (tag.equals("close")){
+                myTitlebar.setRightImageResource(0);
+            }
+        }
         xyMap = (HashMap<Integer, float[]>) getIntent().getExtras().get("xyMap");
         position = getIntent().getIntExtra("position", 0);
         //得到放缩中心点

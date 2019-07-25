@@ -71,6 +71,7 @@ public class StarGroupFragment extends BaseFragment {
         //        viewpager.setOffscreenPageLimit(3);
         //        tablayout.setCurrentTab(1);
 
+        //底下两个主要是对标题栏两边的图片进行了距离调整  至于为什么  聪明的你只需要看下布局就能明白~~
         RelativeLayout relativeLayout=myTitlebar.getLeftLayout();
         ImageView imageView=relativeLayout.findViewById(R.id.left_image);
         RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) imageView.getLayoutParams();
@@ -116,9 +117,9 @@ public class StarGroupFragment extends BaseFragment {
                 stargroupAttention.setCompoundDrawables(null, null, null, drawable);
                 stargroupAttention.setCompoundDrawablePadding(-27);
 
-                stargroupHot.setTextSize(20);
+                stargroupHot.setTextSize(18);
                 stargroupHot.setCompoundDrawables(null, null, null, null);
-                stargroupNewest.setTextSize(20);
+                stargroupNewest.setTextSize(18);
                 stargroupNewest.setCompoundDrawables(null, null, null, null);
                 viewpager.setCurrentItem(0);
                 break;
@@ -128,9 +129,9 @@ public class StarGroupFragment extends BaseFragment {
                 stargroupHot.setCompoundDrawables(null, null, null, drawable);
                 stargroupHot.setCompoundDrawablePadding(-27);
 
-                stargroupAttention.setTextSize(20);
+                stargroupAttention.setTextSize(18);
                 stargroupAttention.setCompoundDrawables(null, null, null, null);
-                stargroupNewest.setTextSize(20);
+                stargroupNewest.setTextSize(18);
                 stargroupNewest.setCompoundDrawables(null, null, null, null);
                 viewpager.setCurrentItem(1);
                 break;
@@ -140,9 +141,9 @@ public class StarGroupFragment extends BaseFragment {
                 stargroupNewest.setCompoundDrawables(null, null, null, drawable);
                 stargroupNewest.setCompoundDrawablePadding(-27);
 
-                stargroupHot.setTextSize(20);
+                stargroupHot.setTextSize(18);
                 stargroupHot.setCompoundDrawables(null, null, null, null);
-                stargroupAttention.setTextSize(20);
+                stargroupAttention.setTextSize(18);
                 stargroupAttention.setCompoundDrawables(null, null, null, null);
                 viewpager.setCurrentItem(2);
                 break;

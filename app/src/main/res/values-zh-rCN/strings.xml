@@ -375,5 +375,6 @@
     <string name="tab2">热门</string>
     <string name="tab3">最新</string>
     <string name="not_interest">不感兴趣</string>
+    <string name="search">搜寻</string>
 
 </resources>

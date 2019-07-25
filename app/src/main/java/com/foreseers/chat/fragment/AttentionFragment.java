@@ -1,9 +1,11 @@
 package com.foreseers.chat.fragment;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +39,7 @@ public class AttentionFragment extends BaseFragment {
 
     Unbinder unbinder;
     @BindView(R.id.attention_rv) RecyclerView attentionRv;
+    @BindView(R.id.swipeLayout) SwipeRefreshLayout swipeLayout;
 
     private AttentionAdapter attentionAdapter;
     private View view;
@@ -52,90 +55,94 @@ public class AttentionFragment extends BaseFragment {
     @Override
     public void initViews() {
         for (int i = 0; i < 10; i++) {
-            if (i==0) {
+            if (i == 0) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
                 }}));
-            }else if (i==1){
+            } else if (i == 1) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110309860607.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
                 }}));
-            }else if (i==2){
+            } else if (i == 2) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
-            }else if (i==3){
+            } else if (i == 3) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
-            }else if (i==4){
+            } else if (i == 4) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
-            }else if (i==5){
+            } else if (i == 5) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
-            }else if (i==6){
+            } else if (i == 6) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
                 }}));
-            }else if (i==7){
+            } else if (i == 7) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
                 }}));
-            }else if (i==8){
+            } else if (i == 8) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110316901618.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/1557200437155.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190426141605608335.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
-            }else if (i==9){
+            } else if (i == 9) {
                 datas.add(new AttentionData(new ArrayList<String>() {{
-                    add("");
-                    add("");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
+                    add("https://chat.foreseers.cn:443/100/20190530110327410729.jpg");
                 }}));
             }
         }
-        attentionAdapter = new AttentionAdapter();
+        swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
+
+        attentionAdapter = new AttentionAdapter(getContext());
         attentionRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         attentionRv.setHasFixedSize(true);
         attentionRv.setAdapter(attentionAdapter);
         attentionAdapter.setNewData(datas);
+//        View view=getActivity().getLayoutInflater().inflate(R.layout.ease_search_bar_with_padding,null);
+//        attentionAdapter.setHeaderView(view);
         attentionAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -146,8 +153,7 @@ public class AttentionFragment extends BaseFragment {
                         break;
                     //红心
                     case R.id.item_stargroup_praise:
-                        Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
                         attentionAdapter.notifyItem(1, position);
                         break;
                     //评论
@@ -173,7 +179,17 @@ public class AttentionFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
-
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeLayout.setRefreshing(false);
+                    }
+                },1000);
+            }
+        });
     }
 
     @Override
@@ -225,5 +241,4 @@ public class AttentionFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
-
 }

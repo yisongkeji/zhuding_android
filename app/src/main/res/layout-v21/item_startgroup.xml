@@ -50,6 +50,7 @@
         android:text="当看着自己努力做得天甜品被所有人接受的时候，你就会很有成就感。"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_stargroup_time"
+        app:layout_constraintLeft_toLeftOf="@+id/item_stargroup_time"
         app:layout_constraintTop_toBottomOf="@+id/item_stargroup_time" />
 
     <TextView
@@ -57,6 +58,7 @@
         android:layout_width="50dp"
         android:layout_height="30dp"
         android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
         android:drawableLeft="@mipmap/icon_starcircle_btn_05"
         android:drawablePadding="5dp"
         android:gravity="center"
@@ -97,12 +99,12 @@
         android:id="@+id/item_stargroup_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="7月09日"
         android:textSize="12sp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_stargroup_icon"
-         />
+        app:layout_constraintTop_toTopOf="@+id/item_stargroup_name" />
 
     <ImageView
         android:id="@+id/item_stargroup_top"
